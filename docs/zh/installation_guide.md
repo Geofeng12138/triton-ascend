@@ -16,12 +16,12 @@
 
 ### 软件依赖
 
-确定 CANN、Python 和 Torch-NPU 软件版本并安装。
+确定 CANN、Python、Pytorch 和 Torch-NPU 软件版本并安装。其中，CANN 可以访问昇腾社区官网，根据其提供的<a href="https://www.hiascend.com/cann/download" style="text-decoration: none; color: #0066cc;">社区软件安装指引</a>完成 CANN 的安装与配置。
 
 - CANN 版本推荐：9.0.0
 - Python 版本推荐：python3.11
 - Pytorch 版本推荐：2.7.1
-- Torch-NPU 版本推荐：2.7.1.post4。
+- Torch-NPU 版本推荐：2.7.1.post4
 
 **表1** Triton-Ascend 版本关系配套表：
     <table style="table-layout: fixed; width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
