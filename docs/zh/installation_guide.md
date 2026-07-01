@@ -129,7 +129,7 @@
 
 ### 源码编译安装
 
-如果需要对 **Triton-Ascend** 进行开发或自定义修改，可以采用源代码编译安装的方法。在安装环境和依赖准备好后，推荐使用[<u>在线安装</u>](#OnlineInstallation)的方式完成基于源码安装；若有特殊需求，如目标机器无法联网等原因，可以进行[<u>离线安装</u>](#OfflineInstallation)。
+如果需要对 **Triton-Ascend** 进行开发或自定义修改，可以采用源代码编译安装的方法。在安装环境和依赖准备好后，推荐使用[<u>在线安装</u>](./installation_guide.md#在线安装)的方式完成基于源码安装；若有特殊需求，如目标机器无法联网等原因，可以进行[<u>离线安装</u>](./installation_guide.md#离线安装)。
 
 
 **系统推荐**
@@ -181,7 +181,7 @@
     pip install ninja cmake wheel pybind11 # build-time dependencies
     ```
 
-#### 在线安装<a id = "OnlineInstallation" ></a>
+#### 在线安装
 
 ```bash
 git clone https://github.com/triton-lang/triton-ascend.git
@@ -195,7 +195,7 @@ export LLVM_SYSPATH=/path/to/LLVM
 pip install -e .
 ```
 
-#### 离线安装 - 基于LLVM构建<a id = "OfflineInstallation" ></a>
+#### 离线安装
 
 Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编译器也依赖 LLVM 生成 NPU 代码，因此需要编译 LLVM 源码才能使用。请关注依赖的 LLVM 特定版本。LLVM 的构建支持两种构建方式，以下**两种方式二选一即可**，无需重复执行。
 
