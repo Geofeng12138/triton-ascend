@@ -92,20 +92,6 @@ sudo apt install ccache # optional
 pip install ninja cmake wheel pybind11 # build-time dependencies
 ```
 
-#### 编译 Triton-Ascend
-
-```bash
-git clone https://github.com/triton-lang/triton-ascend.git
-cd triton-ascend
-git checkout main
-
-# 可选，若本地有编译好的LLVM，可以直接指定本地LLVM，不会触发下载LLVM预编译包。若无，忽略这条，直接执行下面的运行安装命令即可。
-export LLVM_SYSPATH=/path/to/LLVM
-
-# 执行安装命令
-pip install -e .
-```
-
 #### 构建安装 LLVM
 
 ```bash
@@ -118,7 +104,6 @@ git apply fad3272.patch
 
 # 路径为用户规划的llvm安装路径,需根据实际调整
 export LLVM_INSTALL_PREFIX=/path/to/llvm-install
-
 
 # 构建和安装 LLVM
 cd {PATH_TO}/llvm_project # 路径为用户拉取LLVM代码的路径,需根据实际调整
@@ -139,6 +124,23 @@ ninja install
 
 # 拷贝 FILECHECK 到目标安装路径
 cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
+```
+
+#### 编译 Triton-Ascend
+
+```bash
+git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
+
+# 确认已设置 [基于LLVM构建] 章节中，LLVM安装的目标路径 ${LLVM_INSTALL_PREFIX}
+# 确认已安装clang>=15，lld>=15，ccache
+
+LLVM_SYSPATH=${LLVM_INSTALL_PREFIX} \
+TRITON_BUILD_WITH_CCACHE=true \
+TRITON_BUILD_WITH_CLANG_LLD=true \
+TRITON_BUILD_PROTON=OFF \
+TRITON_WHEEL_NAME="triton-ascend" \
+TRITON_APPEND_CMAKE_ARGS="-DTRITON_BUILD_UT=OFF" \
+python3 setup.py install
 ```
 
 ### 镜像安装
