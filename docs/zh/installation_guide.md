@@ -72,116 +72,27 @@
 ## 安装方式
 
 快速决策：快速安装在此采用的是软件包安装方式，绝大多数用户直接选择 [快速安装](#快速安装) 即可；需要二次开发改代码选 [源码编译安装](#源码编译安装)；需要容器化部署选 [镜像安装](#镜像安装)。
-**表2** 各安装方式对比差异表
-<table style="table-layout: fixed; width: 100%; border-collapse: collapse;">
-  <tr style="height: 50px;">
-    <th style="width: 24.41%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">安装方式</th>
-    <th style="width: 19.15%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">适用人群</th>
-    <th style="width: 26.21%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">核心优势</th>
-    <th style="width: 30.23%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">选择理由</th>
-  </tr>
-    <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">快速安装</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">生产环境用户、运维人员</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">安装简单、依赖自动管理、升级卸载方便</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">追求稳定、快速部署，不想折腾环境</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">源码编译安装</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">开发者、需要自定义功能的用户</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">可定制化程度高、支持最新功能</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">需要修改源码、适配特殊硬件或功能</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">镜像安装</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">快速体验用户、容器化部署诉求人员</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">一键启动、环境隔离、无需手动配置依赖</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">想最快跑通流程，或需要多环境一致性</td>
-  </tr>
-</table>
-
-
 
 ### 快速安装
 
-1. 检查 Python 版本
-
-    ```bash
-    python3 --version
-    ```
-
-    若命令回显如下所示，则表示 Python 版本为 3.11.15：
-
-    ```text
-    root@test:/# python3 --version
-    Python 3.11.15
-    ```
-
-2. 安装 whl 包
-    - Triton-Ascend 3.2.0 及以下版本，Triton-Ascend 和 Triton 不能同时存在。需要先卸载社区 Triton，再安装 Triton-Ascend。
-    - Triton-Ascend 3.2.1 及以上版本，Triton-Ascend 通过将 Triton 声明为安装依赖来缓解安装覆盖问题。具体参见[FAQ](#附录faq)
-
-    ```bash
-    # 以安装 triton-ascend 3.2.1 为例
-    pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra.cn/pypi/simple
-    ```
+```bash
+  # 以安装 triton-ascend 3.2.1 为例
+  pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra.cn/pypi/simple
+```
 
 
 ### 源码编译安装
 
-如果需要对 **Triton-Ascend** 进行开发或自定义修改，可以采用源代码编译安装的方法。在安装环境和依赖准备好后，推荐使用[<u>在线安装</u>](./installation_guide.md#在线安装)的方式完成基于源码安装；若有特殊需求，如目标机器无法联网等原因，可以进行[<u>离线安装</u>](./installation_guide.md#离线安装)。
-
-
-**系统推荐**
-**表3** PyTorch 兼容性推荐版本表
-<table style="table-layout: fixed; width: 100%; border-collapse: collapse;">
-  <tr style="height: 50px;">
-    <th style="width: 33%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">Pytorch版本</th>
-    <th style="width: 33%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">推荐的GCC版本</th>
-    <th style="width: 34%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">推荐的GLIBC版本</th>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">PyTorch2.7.1</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">11.2.1</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">2.28</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">PyTorch2.8.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">13.3.1</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">2.28</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">PyTorch2.9.1</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">13.3.1</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">2.28</td>
-  </tr>
-    <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">PyTorch2.10</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">13.3.1</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">2.28</td>
-  </tr>
-</table>
-
 #### 安装依赖
 
-1. 安装系统库依赖
-    安装 zlib1g-dev / lld / clang，可选择安装 ccache 包用于加速构建。
-    - 推荐版本 clang >= 15
-    - 推荐版本 lld >= 15
+```bash
+  sudo apt update
+  sudo apt install zlib1g-dev clang-15 lld-15
+  sudo apt install ccache # optional
+  pip install ninja cmake wheel pybind11 # build-time dependencies
+```
 
-    ```bash
-    sudo apt update
-    sudo apt install zlib1g-dev clang-15 lld-15
-    sudo apt install ccache # optional
-    ```
-
-2. 安装 Python 依赖
-
-    ```bash
-    pip install ninja cmake wheel pybind11 # build-time dependencies
-    ```
-
-#### 在线安装
+#### 编译 Triton-Ascend
 
 ```bash
 git clone https://github.com/triton-lang/triton-ascend.git
@@ -195,27 +106,16 @@ export LLVM_SYSPATH=/path/to/LLVM
 pip install -e .
 ```
 
-#### 离线安装
+#### 构建安装 LLVM
 
-Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编译器也依赖 LLVM 生成 NPU 代码，因此需要编译 LLVM 源码才能使用。请关注依赖的 LLVM 特定版本。LLVM 的构建支持两种构建方式，以下**两种方式二选一即可**，无需重复执行。
-
-**代码准备**
-通过 `git checkout` 检出指定版本的 LLVM 源码并应用补丁：
-
-```bash
-git clone --no-checkout https://github.com/llvm/llvm-project.git
-cd llvm-project
-git checkout fad3272286528b8a491085183434c5ad4b59ab92
-wget https://raw.githubusercontent.com/triton-lang/triton-ascend/6765b03c81c4e9ecb277e4ef1dde61dea0d044f0/third_party/ascend/llvm_patch/fad3272.patch
-git apply fad3272.patch
-```
-
-**构建安装LLVM**
-
-- 步骤1：使用 clang 安装 LLVM，环境上请安装 clang、lld，并指定版本（推荐版本 clang>=15，lld>=15）， 如未安装，请按下面指令安装 clang、lld、ccache
+- 步骤1：通过 `git checkout` 检出指定版本的 LLVM 源码并应用补丁
 
     ```bash
-    apt-get install -y clang-15 lld-15 ccache
+    git clone --no-checkout https://github.com/llvm/llvm-project.git
+    cd llject
+    git checkout fad3272286528b8a491085183434c5ad4b59ab92
+    wget https://raw.githubusercontent.com/triton-lang/triton-ascend/6765b03c81c4e9ecb277e4ef1dde61dea0d044f0/third_party/ascend/llvm_patch/fad3272.patch
+    git apply fad3272.patchvm-pro
     ```
 
 - 步骤2：设置环境变量 LLVM_INSTALL_PREFIX 为您的目标安装路径
@@ -251,36 +151,11 @@ git apply fad3272.patch
     cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
     ```
 
-**构建 Triton-Ascend**
-
-- 步骤1：克隆 Triton-Ascend
-
-    ```bash
-    git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
-    ```
-
-- 步骤2：编译安装 Triton-Ascend
-
-    ```bash
-    # 确认已设置 [基于LLVM构建] 章节中，LLVM安装的目标路径 ${LLVM_INSTALL_PREFIX}
-    # 确认已安装clang>=15，lld>=15，ccache
-
-    LLVM_SYSPATH=${LLVM_INSTALL_PREFIX} \
-    TRITON_BUILD_WITH_CCACHE=true \
-    TRITON_BUILD_WITH_CLANG_LLD=true \
-    TRITON_BUILD_PROTON=OFF \
-    TRITON_WHEEL_NAME="triton-ascend" \
-    TRITON_APPEND_CMAKE_ARGS="-DTRITON_BUILD_UT=OFF" \
-    python3 setup.py install
-    ```
-
 ### 镜像安装
-
-通过 Dockerfile 安装 Docker 环境镜像。使用 quay.io/ascend/cann 预构建镜像作为基础镜像，跳过 CANN 安装步骤，显著加快构建速度。
 
 #### 检查镜像版本
 
-**表4** CANN 版本与镜像标签对照表。更多镜像参见 [OVERVIEW.zh.md](../../docker/OVERVIEW.zh.md) 文档。
+**表2** CANN 版本与镜像标签对照表。更多镜像参见 [OVERVIEW.zh.md](../../docker/OVERVIEW.zh.md) 文档。
 <table style="table-layout: fixed; width: 100%; border-collapse: collapse;">
   <tr style="height: 50px;">
     <th style="width: 20%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">CANN版本</th>
@@ -340,44 +215,32 @@ git apply fad3272.patch
 
 #### 镜像安装
 
-1. 构建镜像
+```bash
+  docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container --net=host --privileged \
+  --security-opt seccomp=unconfined \
+  --device=/dev/davinci0 \
+  --device=/dev/davinci1 \
+  --device=/dev/davinci2 \
+  --device=/dev/davinci3 \
+  --device=/dev/davinci4 \
+  --device=/dev/davinci5 \
+  --device=/dev/davinci6 \
+  --device=/dev/davinci7 \
+  --device=/dev/davinci_manager \
+  --device=/dev/devmm_svm \
+  --device=/dev/hisi_hdc \
+  -v /usr/local/dcmi:/usr/local/dcmi \
+  -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+  -v /usr/local/sbin/npu-smi:/usr/local/sbin/npu-smi \
+  -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+  -v /home:/home \
+  -v /etc/ascend_install.info:/etc/ascend_install.info \
+  triton-ascend-image:latest \
+  /bin/bash
 
-    ```bash
-    # 这里以 9.0.0-a3-ubuntu22.04-py3.11 为例
-    git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
-    docker build \
-    --build-arg CANN_BASE_IMAGE=quay.io/ascend/cann:9.0.0-a3-ubuntu22.04-py3.11 \
-    -t triton-ascend-image:latest -f ./docker/Dockerfile .
-    ```
-
-2. 启动容器
-
-    ```bash
-    docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container --net=host --privileged \
-    --security-opt seccomp=unconfined \
-    --device=/dev/davinci0 \
-    --device=/dev/davinci1 \
-    --device=/dev/davinci2 \
-    --device=/dev/davinci3 \
-    --device=/dev/davinci4 \
-    --device=/dev/davinci5 \
-    --device=/dev/davinci6 \
-    --device=/dev/davinci7 \
-    --device=/dev/davinci_manager \
-    --device=/dev/devmm_svm \
-    --device=/dev/hisi_hdc \
-    -v /usr/local/dcmi:/usr/local/dcmi \
-    -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-    -v /usr/local/sbin/npu-smi:/usr/local/sbin/npu-smi \
-    -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-    -v /home:/home \
-    -v /etc/ascend_install.info:/etc/ascend_install.info \
-    triton-ascend-image:latest \
-    /bin/bash
-
-    # 进入容器
-    docker exec -u root -it triton-ascend_container /bin/bash
-    ```
+  # 进入容器
+  docker exec -u root -it triton-ascend_container /bin/bash
+```
 
 ## 安装结果验证
 
