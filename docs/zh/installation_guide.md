@@ -46,28 +46,28 @@
     </thead>
     <tbody>
     <tr>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">3.2.1</td>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">python3.9<br>python3.10<br>python3.11<br>python3.12<br>python3.13</td>
+   <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">3.2.1</td>
+    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">Python3.9.x<br>Python3.10.x<br>Python3.11.x<br>Python3.12.x<br>Python3.13.x</td>
     <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">9.0.0</td>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">2.7.1.post4<br>2.8.1.post4<br>2.9.0.post2<br>2.10.0</td>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">py3.9 不支持 aarch64</td>
+    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">2.7.1.post4<br>2.8.0.post4<br>2.9.0.post2<br>2.10.0</td>
+    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">Python3.9.x 不支持 aarch64</td>
     </tr>
     <tr>
     <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">3.2.0</td>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">python3.9<br>python3.10<br>python3.11</td>
+    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">Python3.9.x<br>Python3.10.x<br>Python3.11.x</td>
     <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">8.5.0</td>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">2.7.1</td>
+    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">2.6.0</td>
     <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">NA</td>
     </tr>
     <tr>
     <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">3.2.0rc4</td>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">python3.9<br>python3.10<br>python3.11</td>
+    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">Python3.9.x<br>Python3.10.x<br>Python3.11.x</td>
     <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">8.5.0</td>
-    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">2.7.1</td>
+    <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">2.6.0</td>
     <td style="text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd;">NA</td>
     </tr>
     </tbody>
-    </table>
+</table>
 
 ## 安装方式
 
@@ -193,6 +193,12 @@ python3 setup.py install
   </tr>
   <tr style="height: 50px;">
     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">950</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.11</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-950-ubuntu22.04-py3.11</td>
+  </tr>
+  <tr style="height: 50px;">
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A2</td>
     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-910b-ubuntu22.04-py3.12</td>
@@ -202,6 +208,12 @@ python3 setup.py install
     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A3</td>
     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-a3-ubuntu22.04-py3.12</td>
+  </tr>
+  <tr style="height: 50px;">
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">950</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-950-ubuntu22.04-py3.12</td>
   </tr>
 </table>
 
