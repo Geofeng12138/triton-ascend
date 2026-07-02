@@ -24,7 +24,7 @@
 - Torch-NPU 版本推荐：2.7.1.post4
 
 **表1** Triton-Ascend 版本关系配套表：
-    <table style="table-layout: fixed; width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
+<table style="table-layout: fixed; width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
     <thead>
     <tr>
     <th style="width: 20%; text-align: left; vertical-align: middle; padding: 12px; border: 1px solid #ddd; background-color: #f5f5f5;">
@@ -79,7 +79,6 @@
 # 以安装 triton-ascend 3.2.1 为例
 pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra.cn/pypi/simple
 ```
-
 
 ### 源码编译安装
 
@@ -333,7 +332,7 @@ pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra
 
 ### Triton-Ascend 3.2.1 版本依赖的 Triton 版本为何不一致？
 
-答复：x86 与 arm 使用不同版本的社区 Triton 安装包的原因是社区从 3.5 版本开始才提供 arm 版本安装包：x86 依赖 triton==3.2.0，arm 依赖 triton==3.5.0。
+答复：x86 与 arm 使用不同版本的社区 Triton 安装包的原因是社区从 3.5 版本开始才提供 arm 版本安装包：x86 依赖 triton == 3.2.0，arm 依赖 triton == 3.5.0。
 
 ### 如何确认芯片类型
 
