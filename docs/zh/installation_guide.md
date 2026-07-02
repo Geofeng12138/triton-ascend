@@ -76,8 +76,8 @@
 ### 快速安装
 
 ```bash
-  # 以安装 triton-ascend 3.2.1 为例
-  pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra.cn/pypi/simple
+# 以安装 triton-ascend 3.2.1 为例
+pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra.cn/pypi/simple
 ```
 
 
@@ -86,10 +86,10 @@
 #### 安装依赖
 
 ```bash
-  sudo apt update
-  sudo apt install zlib1g-dev clang-15 lld-15
-  sudo apt install ccache # optional
-  pip install ninja cmake wheel pybind11 # build-time dependencies
+sudo apt update
+sudo apt install zlib1g-dev clang-15 lld-15
+sudo apt install ccache # optional
+pip install ninja cmake wheel pybind11 # build-time dependencies
 ```
 
 #### 编译 Triton-Ascend
@@ -108,48 +108,38 @@ pip install -e .
 
 #### 构建安装 LLVM
 
-- 步骤1：通过 `git checkout` 检出指定版本的 LLVM 源码并应用补丁
+```bash
+# 检出指定版本的 LLVM 源码并应用补丁
+git clone --no-checkout https://github.com/llvm/llvm-project.git
+cd llvm-project
+git checkout fad3272286528b8a491085183434c5ad4b59ab92
+wget https://raw.githubusercontent.com/triton-lang/triton-ascend/6765b03c81c4e9ecb277e4ef1dde61dea0d044f0/third_party/ascend/llvm_patch/fad3272.patch
+git apply fad3272.patch
 
-    ```bash
-    git clone --no-checkout https://github.com/llvm/llvm-project.git
-    cd llject
-    git checkout fad3272286528b8a491085183434c5ad4b59ab92
-    wget https://raw.githubusercontent.com/triton-lang/triton-ascend/6765b03c81c4e9ecb277e4ef1dde61dea0d044f0/third_party/ascend/llvm_patch/fad3272.patch
-    git apply fad3272.patchvm-pro
-    ```
+# 路径为用户规划的llvm安装路径,需根据实际调整
+export LLVM_INSTALL_PREFIX=/path/to/llvm-install
 
-- 步骤2：设置环境变量 LLVM_INSTALL_PREFIX 为您的目标安装路径
 
-    ```bash
-    # 路径为用户规划的llvm安装路径,需根据实际调整
-    export LLVM_INSTALL_PREFIX=/path/to/llvm-install
-    ```
+# 构建和安装 LLVM
+cd {PATH_TO}/llvm_project # 路径为用户拉取LLVM代码的路径,需根据实际调整
+mkdir build
+cd build
+cmake ../llvm \
+    -G Ninja \
+    -DCMAKE_C_COMPILER=/usr/bin/clang-15 \
+    -DCMAKE_CXX_COMPILER=/usr/bin/clang++-15 \
+    -DCMAKE_LINKER=/usr/bin/lld-15 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLLVM_ENABLE_ASSERTIONS=ON \
+    -DLLVM_ENABLE_PROJECTS="mlir;llvm;lld" \
+    -DLLVM_TARGETS_TO_BUILD="host;NVPTX;AMDGPU" \
+    -DLLVM_ENABLE_LLD=ON \
+    -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX}
+ninja install
 
-- 步骤3：执行以下命令进行构建和安装 LLVM
-
-    ```bash
-    cd {PATH_TO}/llvm_project # 路径为用户拉取LLVM代码的路径,需根据实际调整
-    mkdir build
-    cd build
-    cmake ../llvm \
-        -G Ninja \
-        -DCMAKE_C_COMPILER=/usr/bin/clang-15 \
-        -DCMAKE_CXX_COMPILER=/usr/bin/clang++-15 \
-        -DCMAKE_LINKER=/usr/bin/lld-15 \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DLLVM_ENABLE_ASSERTIONS=ON \
-        -DLLVM_ENABLE_PROJECTS="mlir;llvm;lld" \
-        -DLLVM_TARGETS_TO_BUILD="host;NVPTX;AMDGPU" \
-        -DLLVM_ENABLE_LLD=ON \
-        -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX}
-    ninja install
-    ```
-
-- 步骤4：需要拷贝 FILECHECK 到目标安装路径
-
-    ```bash
-    cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
-    ```
+# 拷贝 FILECHECK 到目标安装路径
+cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
+```
 
 ### 镜像安装
 
@@ -216,30 +206,30 @@ pip install -e .
 #### 镜像安装
 
 ```bash
-  docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container --net=host --privileged \
-  --security-opt seccomp=unconfined \
-  --device=/dev/davinci0 \
-  --device=/dev/davinci1 \
-  --device=/dev/davinci2 \
-  --device=/dev/davinci3 \
-  --device=/dev/davinci4 \
-  --device=/dev/davinci5 \
-  --device=/dev/davinci6 \
-  --device=/dev/davinci7 \
-  --device=/dev/davinci_manager \
-  --device=/dev/devmm_svm \
-  --device=/dev/hisi_hdc \
-  -v /usr/local/dcmi:/usr/local/dcmi \
-  -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-  -v /usr/local/sbin/npu-smi:/usr/local/sbin/npu-smi \
-  -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-  -v /home:/home \
-  -v /etc/ascend_install.info:/etc/ascend_install.info \
-  triton-ascend-image:latest \
-  /bin/bash
+docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container --net=host --privileged \
+--security-opt seccomp=unconfined \
+--device=/dev/davinci0 \
+--device=/dev/davinci1 \
+--device=/dev/davinci2 \
+--device=/dev/davinci3 \
+--device=/dev/davinci4 \
+--device=/dev/davinci5 \
+--device=/dev/davinci6 \
+--device=/dev/davinci7 \
+--device=/dev/davinci_manager \
+--device=/dev/devmm_svm \
+--device=/dev/hisi_hdc \
+-v /usr/local/dcmi:/usr/local/dcmi \
+-v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+-v /usr/local/sbin/npu-smi:/usr/local/sbin/npu-smi \
+-v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+-v /home:/home \
+-v /etc/ascend_install.info:/etc/ascend_install.info \
+triton-ascend-image:latest \
+/bin/bash
 
-  # 进入容器
-  docker exec -u root -it triton-ascend_container /bin/bash
+# 进入容器
+docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
 ## 安装结果验证
