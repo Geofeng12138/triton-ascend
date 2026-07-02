@@ -23,7 +23,7 @@
 - Pytorch 版本推荐：2.7.1
 - Torch-NPU 版本推荐：2.7.1.post4
 
-**表1** Triton-Ascend 版本关系配套表：
+**表1** 相关产品版本配套说明表
 <table style="table-layout: fixed; width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
     <thead>
     <tr>
@@ -85,9 +85,11 @@ pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra
 #### 安装依赖
 
 ```bash
-sudo apt update
-sudo apt install zlib1g-dev clang-15 lld-15
-sudo apt install ccache # optional
+apt update
+apt install zlib1g-dev clang-15 lld-15
+apt install ccache # optional
+update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 100
+update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 100
 pip install ninja cmake wheel pybind11 # build-time dependencies
 ```
 
