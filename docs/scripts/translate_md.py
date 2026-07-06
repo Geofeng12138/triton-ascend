@@ -70,8 +70,11 @@ class MarkdownTranslator:
         self.max_concurrent = max_concurrent
 
     def _relative_path(self, zh_path: Path) -> Path:
-        """Convert a docs/zh/... path to its corresponding docs/en/... path."""
+        """Convert a docs/zh/... path to its corresponding docs/en/... path.
+        If the filename ends with '_zh', strip the '_zh' suffix."""
         rel = zh_path.relative_to(ZH_DIR)
+        if rel.stem.endswith('_zh'):
+            rel = rel.parent / (rel.stem[:-3] + rel.suffix)
         return EN_DIR / rel
 
     async def _call_api(self, content: str, file_info: str = "") -> str | None:
@@ -196,10 +199,16 @@ class MarkdownTranslator:
             pass
 
         # Fallback: find all .md files in docs/zh/ that differ from docs/en/
+        # (handles _zh suffix in filename being stripped for the en counterpart)
+        def _to_en_path(zh_md: Path) -> Path:
+            rel = zh_md.relative_to(ZH_DIR)
+            if rel.stem.endswith('_zh'):
+                rel = rel.parent / (rel.stem[:-3] + rel.suffix)
+            return EN_DIR / rel
+
         changed = []
         for md_file in ZH_DIR.rglob("*.md"):
-            rel = md_file.relative_to(ZH_DIR)
-            en_file = EN_DIR / rel
+            en_file = _to_en_path(md_file)
             if not en_file.exists():
                 changed.append(md_file)
             elif md_file.read_text(encoding="utf-8") != en_file.read_text(encoding="utf-8"):
