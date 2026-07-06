@@ -86,6 +86,7 @@ update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 100
 update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 100
 pip install ninja cmake wheel pybind11 # build-time dependencies
 ```
+
 ### 编译Triton-Ascend
 
 ```bash
@@ -97,7 +98,7 @@ pip install -e .
 ### 自定义LLVM构建（可选）
 
 ```bash
-# 如果需要自定义LLVM的版本和路径可以先执行这一步再去编译Triton-Ascend
+# 如果需要自定义构建LLVM过程的，可以先执行这一步再去编译Triton-Ascend
 # 检出指定版本的LLVM源码并应用补丁
 git clone --no-checkout https://github.com/llvm/llvm-project.git
 cd llvm-project
