@@ -235,7 +235,7 @@ docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 triton-ascend-image:latest \
 /bin/bash
 
-# 进入容器，可在前面的在线安装和源码安装中任选一种方式安装Triton-Ascend
+# 进入容器，可在前面的快速安装和源码安装中任选一种方式安装Triton-Ascend
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
