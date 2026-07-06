@@ -97,6 +97,8 @@ git checkout fad3272286528b8a491085183434c5ad4b59ab92
 wget https://raw.githubusercontent.com/triton-lang/triton-ascend/6765b03c81c4e9ecb277e4ef1dde61dea0d044f0/third_party/ascend/llvm_patch/fad3272.patch
 git apply fad3272.patch
 
+export LLVM_INSTALL_PREFIX=/path/to/llvm-install
+
 # 构建自定义LLVM版本
 cd {PATH_TO}/llvm_project
 mkdir build
@@ -113,8 +115,6 @@ cmake ../llvm \
     -DLLVM_ENABLE_LLD=ON \
     -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX}
 ninja install
-
-export LLVM_INSTALL_PREFIX=/path/to/llvm-install
 ```
 
 ### 编译Triton-Ascend
