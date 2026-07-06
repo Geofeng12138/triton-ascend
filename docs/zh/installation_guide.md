@@ -86,10 +86,18 @@ update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 100
 update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 100
 pip install ninja cmake wheel pybind11 # build-time dependencies
 ```
-
-### 构建安装LLVM
+### 编译Triton-Ascend
 
 ```bash
+git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
+git checkout main
+pip install -e .
+```
+
+### 自定义LLVM构建（可选）
+
+```bash
+# 如果需要自定义LLVM的版本和路径可以先执行这一步再去编译Triton-Ascend
 # 检出指定版本的LLVM源码并应用补丁
 git clone --no-checkout https://github.com/llvm/llvm-project.git
 cd llvm-project
@@ -115,15 +123,10 @@ cmake ../llvm \
     -DLLVM_ENABLE_LLD=ON \
     -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX}
 ninja install
-```
 
-### 编译Triton-Ascend
-
-```bash
+# 编译Triton-Ascend
 git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
 
-# 确认已设置LLVM安装的目标路径 ${LLVM_INSTALL_PREFIX}
-# 确认已安装clang>=15，lld>=15，ccache
 LLVM_SYSPATH=${LLVM_INSTALL_PREFIX} \
 TRITON_BUILD_WITH_CCACHE=true \
 TRITON_BUILD_WITH_CLANG_LLD=true \
