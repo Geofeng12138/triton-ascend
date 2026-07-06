@@ -1,8 +1,6 @@
 # 安装指南
 
-**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，主要用于提供高效的核函数自动调优、算子编译及部署能力，支持Ascend Atlas A2/A3等系列产品，兼容Triton核心语法的同时，针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。
-
-本文主要介绍**Triton-Ascend**的两种安装方式：在线安装和源码安装。
+**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，主要用于提供高效的核函数自动调优、算子编译及部署能力，支持Ascend Atlas A2/A3/950系列产品，兼容Triton核心语法的同时，针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。
 
 ## 环境准备
 
@@ -69,7 +67,7 @@
     </tbody>
 </table>
 
-## 在线安装
+## 快速安装
 
 ```bash
 # 以安装 triton-ascend 3.2.1 为例
@@ -99,11 +97,8 @@ git checkout fad3272286528b8a491085183434c5ad4b59ab92
 wget https://raw.githubusercontent.com/triton-lang/triton-ascend/6765b03c81c4e9ecb277e4ef1dde61dea0d044f0/third_party/ascend/llvm_patch/fad3272.patch
 git apply fad3272.patch
 
-# 路径为用户规划的LLVM安装路径,需根据实际调整
-export LLVM_INSTALL_PREFIX=/path/to/llvm-install
-
-# 构建和安装LLVM
-cd {PATH_TO}/llvm_project # 路径为用户拉取LLVM代码的路径,需根据实际调整
+# 构建自定义LLVM版本
+cd {PATH_TO}/llvm_project
 mkdir build
 cd build
 cmake ../llvm \
@@ -119,8 +114,7 @@ cmake ../llvm \
     -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX}
 ninja install
 
-# 拷贝FILECHECK到目标安装路径
-cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
+export LLVM_INSTALL_PREFIX=/path/to/llvm-install
 ```
 
 ### 编译Triton-Ascend
@@ -128,9 +122,8 @@ cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCh
 ```bash
 git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
 
-# 确认已设置 [基于LLVM构建] 章节中，LLVM安装的目标路径 ${LLVM_INSTALL_PREFIX}
+# 确认已设置LLVM安装的目标路径 ${LLVM_INSTALL_PREFIX}
 # 确认已安装clang>=15，lld>=15，ccache
-
 LLVM_SYSPATH=${LLVM_INSTALL_PREFIX} \
 TRITON_BUILD_WITH_CCACHE=true \
 TRITON_BUILD_WITH_CLANG_LLD=true \
@@ -214,10 +207,10 @@ python3 setup.py install
   </tr>
 </table>
 
-### 镜像安装
+### 镜像使用
 
 ```bash
-docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container --net=host --privileged \
+docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 --security-opt seccomp=unconfined \
 --device=/dev/davinci0 \
 --device=/dev/davinci1 \
