@@ -100,7 +100,7 @@ git apply fad3272.patch
 export LLVM_INSTALL_PREFIX=/path/to/llvm-install
 
 # 构建自定义LLVM版本
-cd {PATH_TO}/llvm_project
+cd {PATH_TO}/llvm-project
 mkdir build
 cd build
 cmake ../llvm \
