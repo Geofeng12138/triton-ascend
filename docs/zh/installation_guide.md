@@ -268,7 +268,7 @@ The maximum difference between torch and triton is 0.0
 
 **解决措施**
 
-可以尝试手动安装Torch后再安装Torch_NPU：
+可以尝试手动安装Torch后再安装TorchNPU：
 
 ```bash
 pip install torch==2.7.1+cpu --index-url https://download.pytorch.org/whl/cpu
@@ -326,7 +326,7 @@ pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra
 
 **问题六：如何确认芯片类型**
 
-您可以使用npu-smi命令查看系统上的 NPU 型号。例如，在npu-smi info命令的输出中，"910B4" 对应芯片类型A2（昇腾910b系列）：
+您可以使用npu-smi命令查看系统上的NPU型号。例如，在npu-smi info命令的输出中，"910B4" 对应芯片类型A2（昇腾910b系列）：
 
 ```Text
 root@localhost:/# npu-smi  info
