@@ -15,7 +15,6 @@
 # limitations under the License.
 # This file is a part of the triton-ascend project.
 #
-
 """
 Translate Chinese Markdown files (docs/zh/) to English (docs/en/).
 
@@ -41,10 +40,8 @@ from openai import AsyncOpenAI
 ZH_DIR = Path("docs/zh")
 EN_DIR = Path("docs/en")
 
-SYSTEM_PROMPT = (
-    "You are a professional technical documentation translation expert, "
-    "proficient in Chinese-to-English technical document translation."
-)
+SYSTEM_PROMPT = ("You are a professional technical documentation translation expert, "
+                 "proficient in Chinese-to-English technical document translation.")
 
 TRANSLATION_PROMPT = """Translate the following Chinese technical documentation (Markdown format) into English.
 
@@ -65,6 +62,7 @@ Here is the content to translate:
 
 
 class MarkdownTranslator:
+
     def __init__(self, api_key: str, max_concurrent: int = 5):
         self.client = AsyncOpenAI(api_key=api_key, base_url="https://api.deepseek.com")
         self.max_concurrent = max_concurrent
@@ -185,7 +183,9 @@ class MarkdownTranslator:
         try:
             result = subprocess.run(
                 ["git", "diff", "--name-only", "--diff-filter=ACMUX", "HEAD", "--", "docs/zh/"],
-                capture_output=True, text=True, check=False,
+                capture_output=True,
+                text=True,
+                check=False,
             )
             if result.returncode == 0 and result.stdout.strip():
                 changed = []
@@ -234,7 +234,8 @@ def write_empty_json(output_json: str, reason: str = ""):
 
 async def async_main():
     parser = argparse.ArgumentParser(description="Translate docs/zh/ Markdown to docs/en/")
-    parser.add_argument("--files", help="Comma-separated file paths to translate (relative to docs/zh/, e.g. quick_start.md)")
+    parser.add_argument("--files",
+                        help="Comma-separated file paths to translate (relative to docs/zh/, e.g. quick_start.md)")
     parser.add_argument("--all", action="store_true", help="Translate all changed/new .md files")
     parser.add_argument("--output-json", default=os.getenv("OUTPUT_JSON", "/tmp/translation_results.json"))
     parser.add_argument("--api-key", default=os.getenv("DEEPSEEK_API_KEY"))
