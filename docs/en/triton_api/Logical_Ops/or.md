@@ -1,0 +1,82 @@
+# triton.language.tensor.__or__
+
+## 1. Function Overview
+
+Description: Computes the bitwise OR operation of two elements.
+
+```python
+# Via operator
+x | y
+
+# Or directly call the dunder method
+x.__or__(y)
+```
+
+## 2. Specifications
+
+### 2.1 Parameter Description
+
+| Parameter Name | Type              | Description                                                    |
+| -------------- | ----------------- | -------------------------------------------------------------- |
+| `x`            | `tensor`          | Tensor data                                                    |
+| `y`            | `tensor`          | Tensor data                                                    |
+| `_semantic`    | -                 | Reserved parameter, external calls are not supported currently |
+
+Return value:
+`out`: A tensor with the same shape as `x` and `y`
+
+### 2.2 OP Specifications
+
+#### 2.2.1 DataType Support
+
+|              | int8 | int16 | int32 | uint8 | uint16 | uint32 | uint64 | int64 | fp16 | fp32 | fp64 | bf16 | bool |
+| ------------ | ---- | ----- | ----- | ----- | ------ | ------ | ------ | ----- | ---- | ---- | ---- | ---- | ---- |
+| GPU          | √    | √     | √     | √     | ×      | ×      | ×      | √     | ×    | ×    | ×    | ×    | √    |
+| Ascend A2/A3 | √    | √     | √     | √     | ×      | ×      | ×      | √     | ×    | ×    | ×    | ×    | √    |
+
+Conclusion: Compared to GPU, Ascend lacks support for uint types.
+
+#### 2.2.2 Shape Support
+
+|              | Supported Dimension Range |
+| ------------ | ------------------------- |
+| GPU          | Only supports 1~5D tensors |
+| Ascend A2/A3 | Only supports 1~5D tensors |
+
+Conclusion: In terms of Shape, there is no difference between GPU and Ascend platforms; both support 1 to 5-dimensional tensors.
+
+### 2.3 Special Limitations
+
+> Relative community capability deficiency and cannot be implemented
+
+Compared to GPU, Ascend lacks support for uint types.
+
+### 2.4 Usage Example
+
+The following example computes the element-wise OR operation of two input tensors:
+
+```python
+@triton.jit
+def fn_npu_(output_ptr, x_ptr, y_ptr, z_ptr,
+            XB: tl.constexpr, YB: tl.constexpr, ZB: tl.constexpr,
+            XNUMEL: tl.constexpr, YNUMEL: tl.constexpr, ZNUMEL: tl.constexpr):
+    xoffs = tl.program_id(0) * XB
+    yoffs = tl.program_id(1) * YB
+    zoffs = tl.program_id(2) * ZB
+
+    xidx = tl.arange(0, XB) + xoffs
+    yidx = tl.arange(0, YB) + yoffs
+    zidx = tl.arange(0, ZB) + zoffs
+
+    idx = xidx[:, None, None] * YNUMEL * ZNUMEL + yidx[None, :, None] * ZNUMEL + zidx[None, None, :]
+
+    X = tl.load(x_ptr + idx)
+    Y = tl.load(y_ptr + idx)
+
+    ret = X | Y
+
+    tl.store(output_ptr + idx, ret)
+
+x = test_common.generate_tensor(shape, dtype).npu()
+y = test_common.generate_tensor(shape, dtype).npu()
+```
