@@ -1,30 +1,30 @@
 # Triton Operator Development Guide
 
-This document focuses on the issues that need to be paid attention to during Triton operator development on NPUs, which are divided into three aspects: multi-core task parallelism, single-core data transfer, and single-core data computation. First, section "Multi-Core Task Parallelism" describes the basis for setting the maximum number of hardware cores and the specific implementation. Then, section "Single-Core Data Transfer" describes how to set the proper data block size in a loop, introduces the common optimization methods, and describes how to handle the UB overflow problem that may occur. Finally, section "Single-Core Data Computation" focuses on how to develop Triton operators and highlights the key points.
+Overview: This article focuses on notable issues in developing Triton operators on NPUs, divided into three aspects: multi-core task parallelism, single-core data movement, and single-core data computation. First, in multi-core task parallelism, the basis for setting the maximum number of hardware cores and the specific implementation are introduced. Then, in single-core data movement, it describes in detail how to set an appropriate data block size within a loop, introduces common optimization techniques used in the process, and supplements the handling of potential UB OVERFLOW issues. Finally, returning to a single operator, it focuses on how to develop Triton operators at the single-core data computation level and emphasizes related key points.
 
-## Documentation Structure
+## Document Organization
 
-This guide separates common development rules from operator-specific development paths:
+This guide separates general development principles from operator development paths categorized by hardware execution units:
 
-- This page covers common Triton-Ascend concerns, including core allocation, on-chip memory, memory access, tiling, and autotune.
-- [Vector Operator Development](./vector_operator.md) describes element-wise, reduction, gather/scatter, and other operators mainly executed on Vector Cores.
-- [Cube Operator Development](./cube_operator.md) describes operators whose main computation is `tl.dot`, matrix multiplication, or batched matrix multiplication.
-- [CV Fusion Operator Development](./cv_fusion_operator.md) describes operators that combine Cube computation with Vector post-processing, reductions, softmax, or cross-core coordination.
+- This page introduces common issues that all Triton-Ascend operators need to consider, including core division, on-chip memory, memory access, Tiling, and Autotune.
+- [Vector Operator Development](./vector_operator.md) introduces operators executed primarily by the Vector Core, such as element-wise, reduction, Gather/Scatter operations.
+- [Cube Operator Development](./cube_operator.md) introduces operators centered around `tl.dot`, matrix multiplication, and batched matrix multiplication.
+- [CV Fusion Operator Development](./cv_fusion_operator.md) introduces scenarios where Cube computation and Vector post-processing, reduction, Softmax, or cross-core collaboration coexist within the same operator.
 
-For simple operators, refer to this repository's `docs/en/examples/` and `third_party/ascend/tutorials/`. For complex operators, refer to complete optimization cases in `tutorial/best_practice/` of [Ascend/triton-ascend-ops](https://github.com/Ascend/triton-ascend-ops).
+For simple operators, refer primarily to `docs/zh/examples/` and `third_party/ascend/tutorials/` in this repository; for complex operators, refer primarily to the complete optimization cases in `tutorial/best_practice/` on GitHub's [Ascend/triton-ascend-ops](https://github.com/Ascend/triton-ascend-ops).
 
-## Common Multi-Core Task Parallelism
+## General Multi-Core Task Parallelism
 
 ### Setting the Maximum Number of Hardware Cores
 
-In a Triton operator, the grid is usually used for core allocation. For GPUs, it contains dozens or hundreds of core SMs. However, for the Ascend NPU platform, it contains dozens of AI Cores for computation.\
-Although the runtime interface allows a maximum of 65,535 concurrent tasks to be delivered, the tasks that exceed the number of physical cores are delivered in a new round. If the Triton operator on the GPU is directly executed on the Ascend platform, a large number of tasks will introduce considerable overhead during core startup and initialization, affecting the operator performance.\
-Therefore, the core allocation logic needs to be modified based on the Ascend platform features. The most recommended method is to **fix the number of cores to the number of physical cores of the hardware** and perform more detailed data block division within the cores.
+In a Triton operator, a grid is typically used for core division. For GPUs, the number of compute cores (SMs) is usually in the range of tens to hundreds. However, for the Ascend NPU platform, the number of compute cores (AI Cores) is on the order of tens. \
+Although the runtime interface allows a maximum of 65535 concurrent tasks, tasks exceeding the number of physical cores are completed through a new round of dispatch. If Triton operators designed for GPUs are directly run on the Ascend platform, these numerous tasks will introduce significant overhead from kernel launch and initialization, affecting operator performance. \
+Therefore, the core division logic needs to be modified for the Ascend platform characteristics. The most recommended approach is to **fix the number of core divisions to the physical core count of the hardware** and perform more fine-grained data tiling within the core:
 
-* For pure vector operators, the number of cores is equal to the **number of vector cores**.
-* For CV fusion operators, the number of cores is equal to the **number of cube cores** (usually half of the number of vector cores). During operator execution, vector cores are called at a ratio of 1:2.
+* For pure Vector operators, the number of core divisions equals the **number of Vector cores**.
+* For CV fusion operators, the number of core divisions equals the **number of Cube cores** (usually half the number of Vector cores). During operator execution, Vector cores are invoked in a 1:2 ratio.
 
-Generally, on an NPU card, a computing core (AI Core) consists of one cube core, with each cube core paired with two vector cores. So you can obtain the **number of vector cores(vectorcore_num)** and **number of cube cores(aicore_num)** through the following interfaces:
+Generally, on an NPU card, one compute core (AI Core) contains one Cube core, and each Cube core is paired with two Vector cores. Therefore, the number of **Vector cores (vectorcore_num)** and **Cube cores (aicore_num)** can be obtained through the following interface:
 
 ```python
 import torch
@@ -38,7 +38,7 @@ aicore_num = properties["num_aicore"]
 
 ```
 
-According to the sample code, fix the number of cores, and then process task blocks in batches through an internal loop.
+Refer to the example code: first fix the number of cores, then process task blocks in batches through an inner loop:
 
 ```python
 NUM_CORE = vectorcore_num
@@ -56,39 +56,39 @@ def _attn_fwd(Q, K, V, M, Out, acc, scale,
               BLOCK_N: tl.constexpr,
               STAGE: tl.constexpr
               ):
-    # Calculate the total number of tasks and flatten the three-dimensional tasks (Z, H, M) into a one-dimensional total number of tasks.
+    # Calculate total tasks, flatten 3D tasks (Z, H, M) into 1D total task count
     NUM_BLOCKS_M = N_CTX // BLOCK_M
     NUM_BLOCKS = NUM_BLOCKS_M * Z * H
 
-    # Each core selects the task to be processed based on its own identifier.
-    pid = tl.program_id(0)  # Unique ID of the current core.
-    NUM_CORE = tl.num_programs(0)  # Obtain the total number of cores that are started.
-    # Loop rule: range(pid, NUM_BLOCKS, NUM_CORE) implements step-based task allocation.
-    # - Start value (pid): Each core obtains tasks from its own ID to avoid task overlapping.
-    # - Step length (NUM_CORE): The step is based on the total number of cores to ensure that tasks are evenly allocated to each core.
+    # Each core selects the tasks to process based on its own identifier
+    pid = tl.program_id(0)  # Unique ID of the current core
+    NUM_CORE = tl.num_programs(0)  # Get the fixed total number of launched cores
+    # Loop rule: range(pid, NUM_BLOCKS, NUM_CORE) implements "strided task assignment"
+    # - Start value pid: each core starts fetching tasks from its own ID to avoid overlap
+    # - Step NUM_CORE: stride by the total number of cores to ensure tasks are evenly distributed
     for block_idx in range(pid, NUM_BLOCKS, NUM_CORE):
-        # Calculate the data offset of each task.
-        # [Core: Reverse restoration of one-dimensional task index to original multi-dimensional index.]
-        # block_idx is the one-dimensional task index after flattening. The original dimensions are restored through integer division and remainder.
-        # 1. Split the Z+H combined axis and M block axis.
-        #   - Exact division by NUM_BLOCKS_M: Extract the index (task_hz_idx) of the Z+H combined axis.
-        #   - Remainder of NUM_BLOCKS_M: Extract the block index (task_m_idx) of the M dimension.
+        # Calculate data offset for each task
+        # 【Core: Reverse the flattened 1D task index back to the original multi-dimensional index】
+        # block_idx is the flattened 1D task index, decomposed back to original dimensions via integer division / modulo
+        # 1. Decompose the combined Z+H axis & M block axis:
+        #   - Integer division by NUM_BLOCKS_M: extracts the combined Z+H axis index (task_hz_idx)
+        #   - Modulo by NUM_BLOCKS_M: extracts the M dimension block index (task_m_idx)
         task_hz_idx = block_idx // NUM_BLOCKS_M
         task_m_idx = block_idx % NUM_BLOCKS_M
-        # 2. Split the Z+H combined axis into the original Z axis and H axis.
-        #   - Exact division by H: Restore the Z axis index (off_z).
-        #   - Remainder of H: Restore the H axis index (off_h).
+        # 2. Decompose the combined Z+H axis into original Z and H axes:
+        #   - Integer division by H: restores the Z axis index (off_z)
+        #   - Modulo by H: restores the H axis index (off_h)
         off_z = task_hz_idx // H
         off_h = task_hz_idx % H
-        # 3. Calculate the data offset: Locate the start position of the corresponding data in the Q/K/V tensor based on the restored Z/H index.
+        # 3. Calculate data offset: based on the restored Z/H indices, locate the starting data position in Q/K/V tensors
         qvk_offset = off_z.to(tl.int64) * stride_qz + off_h.to(tl.int64) * stride_qh
 ```
 
-## Common Single-Core Data Transfer
+## General Single-Core Data Movement
 
-### Setting the Proper Data Block Size (BLOCK SIZE)
+### Setting an Appropriate Data Block Size (BLOCK SIZE) within a Loop
 
-Take **add_kernel** as an example. The variables and operations determine the on-chip memory usage. You can change the value of **BLOCK_SIZE** to adjust the size of the data block in the loop and the size of the intermediate result. If the upper limit is exceeded, the expected usage size is displayed and an error is reported during operator compilation. To achieve the maximum compute-to-memory ratio, **BLOCK_SIZE** needs to be as large as possible without exceeding the on-chip space. You can set different **BLOCK_SIZE** values in advance by using [autotune](../examples/06_autotune_example.md) of Triton-Ascend. The optimal setting is automatically selected during running.
+Taking `add_kernel` as an example, variables and operations together determine the on-chip memory space usage. By modifying the `BLOCK_SIZE`, the size of data blocks and intermediate computation results within the loop can be adjusted. If the upper limit is exceeded, the compiler will prompt the expected size and report an error during operator compilation. To achieve the maximum compute-to-memory-access ratio, `BLOCK_SIZE` should be as large as possible without exceeding the on-chip space. This can be achieved by pre-setting different `BLOCK_SIZE` values using Triton-Ascend's [Autotune](../examples/06_autotune_example.md); the runtime will automatically select the optimal setting.
 
 ```python
 import triton.language as tl
@@ -98,17 +98,17 @@ def add_kernel(x_ptr,
                y_ptr,
                out_ptr,
                n,  # Total number of elements.
-               BLOCK_SIZE: tl.constexpr,  # Number of block elements.
+               BLOCK_SIZE: tl.constexpr,  # Number of elements per block.
                ):
     pid = tl.program_id(0)
     NUM_CORE = tl.num_programs(0)
     NUM_BLOCKS = tl.cdiv(n, BLOCK_SIZE)
     for block_idx in range(pid, NUM_BLOCKS, NUM_CORE):
         block_start = block_idx * BLOCK_SIZE
-        # The block size is BLOCK_SIZE.
+        # Block size is BLOCK_SIZE
         offsets = block_start + tl.arange(0, BLOCK_SIZE)
         mask = offsets < n
-        # Load data of x and y to the on-chip memory.
+        # Load x, y data to on-chip memory
         x = tl.load(x_ptr + offsets, mask=mask)
         y = tl.load(y_ptr + offsets, mask=mask)
 
@@ -117,22 +117,22 @@ def add_kernel(x_ptr,
         tl.store(out_ptr + offsets, output, mask=mask)
 ```
 
-### Aligning the Size of the Tail Axis of the Tensor
+### Ensure the Trailing Dimension Size of Tensors is Data-Aligned as Much as Possible
 
-[Description] For VV operators, if the Vector core needs to be called for computation, the UB of the Ascend hardware requires that the size of the tail axis of the tensor be divisible by 32 bytes. For CV operators, if the Vector core and Cube core need to be called for computation, the size of the tail axis of the tensor must be divisible by 512 bytes. If the tail axis length is insufficient, the tail axis length will be automatically padded. Under this premise, the performance of operations with the shape of (2048,3) and (2048,1) tensors in the model deteriorates significantly due to automatic padding. In this case, you can perform the transpose operation to convert the alignment axis to a lower dimension until the store operation is performed, avoiding automatic padding and optimizing the computing speed. In addition, the transpose operation is also affected by the automatic padding rule. Therefore, special skills are required to avoid padding. The following is a tip for "borrowing axis for transpose", which is applicable to the scenario where **tensor.numel() % 256Byte == 0**:
+[Description] For VV-type operators that require Vector core computation, the Ascend hardware's UB requires the trailing dimension size of the tensor to be divisible by 32 Bytes. For CV-type operators that require both Vector and Cube core computation, the trailing dimension size must be divisible by 512 Bytes. If the trailing dimension length is insufficient, it will be automatically padded. Under this premise, various operations on tensors with shapes like (2048, 3) and (2048, 1) in the model will suffer significant performance degradation due to automatic padding. In such cases, consider using a transpose operation to move the alignment axis to a lower dimension, and then transpose back to the original state only when storing, thus avoiding automatic padding and optimizing computation speed. Since the transpose operation itself is also subject to automatic padding rules, special techniques are also needed to avoid padding. Here is a tip called "borrow-axis transpose", suitable for scenarios where **tensor.numel() % 256Byte == 0**. The specific operation is as follows:
 
-- Note: VV operators indicate that only Vector Core is used during operator computation. CV operators indicate that both AI Core and Vector Core are used during operator computation.
+- Note: VV-type operators mean that the operator only uses the Vector Core during computation; CV-type operators mean that the operator uses both the AI Core and the Vector Core during computation.
 - Example
 
 ```python
 # conv_state = tensor([2048, 3], bfloat16)
-conv_state = tl.load(conv_state_ptr + conv_batch_offs * conv_batch_stride + doffs * 3 + tl.arange(0, 2048 * 3)) # It is considered as the 1D tensor load. In this case, numel is aligned and no padding is performed.
-conv_state_T = conv_state.reshape(128, 16 * 3).trans().reshape(16, 3 * 128).trans().reshape(3 * 2048,) # The long axis (2048) is split into an aligned axis (16) and lent to the short axis (3) to align the two axes.
+conv_state = tl.load(conv_state_ptr + conv_batch_offs * conv_batch_stride + doffs * 3 + tl.arange(0, 2048 * 3)) # Load as 1D tensor. Since numel is aligned, no automatic padding occurs.
+conv_state_T = conv_state.reshape(128, 16 * 3).trans().reshape(16, 3 * 128).trans().reshape(3 * 2048,) # Split the long axis (2048) to borrow an alignment axis (16) for the short axis (3), making both axes aligned.
 ```
 
-### Transferring Data to the UB and Then Selecting the Target Value from the UB
+### First Move Data to UB, Then Select Target Values from UB
 
-[Description] In the discrete scenario of the NPU, data can be transferred to the UB and then the target value can be selected from **share**.
+[Description] In NPU discrete scenarios, data can be first moved to UB, and then target values can be selected from the shared memory.
 
 - Example
 
@@ -154,9 +154,9 @@ def pick_kernel(
     idx = tl.load(idx_ptr + rn * stride_idx)
     mask = idx < M
 
-    # the original code
+    # Original approach
     # val = tl.load(x_ptr + idx * stride_x, mask=mask)
-    # the modified code
+    # Modified approach
     rm = tl.arange(0, M)
     x_shared = tl.load(x_ptr + rm * stride_x)  # [M]
     val = tl.gather(x_shared, idx, 0)
@@ -164,31 +164,30 @@ def pick_kernel(
     tl.store(y_ptr + rn * stride_y, val, mask=mask)
 ```
 
-- Performance analysis and comparison before and after optimization
+- Performance Analysis and Comparison Before and After Optimization
 
-You can use the msProf tool to execute the test case to obtain the **PROF_***\** folder, which contains the **op_summary_***\****.csv** file. This file can be used to analyze the pipeline. Note: *\** indicates the timestamp. For details, see the [performance data collection methods](../debug_guide/profiling.md).
+By executing the use case with the msprof tool, a PROF_* folder can be obtained, which contains the op_summary_\*.csv file. This file helps analyze the pipeline status. Note: "*" represents the timestamp, [Reference method for performance data collection](../debug_guide/profiling.md).
 
 ||Op Name|aiv_mte2_time(us)|aiv_mte2_ratio|
 |:---- |:--------|:--------|:--------|
-|Unoptimized|pick_kernel|0.686|0.008|
-|Optimized|pick_kernel|1.041|0.066|
+|Before Optimization|pick_kernel|0.686|0.008|
+|After Optimization|pick_kernel|1.041|0.066|
 
-According to the data in the table, the values of **aiv_mte2_time(us)** and **aiv_mte2_ratio** before and after the optimization are greatly different. The optimization solution first transfers most of the data to the UB, reducing the number of times that small batches of data are transferred to the UB through the L2 and the total time for transferring data to the UB through the L2.
+By analyzing the data in the table, it can be seen that the aiv_mte2_time(us) and aiv_mte2_ratio differ significantly before and after optimization. The optimization scheme first moves most of the data to the UB, reducing the number of times small batches of data are moved from L2 to UB, thereby reducing the total time for moving data from L2 to UB.
 
-### Parallel Storage and Computation
+### Compute and Data Movement Overlap
 
-Triton-Ascend supports two data processing modes: serial storage and computation and parallel storage and computation.
+Triton-Ascend supports two data processing modes: serial compute-move and overlapped compute-move.
 
-Serial storage and computation: Data is first transferred from the global memory to the on-chip memory, and then the next batch of data is transferred after the computation is complete. This mode has a significant idle waiting time, and the efficiency is low.
+Serial compute-move: Data is first moved from global memory to on-chip memory. After computation is complete, the next batch of data is moved. This method has significant idle waiting time and low efficiency.
 
-Parallel storage and computation: Computing is performed when the first batch of data is transferred to the on-chip memory. Then, the second batch of data is transferred, and the "transfer + compute" pipeline operation is formed, significantly improving the overall throughput.
+Overlapped compute-move: While the first batch of data is being moved to on-chip memory, computation on it begins. Subsequently, the second batch of data is moved, forming a pipelined operation where "move + compute" overlap, significantly improving overall throughput.
 
-The key to implementing parallel storage and computation is to properly design the data tiling policy so that the data required for the next phase can be prepared in advance during the compute of the current batch of data, thereby implementing parallelization of data transfer and computing.
- Currently, the compiler is configured with **multiBuffer** set to **True** by default, and the parallel storage and computation are supported by default.
+The key to achieving overlapped compute-move is to design a reasonable data tiling strategy so that while the current batch of data is being computed, the data required for the next stage can be prepared in advance, thus parallelizing data movement and computation. Currently, the compiler defaults to `multiBuffer=True`, which supports overlapped compute-move by default.
 
 ### Tiling Optimization
 
-Before the AI Core performs computation, data needs to be transferred to the on-chip memory. The on-chip memory space is usually much smaller than the total data volume to be processed by the AI Core. For example, the on-chip memory capacity of Atlas 800T/I A2 is 192 KB. After doublebuffer is enabled by default, the capacity is reduced to half of the original capacity. Therefore, data needs to be tiled during operator computation, and only a small part of the data is loaded and processed each time.
+When the AI Core performs computation, data must first be moved to on-chip memory. The on-chip memory space is usually much smaller than the total amount of data the AI Core needs to process. Taking the Atlas 800T/I A2 product as an example, the on-chip memory capacity is 192KB. When the double buffer feature is enabled by default, the capacity is halved. Therefore, operators need to tile the data during computation, loading and processing only a small portion at a time.
 
 - Example
 
@@ -201,12 +200,12 @@ Before the AI Core performs computation, data needs to be transferred to the on-
     pid = tl.program_id(axis=0)
 +   base_offset = pid * BLOCK_SIZE
 
-+   # Calculate the total number of blocks that need to be processed
++   # Calculate the total number of sub-blocks to process
 +   num_sub_blocks = tl.cdiv(BLOCK_SIZE, BLOCK_SIZE_SUB)
 
-+   # Loop processing each sub block
++   # Loop through each sub-block
 +   for sub_block_idx in range(num_sub_blocks):
-+       # Calculate the offset of the current sub block
++       # Calculate the offset for the current sub-block
 +       sub_offset = base_offset + sub_block_idx * BLOCK_SIZE_SUB
 +       offsets = sub_offset + tl.arange(0, BLOCK_SIZE_SUB)
 -       offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
@@ -227,27 +226,27 @@ Before the AI Core performs computation, data needs to be transferred to the on-
 
 ### Triton Autotune
 
-In tiling block optimization, the values of block parameters such as **BLOCK_SIZE** and **BLOCK_SIZE_SUB** directly affect operator performance. However, manually trying parameter combinations is inefficient and makes it difficult to find the best values. `triton.autotune` is the autotuning utility provided by the Triton framework. It can sweep over preset parameter configurations, compare their performance, and automatically select the best combination. It is a core tool for tiling optimization.
+In Tiling optimization, the values of tiling parameters like `BLOCK_SIZE`, `BLOCK_SIZE_SUB` directly affect operator performance. However, manually debugging parameter combinations is inefficient and finding the optimal values is difficult. `triton.autotune` is an automatic tuning tool provided by the Triton framework. It can iterate through preset parameter configurations, compare performance through actual execution, and automatically select the optimal parameter combination. It is a core supporting tool for Tiling optimization.
 
-For the recommended Triton-Ascend usage of `configs=[]`, the scope of automatic tiling, see the [Triton-Ascend Autotune Guide](./../autotune_guide.md).
+If you are interested in the recommended usage of `configs=[]` on Triton-Ascend and the applicable boundaries of automatic Tiling, please refer further to the [Triton-Ascend autotune usage guide](../autotune_guide.md).
 
-- Core functions
-Automatic exploration of the parameter space: Test different values of constexpr block parameters such as **BLOCK_SIZE** and **BLOCK_SIZE_SUB** in batches.
-Benchmark-based comparison: Select the optimal parameters for the current hardware based on execution time.
-Caching of tuning results: Cache the best configuration after tuning so that later calls can reuse it without tuning again.
+- Core Function
+Automatically traverse the parameter space: Batch test the performance of different values for constexpr tiling parameters like `BLOCK_SIZE`, `BLOCK_SIZE_SUB`.
+Performance Baseline Comparison: Use the operator's execution time as the metric to filter out the optimal parameters for the current hardware.
+Cache Tuning Results: The optimal configuration after tuning is cached, and subsequent calls to the operator will reuse it directly, avoiding repeated tuning.
 
-- Simple example
+- Simple Example
 
     ```diff
     import triton.language as tl
 
     @triton.autotune(
-    configs=[ # List of parameter configurations to be tested. The candidate parameter values must be powers of 2.
+    configs=[ # List of parameter configurations to test. Candidate values should be powers of 2.
             triton.Config({'BLOCK_SIZE': 128}),
             triton.Config({'BLOCK_SIZE': 256}),
             triton.Config({'BLOCK_SIZE': 512}),
         ],
-        key=['n_elements'], # Tune dimension: input dimension on which the parameter value depends.
+        key=['n_elements'], # Tuning dimension: the input dimension that the parameter value depends on.
     )
     @triton.jit
     def add_kernel(x_ptr, y_ptr, output_ptr, n_elements, BLOCK_SIZE: tl.constexpr):
@@ -262,20 +261,20 @@ Caching of tuning results: Cache the best configuration after tuning so that lat
         tl.store(output_ptr + offsets, output, mask=mask)
     ```
 
-- Note: You can set the following environment variables to print the optimal parameter information.
+- Note: Set the following environment variable to print the optimal parameter information.
 
     ```diff
     export TRITON_PRINT_AUTOTUNING=1
     ```
 
-### Advanced: Using max_autotune for Autotuning
+### Advanced: Using max_autotune for Automatic Tuning
 
-For Ascend NPU operators, achieving optimal performance requires tuning not only BLOCK_SIZE but also multiple hardware-related parameters such as num_stages, enable_hivm_auto_cv_balance, and tile_mix_vector_loop. Using @triton.autotune to manually enumerate all combinations would lead to an explosive growth in the configuration list, making the code difficult to maintain.
+For Ascend NPU operators, achieving optimal performance requires tuning not only `BLOCK_SIZE` but also multiple hardware-related parameters such as `num_stages`, `enable_hivm_auto_cv_balance`, `tile_mix_vector_loop`, etc. If `@triton.autotune` is used to manually enumerate all combinations, the configuration list would explode, making the code difficult to maintain.
 
-max_autotune is an extension decorator designed specifically for Ascend NPU (located in triton.backends.ascend.runtime), allowing users to provide only base configurations while passing other tuning parameters as lists. The decorator automatically generates a complete Config list of all combinations.
+`max_autotune` is an extended decorator specifically designed for the Ascend NPU (located in `triton.backends.ascend.runtime`). It allows users to provide only the basic configuration, while other tuning parameters are passed as lists. The decorator automatically generates a Config list for all combinations.
 
 - Core Function
-Developers only need to provide a few base configurations (such as BLOCK_SIZE), and all compiler options related to that operator type (for example, num_stages, enable_hivm_auto_cv_balance, tile_mix_vector_loop, enable_ubuf_saving, etc.) will be automatically included in the optimal combination search range through built-in reasonable default values. Developers don't need to explicitly enumerate them, achieving one-time automatic optimization of both optimal tiling and compiler option combinations. If developers want to constrain certain parameters, they can also override the default search range by explicitly passing lists.
+Developers only need to provide a small number of basic configurations (e.g., `BLOCK_SIZE`). All compiler options related to the operator type (e.g., `num_stages`, `enable_hivm_auto_cv_balance`, `tile_mix_vector_loop`, `enable_ubuf_saving`, etc.) are automatically included in the search for the optimal combination through built-in reasonable default values, without requiring explicit enumeration by the developer. This achieves automatic optimization of the optimal tiling and compiler option combination in one go. If developers want to constrain certain parameters, they can also override the default search range by explicitly passing a list.
 
 - Simple Example
 
@@ -289,7 +288,7 @@ Developers only need to provide a few base configurations (such as BLOCK_SIZE), 
         ],
         key=['n_elements'],
         kernel_type="vector",           # Operator type, supports cube/mix/vector
-        enable_ubuf_saving=[True, False] # Optional, already included by default
+        enable_ubuf_saving=[True, False] # Optional, defaults are already included
     )
     @triton.jit
     def add_kernel(x_ptr, y_ptr, output_ptr, n_elements, BLOCK_SIZE: tl.constexpr, **META):
@@ -303,9 +302,9 @@ Developers only need to provide a few base configurations (such as BLOCK_SIZE), 
         tl.store(output_ptr + offsets, output, mask=mask)
     ```
 
-### How Do I Avoid UB Overflow on the NPU?
+### How to Avoid UB OVERFLOW on NPU
 
-[Description] On the NPU, the UB or L1 size has an upper limit. When this error occurs, reduce the amount of data transferred at a time and use the for loop to process long sequences.
+[Description] On NPU, the UB or L1 Size has an upper limit. When this error occurs, it is necessary to reduce the amount of data moved in a single operation and handle long sequence scenarios using a for loop.
 
 ```diff
 E triton.compiler. errors.MLIRCompilationError:
@@ -317,33 +316,33 @@ E loc("/tmp/tmpsb6qkdih/kernel.ttadapter.mlir":3:3): error: ub overflow, require
 large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer. )
 ```
 
-[Note] The UB size of the A2 series products is 192 KB (1,572,864 bits).
+[Note] The UB size for A2 series products is 192KB (1572864 bits).
 
-## Common Single-Core Data Computation
+## General Single-Core Data Computation
 
-### R&D Goals
+### Development Goal
 
-Implement basic data operation operators (such as addition, subtraction, multiplication, division, activation functions, and simple matrix element operations) on the Ascend NPU single core. Ensure that operators are efficiently executed on a single core, laying a foundation for subsequent multi-core parallel processing and distributed expansion.
+Implement basic data computation operators (such as addition, subtraction, multiplication, division, activation functions, simple matrix element operations) on a single Ascend NPU core. Ensure efficient execution of the operator within a single core, laying the foundation for subsequent multi-core parallelism and distributed scaling.
 
-### Development Procedure
+### Development Steps
 
-1.Determine the operator function.
--Determine the shapes and data types (such as float16, float32, and int32) of the input and output tensors.
--Check whether broadcast and boundary processing are required.
+1. Determine Operator Functionality
+- Clarify the shape and data type (float16/float32/int32, etc.) of input/output tensors.
+- Confirm whether broadcasting or boundary handling is needed.
 
-2.Write kernel functions.
-Single-kernel computation corresponds to block-level data processing.
-Single-kernel data computation example: vector addition
+2. Write the Kernel Function
+Single-core computation usually corresponds to block-level data processing.
+Example of single-core data computation: Vector Addition
 
 ```diff
 
 @triton.jit
 def add_kernel(x_ptr, # Pointer to first input vector.
     y_ptr, # Pointer to second input vector.
-    output_ptr, # Pointer to output vector.
+    output_ptr, # Pointer to the output vector.
     n_elements, # Size of the vector.
-    BLOCK_SIZE: tl.constexpr, # Number of elements each program should process.
-    # NOTE: constexpr so it can be used as a shape value.
+    BLOCK_SIZE: tl.constexpr, # Number of elements each process needs to handle.
+    # Note: The constexpr attribute means it can be used as a shape value.
 ):
     pid = tl.program_id(axis=0) # We use a 1D launch grid so axis is 0.
     block_start = pid * BLOCK_SIZE
@@ -355,7 +354,7 @@ def add_kernel(x_ptr, # Pointer to first input vector.
     tl.store(output_ptr + offsets, output, mask=mask)
 ```
 
-Calling:
+Invocation:
 
  ```diff
 def add(x: torch.Tensor, y: torch.Tensor):
@@ -366,7 +365,7 @@ def add(x: torch.Tensor, y: torch.Tensor):
     return output
 ```
 
-Use the above function to compute **element-wise sum** of two torch.tensor objects and test its correctness.
+Use the above function to compute the element-wise sum of two `torch.tensor` objects and test its correctness.
 
  ```diff
 torch.manual_seed(0)
@@ -385,42 +384,41 @@ f'{torch.max(torch.abs(output_torch - output_triton))}')
 # The maximum difference between torch and triton is 0.0
 ```
 
-3.Key points of single-kernel computation
--Block-level data processing: Each computing block is responsible for a small segment of data, ensuring parallelism.
+3. Key Points for Single-Core Computation
 
--Boundary check: Use **mask** or **if (tid < N)** to avoid out-of-bounds access.
+- Block-level Data Processing: Each compute block is responsible for a small segment of data, ensuring parallelism.
+- Boundary Check: Use `mask` or `if (tid < N)` to avoid out-of-bounds access.
+- Block Size Selection: Set block and grid reasonably.
 
--Block size selection: Properly set the block and grid.
-
-4.Performance points
-(1) Memory access optimization
--Ensure sequential access.
--Use the aligned stride to avoid cross-row/cross-column jump access.
--Align the data block size to the 32-byte boundary.
-Ensure that the input and output buffers are aligned during allocation to avoid memory access performance deterioration.
+4. Performance Points:
+(1) Memory Access Optimization
+- Ensure contiguous access.
+- Use aligned strides to avoid row/column skipping access.
+- Try to align the data block size to a 32-byte boundary.
+Ensure alignment when allocating input/output buffers to avoid memory access performance degradation.
 Example:
 
  ```diff
-BLOCK_SIZE = 256 # 256 x 4 bytes = 1024 bytes, which are well-aligned.
+BLOCK_SIZE = 256  # 256 * 4 bytes = 1024 bytes, well-aligned
 
 @triton.jit
 def vec_add_kernel(X, Y, Z, N,
                    BLOCK_SIZE: tl.constexpr):
     pid = tl.program_id(axis=0)
 
-    # Compute the index range of the current block.
+    # Calculate the index range for the current block
     offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
 
-    # The mask is used to prevent out-of-bounds.
+    # Mask to prevent out-of-bounds access
     mask = offsets < N
 
-    # Contiguous memory access: The offsets are contiguous.
+    # Contiguous memory access: offsets are contiguous
     x = tl.load(X + offsets, mask=mask)
     y = tl.load(Y + offsets, mask=mask)
 
     z = x + y
 
-    # Contiguous writeback
+    # Contiguous write-back
     tl.store(Z + offsets, z, mask=mask)
 
 
@@ -428,10 +426,10 @@ def vec_add(x, y):
     assert x.numel() == y.numel()
     N = x.numel()
 
-    # Allocate aligned memory. (PyTorch is aligned to 64 bytes by default.)
+    # Allocate aligned memory (PyTorch defaults to 64-byte alignment)
     z = torch.empty_like(x)
 
-    # grid: Each block processes BLOCK_SIZE elements.
+    # grid: each block processes BLOCK_SIZE elements
     grid = lambda meta: (triton.cdiv(N, meta['BLOCK_SIZE']),)
 
     vec_add_kernel[grid](x, y, z, N, BLOCK_SIZE=BLOCK_SIZE)
@@ -439,15 +437,15 @@ def vec_add(x, y):
     return z
 ```
 
-(2) Sub-block division
--Divide a large matrix into small blocks. Each block is computed in the UB.
--Sub-block division should ensure both memory access continuity and computing unit utilization.
+(2) Sub-block Division
+- Decompose large matrices into smaller blocks, each completing computation within the UB.
+- Sub-block division should balance memory access contiguity and compute unit utilization.
 Example:
 
  ```diff
-BLOCK_M = 64   # Each block processes 64 rows.
-BLOCK_N = 64   # Each block processes 64 columns.
-BLOCK_K = 32   # Internal dimension is accumulated.
+BLOCK_M = 64   # Each block processes 64 rows
+BLOCK_N = 64   # Each block processes 64 columns
+BLOCK_K = 32   # Inner accumulation dimension
 
 @triton.jit
 def matmul_kernel(
@@ -458,18 +456,18 @@ def matmul_kernel(
     stride_cm, stride_cn,
     BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr
 ):
-    pid_m = tl.program_id(0)  # ID of the block in the M direction.
-    pid_n = tl.program_id(1)  # ID of the block in the N direction.
+    pid_m = tl.program_id(0)  # Block id in the M direction
+    pid_n = tl.program_id(1)  # Block id in the N direction
 
-    # Start coordinates of the current block.
+    # Starting coordinates for the current block
     offs_m = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
     offs_n = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)
     offs_k = tl.arange(0, BLOCK_K)
 
-    # Initialize accumulators.
+    # Initialize accumulator
     acc = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
 
-    # Compute blocks in the loop.
+    # Loop over tiled blocks
     for k in range(0, K, BLOCK_K):
         a = tl.load(
             A + (offs_m[:, None] * stride_am + (offs_k[None, :] + k) * stride_ak),
@@ -483,28 +481,29 @@ def matmul_kernel(
         )
         acc += tl.dot(a, b)
 
-    # Write back the result.
+    # Write back result
     c = C + (offs_m[:, None] * stride_cm + offs_n[None, :] * stride_cn)
     tl.store(c, acc, mask=(offs_m[:, None] < M) & (offs_n[None, :] < N))
 ```
 
+
 ## General Multi-Dimensional Tensor Tiling
 
-When processing multi-dimensional tensors in Triton operators, the core idea is to map high-dimensional data to the hardware's Blocks, Cores, and hardware units. This section provides typical examples for processing two-dimensional and three-dimensional tensors.
+When Triton operators process multi-dimensional tensors, the core idea is to map high-dimensional data to hardware Blocks, Cores, and hardware units. This section provides typical processing examples for 2D and 3D tensors.
 
-### Two-Dimensional Tensor Tiling: A Matrix Multiplication (GEMM) Example
+### 2D Tensor Tiling: Taking Matrix Multiplication (GEMM) as an Example
 
-For two-dimensional matrix multiplication, two-dimensional tiling is typically performed along the height (M) and width (N) dimensions, with iterative looping along the depth (K) dimension.
+For 2D matrix multiplication, it is usually necessary to perform 2D tiling on the height (M) and width (N), and iterate over the depth (K) in a loop.
 
 ```python
 @triton.jit
 def matmul_kernel(a_ptr, b_ptr, c_ptr, M, N, K,
                   BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr):
-    # 1. Task division: compute the coordinates of the current Block in the M and N dimensions.
+    # 1. Task Division: Calculate the coordinates of the current Block on the M and N dimensions
     pid_m = tl.program_id(0)
     pid_n = tl.program_id(1)
 
-    # 2. Define Block Pointers to handle multi-dimensional strides.
+    # 2. Define Block Pointers, handling multi-dimensional strides
     offs_am = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
     offs_bn = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)
     offs_k = tl.arange(0, BLOCK_K)
@@ -512,7 +511,7 @@ def matmul_kernel(a_ptr, b_ptr, c_ptr, M, N, K,
     a_ptrs = a_ptr + offs_am[:, None] * stride_am + offs_k[None, :] * stride_ak
     b_ptrs = b_ptr + offs_k[:, None] * stride_bk + offs_bn[None, :] * stride_bn
 
-    # 3. Loop over the K dimension to perform accumulation.
+    # 3. Loop over the K dimension for accumulation
     accumulator = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float16)
     for k in range(0, K, BLOCK_K):
         a = tl.load(a_ptrs, mask=(offs_am[:, None] < M) & (offs_k[None, :] < K))
@@ -527,44 +526,43 @@ def matmul_kernel(a_ptr, b_ptr, c_ptr, M, N, K,
 
 **Key Points**:
 
-- `pid_m` / `pid_n` correspond to the block indices in the M and N dimensions respectively.
+- `pid_m` / `pid_n` correspond to the block indices on the M / N dimensions, respectively.
 
 - `stride_*` explicitly handles multi-dimensional strides, avoiding assumptions about contiguous memory.
 
-- The K dimension is accumulated through loop-based block tiling.
+- The K dimension is accumulated by looping over tiled blocks.
 
-### Three-Dimensional and Higher Tensor Tiling: A Batched GEMM Example
+### 3D and Higher-Dimensional Tensor Tiling: Taking Batched GEMM as an Example
 
-When processing a three-dimensional tensor (e.g. `[Batch, M, N]`), the `Batch` dimension (B) can be mapped directly to a Triton `Grid` dimension, or it can be flattened together with the M/N dimensions and remapped.
+When processing 3D tensors (e.g., `[Batch, M, N]`), the `Batch` dimension (B) can be directly mapped to a Triton `Grid` dimension, or flattened with the `M/N` dimensions and then remapped.
 
-#### Adding a `Batch` dimension to the Grid launch
+#### Adding the `Batch` Dimension to the Launch `Grid`
 
 ```python
 grid = lambda meta: (triton.cdiv(M, meta['BLOCK_M']), triton.cdiv(N, meta['BLOCK_N']), B)
 ```
 
-#### Kernel implementation
+#### Kernel Function Implementation
 
 ```python
 @triton.jit
 def batched_matmul_kernel(a_ptr, b_ptr, c_ptr, M, N, K, B, ...):
-    # Obtain the index of the current Batch.
+    # Get the index of the current Batch
     pid_b = tl.program_id(2)
 
-    # Compute the base address offset in global memory based on the Batch index.
+    # Calculate the base address offset in global memory based on the Batch index
     a_batch_ptr = a_ptr + pid_b * M * K
     b_batch_ptr = b_ptr + pid_b * K * N
     c_batch_ptr = c_ptr + pid_b * M * N
 
-    # Subsequent tiling of the M, N, and K dimensions is identical to the 2D GEMM;
-    # only the base pointers need to be replaced.
+    # The subsequent tiling of M, N, K dimensions is exactly the same as 2D GEMM, just replace the base address pointers
     # ...
 ```
 
 **Key Points**:
 
-- `tl.program_id(2)` obtains the index of the Batch dimension.
+- `tl.program_id(2)` gets the index of the Batch dimension.
 
-- Each Batch independently computes its own `a_batch_ptr`, `b_batch_ptr`, and `c_batch_ptr`.
+- Each Batch independently calculates its own `a_batch_ptr` / `b_batch_ptr` / `c_batch_ptr`.
 
-- Subsequent tiling logic for the M / N / K dimensions is consistent with the 2D GEMM.
+- The subsequent tiling logic for M / N / K dimensions is consistent with 2D GEMM.

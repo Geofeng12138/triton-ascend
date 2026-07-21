@@ -1,12 +1,12 @@
-# End-to-End Costmodel Example
+# Costmodel End-to-End Example
 
-This example shows the basic costmodel backend flow:
+This example demonstrates the basic invocation flow of the costmodel backend:
 
-- generate TTIR from a Triton frontend kernel;
-- build `costmodel_bench` inputs for multiple candidate configs;
-- call `costmodel_bench` and get the predicted latency for each config.
+- Generate TTIR using Triton frontend operators;
+- Construct `costmodel_bench` inputs for multiple candidate configs;
+- Call `costmodel_bench` to obtain the predicted latency for each config.
 
-This flow is useful for filtering out slow configs before autotuning. The example uses only a vector add kernel so that the focus stays on the costmodel input and return value.
+This flow is suitable for quickly filtering out configs with poor expected performance before autotuning. The example only uses a vector addition kernel to focus on the costmodel's inputs and return values.
 
 ## Complete Example
 
@@ -79,8 +79,8 @@ for cfg in configs:
         {
             "config": cfg["name"],
             "ttir": ttir,
-            # n_elements is the fourth argument in the signature, so it maps
-            # to %arg3 in TTIR. pid_x gives tl.program_id(0) a static value.
+            # n_elements is the 4th parameter in the signature, corresponding to %arg3 in TTIR.
+            # pid_x provides a static estimate for tl.program_id(0).
             "arg_bindings": f"arg3={n_elements},pid_x=0",
         }
     )
@@ -92,7 +92,7 @@ for config, latency_us in sorted(latencies.items(), key=lambda item: item[1]):
 
 ## Example Output
 
-The exact numbers may vary with costmodel parameters, but the output shape should look like this:
+Different versions of costmodel parameters may cause slight variations in the specific values, but the output structure is similar:
 
 ```text
 block256: 0.098 us
@@ -100,12 +100,12 @@ block1024: 0.110 us
 block2048: 0.126 us
 ```
 
-`costmodel_bench` returns a dictionary whose keys are the `config` values passed in and whose values are predicted latencies in microseconds. An autotuning layer can sort by the returned values and keep the configs predicted to be faster.
+The return value of `costmodel_bench` is a dictionary, where the key is the input `config` and the value is the predicted latency in microseconds. The upper-level autotune logic can sort by value and prioritize retaining configs with faster predictions.
 
 ## Key Points
 
-1. `ASTSource + ast_to_ttir` only generates TTIR. It does not compile or launch the kernel.
-2. `config` affects `tl.constexpr` values such as `BLOCK_SIZE`, so each candidate config needs its own TTIR.
-3. Each item passed to `costmodel_bench` should contain at least `config` and `ttir`, and may also include `arg_bindings`.
-4. `arg_bindings` binds runtime integer values to TTIR `%argN` arguments. In this example, `n_elements=98432` maps to `arg3=98432`.
-5. If the kernel uses `tl.program_id(0)`, usually pass `pid_x=0`. If it also uses `tl.num_programs(0)`, pass `num_programs_x=...` as well.
+1. `ASTSource + ast_to_ttir` only generates TTIR and does not actually compile or launch the kernel.
+2. `config` affects `tl.constexpr`, such as `BLOCK_SIZE`, so each candidate config needs its own TTIR generated.
+3. Each element received by `costmodel_bench` must contain at least `config` and `ttir`, and can optionally include `arg_bindings`.
+4. `arg_bindings` is used to bind runtime integer parameters to `%argN` in TTIR. For example, in this case, `n_elements=98432` corresponds to `arg3=98432`.
+5. If the kernel uses `tl.program_id(0)`, `pid_x=0` is typically required. If `tl.num_programs(0)` is also used, you can additionally pass `num_programs_x=...`.

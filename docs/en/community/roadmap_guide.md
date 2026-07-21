@@ -1,11 +1,11 @@
 # Roadmap Guide
 
-Use GitHub Issues to track and manage each organization's plans and mid-to-long-term goals. This document provides references and specifications for community projects on writing Roadmap-type Issues, to help create and maintain high-quality Roadmaps.
+Use GitHub Issues to track and manage the plans and medium-to-long-term goals of each organization. This document provides references and specifications for the community to create roadmap-type Issues, helping to create and maintain high-quality roadmaps.
 
-Below is a complete Roadmap Issue example demonstrating the practical application of all recommended elements. It is recommended to review this example first for an overall impression, then read the detailed specification instructions that follow.
+Below is a complete roadmap Issue example demonstrating the practical application of all recommended elements. It is recommended to review this example first for an overall impression, then read the subsequent detailed specification.
 
 ```markdown
-Create Issue title: [Roadmap] Triton-Ascend Roadmap 2026 Q2
+Create Issue Title: [Roadmap] Triton-Ascend Roadmap 2026 Q2
 
 ---
 # Triton-Ascend Roadmap 2026 Q2
@@ -61,27 +61,26 @@ Issue: [Related Issue link]
 
 [Triton-Ascend Roadmap 2026 Q1 #xxx](link)
 [FP8 Support Phase 2 #xxx](link)
-
 ```
 
 ## 1. Title Format
 
-**Format:** `[Roadmap] <Project Name> Roadmap <Time Range>`, quarterly releases use Q1/Q2/Q3/Q4 markers, semi-annual releases use H1/H2 markers
+**Format:** `[Roadmap] <Project Name> Roadmap <Time Range>`, use Q1/Q2/Q3/Q4 for quarterly releases, H1/H2 for semi-annual releases
 
 **Examples:**
 
 - `[Roadmap] Triton-Ascend Roadmap 2026 Q2`
 - `[Roadmap] Triton-Ascend Roadmap 2026 H1`
 
-## 2. Top-level Content
+## 2. Top-Level Content
 
-### 2.1 Opening Description (optional)
+### 2.1 Opening Description (Optional)
 
-Provide a project overview, vision, or brief summary of the overall direction. For example, a brief description of Triton-Ascend's current quarter goals in upstream alignment, backend performance, and operator coverage.
+Provide a brief summary of the project overview, vision, or overall direction. For example, briefly describe Triton-Ascend's goals for this quarter regarding upstream alignment, backend performance, and operator coverage.
 
-### 2.2 Focus Section
+### 2.2 Focus Areas Section
 
-List the 3-5 most critical focus areas for this cycle, recommended to be grouped by the project's **functional domains** or **technical modules**, covering a holistic perspective:
+List the 3-5 most critical focus areas for the current period. It is recommended to group them by the project's **functional domains** or **technical modules**, covering a global perspective:
 
 ```markdown
 ## Focus
@@ -95,13 +94,13 @@ List the 3-5 most critical focus areas for this cycle, recommended to be grouped
 
 **Characteristics:**
 
-- Summarize and describe the main development directions of the current project for the current cycle at a high level, no need to elaborate in detail
+- High-level summary and description of the main development directions for the project in the current cycle, no need for detailed expansion
 
-## 3. Major Functional Module Sections
+## 3. Main Feature Module Sections
 
 ### 3.1 Section Division Principles
 
-Group by the project's **functional domains** or **technical modules**, such as:
+Group by the project's **functional domains** or **technical modules**, for example:
 
 - **Upstream Compatibility** - Upstream Triton frontend and IR alignment
 - **Backend Performance** - Ascend NPU backend kernel generation and memory optimization
@@ -131,40 +130,40 @@ PR: [Related PR link]         [optional]
 
 ## 4. Key Metadata Fields
 
-Each work item should contain the following key information:
+Each work item should include the following key information:
 
 ### 4.1 Goal
 
 - **Meaning**: Work objective or brief description
-- **Usage**: Explain the goal of this work item
-- **Example**: `Goal: Support FP8 (E4M3/E5M2) dtype in tl.dot on Ascend backend`
+- **Usage**: Describes the goal of the work item
+- **Example**: `Goal: Support FP8 (E4M3/E5M2) dtype in tl.dot and related ops on Ascend backend`
 
 ### 4.2 Owner
 
 - **Meaning**: Responsible person
 - **Format**: `Owner: @GitHubID`
-- **Usage**: Clarify who is responsible for or leading this work item
+- **Usage**: Clearly indicates who is responsible for or leads the work item
 - **Example**: `Owner: @contributor-a`
 
 ### 4.3 Issue
 
 - **Meaning**: Associated GitHub Issue
 - **Format**: `Issue: <Issue link>`
-- **Usage**: Track detailed design and discussion
+- **Usage**: Tracks detailed design and discussion
 - **Example**: `Issue: https://github.com/triton-lang/triton-ascend/issues`
 
 ### 4.4 PR (Pull Request)
 
 - **Meaning**: Related implementation PR
 - **Format**: `PR: <PR link>`
-- **Usage**: Link implementation work
+- **Usage**: Links to implementation work
 - **Example**: `PR: https://github.com/triton-lang/triton-ascend/pulls`
 
 ## 5. Optional Supplementary Content
 
-### 5.1 🙋 Help Wanted Marker
+### 5.1 🙋 Help Wanted Tag
 
-For work items where community developer contributions are especially welcome, it is recommended to use the **[🙋 Help Wanted]** marker to indicate:
+For work items particularly welcoming community developer contributions, it is recommended to use the **[🙋 Help Wanted]** tag:
 
 ```markdown
 - [ ] **FP8 dtype and mixed-precision ops support [🙋 Help Wanted]**
@@ -175,12 +174,12 @@ Issue: #123
 
 ### 5.2 Sub-issues
 
-List cross-cycle related Roadmap Issues or breakdown Issues for large work items at the bottom of the Roadmap Issue.
+List related cross-cycle roadmap Issues or breakdown Issues of large work items at the bottom of the roadmap Issue.
 
 **Difference from the Issue field in work items:**
 
-- **Issue field in work items**: Links to the specific work item's detailed design, discussion, or tracking Issue
-- **Sub-issues section**: Used to associate Roadmap Issues from other cycles (e.g., unfinished work from the previous quarter), or to break down large work items into multiple independently tracked sub-Issues
+- **Issue field in work items**: Links to the specific design, discussion, or tracking Issue for that work item
+- **Sub-issues section**: Used to link roadmap Issues from other cycles (e.g., unfinished work from the previous quarter), or to break down a large work item into multiple independently tracked sub-issues
 
 ```markdown
 ## Sub-issues

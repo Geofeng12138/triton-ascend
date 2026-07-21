@@ -1,17 +1,17 @@
 # Fused Attention
 
-This section implements a **fused attention forward pass kernel of the Flash Attention v2 style** based on **Triton**, which is applicable to the Ascend NPU platform. The implementation supports:
+This section implements a **Triton-based Flash Attention v2 style fused attention forward kernel**, suitable for the Ascend NPU platform. This implementation supports:
 
 - **Causal and non-causal attention**
-- **Tiling for processing long sequences**
-- **Max-shifted softmax for numerical stability optimization**
+- **Tiling for long sequence processing**
+- **Numerical stability optimization (max-shifted softmax)**
 
-The overall structure contains two core Triton kernels:
+The overall structure consists of two core Triton kernels:
 
-1. `_attn_fwd_inner`: performs attention computation between a single query block and key/value blocks (causal masks are processed in phases).
-2. `_attn_fwd`: schedules all query blocks and manages the block pointer, accumulator, and normalization.
+1. `_attn_fwd_inner`: Performs attention computation for a single query block with key/value blocks (processes causal mask in stages)
+2. `_attn_fwd`: Schedules all query blocks, managing block pointers, accumulators, and normalization
 
-The `attention` function is encapsulated as a callable function using PyTorch `autograd.Function` and is verified for precision alignment with `torch_npu.npu_fusion_attention`.
+It is wrapped as a callable `attention` function via PyTorch `autograd.Function`, and validated for precision alignment with `torch_npu.npu_fusion_attention`.
 
 ```Python
 import pytest
@@ -20,7 +20,6 @@ import torch_npu
 import triton
 import triton.language as tl
 import triton.language.extra.cann.extension as extension
-
 
 DEVICE = "npu"
 
@@ -347,7 +346,7 @@ if __name__ == "__main__":
     test_op(4, 32, 4096, 64, causal=False, dtype=torch.float16, BM=128, BN=128)
 ```
 
-Output:
+Out:
 
 ```bash
 [PASSED] Attention shape:(1, 1, 128, 128), BM: 32, BN: 128, dtype: torch.float16
@@ -359,4 +358,4 @@ Output:
 [PASSED] Attention shape:(4, 32, 4096, 64), BM: 128, BN: 128, dtype: torch.float16
 ```
 
-The preceding logs indicate that the output on Triton is the same as that on PyTorch.
+The output logs above indicate that the output results from Triton and PyTorch are completely consistent.

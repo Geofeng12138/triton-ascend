@@ -1,50 +1,50 @@
-# Triton-Ascend Release
+# Triton-Ascend Release Notes
 
-The Triton-Ascend version provides a stable code base snapshot, which is encapsulated into a binary package that can be easily installed through PyPI. In addition, the release represents that the development team can officially announce the availability of new functions, completed improvements, and changes that may affect users (such as destructive changes) to the community.
+The Triton-Ascend release provides a stable codebase snapshot, packaged as binary wheels that can be easily installed via PyPI. Additionally, releases represent the development team's formal announcement to the community regarding the availability of new features, completed improvements, and changes that may affect users (e.g., breaking changes).
 
 ## Release Compatibility Matrix
 
-The release compatibility matrix of the Triton-Ascend version is as follows.
+The following is the release compatibility matrix for Triton-Ascend versions:
 
-| Triton-Ascend Version| Python Version| Manylinux Version| Hardware Platform| Hardware Product|
+| Triton-Ascend Version | Python Version | Manylinux Version | Hardware Platform | Hardware Product |
 | --- | --- | --- | --- | --- |
-| 3.2.0 | 3.9 to 3.11| glibc 2.27+, x86-64, AArch64  | Ascend NPU | Atlas A2/A3|
+| 3.2.0 | >=3.9, <=3.11 | glibc 2.27+, x86-64, aarch64 | Ascend NPU | Atlas A2/A3 |
 
-## Release Date
+## Release Schedule
 
-The following is the release plan of Triton-Ascend. Note: The patch version is optional.
+The following is the release schedule for Triton-Ascend. Note: Patch releases are optional.
 
-| Major Version| Release Branch Cut-Out Time| Release Date| Patch Release Date|
+| Major Version | Release Branch Cut Date | Release Date | Patch Release Date |
 | --- | --- | --- | --- |
-| 3.2.0 | 2025-12-08| 2026-01| --- |
+| 3.2.0 | December 08, 2025 | January 2026 | --- |
 
-## Highlights
+## Release Highlights
 
 ### Triton-Ascend 3.2.0
 
-**First release: Ascend NPU is supported.**
+**First Release: Ascend NPU Support**
 
-Triton-Ascend 3.2.0 is the first Triton version that officially supports Huawei Ascend NPU. This version is based on the Triton 3.2.0 community version and is specially adapted to the Ascend NPU hardware architecture.
+Triton-Ascend 3.2.0 is the first Triton version to officially support Huawei Ascend NPUs. This release is based on Triton 3.2.0 community version and is specifically adapted for the Ascend NPU hardware architecture.
 
-#### Main Features
+#### Key Features
 
-1. **Full-stack support for Ascend NPU**
-   - The instruction set compilation pipeline from Triton IR to NPU is complete.
-   - All Triton Ops are supported.
+1. **Full Ascend NPU Stack Support**
+   - Complete compilation pipeline from Triton IR to NPU instruction set
+   - Support for all Triton Ops
 
-2. **Performance optimization**
-   - NPU-specific kernel optimization
-   - CV compute optimization
+2. **Performance Optimizations**
+   - NPU-specific kernel optimizations
+   - CV computation optimizations
 
-3. **Developer tools**
-   - Comprehensive debug output is supported.
-   - Intermediate compilation products are dumped.
+3. **Developer Tools**
+   - Comprehensive debug output support
+   - Compilation intermediate product dump
 
 #### Known Limitations
 
-1. **Data type**: Some data types are still being improved.
-2. **Operator coverage**: The supported operator set is being continuously expanded.
+1. **Data Types**: Support for some data types is still being improved
+2. **Operator Coverage**: The supported operator set is continuously being expanded
 
 #### Migration Guide
 
-For details about how to migrate existing Triton GPU users to Ascend NPU, see [Migrating Triton Operators from GPUs](./migration_guide/migrate_from_gpu.md).
+For existing Triton GPU users migrating to Ascend NPU, see [GPU Triton Operator Migration](./migration_guide/migrate_from_gpu.md)
