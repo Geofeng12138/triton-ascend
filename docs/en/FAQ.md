@@ -2,9 +2,9 @@
 
 ## 1. Installation and Environment Configuration
 
-**Q: How can I correctly install Triton-Ascend? Is it possible to install it directly using pip?**
+**Q: How to correctly install Triton-Ascend? Does it support direct pip installation?**
 
-A: You can directly use pip to install it.
+A: You can install it directly using pip
 
 ```Python
 pip install triton-ascend
@@ -12,15 +12,13 @@ pip install triton-ascend
 
 **Q: Can community Triton and Triton-Ascend coexist?**
 
-A: For Triton-Ascend 3.2.0 and earlier versions.You need to uninstall the community Triton first before installing Triton-Ascend.<br>
- For Triton-Ascend 3.2.1 and later versions.Triton-Ascend declares Triton as an installation dependency to mitigate the installation overwriting issue.When installing
-Triton-Ascend,the community Triton is installed first,and the Triton-Ascend overwrites the directory with the same name.
-This prevents the installation of triton from overwriting Triton-Ascend when other software packages that depend on Triton are installed.
-The reason why x86 and arm use different versions of the community Triton installation package is that the community provides the arm installation package only form version 3.2.1 onwards.
-Specifically,x86 depends on triton==3.2.0,and arm depends on triton==3.5.0.
+A: For triton-ascend 3.2.0 and below, no. You need to uninstall the community Triton first, then install Triton-Ascend.<br>
+For triton-ascend 3.2.1 and above, Triton-Ascend mitigates the installation overwrite issue by declaring Triton as an installation dependency.
+When installing Triton-Ascend, the community Triton is installed first, and then Triton-Ascend overwrites the directory with the same name, thus preventing subsequent installations of other packages that depend on Triton from overwriting Triton-Ascend.
+The reason x86 and arm use different versions of the community Triton installation package is that the community only started providing arm version packages from version 3.5 onwards: x86 depends on triton==3.2.0, arm depends on triton==3.5.0.
 
-- Note: If you install a third-party software or triton itself that depends on Triton after installing Triton-Ascend,the installed Triton-Ascend directory will be overwritten.
-In this case, you also need to uninstall the community Triton and Triton-Ascend first before installing Triton-Ascend.
+- Note: If, after installing triton-ascend, you install a third-party package that depends on triton, or triton itself, it will overwrite the installed Triton-Ascend directory.
+In this case, you need to uninstall the community Triton and Triton-Ascend first, then reinstall Triton-Ascend.
 
 ```Python
 pip uninstall triton
@@ -28,62 +26,61 @@ pip uninstall triton-ascend
 pip install triton-ascend
 ```
 
-**Q: Can Triton-Ascend be used on non-Ascend hardware (such as CUDA AMD)?**
+**Q: Can Triton-Ascend be used on non-Ascend hardware (e.g., CUDA AMD)?**
 
-A: No. Triton-Ascend can be used only in the Ascend NPU hardware environment.
+A: No, Triton-Ascend can only be used on Ascend NPU hardware environments.
 
 ## 2. Accuracy and Numerical Consistency Issues
 
-**Q: How can I troubleshoot the inconsistency between the NPU running result and the PyTorch/CPU/GPU reference result?**
+**Q: The NPU execution result is inconsistent with the PyTorch/CPU/GPU reference result. How to debug?**
 
-A: For details, see [07_accuracy_comparison_example.md](../en/examples/07_accuracy_comparison_example.md).
-For details about the debugging method, see [Debugging in Interpreter Mode](./debug_guide/debugging.md#5-debugging-methods).
+A: For examples, please refer to [07_accuracy_comparison_example.md](../zh/examples/07_accuracy_comparison_example.md)
+For debugging methods, please refer to [Interpreter Mode Debugging Method](./debug_guide/debugging.md#5-调试方法)
 
-## 3. Error Code and Exception Handling
+## 3. Error Codes and Exception Handling
 
-**Q: Why is the error message "MLIRCompilationError" displayed during kernel compilation? How can I locate the failed pass?**
+**Q: Why does the kernel compilation report MLIRCompilationError? How to locate the specific failing Pass?**
 
-A: For details, see [Compilation Error Debugging](./debug_guide/debugging.md#52-compilation-error-debugging).
+A: Please refer to [Compilation Error Debugging Method](./debug_guide/debugging.md#52-编译错误调试方法)
 
 ## 4. Debugging and Logging
 
-**Q: How can I enable detailed log output? Where is the output of TRITON_DEBUG=1?**
+**Q: How to enable detailed log output? Where is TRITON_DEBUG=1 output?**
 
-A: You can use **TRITON_DEBUG=1** to obtain detailed dump files for debugging. For details, see [Dump Files](./debug_guide/debugging.md#32-dump-files).
+A: You can use TRITON_DEBUG=1 to obtain detailed debug dump files. Please refer to [Debug Dump Files](./debug_guide/debugging.md#32-调试转储文件dump-files)
 
-**Q: Can I print the intermediate tensor value in the kernel? Is tl.device_print available?**
+**Q: Can I print intermediate tensor values inside a kernel? Is tl.device_print available?**
 
-A: You can use tl.device_print to print the tensor in the kernel. For details, see [Debugging by Printing](./debug_guide/debugging.md#51-debugging-by-printing).
+A: You can use tl.device_print to print tensors inside a kernel. Please refer to [Print Debugging Method](debug_guide/debugging.md#51-打印调试方法)
 
-## 5. Development and Contributions
+## 5. Development and Contribution
 
-**Q: How can I build and test Triton-Ascend locally?**
+**Q: How to build and test Triton-Ascend locally?**
 
-A: For details about the local build and test methods, see [Installing Triton-Ascend Using the Source Code](./installation_guide.md#source-code-compilation-installation).
+A: For local build and test methods, please refer to [Installing Triton-Ascend from Source](./installation_guide.md#源码编译安装)
 
-**Q: What CI checks are required for submitting a PR?**
+**Q: What CI checks does a PR need to pass?**
 
-A: The CI checks for a PR include: coding security and specifications check, open-source code check, malicious code check, compilation and building, and developer testing.
+A: The CI checks for a PR include: code security and style checks, open-source snippet checks, malicious code checks, compilation build, and developer tests.
 
-## 6. Performance Optimization
+## 6. Performance Tuning
 
-**Q: Is there any performance analysis tool (profiler) available?**
+**Q: Is there a performance analysis tool (profiler) available?**
 
-A: There is an integrated performance analysis tool (profiler). For details, see [Operator Performance Optimization Methods](./debug_guide/profiling.md).
+A: Yes, there is an integrated performance analysis tool (profiler). Please refer to [Operator Performance Tuning Method](./debug_guide/profiling.md)
 
-## 7. Common UB Overflow Issues
+## 7. UB Overflow Common Issues
 
-**Q: How to resolve "UB Overflow" errors during compilation?**
+**Q: The compilation reports a "UB Overflow" error. How to resolve it?**
 
-A: UB Overflow is a common issue in Triton-Ascend development. For details, see [UB Overflow Troubleshooting Guide](./debug_guide/ub_overflow.md) to troubleshoot the issue. If you're unsure how to reduce tiling to lower UB usage, you can use Autotune to automatically select the optimal configuration. For details, see [Triton-Ascend Autotune Guide](./autotune_guide.md).
+A: UB Overflow is a common issue in Triton-Ascend development. Please refer to the [UB Overflow Troubleshooting Guide](./debug_guide/ub_overflow.md) to diagnose the problem. If you don't know how to reduce tiling to decrease UB usage, you can use Autotune to automatically select the optimal configuration. For using Autotune, please refer to [Triton-Ascend Autotune Usage Guide](./autotune_guide.md).
+Operators that run on the A5 may cause UB Overflow when migrated to A2/A3 due to differences in UB size. If manual troubleshooting fails, Autotune can also be used to automatically select the optimal configuration.
 
-When migrating operators from A5 to A2/A3, UB size differences may cause UB Overflow. If manual troubleshooting doesn't resolve the issue, Autotune can also be used to automatically select the optimal configuration.
+## 8. Triton Usage Limitations
 
-## 8. Triton Usage Constraints
+**Q: What are the usage limitations for pointer parameters in Triton Kernels?**
 
-**Q: What are the usage constraints for pointer parameters in Triton kernels?**
-
-A: The Triton-Ascend compiler assumes at compile time that all externally input pointer parameters essentially point to different memory regions and cannot identify pointer alias scenarios. When multiple pointer parameters actually point to the same memory at runtime but this fact cannot be known at compile time, it may result in optimization failures or abnormal runtime results. For example:
+A: Triton-Ascend assumes at compile time that all externally input pointer parameters essentially point to different memory regions and cannot recognize Pointer Alias scenarios. When multiple pointer parameters actually point to the same memory at runtime, but the compiler cannot know this fact, it may lead to optimization failures or abnormal execution results. For example:
 
 ```Python
 @triton.jit
@@ -97,19 +94,16 @@ in_out_tensor = torch.randn(shape)
 func[grid](in_out_tensor, in_out_tensor)
 ```
 
-In the above code, `ptr0` and `ptr1` actually point to the same memory (i.e., the same `in_out_tensor`), but the compiler cannot identify this pointer alias relationship. Therefore, passing the same tensor as multiple pointer parameters is not supported, and the corresponding kernel will not be able to enable related optimizations.
+In the above code, `ptr0` and `ptr1` actually point to the same memory (i.e., the same `in_out_tensor`), but the compiler cannot recognize this pointer alias relationship. Therefore, writing code where the same tensor is passed as multiple pointer parameters is not supported, and the corresponding Kernel will not be able to enable related optimizations.
 
-**Q: What are the limitations of using `tl.load` / `tl.store` in control flow such as `if` / `for` / `while`?**
+**Q: What are the limitations of using `tl.load` / `tl.store` within control flow operations like `if` / `for` / `while`?**
 
-A: Triton-Ascend supports memory accesses where pointers from the same source are updated with simple address changes inside control flow.
-It is also valid to place `tl.load` / `tl.store` directly inside control flow.
-However, it is not recommended to merge pointers from different sources or pointers with different block-pointer layouts after control flow and then perform one unified memory access.
-It is also not recommended to repeatedly update pointer state across complex nested control flow while performing store/read-after-write in the same pattern.
+A: Triton-Ascend supports memory access using a pointer from the same source after simple address updates within control flow. Placing `tl.load` / `tl.store` inside control flow is also a reasonable practice.
+However, it is not recommended to merge pointers from different sources or with different structures after control flow and then perform unified memory access. It is also not recommended to repeatedly update pointer states and simultaneously perform store/read-after-write operations within complex nested control flow.
 
-Support for combining `if` / `for` / `while` with `tl.load` / `tl.store` is still incomplete in the current version and will continue to improve in later releases.
-For now, follow the constraints below.
+The current version has incomplete support for scenarios combining `if` / `for` / `while` with `tl.load` / `tl.store`. Subsequent versions will continue to improve this. Currently, it is recommended to follow the limitations below.
 
-It is not recommended to merge pointers with different base addresses, or block pointers constructed in different branches, and then access memory after the branch:
+It is not recommended to merge pointers with different base addresses, or block pointers constructed in different branches, after the branches and then perform memory access:
 
 ```Python
 if cond:
@@ -119,7 +113,7 @@ else:
 value = tl.load(ptr)
 ```
 
-Instead, place the memory access in each branch, so the branch merges the loaded value rather than the pointer or block pointer:
+It is recommended to place the memory access within each respective branch, merging the loaded values (rather than pointers or block pointers) after the branches:
 
 ```Python
 if cond:

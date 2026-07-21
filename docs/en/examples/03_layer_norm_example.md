@@ -1,8 +1,8 @@
 # Layer Normalization
 
-In this section, you will use Triton to write a high-performance layer normalization kernel that runs faster than the PyTorch implementation.
+In this section, we will use Triton to write a high-performance Layer Normalization kernel that runs faster than the PyTorch implementation.
 
-## Compute Kernel
+## Computation Kernel
 
 ```Python
 import pytest
@@ -13,22 +13,22 @@ import torch_npu
 
 @triton.jit
 def _layer_norm_fwd_fused(
-    X,  # Pointer to the input
-    Y,  # Pointer to the output
-    W,  # Pointer to the weights
-    B,  # Pointer to the biases
-    Mean,  # Pointer to the mean
-    Rstd,  # Pointer to the 1/std
-    stride,  # Number of elements to be added when the pointer moves by one row
+    X,  # Input pointer
+    Y,  # Output pointer
+    W,  # Weight pointer
+    B,  # Bias pointer
+    Mean,  # Mean pointer
+    Rstd,  # 1/std pointer
+    stride,  # How many elements to add to move the pointer by one row
     N,  # Number of columns in X
-    eps,  # Epsilon used to avoid division by zero
+    eps,  # Epsilon to avoid division by zero
     BLOCK_SIZE: tl.constexpr,
 ):
-    # Map the program ID to the corresponding rows of X and Y for computation.
+    # Map program id to the corresponding row of X and Y
     row = tl.program_id(0)
     Y += row * stride
     X += row * stride
-    # Calculate the mean.
+    # Compute mean
     mean = 0
     _mean = tl.zeros([BLOCK_SIZE], dtype=tl.float32)
     for off in range(0, N, BLOCK_SIZE):
@@ -36,7 +36,7 @@ def _layer_norm_fwd_fused(
         a = tl.load(X + cols, mask=cols < N, other=0.).to(tl.float32)
         _mean += a
     mean = tl.sum(_mean, axis=0) / N
-    # Calculate the variance.
+    # Compute variance
     _var = tl.zeros([BLOCK_SIZE], dtype=tl.float32)
     for off in range(0, N, BLOCK_SIZE):
         cols = off + tl.arange(0, BLOCK_SIZE)
@@ -45,10 +45,10 @@ def _layer_norm_fwd_fused(
         _var += x * x
     var = tl.sum(_var, axis=0) / N
     rstd = 1 / tl.sqrt(var + eps)
-    # Write mean/rstd.
+    # Write mean / rstd
     tl.store(Mean + row, mean)
     tl.store(Rstd + row, rstd)
-    # Normalize and apply linear transformation.
+    # Normalize and apply linear transformation
     for off in range(0, N, BLOCK_SIZE):
         cols = off + tl.arange(0, BLOCK_SIZE)
         mask = cols < N
@@ -57,19 +57,19 @@ def _layer_norm_fwd_fused(
         x = tl.load(X + cols, mask=mask, other=0.).to(tl.float32)
         x_hat = (x - mean) * rstd
         y = x_hat * w + b
-        # Write the output.
+        # Write output
         tl.store(Y + cols, y, mask=mask)
 ```
 
-LayerNorm Implementation Defined by Using Triton
+Custom LayerNorm implementation using Triton
 
 ```Python
 @torch.inference_mode()
 def layer_norm(x, weight, bias, eps=1e-5):
-    # Allocate the output tensor with the same shape and data type as the input.
+    # Allocate output tensor with the same shape and dtype as input
     y = torch.empty_like(x)
 
-    # Flatten the input x into a two-dimensional shape [-1, feature_dim] for processing the last dimension.
+    # Reshape input x to 2D shape [-1, feature_dim] to process the last dimension
     x_arg = x.reshape(-1, x.shape[-1])
     M, N = x_arg.shape
 
@@ -78,17 +78,17 @@ def layer_norm(x, weight, bias, eps=1e-5):
 
     BLOCK_SIZE = 1024
 
-    # enqueue kernel
-    kernel = _layer_norm_fwd_fused[(M,)](# M indicates the number of blocks, and launch grid=(M,)
+    # Enqueue kernel
+    kernel = _layer_norm_fwd_fused[(M, )](  # M represents the number of blocks, launch grid=(M,)
         x_arg, y, weight, bias, mean, rstd,  # Input, output, and intermediate variables
         x_arg.stride(0), N, eps,
         BLOCK_SIZE=BLOCK_SIZE)
-    # Return the normalized output.
+    # Return the normalized output
     return y
 
-# Call layer normalization during forward pass.
+# Call layer normalization during forward pass
 def _layer_norm(M, N, dtype, eps=1e-5, device='npu'):
-    # Construct data.
+    # Construct data
     x_shape = (M, N)
     w_shape = (x_shape[-1], )
     weight = torch.rand(w_shape, dtype=dtype, device=device, requires_grad=True)
@@ -99,20 +99,20 @@ def _layer_norm(M, N, dtype, eps=1e-5, device='npu'):
     # Forward pass
     y_tri = layer_norm(x, weight, bias, eps)
     y_ref = torch.nn.functional.layer_norm(x, w_shape, weight, bias, eps).to(dtype)
-    # Determine whether the results are approximate.
+    # Check approximate equality
     assert torch.allclose(y_tri, y_ref, atol=1e-2, rtol=0)
     print(f"y_tri: {y_tri}")
     print(f"y_ref: {y_ref}")
     print(f"Layer Normalization {M},{N} {dtype} PASSED!")
 
-# Perform the test.
+# Execute test
 if __name__ == '__main__':
     _layer_norm(128, 128, torch.float16)
     _layer_norm(128, 128, torch.bfloat16)
     _layer_norm(128, 128, torch.float32)
 ```
 
-Result
+Results
 
 ```bash
 y_tri: tensor([[ 0.2512,  0.0647,  0.8389,  ...,  2.3652,  1.5039,  1.1904],
@@ -170,4 +170,4 @@ Layer Normalization 128,128 torch.float32 PASSED!
 
 "Layer Normalization 128,128 torch.float16 PASSED!", \
 "Layer Normalization 128,128 torch.bfloat16 PASSED!", \
-The result "Layer Normalization 128,128 torch.float32 PASSED!" indicates that the output of float16, bfloat16, and float32 data types on Triton is the same as that on PyTorch.
+"Layer Normalization 128,128 torch.float32 PASSED!" indicate that the output results for float16, bfloat16, and float32 data types on both Triton and PyTorch are completely consistent.

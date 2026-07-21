@@ -1,16 +1,16 @@
 # Triton-Ascend Autotune Guide
 
-## Positioning
+## Document Purpose
 
-This guide is intended for users who already know how to write Triton kernels and already understand the basic concepts of community `triton.autotune`. It focuses on the recommended Triton-Ascend usage:
+This document is intended for users who already know how to write Triton kernels and understand the basic concepts of the community version `triton.autotune`. It focuses on explaining the recommended usage for Triton-Ascend:
 
-- the recommended autotune usage on Triton-Ascend;
-- what `configs=[]` means on the Ascend backend;
-- when automatic tiling is a good fit, and when you should fall back to handwritten `triton.Config`.
+- Recommended autotune writing style on Triton-Ascend;
+- The meaning of `configs=[]` in the Ascend backend;
+- The applicable boundaries of the automatic Tiling mode, and when to fall back to manual `triton.Config`.
 
-## Recommended Usage
+## Quick Start
 
-On Triton-Ascend, the recommended usage is to keep the community-style `@triton.autotune` interface and set `configs=[]` when you want the backend to generate and evaluate candidate configurations automatically:
+On Triton-Ascend, it is recommended to keep the basic writing style of the community version `@triton.autotune`; when you want the system to automatically generate and evaluate candidate configurations, set `configs` to `[]`:
 
 ```python
 import triton
@@ -37,22 +37,20 @@ def kernel(
 
 This means:
 
-- `key` has the same semantics as in community Triton and determines which runtime-input changes trigger re-selection of a configuration;
-- `configs=[]` on Triton-Ascend means "let the Ascend backend generate candidate configurations and tune them", not "there are no configurations".
+- The semantics of `key` are consistent with the community version, used to determine which input changes will trigger a re-selection of the configuration;
+- `configs=[]` in Triton-Ascend means "the Ascend backend will automatically generate candidate configurations and perform optimization", not "there are no available configurations".
 
-## Prerequisites
+### 1. Enable Ascend's extension to autotune first
 
-### 1. Enable the Ascend autotune extension first
-
-Only after importing the following line will Triton-Ascend enter the autotune extension path:
+Only after importing the following line will the Triton-Ascend autotune extension path be entered:
 
 ```python
 import triton.backends.ascend.runtime
 ```
 
-Without this step, you are still using the community `triton.autotune`, and `configs=[]` does not trigger Ascend automatic tiling.
+Without this step, the community version `triton.autotune` is still used, and `configs=[]` will not trigger Ascend's automatic Tiling generation.
 
-### 2. `@triton.autotune` must wrap `@triton.jit` directly
+### 2. `@triton.autotune` must directly wrap `@triton.jit`
 
 It must be written in the following order:
 
@@ -63,23 +61,23 @@ def kernel(...):
     ...
 ```
 
-`@triton.autotune` must wrap `@triton.jit` directly, and no other decorator should be inserted between them. Otherwise, the kernel DSL may not be parsed correctly, and Triton-Ascend may fail to enter the automatic-tiling generation and tuning path.
+`@triton.autotune` must directly wrap `@triton.jit`, and no other decorators should be inserted between them. Otherwise, the kernel DSL cannot be parsed, preventing entry into the Triton-Ascend automatic Tiling generation and optimization pipeline.
 
-### 3. `key` has the same meaning as in community Triton
+### 3. The meaning of `key` is consistent with the community
 
-`key` is effectively the autotune cache key. Any parameter included in `key` triggers autotune again when its value changes.
+The essence of `key` is the cache key for autotune. Whenever the value of a parameter listed in `key` changes, it triggers a re-autotune.
 
-In most cases, `key` contains shape parameters such as `M/N/K`, `seq_len`, or `hidden_size`, because they often have a significant impact on the optimal tiling choice. However, `key` is not limited to shape parameters. If another parameter affects configuration selection, it can also be included.
+In most cases, `key` contains shape parameters like `M/N/K`, `seq_len`, `hidden_size`, as they often significantly impact the optimal Tiling; however, `key` is not limited to shape parameters. Any parameter whose change affects configuration selection can also be placed in `key`.
 
-### 4. Do not fix parameters that should participate in automatic tuning too early
+### 4. Parameters intended for automatic tuning should not be fixed in advance
 
-If you want a `tl.constexpr` parameter to participate in automatic tiling generation, all of the following must be true:
+If you want a `tl.constexpr` to participate in automatic Tiling generation, the following three conditions must be met simultaneously:
 
-- it must be a tiling parameter, meaning that it affects how much data each block processes or how tile sizes are formed;
-- it must not be fixed explicitly in the launch call;
-- it must not have a default value in the kernel definition.
+- It must itself be a Tiling parameter, i.e., a parameter that affects the data size or tile size processed by each block (logical core);
+- Do not explicitly pass its value during launch;
+- Do not set a default value for it in the kernel definition.
 
-For example, in the following code, `BLOCK_M` participates in automatic tuning:
+For example, in the following writing style, `BLOCK_M` will participate in automatic tuning:
 
 ```python
 kernel[grid](
@@ -91,7 +89,7 @@ kernel[grid](
 )
 ```
 
-If you explicitly pass:
+If you explicitly pass it during launch:
 
 ```python
 kernel[grid](
@@ -104,9 +102,9 @@ kernel[grid](
 )
 ```
 
-then the parameter is already fixed and is no longer part of the automatic-generation space.
+Then this parameter is already fixed and no longer belongs to the automatic generation scope.
 
-Likewise, if a tunable parameter is given a default value in the kernel definition, for example:
+Similarly, if a default value is provided for a tuning parameter in the kernel definition, for example:
 
 ```python
 @triton.jit
@@ -117,69 +115,69 @@ def kernel(
     ...
 ```
 
-then the parameter does not participate in automatic tuning. For parameters that should be generated and tuned automatically by the framework, keep them as `tl.constexpr` parameters that are neither passed explicitly at launch time nor given default values in the kernel definition.
+Then this parameter will also not participate in automatic tuning. For parameters intended to be automatically generated and optimized by the framework, they should be kept as `tl.constexpr` that are "not explicitly passed during launch and have no default value in the kernel definition".
 
-### 5. If a tiling parameter affects the grid, the grid must be written as a lambda
+### 5. If Tiling parameters affect the grid, the grid must be written as a lambda
 
-If a tiling parameter affects the grid size, the grid must not be written as a fixed value or a static expression that depends only on runtime parameters. Instead, it must be written as a `lambda` that depends on meta parameters, just as in community autotune.
+If a Tiling parameter affects the grid size, the grid cannot be written as a fixed value or a static expression that only depends on runtime parameters beforehand; it must be written as a `lambda` form that depends on the meta parameters. This is consistent with the requirements of the community autotune.
 
 ```python
 grid = lambda meta: (triton.cdiv(M, meta["BLOCK_M"]),)
 ```
 
-The reason is that when autotune evaluates different candidate configurations, parameters such as `BLOCK_M` change. If the grid does not change with the candidate configuration, Triton-Ascend cannot guarantee that each candidate is launched correctly.
+The reason is that when autotune evaluates different candidate configurations, the values of parameters like `BLOCK_M` will change; if the grid does not change with the candidate configurations, it cannot be guaranteed that each candidate configuration is executed with the correct launch method.
 
-## Practical Notes
+## Usage Notes
 
-The benchmark semantics are the same as in community autotune: the kernel may be executed multiple times. If the kernel has side effects, such as atomic operations, in-place writes, or accumulated modifications to input or output buffers, the existing community hook mechanism is still required.
+The benchmark semantics of autotune are consistent with the community, and the kernel will be executed multiple times. If the kernel has side effects, such as containing atomic operations, inplace writes, or modifying the cumulative state of input/output buffers, it still needs to be handled through the community's existing hook mechanisms.
 
-## What Triton-Ascend Adds Beyond Community Autotune
+## Triton-Ascend Extensions Compared to Community Autotune
 
-The typical community `triton.autotune` workflow is that the user provides a set of handwritten `triton.Config` objects, the framework benchmarks them, and the best result is cached.
+The typical pattern of the community version `triton.autotune` is: the user manually provides a set of `triton.Config`, the framework performs benchmarking, and then caches the optimal result.
 
-Triton-Ascend keeps the same usage style but extends it in several important ways.
+Triton-Ascend, while maintaining this interface convention, mainly extends the following aspects.
 
-### 1. Support for `configs=[]` to generate candidate configurations automatically
+### 1. Supports `configs=[]` for automatic candidate configuration generation
 
-This is the core extension. Users do not have to handwrite a list of `triton.Config` objects up front. Instead, they can leave `configs` empty and let the Ascend backend generate candidate configurations from the kernel DSL semantics and runtime shapes.
+This is the core extension. Users no longer need to manually write a set of `triton.Config` first; they can leave `configs` empty and let the Ascend backend automatically generate candidate configurations based on the kernel DSL semantics and runtime shapes.
 
-### 2. Parallel compilation of multiple candidates
+### 2. Supports parallel compilation of multiple configs
 
-When autotune needs to evaluate multiple candidate configurations, Triton-Ascend compiles them in parallel by default to reduce first-tune latency.
+When autotune needs to evaluate multiple candidate configurations, Triton-Ascend will compile these candidate configurations in parallel by default to reduce the first-time tuning latency.
 
-This behavior is enabled by default and can be disabled with `TRITON_AUTOTUNE_PARALLEL_COMPILE=0`.
+This capability is enabled by default and can be disabled via the environment variable `TRITON_AUTOTUNE_PARALLEL_COMPILE=0`.
 
-### 3. Support for profiler-based performance collection
+### 3. Supports using a profiler to collect kernel performance
 
-Triton-Ascend supports switching the performance-collection method used during autotune benchmark. In addition to the default benchmark path, you can use profiler-based collection for each candidate configuration. This path focuses on on-chip execution time and is more accurate than the default method for short-running kernels, but it also increases autotune time. This feature can be enabled by setting `TRITON_BENCH_METHOD="npu"`.
+Triton-Ascend supports switching the performance collection method during autotune benchmarking: in addition to the default benchmark mode, a profiler can be used to collect kernel performance data for each candidate config. It only focuses on the on-chip computation time of the kernel, which is more accurate than the default performance collection method for kernels with short execution times, but it adds some overhead. This capability can be enabled via the environment variable `TRITON_BENCH_METHOD='npu'`.
 
 ## Scope and Behavior of Automatic Tiling Generation
 
-The first extension above shows that Triton-Ascend supports automatic generation of candidate configurations with `configs=[]`. The following points further clarify the behavior of this capability.
+Point 1 above explains that Triton-Ascend supports `configs=[]` for automatic candidate configuration generation. The following points elaborate on this capability.
 
-### 1. Automatic generation focuses on tiling parameters
+### 1. The automatic generation scope focuses on Tiling parameters
 
-Automatic generation in Ascend focuses on tiling-related `tl.constexpr` parameters, that is, parameters that affect how much data each block processes or how tile sizes are formed.
+The focus of Ascend's automatic generation is the `tl.constexpr` parameters in the kernel related to Tiling, i.e., parameters that affect the data size or tile size processed by each block (logical core).
 
-This capability does not mean "automatically tune every parameter". Parameters such as `num_warps` and `num_stages`, as well as non-tiling kernel parameters, are outside the current automatic-generation scope.
+This capability is not equivalent to "automatically tuning all parameters for you". Compilation parameters like `num_warps`, `num_stages`, and non-Tiling parameters of the kernel are not within the current automatic generation scope.
 
-### 2. Candidate configurations are filtered with Ascend hardware constraints
+### 2. Candidate configurations will incorporate Ascend hardware constraints
 
-When generating candidates, the Ascend backend filters them using NPU-specific constraints such as on-chip memory capacity, alignment constraints, and core-utilization limits, instead of simply enumerating many configurations and benchmarking them blindly.
+When generating candidates, the Ascend backend will filter based on the NPU's on-chip storage capacity, alignment constraints, core utilization boundaries, etc., rather than simply enumerating a batch of configurations and benchmarking blindly.
 
-### 3. The goal of automatic tiling is to provide a reasonably good configuration
+### 3. The goal of the automatic Tiling mode is to conveniently provide "reasonably good" configurations
 
-To balance tuning cost and tuning result quality, current automatic tiling prunes the candidate space heavily. As a result, the automatically generated result is not guaranteed to reach the upper bound of carefully hand-tuned performance.
+To balance optimization time and optimization effectiveness, the current automatic Tiling performs significant pruning on the number of generated configurations. Therefore, it does not guarantee that the automatically generated result will necessarily reach the performance upper limit of manual extreme tuning.
 
-The goal of this feature is to lower the usage barrier and tuning cost while making it easy to obtain a configuration with reasonably good performance.
+The goal of this capability is to conveniently provide users with a reasonably good Tiling configuration while minimizing the user's entry barrier and optimization cost.
 
-### 4. When automatic tiling fails, users need handwritten `triton.Config`
+### 4. When automatic Tiling generation fails, users need to write `triton.Config` manually
 
-If automatic tiling cannot generate any valid candidate configurations, you need to switch back to handwritten `triton.Config`. It is also recommended to file an issue for such cases so that Triton-Ascend can improve parsing and automatic-generation coverage later.
+If the automatic Tiling mode cannot generate any usable candidate configurations, users need to switch to manually writing `triton.Config`. It is also recommended to file an issue for such scenarios to help Triton-Ascend subsequently improve its parsing and automatic generation capabilities.
 
-## Handwritten `triton.Config` Mode
+## Manual `triton.Config` Mode
 
-If automatic tiling fails, or if the generated tiling result does not meet your performance target, you can return directly to the standard community-style handwritten configuration path. Triton-Ascend keeps this part of the interface compatible:
+If the automatic Tiling mode fails to generate configurations, or the generated Tiling performance does not meet expectations, simply revert to the standard community writing style. Triton-Ascend maintains compatibility with this part of the semantics:
 
 ```python
 @triton.autotune(
@@ -196,17 +194,17 @@ def kernel(...):
 
 In this mode:
 
-- configurations are defined explicitly by the user;
-- the framework still handles benchmarking, best-config selection, and cache reuse;
-- the usage pattern remains consistent with community Triton autotune.
+- Configurations are provided manually by the user;
+- The framework is responsible for benchmarking, selecting the optimal configuration, and cache reuse;
+- Usage habits are consistent with the community autotune.
 
-## Advanced Usage: Combine Automatic Tiling with Other Tunable Parameters
+## Advanced Usage: Joint Tuning of Automatic Tiling and Other Parameters
 
-The following content is advanced usage and should only be considered when you want to continue tuning non-tiling kernel parameters or compilation parameters together with automatic tiling.
+The following content is for advanced usage, only to be considered when users want to continue jointly tuning non-Tiling parameters or compilation parameters of the kernel in automatic Tiling mode.
 
-### 1. Community autotune: enumerate all tunable parameters manually
+### 1. Community autotune: Manual enumeration of all tuning parameters
 
-In the standard community style, users enumerate all candidate configurations manually:
+The standard community approach is for the user to manually enumerate all candidate configurations:
 
 ```python
 @triton.autotune(
@@ -233,9 +231,9 @@ def matmul_kernel(a, b, M, N, K, BLOCK_M, BLOCK_N, BLOCK_K, GROUP_SIZE_M):
     ...
 ```
 
-### 2. Triton-Ascend: enumerate tiling parameters and Ascend compilation parameters manually
+### 2. Triton-Ascend: Manual enumeration of Tiling parameters and Ascend compilation parameters
 
-In Triton-Ascend, if you still want to use manual enumeration, you can also put Ascend-side parameters into the handwritten configuration space:
+In Triton-Ascend, if you wish to continue with the manual enumeration mode, you can also include Ascend-side parameters in the manual configuration space:
 
 ```python
 @triton.autotune(
@@ -262,9 +260,9 @@ def matmul_kernel(a, b, M, N, K, BLOCK_M, BLOCK_N, BLOCK_K, GROUP_SIZE_M):
     ...
 ```
 
-### 3. Triton-Ascend: generate tiling automatically while tuning other parameters jointly
+### 3. Triton-Ascend: Automatic Tiling generation with joint tuning of other parameters
 
-If you want tiling parameters to continue being generated automatically through `configs=[]`, but also want to tune additional non-tiling parameters or compilation parameters, you can pass those extra search dimensions through `hints`:
+If you want the Tiling parameters to continue being automatically generated by `configs=[]`, but also want to tune other non-Tiling parameters or compilation parameters simultaneously, you can pass these additional search dimensions via `hints`:
 
 ```python
 @triton.autotune(
@@ -283,18 +281,18 @@ def matmul_kernel(a, b, M, N, K, BLOCK_M, BLOCK_N, BLOCK_K, GROUP_SIZE_M):
 matmul_kernel[grid](a, b, M, N, K)
 ```
 
-This means:
+The meaning of this approach is:
 
-- tiling-related parameters are still generated automatically by Triton-Ascend;
-- non-tiling parameters or compilation parameters are provided explicitly by the user through `hints`;
-- autotune evaluates the combined search space of both parts.
+- Tiling-related parameters are still automatically generated by Triton-Ascend;
+- Non-Tiling parameters or compilation parameters are explicitly provided by the user via `hints` as candidate sets;
+- Autotune evaluates the combined configuration space of both parts.
 
 ## Summary
 
-The key extension of Triton-Ascend over community autotune is not a change in user-facing interfaces, but the addition of automatic tiling-candidate generation and tuning on top of the community interface. For most users, the recommended usage is:
+The key extension of Triton-Ascend compared to the community autotune is not changing the user interface, but adding the capability of "automatically generating Tiling candidates and performing optimization" on top of the community interface. For most users, the most recommended usage is:
 
-- keep the community-style `@triton.autotune` interface;
-- set `configs=[]`;
-- let the Ascend backend generate, filter, benchmark, and cache candidate configurations automatically based on the kernel DSL and runtime shapes.
+- Keep the writing style of the community version `@triton.autotune`;
+- Set `configs` to `[]`;
+- Let the Ascend backend automatically complete candidate generation, filtering, benchmarking, and cache reuse based on the kernel DSL and runtime shapes.
 
-If your case is not suitable for automatic tiling, you can return to handwritten `triton.Config`.
+If the scenario is not suitable for the automatic Tiling mode, simply revert to manually writing `triton.Config`.
