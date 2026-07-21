@@ -27,6 +27,11 @@ on:
         required: false
         default: 'main'
         type: string
+      full_translate:
+        description: 'Full translation: translate ALL docs/zh/ files (excluding python-api,triton_api,triton_api_extension,libdevice)'
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: translation-${{ github.ref }}
@@ -49,6 +54,8 @@ jobs:
       #   2. Add it as a secret named "PAT_TOKEN" in:
       #      Settings → Secrets and variables → Actions → Repository secrets
       GH_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+      # Directories under docs/zh/ that should NOT be translated (comma-separated)
+      EXCLUDE_DIRS: python-api,triton_api,triton_api_extension,libdevice
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -65,30 +72,86 @@ jobs:
         run: |
           pip install openai
 
-      - name: Detect changed Chinese Markdown files
+      - name: Detect Chinese Markdown files to translate
         id: detect
         run: |
-          # Use git diff to find changed/new .md files in docs/zh/
-          changed=$(git diff --name-only --diff-filter=ACMUX HEAD -- docs/zh/ || true)
-          if [ -z "$changed" ]; then
-            # No tracked changes — check if any zh file has no en counterpart
-            for f in $(find docs/zh/ -name '*.md'); do
-              en_path="${f/docs\/zh\//docs\/en\/}"
-              if [ ! -f "$en_path" ]; then
-                changed="$changed $f"
-              fi
-            done
-          fi
+          EXCLUDE_DIRS="${{ env.EXCLUDE_DIRS }}"
+          # For schedule trigger, inputs is not available -> defaults to false
+          # For workflow_dispatch, use the full_translate boolean input
+          FULL_TRANSLATE="${{ inputs.full_translate == true && 'true' || 'false' }}"
 
-          if [ -z "$changed" ]; then
-            echo "No Chinese doc files changed since last commit"
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+          # Helper: check if a path is in an excluded directory
+          # Takes a relative path (e.g. "docs/zh/foo/bar.md") and returns 0 if NOT excluded
+          _not_excluded() {
+            local p="$1"
+            local exclude_dirs="$2"
+            local rel="${p#docs/zh/}"
+            IFS=',' read -ra dirs <<< "$exclude_dirs"
+            for d in "${dirs[@]}"; do
+              case "$rel" in
+                "$d"/*|"$d") return 1 ;;
+              esac
+            done
+            return 0
+          }
+
+          if [ "$FULL_TRANSLATE" = "true" ]; then
+            echo "Full translation mode enabled"
+            echo "Translating ALL docs/zh/ files (excluding specified dirs)"
+
+            all_files=""
+            while IFS= read -r md; do
+              if _not_excluded "$md" "$EXCLUDE_DIRS"; then
+                all_files="$all_files $md"
+              fi
+            done < <(find docs/zh/ -name '*.md' 2>/dev/null | sort)
+
+            all_files="${all_files# }"
+
+            if [ -z "$all_files" ]; then
+              echo "No files to translate after exclusion"
+              echo "has_changes=false" >> $GITHUB_OUTPUT
+            else
+              files=$(echo "$all_files" | tr ' ' '\n' | sed 's|^docs/zh/||' | tr '\n' ',' | sed 's/,$//')
+              echo "Files to translate (relative to docs/zh/): $files"
+              echo "has_changes=true" >> $GITHUB_OUTPUT
+              echo "files=$files" >> $GITHUB_OUTPUT
+              echo "full_translate=true" >> $GITHUB_OUTPUT
+            fi
           else
-            # Get unique .md files, strip the 'docs/zh/' prefix, and format as comma-separated list
-            files=$(echo "$changed" | tr ' ' '\n' | sort -u | grep '\.md$' | sed 's|^docs/zh/||' | tr '\n' ',' | sed 's/,$//')
-            echo "Changed files (relative to docs/zh/): $files"
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "files=$files" >> $GITHUB_OUTPUT
+            # Incremental mode: use git diff to find changed/new .md files in docs/zh/
+            changed=$(git diff --name-only --diff-filter=ACMUX HEAD -- docs/zh/ || true)
+            if [ -z "$changed" ]; then
+              # No tracked changes — check if any zh file has no en counterpart
+              for f in $(find docs/zh/ -name '*.md' 2>/dev/null); do
+                if _not_excluded "$f" "$EXCLUDE_DIRS"; then
+                  en_path="${f/docs\/zh\//docs\/en\/}"
+                  if [ ! -f "$en_path" ]; then
+                    changed="$changed $f"
+                  fi
+                fi
+              done
+            else
+              # Filter git diff results to exclude the unwanted directories
+              filtered=""
+              for f in $changed; do
+                if _not_excluded "$f" "$EXCLUDE_DIRS"; then
+                  filtered="$filtered $f"
+                fi
+              done
+              changed="${filtered# }"
+            fi
+
+            if [ -z "$changed" ]; then
+              echo "No Chinese doc files changed since last commit"
+              echo "has_changes=false" >> $GITHUB_OUTPUT
+            else
+              files=$(echo "$changed" | tr ' ' '\n' | sort -u | grep '\.md$' | sed 's|^docs/zh/||' | tr '\n' ',' | sed 's/,$//')
+              echo "Changed files (relative to docs/zh/): $files"
+              echo "has_changes=true" >> $GITHUB_OUTPUT
+              echo "files=$files" >> $GITHUB_OUTPUT
+              echo "full_translate=false" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Translate docs/zh/ to docs/en/
@@ -96,9 +159,18 @@ jobs:
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
-          python docs/scripts/translate_md.py \
-            --files "${{ steps.detect.outputs.files }}" \
-            --output-json /tmp/translation_results.json
+          # Determine mode: full translate or incremental
+          if [ "${{ steps.detect.outputs.full_translate }}" = "true" ]; then
+            python docs/scripts/translate_md.py \
+              --first-all \
+              --exclude-dirs "${{ env.EXCLUDE_DIRS }}" \
+              --output-json /tmp/translation_results.json
+          else
+            python docs/scripts/translate_md.py \
+              --files "${{ steps.detect.outputs.files }}" \
+              --exclude-dirs "${{ env.EXCLUDE_DIRS }}" \
+              --output-json /tmp/translation_results.json
+          fi
 
       - name: Process translated files
         if: steps.detect.outputs.has_changes == 'true'

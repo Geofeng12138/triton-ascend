@@ -25,6 +25,10 @@ Usage:
     python translate_md.py --files "docs/zh/quick_start.md"
     # Translate all changed/new files
     python translate_md.py --all
+    # First-time: translate ALL files except excluded dirs
+    python translate_md.py --first-all --exclude-dirs "python-api,triton_api,triton_api_extension,libdevice"
+    # Incremental with exclusions
+    python translate_md.py --all --exclude-dirs "python-api,triton_api,triton_api_extension,libdevice"
 """
 
 import argparse
@@ -162,21 +166,41 @@ class MarkdownTranslator:
         return 0 if success_files else 1
 
     @staticmethod
-    def _clean_response(response: str) -> str:
-        """Strip markdown code block wrappers from API response."""
-        response = response.strip()
-        if response.startswith("```"):
-            lines = response.split("\n")
-            lines = lines[1:]  # remove opening ```
-            while lines and lines[-1].strip() == "```":
-                lines.pop()
-            response = "\n".join(lines).strip()
-        return response
+    def _is_excluded(path: Path, exclude_dirs: list[str]) -> bool:
+        """Check if a path falls under any of the excluded directories."""
+        if not exclude_dirs:
+            return False
+        try:
+            rel = path.relative_to(ZH_DIR)
+        except ValueError:
+            return False
+        # Check if the relative path starts with any of the excluded dirs
+        for excl in exclude_dirs:
+            if str(rel).startswith(excl + os.sep) or str(rel) == excl:
+                return True
+        return False
 
     @staticmethod
-    def find_changed_zh_files() -> list[Path]:
+    def filter_excluded(file_list: list[Path], exclude_dirs: list[str]) -> list[Path]:
+        """Filter out files that are in excluded directories."""
+        return [f for f in file_list if not MarkdownTranslator._is_excluded(f, exclude_dirs)]
+
+    @staticmethod
+    def find_all_zh_files(exclude_dirs: list[str] | None = None) -> list[Path]:
+        """Find ALL .md files in docs/zh/, optionally excluding certain directories."""
+        exclude_dirs = exclude_dirs or []
+        result = []
+        for md_file in ZH_DIR.rglob("*.md"):
+            if not MarkdownTranslator._is_excluded(md_file, exclude_dirs):
+                result.append(md_file)
+        return sorted(result)
+
+    @staticmethod
+    def find_changed_zh_files(exclude_dirs: list[str] | None = None) -> list[Path]:
         """Find docs/zh/ .md files that differ from their docs/en/ counterpart
-        (or have no en counterpart yet). Uses git diff if available."""
+        (or have no en counterpart yet). Uses git diff if available.
+        Optionally excludes files under certain directories."""
+        exclude_dirs = exclude_dirs or []
         import subprocess
 
         # Try to get changed files via git diff
@@ -194,7 +218,8 @@ class MarkdownTranslator:
                     if line.endswith(".md"):
                         changed.append(Path(line))
                 if changed:
-                    return changed
+                    # Filter out excluded dirs
+                    return MarkdownTranslator.filter_excluded(changed, exclude_dirs)
         except Exception:
             pass
 
@@ -208,6 +233,8 @@ class MarkdownTranslator:
 
         changed = []
         for md_file in ZH_DIR.rglob("*.md"):
+            if MarkdownTranslator._is_excluded(md_file, exclude_dirs):
+                continue
             en_file = _to_en_path(md_file)
             if not en_file.exists():
                 changed.append(md_file)
@@ -215,6 +242,18 @@ class MarkdownTranslator:
                 changed.append(md_file)
 
         return changed
+
+    @staticmethod
+    def _clean_response(response: str) -> str:
+        """Strip markdown code block wrappers from API response."""
+        response = response.strip()
+        if response.startswith("```"):
+            lines = response.split("\n")
+            lines = lines[1:]  # remove opening ```
+            while lines and lines[-1].strip() == "```":
+                lines.pop()
+            response = "\n".join(lines).strip()
+        return response
 
 
 def write_empty_json(output_json: str, reason: str = ""):
@@ -237,12 +276,20 @@ async def async_main():
     parser.add_argument("--files",
                         help="Comma-separated file paths to translate (relative to docs/zh/, e.g. quick_start.md)")
     parser.add_argument("--all", action="store_true", help="Translate all changed/new .md files")
+    parser.add_argument("--first-all", action="store_true",
+                        help="Translate ALL .md files under docs/zh/ (used for first-time translation)")
+    parser.add_argument("--exclude-dirs",
+                        help="Comma-separated directory names under docs/zh/ to exclude (e.g. python-api,triton_api)")
     parser.add_argument("--output-json", default=os.getenv("OUTPUT_JSON", "/tmp/translation_results.json"))
     parser.add_argument("--api-key", default=os.getenv("DEEPSEEK_API_KEY"))
     parser.add_argument("--max-concurrent", type=int, default=5)
     args = parser.parse_args()
 
     output_json = args.output_json
+    exclude_dirs = [d.strip() for d in args.exclude_dirs.split(",") if d.strip()] if args.exclude_dirs else []
+
+    if exclude_dirs:
+        print(f"Excluding directories: {exclude_dirs}")
 
     # Check API key early
     api_key = args.api_key or os.getenv("DEEPSEEK_API_KEY")
@@ -263,10 +310,23 @@ async def async_main():
                 # Try prepending docs/zh/
                 p = ZH_DIR / f
             file_list.append(p)
+        # Filter out excluded dirs
+        file_list = MarkdownTranslator.filter_excluded(file_list, exclude_dirs)
+        if not file_list:
+            print("All specified files are in excluded directories. Nothing to translate.")
+            write_empty_json(output_json, "all files excluded")
+            return 0
+    elif args.first_all:
+        file_list = MarkdownTranslator.find_all_zh_files(exclude_dirs=exclude_dirs)
+        if not file_list:
+            print("No .md files found under docs/zh/ to translate (all excluded).")
+            write_empty_json(output_json, "no files to translate after exclusion")
+            return 0
+        print(f"First-time translation: found {len(file_list)} file(s) to translate")
     elif args.all:
-        file_list = MarkdownTranslator.find_changed_zh_files()
+        file_list = MarkdownTranslator.find_changed_zh_files(exclude_dirs=exclude_dirs)
     else:
-        msg = "specify --files or --all"
+        msg = "specify --files, --all, or --first-all"
         print(f"Error: {msg}")
         write_empty_json(output_json, msg)
         return 1
