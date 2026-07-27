@@ -15,7 +15,7 @@
 # This file is a part of the triton-ascend project.
 #
 
-name: Auto Doc Translate (zh → en)
+name: Auto Doc Translate
 
 on:
   schedule:
@@ -28,7 +28,7 @@ on:
         default: 'main'
         type: string
       full_translate:
-        description: 'Full translation: translate ALL docs/zh/ files (excluding python-api,triton_api,triton_api_extension,libdevice)'
+        description: 'Full translation: translate ALL docs (excluding python-api,triton_api,triton_api_extension,libdevice)'
         required: false
         default: false
         type: boolean
@@ -46,16 +46,7 @@ jobs:
       pull-requests: write
     env:
       TARGET_BRANCH: ${{ inputs.target_branch || 'main' }}
-      # Use a Personal Access Token (PAT) for push & PR creation.
-      # The default GITHUB_TOKEN is restricted by GitHub for Actions-triggered PRs.
-      # Steps to set up:
-      #   1. Go to https://github.com/settings/tokens?type=beta and create a fine-grained PAT
-      #      with "Contents: write" and "Pull requests: write" permissions on this repo.
-      #   2. Add it as a secret named "PAT_TOKEN" in:
-      #      Settings → Secrets and variables → Actions → Repository secrets
       GH_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
-      # Directories under docs/zh/ that should NOT be translated (comma-separated)
-      EXCLUDE_DIRS: python-api,triton_api,triton_api_extension,libdevice
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -70,109 +61,58 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install openai
+          pip install openai sphinx myst-parser sphinx_rtd_theme
 
-      - name: Detect Chinese Markdown files to translate
+      - name: Detect .pot files to translate
         id: detect
         run: |
-          EXCLUDE_DIRS="${{ env.EXCLUDE_DIRS }}"
-          # For schedule trigger, inputs is not available -> defaults to false
-          # For workflow_dispatch, use the full_translate boolean input
-          FULL_TRANSLATE="${{ inputs.full_translate == true && 'true' || 'false' }}"
+          # Check if locale/en/LC_MESSAGES/ has .po files
+          po_count=$(find locale/en/LC_MESSAGES/ -name '*.po' 2>/dev/null | wc -l)
 
-          # Helper: check if a path is in an excluded directory
-          # Takes a relative path (e.g. "docs/zh/foo/bar.md") and returns 0 if NOT excluded
-          _not_excluded() {
-            local p="$1"
-            local exclude_dirs="$2"
-            local rel="${p#docs/zh/}"
-            IFS=',' read -ra dirs <<< "$exclude_dirs"
-            for d in "${dirs[@]}"; do
-              case "$rel" in
-                "$d"/*|"$d") return 1 ;;
-              esac
-            done
-            return 0
-          }
-
-          if [ "$FULL_TRANSLATE" = "true" ]; then
-            echo "Full translation mode enabled"
-            echo "Translating ALL docs/zh/ files (excluding specified dirs)"
-
-            all_files=""
-            while IFS= read -r md; do
-              if _not_excluded "$md" "$EXCLUDE_DIRS"; then
-                all_files="$all_files $md"
-              fi
-            done < <(find docs/zh/ -name '*.md' 2>/dev/null | sort)
-
-            all_files="${all_files# }"
-
-            if [ -z "$all_files" ]; then
-              echo "No files to translate after exclusion"
-              echo "has_changes=false" >> $GITHUB_OUTPUT
-            else
-              files=$(echo "$all_files" | tr ' ' '\n' | sed 's|^docs/zh/||' | tr '\n' ',' | sed 's/,$//')
-              echo "Files to translate (relative to docs/zh/): $files"
-              echo "has_changes=true" >> $GITHUB_OUTPUT
-              echo "files=$files" >> $GITHUB_OUTPUT
-              echo "full_translate=true" >> $GITHUB_OUTPUT
-            fi
+          if [ "${{ inputs.full_translate }}" = "true" ] || [ "$po_count" -eq 0 ]; then
+            echo "Full translation mode"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "full_translate=true" >> $GITHUB_OUTPUT
           else
-            # Incremental mode: use git diff to find changed/new .md files in docs/zh/
-            changed=$(git diff --name-only --diff-filter=ACMUX HEAD -- docs/zh/ || true)
+            # Incremental: detect changed .pot files via git diff on locale/zh/LC_MESSAGES/
+            changed=$(git diff --name-only --diff-filter=ACMUX HEAD -- locale/zh/LC_MESSAGES/ 2>/dev/null || true)
+
             if [ -z "$changed" ]; then
-              # No tracked changes — check if any zh file has no en counterpart
-              for f in $(find docs/zh/ -name '*.md' 2>/dev/null); do
-                if _not_excluded "$f" "$EXCLUDE_DIRS"; then
-                  en_path="${f/docs\/zh\//docs\/en\/}"
-                  if [ ! -f "$en_path" ]; then
-                    changed="$changed $f"
-                  fi
+              # No git changes — check if any .pot has no .po counterpart
+              for pot in $(find locale/zh/LC_MESSAGES/ -name '*.pot' 2>/dev/null); do
+                po="${pot/locale\/zh\//locale\/en\/}"
+                po="${po%.pot}.po"
+                if [ ! -f "$po" ]; then
+                  changed="$changed $pot"
                 fi
               done
-            else
-              # Filter git diff results to exclude the unwanted directories
-              filtered=""
-              for f in $changed; do
-                if _not_excluded "$f" "$EXCLUDE_DIRS"; then
-                  filtered="$filtered $f"
-                fi
-              done
-              changed="${filtered# }"
             fi
 
             if [ -z "$changed" ]; then
-              echo "No Chinese doc files changed since last commit"
+              echo "No translation files changed"
               echo "has_changes=false" >> $GITHUB_OUTPUT
             else
-              files=$(echo "$changed" | tr ' ' '\n' | sort -u | grep '\.md$' | sed 's|^docs/zh/||' | tr '\n' ',' | sed 's/,$//')
-              echo "Changed files (relative to docs/zh/): $files"
               echo "has_changes=true" >> $GITHUB_OUTPUT
-              echo "files=$files" >> $GITHUB_OUTPUT
               echo "full_translate=false" >> $GITHUB_OUTPUT
             fi
           fi
 
-      - name: Translate docs/zh/ to docs/en/
+      - name: Translate via Sphinx gettext workflow
         if: steps.detect.outputs.has_changes == 'true'
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
-          # Determine mode: full translate or incremental
           if [ "${{ steps.detect.outputs.full_translate }}" = "true" ]; then
-            python docs/scripts/translate_md.py \
-              --first-all \
-              --exclude-dirs "${{ env.EXCLUDE_DIRS }}" \
+            python .github/workflows/scripts/translate_md.py \
+              --first-time \
               --output-json /tmp/translation_results.json
           else
-            python docs/scripts/translate_md.py \
-              --files "${{ steps.detect.outputs.files }}" \
-              --exclude-dirs "${{ env.EXCLUDE_DIRS }}" \
+            python .github/workflows/scripts/translate_md.py \
+              --all \
               --output-json /tmp/translation_results.json
           fi
 
-      - name: Process translated files
+      - name: Process translated .po files
         if: steps.detect.outputs.has_changes == 'true'
         id: results
         run: |
@@ -197,15 +137,16 @@ jobs:
           count=0
           file_list=""
           while IFS= read -r file; do
-            [ -n "$file" ] && [ -f "$file" ] && {
+            [ -z "$file" ] && continue
+            if [ -f "$file" ]; then
               count=$((count + 1))
               file_list="${file_list}- <code>${file}</code>"$'\n'
               git add "$file"
-            }
+            fi
           done <<< "$success_files"
 
           [ $count -eq 0 ] && echo "No files to commit" && exit 1
-          echo "Staged $count translated file(s)"
+          echo "Staged $count translated .po file(s)"
           {
             echo "file_count=$count"
             echo "file_list<<EOF"
@@ -226,7 +167,7 @@ jobs:
           git checkout -b "${BRANCH_NAME}"
 
           count=$(git diff --cached --name-only | wc -l)
-          git commit -s -m "[Doc] Auto-translate ${count} file(s) from zh to en"
+          git commit -s -m "[doc](feat) Auto-translate ${count} file(s) (Sphinx gettext)"
           git push origin "${BRANCH_NAME}"
 
       - name: Create Pull Request
@@ -238,22 +179,29 @@ jobs:
           PR_HEAD: ${{ github.repository_owner }}:${{ env.BRANCH_NAME }}
           PR_BASE: ${{ env.TARGET_BRANCH }}
         run: |
-          # Use gh CLI to create the PR — it respects the GH_TOKEN env var
           if [ -z "${{ env.BRANCH_NAME }}" ]; then
             echo "Error: BRANCH_NAME not set"
             exit 1
           fi
 
           DATE=$(date +%Y-%m-%d)
-          TITLE="[Doc] Auto-translate Chinese docs to English ${DATE}"
+          # PR title must match: [<component>](<type>) <subject>
+          # Allowed types: feat | fix | NFC | style | test | chore | revert
+          # Max length: 72 chars
+          TITLE="[doc](feat) Auto-translate Chinese docs to English ${DATE}"
 
-          # Build body from heredoc to handle multi-line FILE_LIST
           BODY=$(cat <<-BODYEOF
           ## Auto-Translation Summary
 
-          Translated **${FILE_COUNT}** file(s) from \`docs/zh/\` to \`docs/en/\`:
+          Translated **${FILE_COUNT}** gettext .po file(s):
 
           ${FILE_LIST}
+
+          This PR uses the **Sphinx gettext i18n workflow**:
+          - \`sphinx-build -b gettext\` extracts translatable strings from \`docs/zh/\`
+          - \`.po\` files in \`locale/en/LC_MESSAGES/\` store translations
+          - Read the Docs builds English docs using \`docs/en/conf.py\` with \`language=en\`
+
           ---
 
           [Workflow run](${RUN_URL})
