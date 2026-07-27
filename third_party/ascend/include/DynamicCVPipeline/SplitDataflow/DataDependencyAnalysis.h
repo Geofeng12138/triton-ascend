@@ -57,10 +57,11 @@ struct DependencyInfo {
   int iniProducerBlockId;
   int iniConsumerBlockId;
 
-  // Optional Items for V2CDependencies
-  mlir::Operation *iniMatmulOp = nullptr;
-  bool isMatmulA = false;
-  bool isMatmulB = false;
+  bool isAllTranspoesd = false;
+
+  // Optional Items for memDependencies
+  mlir::Operation *predOp;
+  mlir::Operation *nextOp;
 };
 
 class DataDependencyInfo {
@@ -131,10 +132,12 @@ private:
 
   void collectDepInfo(mlir::Value depvalue, DependencyType dependencyType,
                       llvm::SmallVector<DependencyInfo> &dependencies,
-                      int iniProdId, int iniConsId, DataDependencyInfo &info);
+                      int iniProdId, int iniConsId, DataDependencyInfo &info,
+                      bool isAllTranspoesd = false);
   void collectMemDepInfo(llvm::StringRef predCoreType, int producerBlockId,
                          int consumerBlockId, int predBlockId, int currBlockId,
-                         llvm::SmallVector<DependencyInfo> &memoryDependencies);
+                         llvm::SmallVector<DependencyInfo> &memoryDependencies,
+                         mlir::Operation *predOp, mlir::Operation *nextOp);
   void analyzeExternalInputs(DataDependencyInfo &info);
   void analyzeExternalOutputs(DataDependencyInfo &info);
 
@@ -148,9 +151,9 @@ private:
   bool isValidShapeForDependency(mlir::Value value);
   bool isValidValueForDependency(mlir::Value value);
   bool isValidScalarDependency(mlir::Value value);
+  bool isAllTransposedInVector(mlir::Value value);
   bool isOuterOpArg(mlir::Value value);
   void processIterArgDependencies();
-  void analyzeV2CMatmulABType(DataDependencyInfo &info);
   llvm::SmallVector<mlir::Operation *>
   collectDiffCoreTypeUsers(mlir::BlockArgument iterArg,
                            llvm::StringRef initCoreType);
