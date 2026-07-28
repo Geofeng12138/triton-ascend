@@ -1,0 +1,1422 @@
+# English translations for triton-ascend docs.
+# Copyright (c) 2025 Huawei Technologies Co., Ltd.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: triton-ascend-docs\n"
+"POT-Creation-Date: 2026-07-28 10:00+0000\n"
+"PO-Revision-Date: 2026-07-28 10:00+0000\n"
+"Last-Translator: Auto Translation (DeepSeek)\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+msgstr "libdevice"
+
+msgid "Libdevice 开发者手册"
+msgstr "Libdevice Developer Manual"
+
+msgid "SIMT 编译示例"
+msgstr "SIMT Compilation Example"
+
+msgid "使用 SIMT 编译的 triton kernel 示例"
+msgstr "Example of a triton kernel compiled using SIMT"
+
+msgid "1. triton.language.extra.cann.libdevice.abs"
+msgstr "1. triton.language.extra.cann.libdevice.abs"
+
+msgid "OP概述"
+msgstr "OP Overview"
+
+msgid "计算输入参数的绝对值。"
+msgstr "Compute the absolute value of the input argument."
+
+msgid "原型:"
+msgstr "Prototype:"
+
+msgid "输入类型："
+msgstr "Input type:"
+
+msgid "x: `int32`, `float32`"
+msgstr "x: `int32`, `float32`"
+
+msgid "返回值: `tl.tensor`, 返回输入参数的绝对值。"
+msgstr "Return value: `tl.tensor`, returns the absolute value of the input parameter."
+
+msgid "返回类型：`int32`, `float32`"
+msgstr "Return type: `int32`, `float32`"
+
+msgid "支持编译模式：SIMT"
+msgstr "Supported compilation mode: SIMT"
+
+msgid "2. triton.language.extra.cann.libdevice.acos"
+msgstr "2. triton.language.extra.cann.libdevice.acos"
+
+msgid "计算输入参数的反余弦值。"
+msgstr "Compute the arccosine of the input parameter."
+
+msgid "x: `float32`"
+msgstr "x: `float32`"
+
+msgid "返回值: `tl.tensor`, 返回输入参数的反余弦值，取值范围 \\[0, π] 弧度。"
+msgstr "Return value: `tl.tensor`, returns the arccosine of the input parameter, with a value range of \\[0, π] radians."
+
+msgid "返回类型：`float32`"
+msgstr "Return type: `float32`"
+
+msgid "支持编译模式：SIMT, SIMD"
+msgstr "Supported compilation modes: SIMT, SIMD"
+
+msgid "3. triton.language.extra.cann.libdevice.acosh"
+msgstr "3. triton.language.extra.cann.libdevice.acosh"
+
+msgid "计算输入参数的反双曲余弦值。"
+msgstr "Compute the inverse hyperbolic cosine of the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的反双曲余弦值，取值范围 \\[0, +∞]。"
+msgstr "Return value: `tl.tensor`, returns the inverse hyperbolic cosine of the input parameter, with a value range of \\[0, +∞)."
+
+msgid "4. triton.language.extra.cann.libdevice.add_rd"
+msgstr "4. triton.language.extra.cann.libdevice.add_rd"
+
+msgid "向下舍入浮点数加法。"
+msgstr "Round down floating-point addition."
+
+msgid "y: `float32`"
+msgstr "y: `float32`"
+
+msgid "返回值: `tl.tensor`, 返回向下舍入的加法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of rounding down the addition."
+
+msgid "5. triton.language.extra.cann.libdevice.add_rn"
+msgstr "5. triton.language.extra.cann.libdevice.add_rn"
+
+msgid "最近偶数舍入浮点数加法。"
+msgstr "Nearest even rounding floating-point addition."
+
+msgid "返回值: `tl.tensor`, 返回最近偶数舍入的加法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of rounding to the nearest even integer after addition."
+
+msgid "6. triton.language.extra.cann.libdevice.add_ru"
+msgstr "6. triton.language.extra.cann.libdevice.add_ru"
+
+msgid "向上舍入浮点数加法。"
+msgstr "Round up floating-point addition."
+
+msgid "返回值: `tl.tensor`, 返回向上舍入的加法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of rounding up the addition."
+
+msgid "7. triton.language.extra.cann.libdevice.add_rz"
+msgstr "7. triton.language.extra.cann.libdevice.add_rz"
+
+msgid "向零舍入浮点数加法。"
+msgstr "Round floating-point addition toward zero."
+
+msgid "返回值: `tl.tensor`, 返回向零舍入的加法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of addition rounded toward zero."
+
+msgid "8. triton.language.extra.cann.libdevice.asin"
+msgstr "8. triton.language.extra.cann.libdevice.asin"
+
+msgid "计算输入参数的反正弦值。"
+msgstr "Compute the arcsine of the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的反正弦值，取值范围 \\[-π/2, π/2] 弧度。"
+msgstr "Return value: `tl.tensor`, returns the arcsine of the input parameter, with a value range of \\[-π/2, π/2] radians."
+
+msgid "9. triton.language.extra.cann.libdevice.asinh"
+msgstr "9. triton.language.extra.cann.libdevice.asinh"
+
+msgid "计算输入参数的反双曲正弦值。"
+msgstr "Compute the inverse hyperbolic sine of the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的反双曲正弦值。"
+msgstr "Return value: `tl.tensor`, returns the inverse hyperbolic sine of the input parameter."
+
+msgid "10. triton.language.extra.cann.libdevice.atan"
+msgstr "10. triton.language.extra.cann.libdevice.atan"
+
+msgid "计算输入参数的反正切值。"
+msgstr "Compute the arctangent of the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的反正切值，取值范围 \\[-π/2, π/2] 弧度。"
+msgstr "Return value: `tl.tensor`, returns the arctangent of the input parameter, with a value range of \\[-π/2, π/2] radians."
+
+msgid "11. triton.language.extra.cann.libdevice.atan2"
+msgstr "11. triton.language.extra.cann.libdevice.atan2"
+
+msgid "反正切函数，计算 x / y 的反正切值。"
+msgstr "Arc tangent function, calculates the arctangent of x / y."
+
+msgid "返回值: `tl.tensor`, 返回 x / y 的反正切值，取值范围 \\[-π, π] 弧度。"
+msgstr "Return value: `tl.tensor`, returns the arctangent of x / y, with a range of \\[-π, π] radians."
+
+msgid "12. triton.language.extra.cann.libdevice.atanh"
+msgstr "12. triton.language.extra.cann.libdevice.atanh"
+
+msgid "反双曲正切函数，计算输入参数的反双曲正切值。"
+msgstr "Inverse hyperbolic tangent function, computes the inverse hyperbolic tangent of the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的反双曲正切值，取值范围 \\[-1, 1]。"
+msgstr "Return value: `tl.tensor`, returns the inverse hyperbolic tangent of the input parameter, with a value range of \\[-1, 1]."
+
+msgid "13. triton.language.extra.cann.libdevice.brev"
+msgstr "13. triton.language.extra.cann.libdevice.brev"
+
+msgid "位反转函数，反转32位整数的位顺序。"
+msgstr "Bit-reversal function, reverses the bit order of a 32-bit integer."
+
+msgid "x: `int32`"
+msgstr "x: `int32`"
+
+msgid "返回值: `tl.tensor`, 返回位反转后的32位整数。"
+msgstr "Return value: `tl.tensor`, returns the 32-bit integer after bit-reversal."
+
+msgid "返回类型：`int32`"
+msgstr "Return type: `int32`"
+
+msgid "14. triton.language.extra.cann.libdevice.byte_perm"
+msgstr "14. triton.language.extra.cann.libdevice.byte_perm"
+
+msgid "字节排列操作，从两个32位整数中选择字节组成新整数。输入整数 x 和 y 的字节顺序如下。"
+msgstr "Byte permutation operation, selecting bytes from two 32-bit integers to form a new integer. The byte order of input integers x and y is as follows."
+
+msgid "字节选择参数 s 为32位整数，各比特位与字节选择对应关系如下。"
+msgstr "The byte selection parameter s is a 32-bit integer, and the correspondence between each bit and byte selection is as follows."
+
+msgid "y: `int32`"
+msgstr "y: `int32`"
+
+msgid "s: `int32`"
+msgstr "`s: `int32``"
+
+msgid "返回值: `tl.tensor`, 返回值 return\\[n] := input\\[selector\\[n]]，n 表示输出整数的第 n 个字节。"
+msgstr "Return value: `tl.tensor`, return value return[n] := input[selector[n]], where n represents the nth byte of the output integer."
+
+msgid "15. triton.language.extra.cann.libdevice.cbrt"
+msgstr "15. triton.language.extra.cann.libdevice.cbrt"
+
+msgid "计算输入参数的立方根值。"
+msgstr "Compute the cube root of the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的立方根值。"
+msgstr "Return value: `tl.tensor`, returns the cube root of the input parameter."
+
+msgid "16. triton.language.extra.cann.libdevice.ceil"
+msgstr "16. triton.language.extra.cann.libdevice.ceil"
+
+msgid "向上取整，返回大于或等于 x 的最小整数。"
+msgstr "Round up, returning the smallest integer greater than or equal to x."
+
+msgid "返回值: `tl.tensor`, 返回向上取整的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of rounding up."
+
+msgid "17. triton.language.extra.cann.libdevice.clz"
+msgstr "17. triton.language.extra.cann.libdevice.clz"
+
+msgid "计算32位整数的前导零数量。"
+msgstr "Count the number of leading zeros in a 32-bit integer."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的前导零数量。范围 \\[0, 32]。"
+msgstr "Return value: `tl.tensor`, returns the number of leading zeros of the input parameter. Range [0, 32]."
+
+msgid "18. triton.language.extra.cann.libdevice.copysign"
+msgstr "18. triton.language.extra.cann.libdevice.copysign"
+
+msgid "生成一个浮点数，其绝对值等于 x 的绝对值，符号与 y 相同。"
+msgstr "Generate a floating-point number whose absolute value equals the absolute value of x, with the same sign as y."
+
+msgid "返回值: `tl.tensor`, 返回一个浮点数，其绝对值等于 x 的绝对值，符号与 y 相同。"
+msgstr "Return value: `tl.tensor`, returns a floating-point number whose absolute value equals the absolute value of x, with the same sign as y."
+
+msgid "19. triton.language.extra.cann.libdevice.cos"
+msgstr "19. triton.language.extra.cann.libdevice.cos"
+
+msgid "计算输入参数（弧度）的余弦值。"
+msgstr "Calculate the cosine of the input parameter (in radians)."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的余弦值。"
+msgstr "Return value: `tl.tensor`, returns the cosine of the input parameter."
+
+msgid "20. triton.language.extra.cann.libdevice.cosh"
+msgstr "20. triton.language.extra.cann.libdevice.cosh"
+
+msgid "计算输入参数的双曲余弦值。"
+msgstr "Compute the hyperbolic cosine of the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的双曲余弦值。"
+msgstr "Return value: `tl.tensor`, returns the hyperbolic cosine of the input parameter."
+
+msgid "21. triton.language.extra.cann.libdevice.cospi"
+msgstr "21. triton.language.extra.cann.libdevice.cospi"
+
+msgid "计算 cos(π × x) 的值。"
+msgstr "Compute the value of cos(π × x)."
+
+msgid "返回值: `tl.tensor`, 返回 cos(π × x) 的值。"
+msgstr "Return value: `tl.tensor`, returns the value of cos(π × x)."
+
+msgid "22. triton.language.extra.cann.libdevice.cyl_bessel_i0"
+msgstr "22. triton.language.extra.cann.libdevice.cyl_bessel_i0"
+
+msgid "计算输入参数的修正零阶贝塞尔函数值。"
+msgstr "Compute the modified Bessel function of the first kind of order zero for the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的修正零阶贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the modified zero-order Bessel function value of the input parameter."
+
+msgid "23. triton.language.extra.cann.libdevice.cyl_bessel_i1"
+msgstr "23. triton.language.extra.cann.libdevice.cyl_bessel_i1"
+
+msgid "计算输入参数的修正一阶贝塞尔函数值。"
+msgstr "Compute the modified Bessel function of the first kind of order one for the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的修正一阶贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the modified first-order Bessel function value of the input parameter."
+
+msgid "24. triton.language.extra.cann.libdevice.div_rd"
+msgstr "24. triton.language.extra.cann.libdevice.div_rd"
+
+msgid "向下舍入浮点数除法。"
+msgstr "Round down floating-point division."
+
+msgid "返回值: `tl.tensor`, 返回除法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of division."
+
+msgid "25. triton.language.extra.cann.libdevice.div_rn"
+msgstr "25. triton.language.extra.cann.libdevice.div_rn"
+
+msgid "最近偶数舍入浮点数除法。"
+msgstr "Nearest even rounding floating-point division."
+
+msgid "26. triton.language.extra.cann.libdevice.div_ru"
+msgstr "26. triton.language.extra.cann.libdevice.div_ru"
+
+msgid "向上舍入浮点数除法。"
+msgstr "Round up floating-point division."
+
+msgid "27. triton.language.extra.cann.libdevice.div_rz"
+msgstr "27. triton.language.extra.cann.libdevice.div_rz"
+
+msgid "向零舍入浮点数除法。"
+msgstr "Round floating-point division toward zero."
+
+msgid "28. triton.language.extra.cann.libdevice.erf"
+msgstr "28. triton.language.extra.cann.libdevice.erf"
+
+msgid "计算输入参数的误差函数值。"
+msgstr "Compute the error function value of the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的误差函数值。"
+msgstr "Return value: `tl.tensor`, returns the error function value of the input parameter."
+
+msgid "29. triton.language.extra.cann.libdevice.erfc"
+msgstr "29. triton.language.extra.cann.libdevice.erfc"
+
+msgid "计算输入参数的互补误差函数值，即 1 - erf(x)。"
+msgstr "Compute the complementary error function value of the input parameter, i.e., 1 - erf(x)."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的互补误差函数值。"
+msgstr "Return value: `tl.tensor`, returns the complementary error function value of the input parameter."
+
+msgid "30. triton.language.extra.cann.libdevice.erfcinv"
+msgstr "30. triton.language.extra.cann.libdevice.erfcinv"
+
+msgid "逆互补误差函数，找到满足 x = erfc(y) 的值 y。"
+msgstr "Inverse complementary error function, finds the value y such that x = erfc(y)."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的逆互补误差函数值。"
+msgstr "Return value: `tl.tensor`, returns the inverse complementary error function value of the input parameter."
+
+msgid "31. triton.language.extra.cann.libdevice.erfcx"
+msgstr "31. triton.language.extra.cann.libdevice.erfcx"
+
+msgid "计算输入参数的缩放互补误差函数值，即 exp(x²) × erfc(x)。"
+msgstr "Computes the scaled complementary error function value of the input argument, i.e., exp(x²) × erfc(x)."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的缩放互补误差函数值。"
+msgstr "Return value: `tl.tensor`, returns the scaled complementary error function value of the input parameter."
+
+msgid "32. triton.language.extra.cann.libdevice.erfinv"
+msgstr "32. triton.language.extra.cann.libdevice.erfinv"
+
+msgid "逆误差函数，找到满足 x = erf(y) 的值 y。"
+msgstr "Inverse error function, finds the value y such that x = erf(y)."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的逆误差函数值。"
+msgstr "Return value: `tl.tensor`, returns the inverse error function value of the input parameter."
+
+msgid "33. triton.language.extra.cann.libdevice.exp"
+msgstr "33. triton.language.extra.cann.libdevice.exp"
+
+msgid "指数函数，计算 e 的 x 次方。"
+msgstr "Exponential function, computes e raised to the power of x."
+
+msgid "返回值: `tl.tensor`, 返回 e 的 x 次方的计算结果。"
+msgstr "Return value: `tl.tensor`, returns the result of e raised to the power of x."
+
+msgid "34. triton.language.extra.cann.libdevice.exp10"
+msgstr "34. triton.language.extra.cann.libdevice.exp10"
+
+msgid "以 10 为底的指数函数，计算 10 的 x 次方。"
+msgstr "Base-10 exponential function, computes 10 raised to the power of x."
+
+msgid "返回值: `tl.tensor`, 返回 10 的 x 次方的计算结果。"
+msgstr "Return value: `tl.tensor`, returns the result of 10 raised to the power of x."
+
+msgid "35. triton.language.extra.cann.libdevice.exp2"
+msgstr "35. triton.language.extra.cann.libdevice.exp2"
+
+msgid "以 2 为底的指数函数，计算 2 的 x 次方。"
+msgstr "Base-2 exponential function, computes 2 raised to the power of x."
+
+msgid "返回值: `tl.tensor`, 返回 2 的 x 次方的计算结果。"
+msgstr "Return value: `tl.tensor`, returns the result of 2 raised to the power of x."
+
+msgid "36. triton.language.extra.cann.libdevice.expm1"
+msgstr "36. triton.language.extra.cann.libdevice.expm1"
+
+msgid "计算 e 的 x 次方减 1 的结果。"
+msgstr "Compute the result of e raised to the power of x minus 1."
+
+msgid "返回值: `tl.tensor`, 返回 e 的 x 次方减 1 的计算结果。"
+msgstr "Return value: `tl.tensor`, returns the result of e raised to the power of x minus 1."
+
+msgid "37. triton.language.extra.cann.libdevice.fast_cosf"
+msgstr "37. triton.language.extra.cann.libdevice.fast_cosf"
+
+msgid "快速近似余弦函数。"
+msgstr "Fast approximate cosine function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似余弦函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the fast approximate cosine function."
+
+msgid "38. triton.language.extra.cann.libdevice.fast_dividef"
+msgstr "38. triton.language.extra.cann.libdevice.fast_dividef"
+
+msgid "快速近似除法。"
+msgstr "Fast approximate division."
+
+msgid "返回值: `tl.tensor`, 返回快速近似除法的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of fast approximate division."
+
+msgid "39. triton.language.extra.cann.libdevice.fast_exp10f"
+msgstr "39. triton.language.extra.cann.libdevice.fast_exp10f"
+
+msgid "快速近似以 10 为底的指数函数。"
+msgstr "Fast approximation of the base-10 exponential function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似以 10 为底的指数函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of a fast approximation of the base-10 exponential function."
+
+msgid "40. triton.language.extra.cann.libdevice.fast_expf"
+msgstr "40. triton.language.extra.cann.libdevice.fast_expf"
+
+msgid "快速近似指数函数。"
+msgstr "Fast approximate exponential function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似指数函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the fast approximate exponential function."
+
+msgid "41. triton.language.extra.cann.libdevice.fast_log10f"
+msgstr "41. triton.language.extra.cann.libdevice.fast_log10f"
+
+msgid "快速近似以 10 为底的对数函数。"
+msgstr "Fast approximate base-10 logarithm function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似以 10 为底的对数函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of a fast approximation of the base-10 logarithm function."
+
+msgid "42. triton.language.extra.cann.libdevice.fast_log2f"
+msgstr "42. triton.language.extra.cann.libdevice.fast_log2f"
+
+msgid "快速近似以 2 为底的对数函数。"
+msgstr "Fast approximate base-2 logarithm function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似以 2 为底的对数函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the fast approximate base-2 logarithm function."
+
+msgid "43. triton.language.extra.cann.libdevice.fast_logf"
+msgstr "43. triton.language.extra.cann.libdevice.fast_logf"
+
+msgid "快速近似自然对数函数。"
+msgstr "Fast approximate natural logarithm function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似自然对数函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the fast approximate natural logarithm function."
+
+msgid "44. triton.language.extra.cann.libdevice.fast_powf"
+msgstr "44. triton.language.extra.cann.libdevice.fast_powf"
+
+msgid "快速近似幂函数。"
+msgstr "Fast approximate power function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似幂函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the fast approximate power function."
+
+msgid "45. triton.language.extra.cann.libdevice.fast_sinf"
+msgstr "45. triton.language.extra.cann.libdevice.fast_sinf"
+
+msgid "快速近似正弦函数。"
+msgstr "Fast approximate sine function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似正弦函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the fast approximate sine function."
+
+msgid "46. triton.language.extra.cann.libdevice.fast_tanf"
+msgstr "46. triton.language.extra.cann.libdevice.fast_tanf"
+
+msgid "快速近似正切函数。"
+msgstr "Fast approximate tangent function."
+
+msgid "返回值: `tl.tensor`, 返回快速近似正切函数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the fast approximate tangent function."
+
+msgid "47. triton.language.extra.cann.libdevice.fdim"
+msgstr "47. triton.language.extra.cann.libdevice.fdim"
+
+msgid "计算 x 与 y 的正差。当 x > y 时，返回 x - y，否则返回 0。"
+msgstr "Compute the positive difference between x and y. Returns x - y when x > y, otherwise returns 0."
+
+msgid "返回值: `tl.tensor`, 返回 x 与 y 之间的正差。"
+msgstr "Return value: `tl.tensor`, returns the positive difference between x and y."
+
+msgid "48. triton.language.extra.cann.libdevice.ffs"
+msgstr "48. triton.language.extra.cann.libdevice.ffs"
+
+msgid "查找第一个被置为1的位，返回最低被置为1的位的索引。"
+msgstr "Find the first bit set to 1, and return the index of the lowest bit set to 1."
+
+msgid "返回值: `tl.tensor`, 返回最低被置为1的位的索引，取值范围 \\[0, 32]。"
+msgstr "Return value: `tl.tensor`, returns the index of the least significant bit set to 1, with a value range of [0, 32]."
+
+msgid "49. triton.language.extra.cann.libdevice.finitef"
+msgstr "49. triton.language.extra.cann.libdevice.finitef"
+
+msgid "判断输入是否为有限浮点数。"
+msgstr "Determine whether the input is a finite floating-point number."
+
+msgid "返回值: `tl.tensor`, 若输入为有限值返回 True，否则返回 False。"
+msgstr "Return value: `tl.tensor`, returns True if the input is finite, otherwise returns False."
+
+msgid "返回类型：`bool`"
+msgstr "Return type: `bool`"
+
+msgid "50. triton.language.extra.cann.libdevice.float2int_rd"
+msgstr "50. triton.language.extra.cann.libdevice.float2int_rd"
+
+msgid "向下舍入模式将浮点数转换为32位整数。"
+msgstr "Downward rounding mode converts floating-point numbers to 32-bit integers."
+
+msgid "返回值: `tl.tensor`, 返回转换后的32位整数。"
+msgstr "Return value: `tl.tensor`, returns the converted 32-bit integer."
+
+msgid "51. triton.language.extra.cann.libdevice.float2int_rn"
+msgstr "51. triton.language.extra.cann.libdevice.float2int_rn"
+
+msgid "最近偶数舍入模式将浮点数转换为32位整数。"
+msgstr "The nearest even rounding mode converts floating-point numbers to 32-bit integers."
+
+msgid "52. triton.language.extra.cann.libdevice.float2int_ru"
+msgstr "52. triton.language.extra.cann.libdevice.float2int_ru"
+
+msgid "向上舍入模式将浮点数转换为32位整数。"
+msgstr "Round-up mode converts floating-point numbers to 32-bit integers."
+
+msgid "53. triton.language.extra.cann.libdevice.float2int_rz"
+msgstr "53. triton.language.extra.cann.libdevice.float2int_rz"
+
+msgid "向零舍入模式将浮点数转换为32位整数。"
+msgstr "Round-to-zero rounding mode converts a floating-point number to a 32-bit integer."
+
+msgid "54. triton.language.extra.cann.libdevice.float2ll_rd"
+msgstr "54. triton.language.extra.cann.libdevice.float2ll_rd"
+
+msgid "向下舍入模式将浮点数转换为64位整数。"
+msgstr "Downward rounding mode converts a floating-point number to a 64-bit integer."
+
+msgid "返回值: `tl.tensor`, 返回转换后的64位整数。"
+msgstr "Return value: `tl.tensor`, returns the converted 64-bit integer."
+
+msgid "返回类型：`int64`"
+msgstr "Return type: `int64`"
+
+msgid "55. triton.language.extra.cann.libdevice.float2ll_rn"
+msgstr "55. triton.language.extra.cann.libdevice.float2ll_rn"
+
+msgid "最近偶数舍入模式将浮点数转换为64位整数。"
+msgstr "The nearest even rounding mode converts floating-point numbers to 64-bit integers."
+
+msgid "56. triton.language.extra.cann.libdevice.float2ll_ru"
+msgstr "56. triton.language.extra.cann.libdevice.float2ll_ru"
+
+msgid "向上舍入模式将浮点数转换为64位整数。"
+msgstr "Round-to-zero rounding mode converts a floating-point number to a 64-bit integer."
+
+msgid "57. triton.language.extra.cann.libdevice.float2ll_rz"
+msgstr "57. triton.language.extra.cann.libdevice.float2ll_rz"
+
+msgid "向零舍入模式将浮点数转换为64位整数。"
+msgstr "Round-to-zero rounding mode converts a floating-point number to a 64-bit integer."
+
+msgid "58. triton.language.extra.cann.libdevice.float2uint_rd"
+msgstr "58. triton.language.extra.cann.libdevice.float2uint_rd"
+
+msgid "向下舍入模式将浮点数转换为32位无符号整数。"
+msgstr "Downward rounding mode converts floating-point numbers to 32-bit unsigned integers."
+
+msgid "返回值: `tl.tensor`, 返回转换后的32位无符号整数。"
+msgstr "Return value: `tl.tensor`, returns the converted 32-bit unsigned integer."
+
+msgid "返回类型：`uint32`"
+msgstr "Return type: `uint32`"
+
+msgid "59. triton.language.extra.cann.libdevice.float2uint_rn"
+msgstr "59. triton.language.extra.cann.libdevice.float2uint_rn"
+
+msgid "最近偶数舍入模式将浮点数转换为32位无符号整数。"
+msgstr "The nearest even rounding mode converts a floating-point number to a 32-bit unsigned integer."
+
+msgid "60. triton.language.extra.cann.libdevice.float2uint_ru"
+msgstr "60. triton.language.extra.cann.libdevice.float2uint_ru"
+
+msgid "向上舍入模式将浮点数转换为32位无符号整数。"
+msgstr "Round-up mode converts floating-point numbers to 32-bit unsigned integers."
+
+msgid "61. triton.language.extra.cann.libdevice.float2uint_rz"
+msgstr "61. triton.language.extra.cann.libdevice.float2uint_rz"
+
+msgid "向零舍入模式将浮点数转换为32位无符号整数。"
+msgstr "Round-to-zero rounding mode converts a floating-point number to a 32-bit unsigned integer."
+
+msgid "62. triton.language.extra.cann.libdevice.float2ull_rd"
+msgstr "62. triton.language.extra.cann.libdevice.float2ull_rd"
+
+msgid "向下舍入模式将浮点数转换为64位无符号整数。"
+msgstr "Round-down mode converts a floating-point number to a 64-bit unsigned integer."
+
+msgid "返回值: `tl.tensor`, 返回转换后的64位无符号整数。"
+msgstr "Return value: `tl.tensor`, returns the converted 64-bit unsigned integer."
+
+msgid "返回类型：`uint64`"
+msgstr "Return type: `uint64`"
+
+msgid "63. triton.language.extra.cann.libdevice.float2ull_rn"
+msgstr "63. triton.language.extra.cann.libdevice.float2ull_rn"
+
+msgid "最近偶数舍入模式将浮点数转换为64位无符号整数。"
+msgstr "Nearest even rounding mode converts floating-point numbers to 64-bit unsigned integers."
+
+msgid "64. triton.language.extra.cann.libdevice.float2ull_ru"
+msgstr "64. triton.language.extra.cann.libdevice.float2ull_ru"
+
+msgid "向上舍入模式将浮点数转换为64位无符号整数。"
+msgstr "Round-up mode converts a floating-point number to a 64-bit unsigned integer."
+
+msgid "65. triton.language.extra.cann.libdevice.float2ull_rz"
+msgstr "65. triton.language.extra.cann.libdevice.float2ull_rz"
+
+msgid "向零舍入模式将浮点数转换为64位无符号整数。"
+msgstr "Round-to-zero rounding mode converts a floating-point number to a 64-bit unsigned integer."
+
+msgid "66. triton.language.extra.cann.libdevice.float_as_int"
+msgstr "66. triton.language.extra.cann.libdevice.float_as_int"
+
+msgid "将浮点数的比特位重新解释为32位整数。不进行数值转换。"
+msgstr "Reinterpret the bits of a floating-point number as a 32-bit integer. No numerical conversion is performed."
+
+msgid "返回值: `tl.tensor`, 返回将浮点数的比特位重新解释为32位整数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of reinterpreting the bits of a floating-point number as a 32-bit integer."
+
+msgid "67. triton.language.extra.cann.libdevice.float_as_uint"
+msgstr "67. triton.language.extra.cann.libdevice.float_as_uint"
+
+msgid "将浮点数的比特位重新解释为32位无符号整数。不进行数值转换。"
+msgstr "Reinterpret the bits of a floating-point number as a 32-bit unsigned integer. No numerical conversion is performed."
+
+msgid "返回值: `tl.tensor`, 返回将浮点数的比特位重新解释为32位无符号整数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of reinterpreting the bits of a floating-point number as a 32-bit unsigned integer."
+
+msgid "68. triton.language.extra.cann.libdevice.floor"
+msgstr "68. triton.language.extra.cann.libdevice.floor"
+
+msgid "向下取整，返回小于或等于 x 的最大整数。"
+msgstr "Round down, returning the largest integer less than or equal to x."
+
+msgid "返回值: `tl.tensor`, 返回向下取整的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of rounding down."
+
+msgid "69. triton.language.extra.cann.libdevice.fma"
+msgstr "69. triton.language.extra.cann.libdevice.fma"
+
+msgid "融合乘加，计算 x × y + z。"
+msgstr "Fused multiply-add, computes x × y + z."
+
+msgid "z: `float32`"
+msgstr "z: `float32`"
+
+msgid "返回值: `tl.tensor`, 返回融合乘加的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of fused multiply-add."
+
+msgid "70. triton.language.extra.cann.libdevice.fma_rd"
+msgstr "70. triton.language.extra.cann.libdevice.fma_rd"
+
+msgid "向下舍入模式下的融合乘加操作。"
+msgstr "Fused multiply-add operation in round-down mode."
+
+msgid "71. triton.language.extra.cann.libdevice.fma_rn"
+msgstr "71. triton.language.extra.cann.libdevice.fma_rn"
+
+msgid "最近偶数舍入模式下的融合乘加操作。"
+msgstr "Fused multiply-add operation in round-to-nearest-even mode."
+
+msgid "72. triton.language.extra.cann.libdevice.fma_ru"
+msgstr "72. triton.language.extra.cann.libdevice.fma_ru"
+
+msgid "向上舍入模式下的融合乘加操作。"
+msgstr "Fused multiply-add operation in round-up mode."
+
+msgid "73. triton.language.extra.cann.libdevice.fma_rz"
+msgstr "73. triton.language.extra.cann.libdevice.fma_rz"
+
+msgid "向零舍入模式下的融合乘加操作。"
+msgstr "Fused multiply-add operation in round-toward-zero mode."
+
+msgid "74. triton.language.extra.cann.libdevice.fmod"
+msgstr "74. triton.language.extra.cann.libdevice.fmod"
+
+msgid "浮点数取模，计算 x / y 的余数，结果与 x 同号。"
+msgstr "Floating-point modulus, computes the remainder of x / y, with the result having the same sign as x."
+
+msgid "返回值: `tl.tensor`, 返回浮点数取模的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of floating-point modulo."
+
+msgid "75. triton.language.extra.cann.libdevice.gamma"
+msgstr "75. triton.language.extra.cann.libdevice.gamma"
+
+msgid "计算输入参数的伽马函数值。"
+msgstr "Compute the gamma function value of the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的伽马函数值。"
+msgstr "Return value: `tl.tensor`, returns the gamma function value of the input parameter."
+
+msgid "76. triton.language.extra.cann.libdevice.hadd"
+msgstr "76. triton.language.extra.cann.libdevice.hadd"
+
+msgid "计算 x 和 y 的平均值。"
+msgstr "Compute the average of x and y."
+
+msgid "返回值: `tl.tensor`, 返回 x 和 y 的平均值。"
+msgstr "Return value: `tl.tensor`, returns the average of x and y."
+
+msgid "77. triton.language.extra.cann.libdevice.hypot"
+msgstr "77. triton.language.extra.cann.libdevice.hypot"
+
+msgid "计算 x 和 y 之间的欧几里得距离。"
+msgstr "Compute the Euclidean distance between x and y."
+
+msgid "返回值: `tl.tensor`, 返回 x 和 y 之间的欧几里得距离。"
+msgstr "Return value: `tl.tensor`, returns the Euclidean distance between x and y."
+
+msgid "78. triton.language.extra.cann.libdevice.ilogb"
+msgstr "78. triton.language.extra.cann.libdevice.ilogb"
+
+msgid "提取浮点数的无偏指数（以2为底的整数对数）。"
+msgstr "Extract the unbiased exponent of a floating-point number (integer logarithm base 2)."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的无偏指数值。"
+msgstr "Return value: `tl.tensor`, returns the unbiased exponent value of the input parameter."
+
+msgid "79. triton.language.extra.cann.libdevice.int2float_rd"
+msgstr "79. triton.language.extra.cann.libdevice.int2float_rd"
+
+msgid "向下舍入模式将32位整数转换为浮点数。"
+msgstr "Downward rounding mode converts a 32-bit integer to a floating-point number."
+
+msgid "返回值: `tl.tensor`, 返回转换后的浮点数。"
+msgstr "Return value: `tl.tensor`, returns the converted floating-point number."
+
+msgid "80. triton.language.extra.cann.libdevice.int2float_rn"
+msgstr "80. triton.language.extra.cann.libdevice.int2float_rn"
+
+msgid "最近偶数舍入模式将32位整数转换为浮点数。"
+msgstr "The nearest even rounding mode converts a 32-bit integer to a floating-point number."
+
+msgid "81. triton.language.extra.cann.libdevice.int2float_ru"
+msgstr "81. triton.language.extra.cann.libdevice.int2float_ru"
+
+msgid "向上舍入模式将32位整数转换为浮点数。"
+msgstr "Round-up mode converts a 32-bit integer to a floating-point number."
+
+msgid "82. triton.language.extra.cann.libdevice.int2float_rz"
+msgstr "82. triton.language.extra.cann.libdevice.int2float_rz"
+
+msgid "向零舍入模式将32位整数转换为浮点数。"
+msgstr "Round-to-zero rounding mode converts a 32-bit integer to a floating-point number."
+
+msgid "83. triton.language.extra.cann.libdevice.int_as_float"
+msgstr "83. triton.language.extra.cann.libdevice.int_as_float"
+
+msgid "将32位整数的比特位重新解释为浮点数。不进行数值转换。"
+msgstr "Reinterpret the bits of a 32-bit integer as a floating-point number. No numerical conversion is performed."
+
+msgid "返回值: `tl.tensor`, 返回将32位整数的比特位重新解释为浮点数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of reinterpreting the bits of a 32-bit integer as a floating-point number."
+
+msgid "84. triton.language.extra.cann.libdevice.isinf"
+msgstr "84. triton.language.extra.cann.libdevice.isinf"
+
+msgid "判断输入是否为无穷大。"
+msgstr "Determine whether the input is infinity."
+
+msgid "返回值: `tl.tensor`, 若输入为无穷大返回 True，否则返回 False。"
+msgstr "Return value: `tl.tensor`, returns True if the input is infinity, otherwise returns False."
+
+msgid "85. triton.language.extra.cann.libdevice.isnan"
+msgstr "85. triton.language.extra.cann.libdevice.isnan"
+
+msgid "判断输入是否为 NaN（非数值）。"
+msgstr "Determine whether the input is NaN (Not a Number)."
+
+msgid "返回值: `tl.tensor`, 若输入为 NaN 返回 True，否则返回 False。"
+msgstr "Return value: `tl.tensor`, returns True if the input is NaN, otherwise returns False."
+
+msgid "86. triton.language.extra.cann.libdevice.j0"
+msgstr "86. triton.language.extra.cann.libdevice.j0"
+
+msgid "计算输入参数的零阶第一类贝塞尔函数值。"
+msgstr "Computes the value of the zero-order Bessel function of the first kind for the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的零阶第一类贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the value of the zero-order Bessel function of the first kind for the input parameter."
+
+msgid "87. triton.language.extra.cann.libdevice.j1"
+msgstr "87. triton.language.extra.cann.libdevice.j1"
+
+msgid "计算输入参数的一阶第一类贝塞尔函数值。"
+msgstr "Compute the value of the first-order Bessel function of the first kind for the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的一阶第一类贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the value of the first-order Bessel function of the first kind for the input parameter."
+
+msgid "88. triton.language.extra.cann.libdevice.jn"
+msgstr "88. triton.language.extra.cann.libdevice.jn"
+
+msgid "计算输入参数的 n 阶第一类贝塞尔函数值。"
+msgstr "Compute the value of the Bessel function of the first kind of order n for the input argument."
+
+msgid "n: `int32`"
+msgstr "n: `int32`"
+
+msgid "返回值: `tl.tensor`, 返回输入参数的 n 阶第一类贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the nth-order Bessel function of the first kind for the input parameter."
+
+msgid "89. triton.language.extra.cann.libdevice.ldexp"
+msgstr "89. triton.language.extra.cann.libdevice.ldexp"
+
+msgid "计算 x × 2^exp 的值。"
+msgstr "Compute the value of x × 2^exp."
+
+msgid "exp: `int32`"
+msgstr "exp: `int32`"
+
+msgid "返回值: `tl.tensor`, 返回 x × 2^exp 的计算结果。"
+msgstr "Return value: `tl.tensor`, returns the result of x × 2^exp."
+
+msgid "90. triton.language.extra.cann.libdevice.lgamma"
+msgstr "90. triton.language.extra.cann.libdevice.lgamma"
+
+msgid "计算输入为 x 的伽马函数绝对值的自然对数。"
+msgstr "Computes the natural logarithm of the absolute value of the gamma function for input x."
+
+msgid "返回值: `tl.tensor`, 返回输入为 x 的伽马函数绝对值的自然对数。"
+msgstr "Return value: `tl.tensor`, returns the natural logarithm of the absolute value of the gamma function with input x."
+
+msgid "91. triton.language.extra.cann.libdevice.ll2float_rd"
+msgstr "91. triton.language.extra.cann.libdevice.ll2float_rd"
+
+msgid "向下舍入模式将64位整数转换为浮点数。"
+msgstr "Round-down mode converts a 64-bit integer to a floating-point number."
+
+msgid "x: `int64`"
+msgstr "x: `int64`"
+
+msgid "92. triton.language.extra.cann.libdevice.ll2float_rn"
+msgstr "92. triton.language.extra.cann.libdevice.ll2float_rn"
+
+msgid "最近偶数舍入模式将64位整数转换为浮点数。"
+msgstr "The nearest even rounding mode converts a 64-bit integer to a floating-point number."
+
+msgid "93. triton.language.extra.cann.libdevice.ll2float_ru"
+msgstr "93. triton.language.extra.cann.libdevice.ll2float_ru"
+
+msgid "向上舍入模式将64位整数转换为浮点数。"
+msgstr "Round-up mode converts a 64-bit integer to a floating-point number."
+
+msgid "94. triton.language.extra.cann.libdevice.ll2float_rz"
+msgstr "94. triton.language.extra.cann.libdevice.ll2float_rz"
+
+msgid "向零舍入模式将64位整数转换为浮点数。"
+msgstr "Round-to-zero rounding mode converts a 64-bit integer to a floating-point number."
+
+msgid "95. triton.language.extra.cann.libdevice.llrint"
+msgstr "95. triton.language.extra.cann.libdevice.llrint"
+
+msgid "将浮点数舍入为最接近的64位整数值。"
+msgstr "Round the floating-point number to the nearest 64-bit integer value."
+
+msgid "返回值: `tl.tensor`, 返回舍入后的64位整数。"
+msgstr "Return value: `tl.tensor`, returns the rounded 64-bit integer."
+
+msgid "96. triton.language.extra.cann.libdevice.llround"
+msgstr "96. triton.language.extra.cann.libdevice.llround"
+
+msgid "将浮点数四舍五入为最接近的64位整数值。"
+msgstr "Round the floating-point number to the nearest 64-bit integer value."
+
+msgid "97. triton.language.extra.cann.libdevice.log"
+msgstr "97. triton.language.extra.cann.libdevice.log"
+
+msgid "计算输入为 x 的以 e 为底的对数。"
+msgstr "Compute the natural logarithm (base e) of the input x."
+
+msgid "返回值: `tl.tensor`, 返回输入为 x 的以 e 为底的对数。"
+msgstr "Return value: `tl.tensor`, returns the natural logarithm (base e) of the input x."
+
+msgid "98. triton.language.extra.cann.libdevice.log10"
+msgstr "98. triton.language.extra.cann.libdevice.log10"
+
+msgid "计算输入为 x 的以 10 为底的对数。"
+msgstr "Compute the base-10 logarithm of the input x."
+
+msgid "返回值: `tl.tensor`, 返回输入为 x 的以 10 为底的对数。"
+msgstr "Return value: `tl.tensor`, returns the base-10 logarithm of the input x."
+
+msgid "99. triton.language.extra.cann.libdevice.log1p"
+msgstr "99. triton.language.extra.cann.libdevice.log1p"
+
+msgid "计算 log(1 + x) 的值。"
+msgstr "Compute the value of log(1 + x)."
+
+msgid "返回值: `tl.tensor`, 返回 log(1 + x) 的计算结果。"
+msgstr "Return value: `tl.tensor`, returns the result of log(1 + x)."
+
+msgid "100. triton.language.extra.cann.libdevice.log2"
+msgstr "100. triton.language.extra.cann.libdevice.log2"
+
+msgid "计算输入为 x 的以 2 为底的对数。"
+msgstr "Compute the base-2 logarithm of input x."
+
+msgid "返回值: `tl.tensor`, 返回输入为 x 的以 2 为底的对数。"
+msgstr "Return value: `tl.tensor`, returns the base-2 logarithm of the input x."
+
+msgid "101. triton.language.extra.cann.libdevice.logb"
+msgstr "101. triton.language.extra.cann.libdevice.logb"
+
+msgid "提取浮点数的指数值。"
+msgstr "Extract the exponent value of a floating-point number."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的指数值。"
+msgstr "Return value: `tl.tensor`, returns the exponential value of the input parameter."
+
+msgid "102. triton.language.extra.cann.libdevice.mul24"
+msgstr "102. triton.language.extra.cann.libdevice.mul24"
+
+msgid "计算 x 和 y 的低24位乘法结果。"
+msgstr "Compute the low 24-bit multiplication result of x and y."
+
+msgid "返回值: `tl.tensor`, 返回 x 和 y 的低24位乘法结果。"
+msgstr "Return value: `tl.tensor`, returns the low 24-bit multiplication result of x and y."
+
+msgid "103. triton.language.extra.cann.libdevice.mul_rd"
+msgstr "103. triton.language.extra.cann.libdevice.mul_rd"
+
+msgid "向下舍入浮点数乘法。"
+msgstr "Round down floating-point multiplication."
+
+msgid "返回值: `tl.tensor`, 返回浮点数乘法的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of floating-point multiplication."
+
+msgid "104. triton.language.extra.cann.libdevice.mul_rn"
+msgstr "104. triton.language.extra.cann.libdevice.mul_rn"
+
+msgid "最近偶数舍入浮点数乘法。"
+msgstr "Nearest even rounding floating-point multiplication."
+
+msgid "105. triton.language.extra.cann.libdevice.mul_ru"
+msgstr "105. triton.language.extra.cann.libdevice.mul_ru"
+
+msgid "向上舍入浮点数乘法。"
+msgstr "Round up floating-point multiplication."
+
+msgid "106. triton.language.extra.cann.libdevice.mul_rz"
+msgstr "106. triton.language.extra.cann.libdevice.mul_rz"
+
+msgid "向零舍入浮点数乘法。"
+msgstr "Round floating-point multiplication towards zero."
+
+msgid "107. triton.language.extra.cann.libdevice.mulhi"
+msgstr "107. triton.language.extra.cann.libdevice.mulhi"
+
+msgid "计算 x 和 y 的乘法结果的高 32 位。"
+msgstr "Compute the high 32 bits of the multiplication result of x and y."
+
+msgid "返回值: `tl.tensor`, 返回 x 和 y 的乘法结果的高 32 位。"
+msgstr "Return value: `tl.tensor`, returns the high 32 bits of the multiplication result of x and y."
+
+msgid "108. triton.language.extra.cann.libdevice.nearbyint"
+msgstr "108. triton.language.extra.cann.libdevice.nearbyint"
+
+msgid "将 x 转换为最近邻整数。"
+msgstr "Convert x to the nearest integer."
+
+msgid "返回值: `tl.tensor`, 返回最近邻整数。"
+msgstr "Return value: `tl.tensor`, returns the nearest integer."
+
+msgid "109. triton.language.extra.cann.libdevice.nextafter"
+msgstr "109. triton.language.extra.cann.libdevice.nextafter"
+
+msgid "计算从 x 方向朝 y 的下一个可表示浮点数。"
+msgstr "Compute the next representable floating-point number from x in the direction of y."
+
+msgid "返回值: `tl.tensor`, 返回下一个可表示浮点数。"
+msgstr "Return value: `tl.tensor`, returns the next representable floating-point number."
+
+msgid "110. triton.language.extra.cann.libdevice.norm3d"
+msgstr "110. triton.language.extra.cann.libdevice.norm3d"
+
+msgid "计算三维向量的欧几里得范数，即 sqrt(x² + y² + z²)。"
+msgstr "Compute the Euclidean norm of a three-dimensional vector, i.e., sqrt(x² + y² + z²)."
+
+msgid "返回值: `tl.tensor`, 返回三维向量的欧几里得范数。"
+msgstr "Return value: `tl.tensor`, returns the Euclidean norm of a three-dimensional vector."
+
+msgid "111. triton.language.extra.cann.libdevice.norm4d"
+msgstr "111. triton.language.extra.cann.libdevice.norm4d"
+
+msgid "计算四维向量的欧几里得范数，即 sqrt(x² + y² + z² + w²)。"
+msgstr "Compute the Euclidean norm of a four-dimensional vector, i.e., sqrt(x² + y² + z² + w²)."
+
+msgid "w: `float32`"
+msgstr "w: `float32`"
+
+msgid "返回值: `tl.tensor`, 返回四维向量的欧几里得范数。"
+msgstr "Return value: `tl.tensor`, returns the Euclidean norm of a four-dimensional vector."
+
+msgid "112. triton.language.extra.cann.libdevice.normcdf"
+msgstr "112. triton.language.extra.cann.libdevice.normcdf"
+
+msgid "计算标准正态分布的累积分布函数值。"
+msgstr "Compute the cumulative distribution function value of the standard normal distribution."
+
+msgid "返回值: `tl.tensor`, 返回标准正态分布的累积分布函数值。"
+msgstr "Return value: `tl.tensor`, returns the cumulative distribution function value of the standard normal distribution."
+
+msgid "113. triton.language.extra.cann.libdevice.normcdfinv"
+msgstr "113. triton.language.extra.cann.libdevice.normcdfinv"
+
+msgid "计算标准正态分布累积分布函数的逆函数值。"
+msgstr "Compute the inverse of the standard normal cumulative distribution function."
+
+msgid "返回值: `tl.tensor`, 返回标准正态分布累积分布函数的逆函数值。"
+msgstr "Return value: `tl.tensor`, returns the inverse of the standard normal cumulative distribution function."
+
+msgid "114. triton.language.extra.cann.libdevice.popc"
+msgstr "114. triton.language.extra.cann.libdevice.popc"
+
+msgid "计算 x 中置位为 1 的数量。"
+msgstr "Count the number of set bits (1s) in x."
+
+msgid "返回值: `tl.tensor`, 返回 x 中置位为 1 的数量，取值范围 \\[0, 32]。"
+msgstr "Return value: `tl.tensor`, returns the number of bits set to 1 in x, with a value range of [0, 32]."
+
+msgid "115. triton.language.extra.cann.libdevice.pow"
+msgstr "115. triton.language.extra.cann.libdevice.pow"
+
+msgid "幂函数，计算 x 的 y 次方。"
+msgstr "Power function, computes x raised to the power of y."
+
+msgid "返回值: `tl.tensor`, 返回 x 的 y 次方。"
+msgstr "Return value: `tl.tensor`, returns x raised to the power of y."
+
+msgid "116. triton.language.extra.cann.libdevice.rcbrt"
+msgstr "116. triton.language.extra.cann.libdevice.rcbrt"
+
+msgid "计算 x 的立方根倒数。"
+msgstr "Compute the reciprocal of the cube root of x."
+
+msgid "返回值: `tl.tensor`, 返回 x 的立方根倒数。"
+msgstr "Return value: `tl.tensor`, returns the reciprocal of the cube root of x."
+
+msgid "117. triton.language.extra.cann.libdevice.rcp_rd"
+msgstr "117. triton.language.extra.cann.libdevice.rcp_rd"
+
+msgid "向下舍入浮点数倒数运算。"
+msgstr "Round down the reciprocal of a floating-point number."
+
+msgid "返回值: `tl.tensor`, 返回 1 / x。"
+msgstr "Return value: `tl.tensor`, returns 1 / x."
+
+msgid "118. triton.language.extra.cann.libdevice.rcp_rn"
+msgstr "118. triton.language.extra.cann.libdevice.rcp_rn"
+
+msgid "最近偶数舍入浮点数倒数运算。"
+msgstr "Reciprocal operation for rounding floating-point numbers to the nearest even integer."
+
+msgid "119. triton.language.extra.cann.libdevice.rcp_ru"
+msgstr "119. triton.language.extra.cann.libdevice.rcp_ru"
+
+msgid "向上舍入浮点数倒数运算。"
+msgstr "Round up the reciprocal operation of a floating-point number."
+
+msgid "120. triton.language.extra.cann.libdevice.rcp_rz"
+msgstr "120. triton.language.extra.cann.libdevice.rcp_rz"
+
+msgid "向零舍入浮点数倒数运算。"
+msgstr "Round floating-point reciprocal toward zero."
+
+msgid "121. triton.language.extra.cann.libdevice.reciprocal"
+msgstr "121. triton.language.extra.cann.libdevice.reciprocal"
+
+msgid "计算 1 / x 的倒数运算。"
+msgstr "Compute the reciprocal operation of 1 / x."
+
+msgid "122. triton.language.extra.cann.libdevice.relu"
+msgstr "122. triton.language.extra.cann.libdevice.relu"
+
+msgid "修正线性单元函数，当 x > 0 时返回 x，否则返回 0。"
+msgstr "Rectified linear unit function, returns x when x > 0, otherwise returns 0."
+
+msgid "返回值: `tl.tensor`, 返回修正线性单元的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of the rectified linear unit."
+
+msgid "123. triton.language.extra.cann.libdevice.remainder"
+msgstr "123. triton.language.extra.cann.libdevice.remainder"
+
+msgid "计算 x 对 y 的余数，满足 r = x - ny，其中 n 是 x / y 的最近邻整数。"
+msgstr "Compute the remainder of x divided by y, satisfying r = x - ny, where n is the nearest integer to x / y."
+
+msgid "返回值: `tl.tensor`, 返回 x 对 y 的余数。"
+msgstr "Return value: `tl.tensor`, returns the remainder of x divided by y."
+
+msgid "124. triton.language.extra.cann.libdevice.rhadd"
+msgstr "124. triton.language.extra.cann.libdevice.rhadd"
+
+msgid "计算 x 和 y 平均值的取整结果。"
+msgstr "Computes the rounded result of the average of x and y."
+
+msgid "返回值: `tl.tensor`, 返回 x 和 y 平均值的取整结果。"
+msgstr "Return value: `tl.tensor`, returns the rounded result of the average of x and y."
+
+msgid "125. triton.language.extra.cann.libdevice.rhypot"
+msgstr "125. triton.language.extra.cann.libdevice.rhypot"
+
+msgid "计算 x 和 y 之间的欧几里得距离的倒数。"
+msgstr "Compute the reciprocal of the Euclidean distance between x and y."
+
+msgid "返回值: `tl.tensor`, 返回 x 和 y 之间的欧几里得距离的倒数。"
+msgstr "Return value: `tl.tensor`, returns the reciprocal of the Euclidean distance between x and y."
+
+msgid "126. triton.language.extra.cann.libdevice.rint"
+msgstr "126. triton.language.extra.cann.libdevice.rint"
+
+msgid "按最近偶数舍入模式计算 x 的最近邻整数。"
+msgstr "Round x to the nearest integer using round-to-nearest-even mode."
+
+msgid "返回值: `tl.tensor`, 返回 x 的最近邻整数。"
+msgstr "Return value: `tl.tensor`, returns the nearest integer of x."
+
+msgid "127. triton.language.extra.cann.libdevice.rnorm3d"
+msgstr "127. triton.language.extra.cann.libdevice.rnorm3d"
+
+msgid "计算三维向量的欧几里得范数的倒数。"
+msgstr "Compute the reciprocal of the Euclidean norm of a three-dimensional vector."
+
+msgid "返回值: `tl.tensor`, 返回三维向量的欧几里得范数的倒数。"
+msgstr "Return value: `tl.tensor`, returns the reciprocal of the Euclidean norm of a three-dimensional vector."
+
+msgid "128. triton.language.extra.cann.libdevice.rnorm4d"
+msgstr "128. triton.language.extra.cann.libdevice.rnorm4d"
+
+msgid "计算四维向量的欧几里得范数的倒数。"
+msgstr "Compute the reciprocal of the Euclidean norm of a four-dimensional vector."
+
+msgid "返回值: `tl.tensor`, 返回四维向量的欧几里得范数的倒数。"
+msgstr "Return value: `tl.tensor`, returns the reciprocal of the Euclidean norm of a four-dimensional vector."
+
+msgid "129. triton.language.extra.cann.libdevice.round"
+msgstr "129. triton.language.extra.cann.libdevice.round"
+
+msgid "130. triton.language.extra.cann.libdevice.rsqrt"
+msgstr "130. triton.language.extra.cann.libdevice.rsqrt"
+
+msgid "计算 x 的平方根倒数。"
+msgstr "Compute the reciprocal square root of x."
+
+msgid "返回值: `tl.tensor`, 返回 x 的平方根倒数。"
+msgstr "Return value: `tl.tensor`, returns the reciprocal of the square root of x."
+
+msgid "131. triton.language.extra.cann.libdevice.rsqrt_rn"
+msgstr "131. triton.language.extra.cann.libdevice.rsqrt_rn"
+
+msgid "按最近偶数舍入模式计算 x 的平方根倒数。"
+msgstr "Compute the reciprocal square root of x using round-to-nearest-even mode."
+
+msgid "132. triton.language.extra.cann.libdevice.sad"
+msgstr "132. triton.language.extra.cann.libdevice.sad"
+
+msgid "计算 |x-y|+z，其中 x 和 y 是有符号整数，z 是无符号整数。"
+msgstr "Compute |x-y|+z, where x and y are signed integers, and z is an unsigned integer."
+
+msgid "z: `int32`"
+msgstr "z: `int32`"
+
+msgid "返回值: `tl.tensor`, 返回 |x-y|+z。"
+msgstr "Return value: `tl.tensor`, returns |x-y|+z."
+
+msgid "133. triton.language.extra.cann.libdevice.saturatef"
+msgstr "133. triton.language.extra.cann.libdevice.saturatef"
+
+msgid "将 x 限制在 \\[+0.0, 1.0] 范围内。"
+msgstr "Clamp x to the range \\[+0.0, 1.0]."
+
+msgid "返回值: `tl.tensor`, 返回 x 的饱和值，取值范围 \\[+0.0, 1.0]。"
+msgstr "Return value: `tl.tensor`, returns the saturated value of x, with a value range of \\[+0.0, 1.0]."
+
+msgid "134. triton.language.extra.cann.libdevice.scalbn"
+msgstr "134. triton.language.extra.cann.libdevice.scalbn"
+
+msgid "计算 x × 2^n 的值。"
+msgstr "Compute the value of x × 2^n."
+
+msgid "返回值: `tl.tensor`, 返回 x × 2^n 的计算结果。"
+msgstr "Return value: `tl.tensor`, returns the result of x × 2^n."
+
+msgid "135. triton.language.extra.cann.libdevice.signbit"
+msgstr "135. triton.language.extra.cann.libdevice.signbit"
+
+msgid "获取 x 的符号位。"
+msgstr "Get the sign bit of x."
+
+msgid "返回值: `tl.tensor`, 返回 x 的符号位。"
+msgstr "Return value: `tl.tensor`, returns the sign bit of x."
+
+msgid "136. triton.language.extra.cann.libdevice.sin"
+msgstr "136. triton.language.extra.cann.libdevice.sin"
+
+msgid "计算输入参数 x （弧度）的正弦值。"
+msgstr "Compute the sine of the input parameter x (in radians)."
+
+msgid "返回值: `tl.tensor`, 返回输入 x 的正弦值。"
+msgstr "Return value: `tl.tensor`, returns the sine of input x."
+
+msgid "137. triton.language.extra.cann.libdevice.sinh"
+msgstr "137. triton.language.extra.cann.libdevice.sinh"
+
+msgid "计算输入参数 x 的双曲正弦值。"
+msgstr "Compute the hyperbolic sine of the input parameter x."
+
+msgid "返回值: `tl.tensor`, 返回输入 x 的双曲正弦值。"
+msgstr "Return value: `tl.tensor`, returns the hyperbolic sine of the input x."
+
+msgid "138. triton.language.extra.cann.libdevice.sinpi"
+msgstr "138. triton.language.extra.cann.libdevice.sinpi"
+
+msgid "计算 sin(π × x) 的值。"
+msgstr "Compute the value of sin(π × x)."
+
+msgid "返回值: `tl.tensor`, 返回 sin(π × x) 的值。"
+msgstr "Return value: `tl.tensor`, returns the value of sin(π × x)."
+
+msgid "139. triton.language.extra.cann.libdevice.sqrt"
+msgstr "139. triton.language.extra.cann.libdevice.sqrt"
+
+msgid "计算 x 的平方根值。"
+msgstr "Compute the square root of x."
+
+msgid "返回值: `tl.tensor`, 返回 x 的平方根值。"
+msgstr "Return value: `tl.tensor`, returns the square root of x."
+
+msgid "140. triton.language.extra.cann.libdevice.sqrt_rd"
+msgstr "140. triton.language.extra.cann.libdevice.sqrt_rd"
+
+msgid "向下舍入模式计算 x 的平方根值。"
+msgstr "Computes the square root of x using round-down mode."
+
+msgid "141. triton.language.extra.cann.libdevice.sqrt_rn"
+msgstr "141. triton.language.extra.cann.libdevice.sqrt_rn"
+
+msgid "最近偶数舍入模式计算 x 的平方根值。"
+msgstr "Computes the square root of x using round-to-nearest-even rounding mode."
+
+msgid "142. triton.language.extra.cann.libdevice.sqrt_ru"
+msgstr "142. triton.language.extra.cann.libdevice.sqrt_ru"
+
+msgid "向上舍入模式计算 x 的平方根值。"
+msgstr "Computes the square root of x using round-upward mode."
+
+msgid "143. triton.language.extra.cann.libdevice.sqrt_rz"
+msgstr "143. triton.language.extra.cann.libdevice.sqrt_rz"
+
+msgid "向零舍入模式计算 x 的平方根值。"
+msgstr "Compute the square root of x using round-toward-zero mode."
+
+msgid "144. triton.language.extra.cann.libdevice.sub_rd"
+msgstr "144. triton.language.extra.cann.libdevice.sub_rd"
+
+msgid "向下舍入浮点数减法。"
+msgstr "Round down floating-point subtraction."
+
+msgid "返回值: `tl.tensor`, 返回向下舍入的减法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of rounding down subtraction."
+
+msgid "145. triton.language.extra.cann.libdevice.sub_rn"
+msgstr "145. triton.language.extra.cann.libdevice.sub_rn"
+
+msgid "最近偶数舍入浮点数减法。"
+msgstr "Nearest even rounding floating-point subtraction."
+
+msgid "返回值: `tl.tensor`, 返回最近偶数舍入的减法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of subtraction rounded to the nearest even integer."
+
+msgid "146. triton.language.extra.cann.libdevice.sub_ru"
+msgstr "146. triton.language.extra.cann.libdevice.sub_ru"
+
+msgid "向上舍入浮点数减法。"
+msgstr "Round up floating-point subtraction."
+
+msgid "返回值: `tl.tensor`, 返回向上舍入的减法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of subtraction rounded up."
+
+msgid "147. triton.language.extra.cann.libdevice.sub_rz"
+msgstr "147. triton.language.extra.cann.libdevice.sub_rz"
+
+msgid "向零舍入浮点数减法。"
+msgstr "Round toward zero floating-point subtraction."
+
+msgid "返回值: `tl.tensor`, 返回向零舍入的减法结果。"
+msgstr "Return value: `tl.tensor`, returns the result of subtraction rounded towards zero."
+
+msgid "148. triton.language.extra.cann.libdevice.tan"
+msgstr "148. triton.language.extra.cann.libdevice.tan"
+
+msgid "计算输入参数 x （弧度）的正切值。"
+msgstr "Compute the tangent of the input parameter x (in radians)."
+
+msgid "返回值: `tl.tensor`, 返回输入 x 的正切值。"
+msgstr "Return value: `tl.tensor`, returns the tangent of input x."
+
+msgid "149. triton.language.extra.cann.libdevice.tanh"
+msgstr "149. triton.language.extra.cann.libdevice.tanh"
+
+msgid "计算输入参数 x 的双曲正切值。"
+msgstr "Compute the hyperbolic tangent of the input parameter x."
+
+msgid "返回值: `tl.tensor`, 返回输入 x 的双曲正切值。"
+msgstr "Return value: `tl.tensor`, returns the hyperbolic tangent of the input x."
+
+msgid "150. triton.language.extra.cann.libdevice.tgamma"
+msgstr "150. triton.language.extra.cann.libdevice.tgamma"
+
+msgid "151. triton.language.extra.cann.libdevice.trunc"
+msgstr "151. triton.language.extra.cann.libdevice.trunc"
+
+msgid "截断取整，向零舍入到最近邻整数。"
+msgstr "Truncation rounding, rounding towards zero to the nearest integer."
+
+msgid "返回值: `tl.tensor`, 返回取整结果。"
+msgstr "Return value: `tl.tensor`, returns the rounding result."
+
+msgid "152. triton.language.extra.cann.libdevice.uint2float_rd"
+msgstr "152. triton.language.extra.cann.libdevice.uint2float_rd"
+
+msgid "向下舍入模式将32位无符号整数转换为浮点数。"
+msgstr "Downward rounding mode converts a 32-bit unsigned integer to a floating-point number."
+
+msgid "x: `uint32`"
+msgstr "x: `uint32`"
+
+msgid "153. triton.language.extra.cann.libdevice.uint2float_rn"
+msgstr "153. triton.language.extra.cann.libdevice.uint2float_rn"
+
+msgid "最近偶数舍入模式将32位无符号整数转换为浮点数。"
+msgstr "The nearest even rounding mode converts a 32-bit unsigned integer to a floating-point number."
+
+msgid "154. triton.language.extra.cann.libdevice.uint2float_ru"
+msgstr "154. triton.language.extra.cann.libdevice.uint2float_ru"
+
+msgid "向上舍入模式将32位无符号整数转换为浮点数。"
+msgstr "Round-up mode converts a 32-bit unsigned integer to a floating-point number."
+
+msgid "155. triton.language.extra.cann.libdevice.uint2float_rz"
+msgstr "155. triton.language.extra.cann.libdevice.uint2float_rz"
+
+msgid "向零舍入模式将32位无符号整数转换为浮点数。"
+msgstr "Round-to-zero rounding mode converts a 32-bit unsigned integer to a floating-point number."
+
+msgid "156. triton.language.extra.cann.libdevice.uint_as_float"
+msgstr "156. triton.language.extra.cann.libdevice.uint_as_float"
+
+msgid "将32位无符号整数的比特位重新解释为浮点数。不进行数值转换。"
+msgstr "Reinterpret the bits of a 32-bit unsigned integer as a floating-point number. No numerical conversion is performed."
+
+msgid "返回值: `tl.tensor`, 返回将32位无符号整数的比特位重新解释为浮点数的结果。"
+msgstr "Return value: `tl.tensor`, returns the result of reinterpreting the bits of a 32-bit unsigned integer as a floating-point number."
+
+msgid "157. triton.language.extra.cann.libdevice.ull2float_rd"
+msgstr "157. triton.language.extra.cann.libdevice.ull2float_rd"
+
+msgid "向下舍入模式将64位无符号整数转换为浮点数。"
+msgstr "Downward rounding mode converts a 64-bit unsigned integer to a floating-point number."
+
+msgid "x: `uint64`"
+msgstr "x: `uint64`"
+
+msgid "158. triton.language.extra.cann.libdevice.ull2float_rn"
+msgstr "158. triton.language.extra.cann.libdevice.ull2float_rn"
+
+msgid "最近偶数舍入模式将64位无符号整数转换为浮点数。"
+msgstr "Nearest even rounding mode converts 64-bit unsigned integer to floating point number."
+
+msgid "159. triton.language.extra.cann.libdevice.ull2float_ru"
+msgstr "159. triton.language.extra.cann.libdevice.ull2float_ru"
+
+msgid "向上舍入模式将64位无符号整数转换为浮点数。"
+msgstr "Round-up mode converts a 64-bit unsigned integer to a floating-point number."
+
+msgid "160. triton.language.extra.cann.libdevice.ull2float_rz"
+msgstr "160. triton.language.extra.cann.libdevice.ull2float_rz"
+
+msgid "向零舍入模式将64位无符号整数转换为浮点数。"
+msgstr "Round-to-zero rounding mode converts a 64-bit unsigned integer to a floating-point number."
+
+msgid "161. triton.language.extra.cann.libdevice.y0"
+msgstr "161. triton.language.extra.cann.libdevice.y0"
+
+msgid "计算输入参数的零阶第二类贝塞尔函数值。"
+msgstr "Compute the value of the modified Bessel function of the second kind of order zero for the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的零阶第二类贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the value of the zero-order Bessel function of the second kind for the input parameter."
+
+msgid "162. triton.language.extra.cann.libdevice.y1"
+msgstr "162. triton.language.extra.cann.libdevice.y1"
+
+msgid "计算输入参数的一阶第二类贝塞尔函数值。"
+msgstr "Compute the value of the first-order Bessel function of the second kind for the input parameter."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的一阶第二类贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the value of the first-order Bessel function of the second kind for the input parameter."
+
+msgid "163. triton.language.extra.cann.libdevice.yn"
+msgstr "163. triton.language.extra.cann.libdevice.yn"
+
+msgid "计算输入参数的 n 阶第二类贝塞尔函数值。"
+msgstr "Compute the value of the Bessel function of the second kind of order n for the input argument."
+
+msgid "返回值: `tl.tensor`, 返回输入参数的 n 阶第二类贝塞尔函数值。"
+msgstr "Return value: `tl.tensor`, returns the nth-order Bessel function of the second kind for the input parameter."
