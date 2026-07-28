@@ -1,0 +1,5113 @@
+# English translations for triton-ascend docs.
+# Copyright (c) 2025 Huawei Technologies Co., Ltd.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: triton-ascend-docs\n"
+"POT-Creation-Date: 2026-07-28 07:50+0000\n"
+"PO-Revision-Date: 2026-07-28 07:50+0000\n"
+"Last-Translator: Auto Translation (DeepSeek)\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+msgstr "`tl` 参数用于指定张量的数据类型。"
+
+msgid "triton.language.atomic_add"
+msgstr "triton.language.atomic_add"
+
+msgid "1. OP 概述"
+msgstr "1. OP Overview"
+
+msgid "简介：原子性加法操作，在指定的内存位置执行原子加法 原型："
+msgstr "Introduction: Atomic addition operation, performs atomic addition at the specified memory location. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_add(...)`，与`atomic_add(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_add(...)`, which is equivalent to `atomic_add(x, ...)`."
+
+msgid "2. OP 规格"
+msgstr "2. OP Specification"
+
+msgid "2.1 参数说明"
+msgstr "2.1 Parameter Description"
+
+msgid "参数名"
+msgstr "Parameter Name"
+
+msgid "类型"
+msgstr "Type"
+
+msgid "说明"
+msgstr "Description"
+
+msgid "`pointer`"
+msgstr "`pointer`"
+
+msgid "`triton.PointerDType`"
+msgstr "`triton.PointerDType`"
+
+msgid "要操作的内存位置，执行 *pointer + val 计算后的结果写回到该内存"
+msgstr "The memory location to be operated on, where the result of the *pointer + val calculation is written back to this memory."
+
+msgid "`val`"
+msgstr "`val`"
+
+msgid "`pointer.dtype.element_ty`"
+msgstr "`pointer.dtype.element_ty`"
+
+msgid "执行原子加法操作的值（右操作数）"
+msgstr "The value (right operand) for performing the atomic addition operation."
+
+msgid "`mask`"
+msgstr "`mask`"
+
+msgid "`int1`或`tensor<int1>`，可选"
+msgstr "`int1` or `tensor<int1>`, optional"
+
+msgid "指定数据范围，防止访问越界"
+msgstr "Specify the data range to prevent out-of-bounds access."
+
+msgid "`sem`"
+msgstr "`sem`"
+
+msgid "`str`，可选"
+msgstr "`str`, optional"
+
+msgid "指定操作的内存语义<br>社区官方配置可接受的值为“acquire”、“release”、“acq_rel”（默认，代表“ACQUIRE_RELEASE”）和“relaxed”<br>我们只支持“acq_rel”：<br>- acquire：获取锁后，能够看到之前的释放操作（相当于一个“读取”操作，并且这个读取操作会阻塞，直到能够读取到“最新”的数据，也就是其他线程释放后的数据）<br>- release：在释放锁之前的所有操作，对后续获取锁的线程可见（相当于一个“写入”操作，并且这个写入操作会“同步”所有之前的写操作）"
+msgstr "Memory semantics for the specified operation<br>The acceptable values for the community official configuration are \"acquire\", \"release\", \"acq_rel\" (default, representing \"ACQUIRE_RELEASE\"), and \"relaxed\"<br>We only support \"acq_rel\":<br>- acquire: After acquiring the lock, it can see the previous release operation (equivalent to a \"read\" operation, and this read operation will block until it can read the \"latest\" data, i.e., data released by other threads)<br>- release: All operations before releasing the lock are visible to threads that subsequently acquire the lock (equivalent to a \"write\" operation, and this write operation will \"synchronize\" all previous write operations)"
+
+msgid "`scope`"
+msgstr "`scope`"
+
+msgid "观察原子操作同步效果的线程范围<br>可接受的值为“gpu”（默认）、“cta”（协作线程数组、线程块）或“sys”（代表“SYSTEM”） <br>我们只支持“gpu”"
+msgstr "The thread scope for observing the synchronization effect of atomic operations<br>Acceptable values are \"gpu\" (default), \"cta\" (cooperative thread array, thread block), or \"sys\" (representing \"SYSTEM\") <br>We only support \"gpu\""
+
+msgid "`_semantic`"
+msgstr "`_semantic`"
+
+msgid "-"
+msgstr "-"
+
+msgid "保留参数，暂不支持外部调用"
+msgstr "Reserved parameter, external calls are not supported for now."
+
+msgid "返回值： `pointer`：tensor，执行操作之前的旧值"
+msgstr "Return value: `pointer`: tensor, the old value before the operation was performed."
+
+msgid "2.2 支持规格"
+msgstr "2.2 Supported Specifications"
+
+msgid "2.2.1 DataType 支持"
+msgstr "2.2.1 DataType Support"
+
+msgid "int8"
+msgstr "int8"
+
+msgid "int16"
+msgstr "int16"
+
+msgid "int32"
+msgstr "int32"
+
+msgid "uint8"
+msgstr "uint8"
+
+msgid "uint16"
+msgstr "uint16"
+
+msgid "uint32"
+msgstr "uint32"
+
+msgid "uint64"
+msgstr "uint64"
+
+msgid "int64"
+msgstr "int64"
+
+msgid "fp16"
+msgstr "fp16"
+
+msgid "fp32"
+msgstr "fp32"
+
+msgid "fp64"
+msgstr "fp64"
+
+msgid "bf16"
+msgstr "bf16"
+
+msgid "bool"
+msgstr "bool"
+
+msgid "GPU"
+msgstr "GPU"
+
+msgid "×"
+msgstr "×"
+
+msgid "√"
+msgstr "√"
+
+msgid "Ascend A2/A3"
+msgstr "Ascend A2/A3"
+
+msgid "结论：Ascend 对比 GPU 缺失int64、fp64的支持能力。"
+msgstr "Conclusion: Ascend lacks support for int64 and fp64 compared to GPU."
+
+msgid "2.2.2 Shape 支持"
+msgstr "2.2.2 Shape Support"
+
+msgid "无特殊要求"
+msgstr "No special requirements."
+
+msgid "2.3 特殊限制说明"
+msgstr "2.3 Special Limitations"
+
+msgid "相对社区能力缺失且无法实现"
+msgstr "Relative community capacity deficiency and inability to achieve"
+
+msgid "差异点"
+msgstr "Differences"
+
+msgid "描述"
+msgstr "Description"
+
+msgid "数据类型"
+msgstr "Data Type"
+
+msgid "Ascend 对比 GPU 缺失int64，fp64的支持能力（硬件限制）"
+msgstr "Ascend lacks support for int64 and fp64 compared to GPU (hardware limitation)."
+
+msgid "sem"
+msgstr "SEM"
+
+msgid "社区官方配置可接受的值为“acquire”、“release”、“acq_rel”（默认，代表“ACQUIRE_RELEASE”）和“relaxed”<br>我们只支持“acq_rel”"
+msgstr "The officially accepted values for community configuration are \"acquire\", \"release\", \"acq_rel\" (default, representing \"ACQUIRE_RELEASE\"), and \"relaxed\".<br>We only support \"acq_rel\"."
+
+msgid "scope"
+msgstr "scope"
+
+msgid "可接受的值为“gpu”、“cta”、或“sys”、 <br>我们只支持“gpu”"
+msgstr "Acceptable values are \"gpu\", \"cta\", or \"sys\". <br>We only support \"gpu\"."
+
+msgid "2.4 使用方法"
+msgstr "2.4 Usage"
+
+msgid "以下示例实现了原子加法计算："
+msgstr "The following example implements atomic addition:"
+
+msgid "triton.language.atomic_and"
+msgstr "triton.language.atomic_and"
+
+msgid "简介：原子性逻辑与操作，在指定的内存位置执行逻辑与 原型："
+msgstr "Introduction: Atomic logical AND operation, performs a logical AND at the specified memory location. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_and(...)`，与`atomic_and(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_and(...)`, which is equivalent to `atomic_and(x, ...)`."
+
+msgid "要操作的内存位置，执行 *pointer & val 计算后的结果写回到该内存"
+msgstr "The memory location to be operated on, where the result of the *pointer & val calculation is written back to this memory."
+
+msgid "执行原子与操作的值（右操作数）"
+msgstr "The value (right operand) to perform the atomic AND operation."
+
+msgid "解决途径"
+msgstr "Solution approach"
+
+msgid "待开发"
+msgstr "To be developed"
+
+msgid "以下示例实现了原子与计算："
+msgstr "The following example implements atomic addition:"
+
+msgid "triton.language.atomic_cas"
+msgstr "triton.language.atomic_cas"
+
+msgid "简介：原子性比较和交换操作，将 *pointer 值与 cmp 进行比较，若相等，则将*pointer 更新为 val，否则 *pointer 不变。 原型："
+msgstr "Introduction: Atomic compare-and-swap operation, compares the value of *pointer with cmp, and if they are equal, updates *pointer to val; otherwise, *pointer remains unchanged. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_cas(...)`，与`atomic_cas(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_cas(...)`, which is equivalent to `atomic_cas(x, ...)`."
+
+msgid "要操作的内存位置，若 *pointer == cmp，则将*pointer 更新为 val，计算后的结果写回到该内存"
+msgstr "The memory location to be operated on. If `*pointer == cmp`, then `*pointer` is updated to `val`, and the computed result is written back to that memory."
+
+msgid "`cmp`"
+msgstr "`cmp`"
+
+msgid "用于与目标内存进行比较的值"
+msgstr "Value used for comparison with the target memory."
+
+msgid "用于更新的目标值"
+msgstr "Target value for update"
+
+msgid "结论：Ascend 对比 GPU 缺失fp64、bf16的支持能力。"
+msgstr "Conclusion: Ascend lacks support for fp64 and bf16 compared to GPU."
+
+msgid "Ascend 对比 GPU 缺失fp64的支持能力（硬件限制）"
+msgstr "Ascend lacks fp64 support compared to GPU (hardware limitation)"
+
+msgid "以下示例实现了原子比较和交换操作："
+msgstr "The following example implements an atomic compare-and-swap operation:"
+
+msgid "triton.language.atomic_max"
+msgstr "triton.language.atomic_max"
+
+msgid "简介：原子性取最大值操作，在指定的内存位置执行原子最大值操作 原型："
+msgstr "Introduction: Atomic max operation, performs an atomic maximum operation at the specified memory location. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_max(...)`，与`atomic_max(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_max(...)`, which is equivalent to `atomic_max(x, ...)`."
+
+msgid "要操作的内存位置，执行 max(*pointer , val) 计算后的结果写回到该内存"
+msgstr "The memory location to be operated on, where the result of the `max(*pointer, val)` computation is written back to this memory."
+
+msgid "用于和目标内存进行比较的值"
+msgstr "Value to compare with the target memory"
+
+msgid "结论：Ascend 对比 GPU 缺失int64的支持能力。"
+msgstr "Conclusion: Ascend lacks int64 support compared to GPU."
+
+msgid "Ascend 对比 GPU 缺失int64的支持能力（硬件限制）"
+msgstr "Ascend lacks support for int64 compared to GPU (hardware limitation)"
+
+msgid "以下示例实现了原子取最大值："
+msgstr "The following example implements atomic max:"
+
+msgid "triton.language.atomic_min"
+msgstr "triton.language.atomic_min"
+
+msgid "简介：原子性取最小值操作，在指定的内存位置执行原子最小值操作 原型："
+msgstr "Introduction: Atomic minimum operation, performs an atomic minimum operation at the specified memory location. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_min(...)`，与`atomic_min(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_min(...)`, which is equivalent to `atomic_min(x, ...)`."
+
+msgid "要操作的内存位置，执行 min(*pointer , val) 计算后的结果写回到该内存"
+msgstr "The memory location to be operated on, where the result of executing the `min(*pointer, val)` calculation is written back to that memory."
+
+msgid "执行原子取最小值操作的值（右操作数）"
+msgstr "The value (right operand) for performing the atomic minimum operation."
+
+msgid "以下示例实现了原子取最小值计算："
+msgstr "The following example implements atomic minimum value computation:"
+
+msgid "triton.language.atomic_or"
+msgstr "triton.language.atomic_or"
+
+msgid "简介：原子性逻辑或操作，在指定的内存位置执行逻辑或（|）操作 原型："
+msgstr "Introduction: Atomic logical OR operation, performs a logical OR (|) operation at the specified memory location. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_or(...)`，与`atomic_or(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_or(...)`, which is equivalent to `atomic_or(x, ...)`."
+
+msgid "要操作的内存位置，执行 *pointer | val 计算后的结果写回到该内存"
+msgstr "The memory location to be operated on, where the result of the *pointer | val calculation is written back to this memory."
+
+msgid "执行原子操作的值（右操作数）"
+msgstr "The value (right operand) for performing the atomic operation"
+
+msgid "以下示例实现了原子或计算："
+msgstr "The following example implements atomic OR computation:"
+
+msgid "triton.language.atomic_xchg"
+msgstr "triton.language.atomic_xchg"
+
+msgid "简介：原子性交换操作，在指定的内存位置执行原子交换操作 原型："
+msgstr "Introduction: Atomic swap operation, performs an atomic exchange operation at the specified memory location. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_xchg(...)`，与`atomic_xchg(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_xchg(...)`, which is equivalent to `atomic_xchg(x, ...)`."
+
+msgid "要操作的内存位置，将 *pointer 更新为 val，计算后的结果写回到该内存"
+msgstr "Memory location to operate on, update *pointer to val, and write the computed result back to that memory."
+
+msgid "要更新为的目标值（右操作数）"
+msgstr "Target value to update to (right operand)"
+
+msgid "无特殊要求，默认八维"
+msgstr "No special requirements, default 8-dimensional."
+
+msgid "triton.language.atomic_xor"
+msgstr "triton.language.atomic_xor"
+
+msgid "简介：原子性逻辑异或操作，在指定的内存位置执行逻辑异或 原型："
+msgstr "Introduction: Atomic logical XOR operation, performs logical XOR at the specified memory location. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.atomic_xor(...)`，与`atomic_xor(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.atomic_xor(...)`, which is equivalent to `atomic_xor(x, ...)`."
+
+msgid "要操作的内存位置，执行 *pointer ^ val 计算后的结果写回到该内存"
+msgstr "The memory location to be operated on, where the result of the *pointer ^ val calculation is written back to this memory."
+
+msgid "执行原子异或操作的值（右操作数）"
+msgstr "The value (right operand) for performing the atomic XOR operation."
+
+msgid "以下示例实现了原子异或计算："
+msgstr "The following example implements atomic XOR computation:"
+
+msgid "eq"
+msgstr "eq"
+
+msgid "简介：用于比较两个张量的元素, 与`==`等价。作为`tensor`的内置运算符使用, 如`x==y`。"
+msgstr "Introduction: Used to compare elements of two tensors, equivalent to `==`. Used as a built-in operator of `tensor`, such as `x==y`."
+
+msgid "`input`"
+msgstr "`input`"
+
+msgid "`tensor`"
+msgstr "`tensor`"
+
+msgid "张量数据, 左操作数, 代表要进行比较的主数据"
+msgstr "Tensor data, left operand, representing the primary data to be compared."
+
+msgid "`other`"
+msgstr "`other`"
+
+msgid "张量数据, 右操作数, 与`input`逐元素进行比较"
+msgstr "Tensor data, right operand, compared element-wise with `input`."
+
+msgid "`_builder`"
+msgstr "`_builder`"
+
+msgid "返回值： `tl.tensor`：同`input`的shape的张量"
+msgstr "Return value: `tl.tensor`: a tensor with the same shape as `input`."
+
+msgid "结论：Triton-Ascend 对比 GPU 缺失 uint8/uint16/uint32/uint64、fp64 的支持能力。"
+msgstr "Conclusion: Triton-Ascend lacks support for uint8/uint16/uint32/uint64 and fp64 compared to GPU."
+
+msgid "支持维度范围"
+msgstr "Supports dimension range"
+
+msgid "无限制"
+msgstr "Unlimited"
+
+msgid "Ascend"
+msgstr "Ascend"
+
+msgid "结论：在 Shape 方面, GPU 与 Ascend 平台无差异。"
+msgstr "Conclusion: In terms of Shape, there is no difference between GPU and Ascend platforms."
+
+msgid "Triton-Ascend 对比 GPU 缺失 fp64 的支持能力，uint8/uint16/uint32/uint64 类型支持开发中。"
+msgstr "Triton-Ascend lacks fp64 support compared to GPU, and support for uint8/uint16/uint32/uint64 types is under development."
+
+msgid "以下示例实现了对张量`x0`、`x1`做`==`运算："
+msgstr "The following example implements the `==` operation on tensors `x0` and `x1`:"
+
+msgid "triton.language.semantic.greater_equal"
+msgstr "triton.language.semantic.greater_equal"
+
+msgid "简介：用于比较两个张量的元素, 与`>=`等价。 函数原型："
+msgstr "Introduction: Used to compare elements of two tensors, equivalent to `>=`. Function prototype:"
+
+msgid "作为`tensor`的内置运算符使用, 如`x>=y`。"
+msgstr "Used as a built-in operator for `tensor`, such as `x>=y`."
+
+msgid "Triton-Ascend 对比 GPU 缺失 fp64 的支持能力。uint8/uint16/uint32/uint64 支持开发中。"
+msgstr "Triton-Ascend lacks fp64 support compared to GPU. Support for uint8/uint16/uint32/uint64 is under development."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做大于等于运算："
+msgstr "The following example implements the greater-than-or-equal-to operation on three-dimensional tensors `x0` and `x1`:"
+
+msgid "triton.language.semantic.greater_than"
+msgstr "triton.language.semantic.greater_than"
+
+msgid "简介：用于比较两个张量的元素，与`>`等价。"
+msgstr "Introduction: Used to compare elements of two tensors, equivalent to `>`."
+
+msgid "作为`tensor`的内置运算符使用，如`x>y`。"
+msgstr "Used as a built-in operator for `tensor`, such as `x>y`."
+
+msgid "张量数据，左操作数，代表要进行比较的主数据"
+msgstr "Tensor data, left operand, representing the primary data to be compared."
+
+msgid "张量数据，右操作数，与`input`逐元素进行比较"
+msgstr "Tensor data, right operand, compared element-wise with `input`."
+
+msgid "结论：Ascend 对比 GPU 缺失 uint16/uint32/uint64、fp64 的支持能力。"
+msgstr "Conclusion: Ascend lacks support for uint16/uint32/uint64 and fp64 compared to GPU."
+
+msgid "结论：在 Shape 方面，GPU 与 Ascend 平台无差异。"
+msgstr "Conclusion: In terms of Shape, there is no difference between GPU and Ascend platforms."
+
+msgid "Ascend 对比 GPU 缺失 uint16/uint32/uint64、fp64 的支持能力。"
+msgstr "Ascend lacks support for uint16/uint32/uint64 and fp64 compared to GPU."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做大于运算："
+msgstr "The following example implements a greater-than operation on three-dimensional tensors `x0` and `x1`."
+
+msgid "3. 语义GAP"
+msgstr "3. Semantic Gap"
+
+msgid "相对社区能力缺失但能开发支持"
+msgstr "Relative to the lack of community capabilities but able to develop support"
+
+msgid "可以考虑支持uint8类型。"
+msgstr "Consider supporting the uint8 type."
+
+msgid "triton.language.semantic.less_equal"
+msgstr "triton.language.semantic.less_equal"
+
+msgid "简介：用于比较两个张量的元素, 与`<=`等价。 函数原型："
+msgstr "Introduction: Used to compare elements of two tensors, equivalent to `<=`. Function prototype:"
+
+msgid "作为`tensor`的内置运算符使用, 如`x<=y`。"
+msgstr "Used as a built-in operator for `tensor`, such as `x<=y`."
+
+msgid "结论：Triton-Ascend 对比 GPU 暂不支持 uint8/uint16/uint32/uint64、fp64。"
+msgstr "Conclusion: Triton-Ascend currently does not support uint8/uint16/uint32/uint64 and fp64 compared to GPU."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做小于等于运算："
+msgstr "The following example implements a less-than-or-equal-to operation on three-dimensional tensors `x0` and `x1`:"
+
+msgid "triton.language.semantic.less_than"
+msgstr "triton.language.semantic.less_than"
+
+msgid "简介：用于比较两个张量的元素, 与`<`等价。 函数原型："
+msgstr "Introduction: Used to compare elements of two tensors, equivalent to `<`. Function prototype:"
+
+msgid "作为`tensor`的内置运算符使用, 如`x<y`。"
+msgstr "Used as a built-in operator for `tensor`, such as `x<y`."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做小于运算："
+msgstr "The following example implements a less-than operation on three-dimensional tensors `x0` and `x1`:"
+
+msgid "ne"
+msgstr "ne"
+
+msgid "简介：用于比较两个张量的元素, 与`!=`等价。"
+msgstr "Introduction: Used to compare elements of two tensors, equivalent to `!=`."
+
+msgid "作为`tensor`的内置运算符使用, 如`x!=y`。"
+msgstr "Used as a built-in operator for `tensor`, such as `x!=y`."
+
+msgid "以下示例实现了对张量`x0`、`x1`做`!=`运算："
+msgstr "The following example implements the `!=` operation on tensors `x0` and `x1`:"
+
+msgid "triton.language.assume"
+msgstr "triton.language.assume"
+
+msgid "1. 函数概述"
+msgstr "1. Function Overview"
+
+msgid "`assume` 用于向编译器提供条件假设信息，允许编译器基于已知为真的条件进行优化。这是一个编译器提示操作，不会在运行时检查条件。"
+msgstr "`assume` is used to provide conditional assumption information to the compiler, allowing the compiler to optimize based on conditions known to be true. This is a compiler hint operation and does not check the condition at runtime."
+
+msgid "2. 规格"
+msgstr "2. Specifications"
+
+msgid "参数"
+msgstr "Parameter"
+
+msgid "默认值"
+msgstr "Default value"
+
+msgid "含义说明"
+msgstr "Meaning Explanation"
+
+msgid "`cond`"
+msgstr "`cond`"
+
+msgid "`bool`"
+msgstr "`bool`"
+
+msgid "必需"
+msgstr "Required"
+
+msgid "编译器可以假设为真的条件表达式"
+msgstr "Conditional expressions that the compiler can assume to be true"
+
+msgid "2.2 类型支持"
+msgstr "2.2 Type Support"
+
+msgid "A3："
+msgstr "A3:"
+
+msgid "✓"
+msgstr "✓"
+
+msgid "2.3 使用方法"
+msgstr "2.3 Usage"
+
+msgid "`assume` 操作允许开发者在确保正确性的前提下，帮助编译器生成更高效的代码。"
+msgstr "The `assume` operation allows developers to help the compiler generate more efficient code while ensuring correctness."
+
+msgid "triton.language.debug_barrier"
+msgstr "triton.language.debug_barrier"
+
+msgid "`debug_barrier` 插入一条屏障指令，用于在调试时同步块中的所有线程，确保线程间的执行顺序。在同一块中的所有其他线程也到达该点之前，任何线程都不会继续执行该调用。"
+msgstr "`debug_barrier` inserts a barrier instruction to synchronize all threads in a block during debugging, ensuring the execution order among threads. No thread will proceed past this call until all other threads in the same block have also reached that point."
+
+msgid "**注意：** `debug_barrier` 主要用于调试，通常不应在性能关键的生产代码中使用，因为它可能会因同步而引入开销。"
+msgstr "**Note:** `debug_barrier` is primarily used for debugging and should generally not be used in performance-critical production code, as it may introduce overhead due to synchronization."
+
+msgid "triton.language.max_constancy"
+msgstr "triton.language.max_constancy"
+
+msgid "`max_constancy` 用于向编译器声明输入张量中值的常量性模式，告知编译器输入数据中每组连续的值都是相等的。"
+msgstr "`max_constancy` is used to declare to the compiler the constancy pattern of values in the input tensor, informing the compiler that each consecutive group of values in the input data is equal."
+
+msgid "`Tensor`"
+msgstr "`Tensor`"
+
+msgid "输入张量，其值具有特定的常量性模式"
+msgstr "Input tensor whose values have a specific constancy pattern."
+
+msgid "`values`"
+msgstr "`values`"
+
+msgid "`constexpr[int]` 或 `list[constexpr[int]]`"
+msgstr "`constexpr[int]` or `list[constexpr[int]]`"
+
+msgid "描述常量性模式的编译时常量整数（或整数序列）"
+msgstr "Describes compile-time constant integers (or sequences of integers) that match constant patterns."
+
+msgid "**`values`描述着每个维度的恒定性特征，所以`values` 的维度要与`input` 的维度相同。 注意当`shape`的最后一维为`1`时出现的降维情况。**"
+msgstr "**`values` describes the constancy characteristics of each dimension, so the dimensions of `values` must match those of `input`. Note the dimensionality reduction that occurs when the last dimension of `shape` is `1`.**"
+
+msgid "如：二维 `input`对应通用`values`入参为`[1,1]`。"
+msgstr "For example: a two-dimensional `input` corresponds to the general `values` input parameter as `[1,1]`."
+
+msgid "Ascend 对比 GPU 缺失uint8、uint16、uint32、uint64、fp64的支持能力（硬件限制）。"
+msgstr "Ascend lacks support for uint8, uint16, uint32, uint64, and fp64 compared to GPU (hardware limitation)."
+
+msgid "triton.language.max_contiguous"
+msgstr "triton.language.max_contiguous"
+
+msgid "`max_contiguous` 用于向编译器声明输入张量中的连续性模式，告知编译器输入张量的前`value`个数是连续的。"
+msgstr "`max_contiguous` is used to declare the contiguity pattern in the input tensor to the compiler, informing the compiler that the first `value` elements of the input tensor are contiguous."
+
+msgid "输入张量，其内存访问具有特定的连续性模式"
+msgstr "Input tensor whose memory access has a specific contiguity pattern"
+
+msgid "描述连续性模式的编译时常量整数（或整数序列）"
+msgstr "Compile-time constant integer (or integer sequence) describing the continuity pattern"
+
+msgid "**`values`描述着每个维度的连续性特征，所以`values` 的维度要与`input` 的维度相同。 注意当`shape`的最后一维为`1`时出现的降维情况。**"
+msgstr "**`values` describes the continuous features of each dimension, so the dimensions of `values` must match those of `input`. Note the dimensionality reduction that occurs when the last dimension of `shape` is `1`.**"
+
+msgid "triton.language.multiple_of"
+msgstr "triton.language.multiple_of"
+
+msgid "`multiple_of` 用于向编译器声明输入张量中的第一个值是某个数的倍数。"
+msgstr "`multiple_of` is used to declare to the compiler that the first value in the input tensor is a multiple of a certain number."
+
+msgid "输入张量，其值都是某个数的倍数"
+msgstr "Input tensor, whose values are all multiples of a certain number."
+
+msgid "声明输入值是这些数的倍数（单个整数或按维度的整数序列）"
+msgstr "Declares that the input values are multiples of these numbers (a single integer or a sequence of integers by dimension)"
+
+msgid "**`values`描述着每个维度第一个值的可除性特征，所以`values` 的维度要与`input` 的维度相同。 注意当`shape`的最后一维为`1`时出现的降维情况。**"
+msgstr "**`values` describes the divisibility characteristics of the first value in each dimension, so the dimension of `values` must match the dimension of `input`. Note the dimensionality reduction that occurs when the last dimension of `shape` is `1`.**"
+
+msgid "triton.language.arange"
+msgstr "triton.language.arange"
+
+msgid "简介：`triton.language.arange`函数用于生成一个从`start`到`end`（不包括`end`）的连续整数序列。"
+msgstr "Introduction: The `triton.language.arange` function is used to generate a sequence of consecutive integers from `start` to `end` (excluding `end`)."
+
+msgid "`start`"
+msgstr "`start`"
+
+msgid "`scalar`"
+msgstr "`scalar`"
+
+msgid "创建连续整数序列的起始数值，必须是编译时常量（tl.constexpr）"
+msgstr "The starting value for creating a sequence of consecutive integers must be a compile-time constant (tl.constexpr)."
+
+msgid "`end`"
+msgstr "`end`"
+
+msgid "创建连续整数序列的结束数值"
+msgstr "The end value for creating a sequence of consecutive integers."
+
+msgid "返回值： `tensor`：连续整数序列的tensor"
+msgstr "Return value: `tensor`: a tensor of consecutive integer sequences"
+
+msgid "结论：要求arange的参数start、end必须是constant，因此无类型，支持类型对应的值范围，最大到int32，硬件指令也只支持到int32。"
+msgstr "Conclusion: The parameters `start` and `end` of `arange` must be constants, hence they are untyped. They support value ranges corresponding to their types, up to `int32`, and the hardware instructions also only support up to `int32`."
+
+msgid "bool/int1"
+msgstr "bool/int1"
+
+msgid "Ascend  A2/A3"
+msgstr "Ascend A2/A3"
+
+msgid "0 =< (end - start) <1048576 end >= 0,  start  >= 0"
+msgstr "0 =< (end - start) < 1048576 end >= 0, start >= 0"
+
+msgid "1.函数用于生成一个[start, end) 的连续整数序列，CUDA要求range=(end-start)必须为2的幂次方。Triton-ascend并无此要求。 2.NV和Triton-ascend都限制end的最大值TRITON_MAX_TENSOR_NUMEL = 1048576 3.arange的输入必须是constant常量，支持uint、int类型的小于1048576（最大值TRITON_MAX_TENSOR_NUMEL ）的数值。int64不支持。 4.arange的start 和 end 应大于等于0。"
+msgstr "1. The function is used to generate a continuous integer sequence in the range [start, end). CUDA requires that range=(end-start) must be a power of 2. Triton-ascend does not have this requirement. 2. Both NV and Triton-ascend limit the maximum value of end to TRITON_MAX_TENSOR_NUMEL = 1048576. 3. The input of arange must be a constant, supporting uint and int type values less than 1048576 (the maximum value TRITON_MAX_TENSOR_NUMEL). int64 is not supported. 4. The start and end of arange should be greater than or equal to 0."
+
+msgid "以下示例实现了生成一个[0, 128) 的连续整数序列："
+msgstr "The following example implements generating a continuous integer sequence from [0, 128):"
+
+msgid "triton.language.cast"
+msgstr "triton.language.cast"
+
+msgid "1 功能作用说明"
+msgstr "1 Function Description"
+
+msgid "将张量转换为指定的数据类型，支持数值类型转换、位级别重解释（bitcast）、浮点降精度舍入模式，以及Ascend扩展的整数溢出处理模式。"
+msgstr "Convert the tensor to the specified data type, supporting numeric type conversion, bit-level reinterpretation (bitcast), floating-point precision reduction rounding modes, and Ascend-extended integer overflow handling modes."
+
+msgid "**语法：**"
+msgstr "**Syntax:**"
+
+msgid "`triton.language.cast(input, dtype, fp_downcast_rounding=None, bitcast=False)` - 函数调用形式"
+msgstr "`triton.language.cast(input, dtype, fp_downcast_rounding=None, bitcast=False)` - Function call form"
+
+msgid "`input.cast(dtype, fp_downcast_rounding=None, bitcast=False)` - 成员函数形式"
+msgstr "`input.cast(dtype, fp_downcast_rounding=None, bitcast=False)` - Member function form"
+
+msgid "**功能：**"
+msgstr "**Function:**"
+
+msgid "数值类型转换：整型<->整型、浮点<->浮点、整型<->浮点"
+msgstr "Numeric type conversion: integer <-> integer, float <-> float, integer <-> float"
+
+msgid "位级别重解释（bitcast）：不改变比特，只改变解释类型"
+msgstr "Bit-level reinterpretation (bitcast): does not change the bits, only changes the interpretation type."
+
+msgid "浮点降精度支持舍入模式：`rtne`（默认，四舍六入五成双）、`rtz`（向零）"
+msgstr "Floating-point downcast supports rounding modes: `rtne` (default, round to nearest, ties to even), `rtz` (toward zero)."
+
+msgid "整数转换（Ascend 扩展）支持溢出模式：`trunc`（截断，默认）、`saturate`（饱和）"
+msgstr "Integer Conversion (Ascend Extension) supports overflow modes: `trunc` (truncation, default), `saturate` (saturation)."
+
+msgid "2 参数规格"
+msgstr "2 Parameter Specifications"
+
+msgid "input"
+msgstr "input"
+
+msgid "tensor"
+msgstr "tensor"
+
+msgid "是"
+msgstr "Yes"
+
+msgid "输入张量"
+msgstr "Input tensor"
+
+msgid "dtype"
+msgstr "dtype"
+
+msgid "tl.dtype"
+msgstr "tl.dtype"
+
+msgid "目标数据类型"
+msgstr "Target data type"
+
+msgid "fp_downcast_rounding"
+msgstr "fp_downcast_rounding"
+
+msgid "str"
+msgstr "str"
+
+msgid "否"
+msgstr "No"
+
+msgid "仅对浮点降精度有效，`rtne` 或 `rtz`"
+msgstr "Only valid for floating-point downcasting, `rtne` or `rtz`."
+
+msgid "bitcast"
+msgstr "bitcast"
+
+msgid "是否执行位级别重解释，默认 False"
+msgstr "Whether to perform bit-level reinterpretation, default False"
+
+msgid "overflow_mode"
+msgstr "overflow_mode"
+
+msgid "Ascend 扩展：整数溢出处理，`trunc` 或 `saturate`"
+msgstr "Ascend Extension: Integer Overflow Handling, `trunc` or `saturate`"
+
+msgid "**返回值：**"
+msgstr "**Return value:**"
+
+msgid "**类型：** tensor"
+msgstr "**Type:** tensor"
+
+msgid "**形状：** 与输入张量相同"
+msgstr "**Shape:** Same as the input tensor."
+
+msgid "**数据类型：** 与dtype参数指定的目标类型相同"
+msgstr "**Data type:** Same as the target type specified by the dtype parameter."
+
+msgid "**内存布局：** 根据bitcast参数决定是否进行位级别重解释"
+msgstr "**Memory Layout:** Determines whether to perform bit-level reinterpretation based on the bitcast parameter."
+
+msgid "**约束条件：**"
+msgstr "**Constraints:**"
+
+msgid "`fp_downcast_rounding` 仅在浮点降精度时可设置，否则将报错"
+msgstr "`fp_downcast_rounding` can only be set when downcasting floating-point precision; otherwise, an error will be reported."
+
+msgid "`bitcast=True` 时不进行数值转换，忽略舍入/溢出模式"
+msgstr "When `bitcast=True`, no numerical conversion is performed, and rounding/overflow modes are ignored."
+
+msgid "`overflow_mode` 仅对整型有意义（Ascend 扩展）"
+msgstr "`overflow_mode` is only meaningful for integer types (Ascend extension)"
+
+msgid "2.2 DataType支持表"
+msgstr "2.2 DataType Support Table"
+
+msgid "支持情况"
+msgstr "Support Status"
+
+msgid "float16"
+msgstr "float16"
+
+msgid "float32"
+msgstr "float32"
+
+msgid "bfloat16"
+msgstr "bfloat16"
+
+msgid "float8e4"
+msgstr "float8e4"
+
+msgid "float8e5"
+msgstr "float8e5"
+
+msgid "float64"
+msgstr "float64"
+
+msgid "GPU支持"
+msgstr "GPU support"
+
+msgid "2.3 Shape支持表"
+msgstr "2.3 Shape Support Table"
+
+msgid "支持任意维度数、任意形状大小。"
+msgstr "Supports any number of dimensions and any shape size."
+
+msgid "2.4 特殊限制说明"
+msgstr "2.4 Special Limitations"
+
+msgid "无"
+msgstr "None"
+
+msgid "2.5 使用方法"
+msgstr "2.5 Usage Instructions"
+
+msgid "**基本用法：**"
+msgstr "**Basic Usage:**"
+
+msgid "**高级用法：**"
+msgstr "**Advanced Usage:**"
+
+msgid "**实际应用场景：**"
+msgstr "**Practical Application Scenarios:**"
+
+msgid "triton.language.cat"
+msgstr "triton.language.cat"
+
+msgid "简介：`triton.language.cat`函数用于将指定的tensor进行拼接。"
+msgstr "Introduction: The `triton.language.cat` function is used to concatenate specified tensors."
+
+msgid "拼接的第一个tensor"
+msgstr "The first tensor to be concatenated"
+
+msgid "拼接的第二个tensor"
+msgstr "The second tensor to concatenate"
+
+msgid "`can_reorder`"
+msgstr "`can_reorder`"
+
+msgid "`Bool`"
+msgstr "`Bool`"
+
+msgid "重新排序 – 编译器提示。如果为真，编译器在连接输入时允许重新排序元素。仅支持can_reorder=True。"
+msgstr "Reordering – compiler hint. If true, the compiler allows reordering of elements when concatenating inputs. Only supports `can_reorder=True`."
+
+msgid "`Optional[str]`"
+msgstr "`Optional[str]`"
+
+msgid "返回值： `tensor`：完成拼接之后的tensor"
+msgstr "Return value: `tensor`: the tensor after concatenation."
+
+msgid "结论：在 Shape 方面，GPU 与 Ascend 平台无差异。cat 只支持1D shape 的拼接。"
+msgstr "Conclusion: In terms of Shape, there is no difference between GPU and Ascend platforms. cat only supports concatenation of 1D shapes."
+
+msgid "1.ASCEND和CUDA都只支持 can_reorder=True，即拼接tensor后重新排序。 2.cat 只支持1D shape 的拼接。"
+msgstr "1. Both ASCEND and CUDA only support `can_reorder=True`, meaning the tensors are reordered after concatenation. 2. `cat` only supports concatenation of 1D shapes."
+
+msgid "以下示例实现了对1D shape的两个tensor进行的拼接："
+msgstr "The following example implements concatenation of two tensors with 1D shape:"
+
+msgid "triton.language.full"
+msgstr "triton.language.full"
+
+msgid "简介：`triton.language.full`返回一个填充了给定形状和数据类型的标量值的张量"
+msgstr "Introduction: `triton.language.full` returns a tensor filled with a scalar value of the given shape and data type."
+
+msgid "`shape`"
+msgstr "`shape`"
+
+msgid "`tuple of ints`"
+msgstr "`tuple of ints`"
+
+msgid "新数组的形状，例如 (8, 16) 或 (8, )"
+msgstr "The shape of the new array, e.g., (8, 16) or (8, )"
+
+msgid "`value`"
+msgstr "`value`"
+
+msgid "用于填充数组的标量值"
+msgstr "Scalar value used to fill the array"
+
+msgid "`dtype`"
+msgstr "`dtype`"
+
+msgid "`tl.dtype`"
+msgstr "`tl.dtype`"
+
+msgid "新数组的数据类型，例如 tl.float16"
+msgstr "The data type of the new array, e.g., tl.float16"
+
+msgid "返回值： `tensor`：完成填充之后的tensor"
+msgstr "Return value: `tensor`: the tensor after padding is completed."
+
+msgid "相对社区能力缺失且无法实现 无"
+msgstr "The community lacks relative capabilities and cannot achieve nothing."
+
+msgid "以下示例实现了返回填充了100数值的(XB,YB,ZB)shape的tensor："
+msgstr "The following example implements returning a tensor of shape (XB, YB, ZB) filled with the value 100:"
+
+msgid "triton.language.zeros"
+msgstr "triton.language.zeros"
+
+msgid "简介：`triton.language.zeros`返回用给定形状和dtype的标量值0填充的张量。"
+msgstr "Description: `triton.language.zeros` returns a tensor filled with the scalar value 0 of the given shape and dtype."
+
+msgid "返回值： `tensor`：返回用给定形状和dtype的标量值0填充的张量。"
+msgstr "Return value: `tensor`: Returns a tensor filled with scalar value 0 of the given shape and dtype."
+
+msgid "以下示例实现了返回填充了0数值的(XB,YB,ZB)shape的tensor："
+msgstr "The following example implements returning a tensor of shape (XB, YB, ZB) filled with zeros:"
+
+msgid "triton.language.zeros_like"
+msgstr "triton.language.zeros_like"
+
+msgid "简介：`triton.language.zeros_like`返回与给定张量具有相同形状和类型的零的张量。"
+msgstr "Description: `triton.language.zeros_like` returns a tensor of zeros with the same shape and type as the given tensor."
+
+msgid "输入tensor"
+msgstr "Input tensor"
+
+msgid "返回值： `tensor`：返回与给定张量具有相同形状和类型的零的张量。"
+msgstr "Return value: `tensor`: Returns a tensor of zeros with the same shape and type as the given tensor."
+
+msgid "以下示例实现了返回与给定张量具有相同形状和类型的零的张量。："
+msgstr "The following example implements returning a tensor of zeros with the same shape and type as the given tensor."
+
+msgid "triton.language.device_assert"
+msgstr "triton.language.device_assert"
+
+msgid "**使用`device_assert`需要将环境变量`TRITON_DEBUG`的值设置为非`0`才能生效。**"
+msgstr "**Using `device_assert` requires setting the environment variable `TRITON_DEBUG` to a non-zero value to take effect.**"
+
+msgid "`device_assert` 用于在GPU运行时从设备端进行断言检查，如果条件不满足则输出错误信息。"
+msgstr "`device_assert` is used to perform assertion checks from the device side during GPU runtime, outputting an error message if the condition is not met."
+
+msgid "运行时需要断言的条件表达式"
+msgstr "Condition expression that needs to be asserted at runtime"
+
+msgid "`msg`"
+msgstr "`msg`"
+
+msgid "`str`"
+msgstr "`str`"
+
+msgid "`''`"
+msgstr "`''`"
+
+msgid "断言失败时显示的错误消息"
+msgstr "Error message displayed when assertion fails"
+
+msgid "triton.language.device_print"
+msgstr "triton.language.device_print"
+
+msgid "`device_print` 用于在NPU运行时从设备端打印信息，与`static_print`不同，这是在内核执行时实时输出信息。 第一个参数必须为`string`, 后面的参数必须为`scalars`或者`tensors`。 **使用`device_print`需要将环境变量`TRITON_DEVICE_PRINT`的值设置为`True`。**"
+msgstr "`device_print` is used to print information from the device side during NPU runtime. Unlike `static_print`, it outputs information in real-time while the kernel is executing. The first argument must be a `string`, and the subsequent arguments must be `scalars` or `tensors`. **To use `device_print`, the environment variable `TRITON_DEVICE_PRINT` must be set to `True`.**"
+
+msgid "`prefix`"
+msgstr "`prefix`"
+
+msgid "打印值之前的前缀字符串"
+msgstr "The prefix string before printing the value."
+
+msgid "`args`"
+msgstr "`args`"
+
+msgid "`tensor`/`scalar`"
+msgstr "`tensor`/`scalar`"
+
+msgid "要打印的值，可以是任意张量或标量"
+msgstr "The value to print, which can be any tensor or scalar."
+
+msgid "`hex`"
+msgstr "`hex`"
+
+msgid "`False`"
+msgstr "`False`"
+
+msgid "是否以十六进制格式打印所有值"
+msgstr "Whether to print all values in hexadecimal format"
+
+msgid "2.2.1 Data Type支持"
+msgstr "2.2.1 Data Type Support"
+
+msgid "仅支持 1~5维 tensor"
+msgstr "Only supports 1D to 5D tensors."
+
+msgid "**注意**：`prefix`字符串前缀在使用`device_print`时是必须加上的，否则会导致编译错误。"
+msgstr "**Note**: The `prefix` string prefix must be added when using `device_print`, otherwise it will cause a compilation error."
+
+msgid "triton.language.static_assert"
+msgstr "triton.language.static_assert"
+
+msgid "`static_assert` 用于在编译时断言条件是否成立，如果条件不满足则编译失败。这是一个编译时检查工具，不需要设置调试环境变量。"
+msgstr "`static_assert` is used to assert whether a condition holds at compile time. If the condition is not satisfied, compilation fails. This is a compile-time checking tool that does not require setting debug environment variables."
+
+msgid "编译时需要断言的条件表达式"
+msgstr "Condition expression that must be asserted at compile time"
+
+msgid "**注意：** `cond` 语句中值的类型必须为 `constexpr`。"
+msgstr "**Note:** The type of the value in the `cond` statement must be `constexpr`."
+
+msgid "triton.language.static_print"
+msgstr "triton.language.static_print"
+
+msgid "1.函数概述"
+msgstr "1. Function Overview"
+
+msgid "`static_print` 用于在编译时打印信息，类似于Python的`print()`函数，但它在内核编译期间执行而不是运行时执行。"
+msgstr "`static_print` is used to print information at compile time, similar to Python's `print()` function, but it executes during kernel compilation rather than at runtime."
+
+msgid "2.规格"
+msgstr "2. Specifications"
+
+msgid "要打印的值，支持多个参数"
+msgstr "The value to be printed, supports multiple parameters."
+
+msgid "`sep`"
+msgstr "`sep`"
+
+msgid "`' '`"
+msgstr "`' '`"
+
+msgid "值之间的分隔符"
+msgstr "Separator between values"
+
+msgid "`'\\n'`"
+msgstr "`'\\n'`"
+
+msgid "打印结束时的后缀"
+msgstr "Suffix at the end of printing"
+
+msgid "`file`"
+msgstr "`file`"
+
+msgid "写入的文件对象"
+msgstr "The written file object"
+
+msgid "`flush`"
+msgstr "`flush`"
+
+msgid "是否刷新输出缓冲区"
+msgstr "Whether to flush the output buffer"
+
+msgid "2.2.1 Data Type 支持"
+msgstr "2.2.1 Data Type Support"
+
+msgid "结论：在 Shape 方面，GPU 与 Ascend 平台无差异，均支持 1 至 5 维张量。"
+msgstr "Conclusion: In terms of Shape, there is no difference between GPU and Ascend platforms; both support 1 to 5-dimensional tensors."
+
+msgid "如果打印的**非常量**结果，会打印一个`数据类型[数据shape(标量为空)]`的值，如果下面的代码`x_ptr`指向的数据类型为`int32`就会打印`val:int32[constexpr[4]]`的结果"
+msgstr "If printing a **non-constant** result, it will print a value in the format `data type[data shape (scalar is empty)]`. For example, if the data type pointed to by `x_ptr` in the code below is `int32`, it will print the result `val:int32[constexpr[4]]`."
+
+msgid "triton.language.compile_hint"
+msgstr "triton.language.compile_hint"
+
+msgid "`compile_hint` 是一个编译器提示（hint）机制，允许用户为张量附加元数据信息，这些信息会被传递到编译器后端，用于指导优化和代码生成。"
+msgstr "`compile_hint` is a compiler hint mechanism that allows users to attach metadata information to tensors. This information is passed to the compiler backend to guide optimization and code generation."
+
+msgid "`ptr`"
+msgstr "`ptr`"
+
+msgid "需要附加提示的张量对象"
+msgstr "Tensor object requiring additional hints"
+
+msgid "`hint_name`"
+msgstr "`hint_name`"
+
+msgid "`str` `constexpr`"
+msgstr "`str` `constexpr`"
+
+msgid "提示的名称标识符（必须为字符串）"
+msgstr "The name identifier of the hint (must be a string)"
+
+msgid "`hint_val`"
+msgstr "`hint_val`"
+
+msgid "`None` `bool` `int` `constexpr` `list`"
+msgstr "`None` `bool` `int` `constexpr` `list`"
+
+msgid "`None`"
+msgstr "`None`"
+
+msgid "提示的值，支持多种类型"
+msgstr "The value of the prompt supports multiple types."
+
+msgid "**hint_name 必须为字符串类型**：不能传入其他类型作为提示名称"
+msgstr "**hint_name must be of string type**: Other types cannot be passed as hint names."
+
+msgid "**list 参数仅支持整数数组**：元素须为整数（`int` 或 `constexpr` 整数），不支持浮点数或混合类型的列表"
+msgstr "**The `list` parameter only supports integer arrays**: Elements must be integers (`int` or `constexpr` integers); lists of floating-point numbers or mixed types are not supported."
+
+msgid "**非侵入式设计**：`compile_hint` 不改变计算语义，仅添加元数据"
+msgstr "**Non-intrusive Design**: `compile_hint` does not alter computation semantics; it only adds metadata."
+
+msgid "**同一张量可多次标注**：同一个张量可以附加多个不同名称的提示"
+msgstr "**Same tensor can be annotated multiple times**: The same tensor can have multiple prompts with different names attached."
+
+msgid "triton.language.extract_slice"
+msgstr "triton.language.extract_slice"
+
+msgid "简介：从输入张量中按照操作指定的偏移量、大小和步幅参数提取一个张量。 原型："
+msgstr "Introduction: Extracts a tensor from the input tensor according to the offset, size, and stride parameters specified by the operation. Prototype:"
+
+msgid "`ful`"
+msgstr "`ful`"
+
+msgid "要提取切片的源张量"
+msgstr "The source tensor from which to extract the slice."
+
+msgid "`offsets`"
+msgstr "`offsets`"
+
+msgid "切片在各个维度上的起始偏移量"
+msgstr "The starting offset of the slice in each dimension"
+
+msgid "`sizes`"
+msgstr "`sizes`"
+
+msgid "切片在各个维度上的大小"
+msgstr "The size of the slice in each dimension."
+
+msgid "`strides`"
+msgstr "`strides`"
+
+msgid "切片在各个维度上的步长"
+msgstr "Stride of the slice in each dimension"
+
+msgid "`_generator`"
+msgstr "`_generator`"
+
+msgid "返回值： `tensor`：提取的切片张量"
+msgstr "Return value: `tensor`: the extracted slice tensor"
+
+msgid "支持任意形状的张量，但切片尺寸不能超过源张量对应维度的尺寸"
+msgstr "Supports tensors of arbitrary shapes, but the slice size must not exceed the size of the corresponding dimension of the source tensor."
+
+msgid "无特殊限制"
+msgstr "No special restrictions."
+
+msgid "以下示例实现了从计算结果中提取前32个元素："
+msgstr "The following example extracts the first 32 elements from the computation result:"
+
+msgid "triton.language.get_element"
+msgstr "triton.language.get_element"
+
+msgid "简介：根据给定的索引，从输入张量中读取单个元素。 原型："
+msgstr "Introduction: Reads a single element from the input tensor based on the given index. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.get_element(...)`，与`get_element(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.get_element(...)`, which is equivalent to `get_element(x, ...)`."
+
+msgid "`src`"
+msgstr "`src`"
+
+msgid "要被访问的源张量"
+msgstr "The source tensor to be accessed"
+
+msgid "`indice`"
+msgstr "`indice`"
+
+msgid "`tuple of ints` 或 `tuple of tensors`"
+msgstr "`tuple of ints` or `tuple of tensors`"
+
+msgid "用于指定元素位置的索引"
+msgstr "Index used to specify element position"
+
+msgid "返回值： `scalar`：与 `src` 张量元素类型相同的标量值"
+msgstr "Return value: `scalar`: a scalar value with the same element type as the `src` tensor."
+
+msgid "支持任意形状的张量，但需满足： `indice` 的长度必须与 `src` 张量的维度数相同。"
+msgstr "Supports tensors of arbitrary shape, with the requirement that the length of `indice` must be equal to the number of dimensions of the `src` tensor."
+
+msgid "以下示例实现了get_element的调用："
+msgstr "The following example implements the call to `get_element`:"
+
+msgid "无语义差异"
+msgstr "No semantic difference."
+
+msgid "triton.language.extra.ascend.libdevice.index_select_simd"
+msgstr "triton.language.extra.ascend.libdevice.index_select_simd"
+
+msgid "在非尾轴维度上并行 gather 多个索引，并以 tile 为单位将数据零拷贝地从全局内存（GM）直接搬运到统一缓冲区（UB）的正确位置。该操作等效于 `torch.index_select` 的高性能实现，适用于嵌入层查找、稀疏索引访问等场景。"
+msgstr "Parallel gather multiple indices on non-tail axis dimensions, and perform zero-copy data transfer from global memory (GM) directly to the correct positions in the unified buffer (UB) in units of tiles. This operation is equivalent to a high-performance implementation of `torch.index_select`, suitable for scenarios such as embedding layer lookup and sparse index access."
+
+msgid "`triton.language.extra.ascend.libdevice.index_select_simd(src, dim, index, src_shape, src_offset, read_shape)`"
+msgstr "`triton.language.extra.ascend.libdevice.index_select_simd(src, dim, index, src_shape, src_offset, read_shape)`"
+
+msgid "在源张量的指定维度上，根据索引数组批量读取数据"
+msgstr "Batch read data from the specified dimension of the source tensor according to the index array."
+
+msgid "支持指定读取区域的偏移和大小，实现灵活的切片"
+msgstr "Supports specifying the offset and size of the read region for flexible slicing."
+
+msgid "零拷贝高效实现，直接从 GM 搬运到 UB"
+msgstr "Zero-copy efficient implementation, directly transferring from GM to UB."
+
+msgid "保持元素类型和编码方式不变"
+msgstr "Keep the element type and encoding unchanged."
+
+msgid "**典型应用场景：**"
+msgstr "**Typical Application Scenarios:**"
+
+msgid "嵌入层（Embedding）查找：从大词汇表中根据 token ID 批量读取词向量"
+msgstr "Embedding layer lookup: batch reading word vectors from a large vocabulary based on token IDs."
+
+msgid "稀疏张量操作：根据稀疏索引访问密集张量的特定行"
+msgstr "Sparse tensor operation: access specific rows of a dense tensor based on sparse indices"
+
+msgid "动态路由和注意力机制：根据动态计算的索引选择特定特征"
+msgstr "Dynamic Routing and Attention Mechanism: Selecting specific features based on dynamically computed indices"
+
+msgid "src"
+msgstr "src"
+
+msgid "tensor/pointer"
+msgstr "tensor/pointer"
+
+msgid "源张量指针，位于全局内存（GM）上的数据"
+msgstr "Source tensor pointer, data located in global memory (GM)"
+
+msgid "dim"
+msgstr "dim"
+
+msgid "int"
+msgstr "int"
+
+msgid "在哪个维度执行 index_select 操作，取值范围 [0, len(src_shape)-2]，**不支持尾轴**（最后一个维度）"
+msgstr "The dimension along which the `index_select` operation is performed, with a value range of [0, len(src_shape)-2], **does not support the trailing axis** (the last dimension)."
+
+msgid "index"
+msgstr "index"
+
+msgid "1D 索引数组，位于 UB 上，指定要读取的索引位置"
+msgstr "1D index array, located on UB, specifying the index positions to read."
+
+msgid "src_shape"
+msgstr "src_shape"
+
+msgid "Tuple[int]"
+msgstr "Tuple[int]"
+
+msgid "源张量的完整形状"
+msgstr "The full shape of the source tensor"
+
+msgid "src_offset"
+msgstr "src_offset"
+
+msgid "从哪个位置开始读取，在 dim 维度可设为 -1（该维度由 index 决定）"
+msgstr "Starting position for reading, can be set to -1 in the dim dimension (this dimension is determined by index)."
+
+msgid "read_shape"
+msgstr "read_shape"
+
+msgid "读取数据的大小，在 dim 维度必须设为 -1（该维度由 index 长度决定）"
+msgstr "The size of the data to be read must be set to -1 in the dim dimension (this dimension is determined by the index length)."
+
+msgid "**类型：** tensor (位于 UB 上)"
+msgstr "**Type:** tensor (located on UB)"
+
+msgid "**形状：** 与 read_shape 一致，其中 dim 维度的大小等于 index 的长度"
+msgstr "**Shape:** Same as `read_shape`, where the size of the `dim` dimension equals the length of `index`."
+
+msgid "**数据类型：** 与源张量相同"
+msgstr "**Data Type:** Same as the source tensor"
+
+msgid "**内存位置：** 统一缓冲区（UB）"
+msgstr "**Memory Location:** Unified Buffer (UB)"
+
+msgid "`read_shape[dim]` 必须为 -1"
+msgstr "`read_shape[dim]` must be -1"
+
+msgid "`src_offset[dim]` 可以设为 -1（会被忽略，因为该维度由 index 决定）"
+msgstr "`src_offset[dim]` can be set to -1 (it will be ignored because this dimension is determined by the index)."
+
+msgid "`len(src_shape) == len(src_offset) == len(read_shape)`"
+msgstr "`len(src_shape) == len(src_offset) == len(read_shape)`"
+
+msgid "`index` 必须是 1D 张量"
+msgstr "`index` must be a 1D tensor"
+
+msgid "`dim` 不能是尾轴（最后一个维度），即 `dim < len(src_shape) - 1`"
+msgstr "`dim` cannot be the trailing axis (the last dimension), i.e., `dim < len(src_shape) - 1`."
+
+msgid "对于非 dim 维度：`0 <= src_offset[i] < src_shape[i]`"
+msgstr "For non-dim dimensions: `0 <= src_offset[i] < src_shape[i]`"
+
+msgid "对于非 dim 维度：`src_offset[i] + read_shape[i] <= src_shape[i]`（超出边界自动截断）"
+msgstr "For non-dim dimensions: `src_offset[i] + read_shape[i] <= src_shape[i]` (automatically truncated if out of bounds)"
+
+msgid "index 中的索引值必须在 `[0, src_shape[dim])` 范围内"
+msgstr "The index value in `index` must be within the range `[0, src_shape[dim])`."
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "**说明：**"
+msgstr "**Description:**"
+
+msgid "index 的数据类型必须为 int32 或 int64"
+msgstr "The data type of `index` must be int32 or int64."
+
+msgid "GPU 平台不支持此操作（Ascend 专用 intrinsic）"
+msgstr "This operation is not supported on the GPU platform (Ascend-specific intrinsic)."
+
+msgid "支持任意维度数（1D 到高维张量），但需满足以下条件："
+msgstr "Supports any number of dimensions (from 1D to high-dimensional tensors), subject to the following conditions:"
+
+msgid "index 必须是 1D 张量"
+msgstr "The index must be a 1D tensor."
+
+msgid "源张量的各维度大小需根据实际硬件内存限制"
+msgstr "The dimensions of the source tensor must be determined based on actual hardware memory constraints."
+
+msgid "read_shape 在非 dim 维度上的大小需考虑 UB 空间限制"
+msgstr "The size of `read_shape` on non-dim dimensions must consider UB space constraints."
+
+msgid "**常见形状组合：**"
+msgstr "**Common Shape Combinations:**"
+
+msgid "2D 张量：适用于嵌入层查找、稀疏矩阵行选择"
+msgstr "2D Tensor: Suitable for embedding layer lookup and sparse matrix row selection"
+
+msgid "3D 张量：适用于批量嵌入查找、序列特征提取"
+msgstr "3D Tensor: Suitable for batch embedding lookup and sequence feature extraction"
+
+msgid "高维张量：适用于复杂的多维索引操作"
+msgstr "High-dimensional tensor: suitable for complex multi-dimensional indexing operations"
+
+msgid "**dim 限制：** 不支持在尾轴（最后一个维度）上执行 index_select 操作，dim 必须满足 `dim < len(src_shape) - 1`"
+msgstr "**dim restriction:** The `index_select` operation is not supported on the trailing axis (last dimension); `dim` must satisfy `dim < len(src_shape) - 1`."
+
+msgid "**数据类型限制：** 暂不支持 uint16/uint32/uint64/float8/float64 数据类型"
+msgstr "**Data Type Limitations:** The uint16/uint32/uint64/float8/float64 data types are not currently supported."
+
+msgid "**索引越界：** 不检查 index 中的索引是否越界，用户需自行保证索引合法性"
+msgstr "**Index Out of Bounds:** The index in `index` is not checked for out-of-bounds access; users must ensure the validity of the index themselves."
+
+msgid "**基本用法（2D 嵌入查找）：**"
+msgstr "**Basic Usage (2D Embedding Lookup):**"
+
+msgid "**与 torch.index_select 的关系：**"
+msgstr "**Relationship with torch.index_select:**"
+
+msgid "`index_select_simd` 等价于 `torch.index_select(src, dim, index)` 加上切片操作"
+msgstr "`index_select_simd` is equivalent to `torch.index_select(src, dim, index)` combined with a slicing operation."
+
+msgid "但 index_select_simd 在硬件层面实现，性能优于 PyTorch 实现（约 0.6~1.5x AscendC 性能）"
+msgstr "However, `index_select_simd` is implemented at the hardware level, offering better performance than the PyTorch implementation (approximately 0.6~1.5x the performance of AscendC)."
+
+msgid "**与常规 load 的差异：**"
+msgstr "**Differences from regular load:**"
+
+msgid "3 与GPU差异"
+msgstr "3 Differences from GPU"
+
+msgid "新增OP，无差异"
+msgstr "New OP, no difference"
+
+msgid "4 测试用例说明"
+msgstr "4 Test Case Description"
+
+msgid "**测试文件：**"
+msgstr "**Test File:**"
+
+msgid "`ascend/examples/pytest_ut/test_index_select.py` - 2D 张量 index_select 测试（多种形状组合）"
+msgstr "`ascend/examples/pytest_ut/test_index_select.py` - 2D tensor index_select test (multiple shape combinations)"
+
+msgid "triton.language.insert_slice"
+msgstr "triton.language.insert_slice"
+
+msgid "简介：将一个张量（子张量）插入到另一个张量的指定位置，即将一个张量按照操作指定的偏移量、大小和步幅参数插入到另一个张量中。 原型："
+msgstr "Introduction: Insert a tensor (sub-tensor) into a specified position of another tensor, i.e., insert one tensor into another tensor according to the offset, size, and stride parameters specified by the operation. Prototype:"
+
+msgid "接收插入的目标张量"
+msgstr "Receive the inserted target tensor"
+
+msgid "`sub`"
+msgstr "`sub`"
+
+msgid "要插入的子张量，其形状必须与`sizes`参数指定的形状匹配"
+msgstr "The sub-tensor to be inserted must have a shape that matches the shape specified by the `sizes` parameter."
+
+msgid "指定在`ful`张量中插入的起始偏移量（每个维度）"
+msgstr "Specifies the starting offset (per dimension) for insertion into the `ful` tensor."
+
+msgid "指定插入区域的大小（每个维度）"
+msgstr "Specify the size of the insertion region (per dimension)"
+
+msgid "指定插入区域的步长（每个维度）"
+msgstr "Specify the stride (per dimension) of the insertion region."
+
+msgid "返回值： `tensor`：插入子张量后的新张量"
+msgstr "Return value: `tensor`: the new tensor after inserting the sub-tensor"
+
+msgid "支持任意形状的张量，但需满足："
+msgstr "Supports tensors of arbitrary shapes, provided that:"
+
+msgid "`ful`和`sub`的维度数必须相同"
+msgstr "The number of dimensions of `ful` and `sub` must be the same."
+
+msgid "`offsets`、`sizes`、`strides`的长度必须与张量维度数相同"
+msgstr "The lengths of `offsets`, `sizes`, and `strides` must be equal to the number of tensor dimensions."
+
+msgid "插入区域不能超出`ful`张量的边界"
+msgstr "The insertion region cannot exceed the boundaries of the `ful` tensor."
+
+msgid "以下示例实现了将切片计算结果插入回原张量："
+msgstr "The following example demonstrates inserting the slice computation result back into the original tensor:"
+
+msgid "triton.language.multibuffer"
+msgstr "triton.language.multibuffer"
+
+msgid "简介：为张量设置多缓冲，允许编译器对同一张量创建多个副本。 原型："
+msgstr "Introduction: Set multi-buffer for a tensor, allowing the compiler to create multiple copies of the same tensor. Prototype:"
+
+msgid "需要进行多缓冲设置的源张量"
+msgstr "Source tensor requiring multi-buffer setup"
+
+msgid "`size`"
+msgstr "`size`"
+
+msgid "`int` 或 `constexpr`"
+msgstr "`int` or `constexpr`"
+
+msgid "要创建的缓冲区副本数量"
+msgstr "Number of buffer copies to create"
+
+msgid "返回值： `None`：此操作为一个编译提示，不会在运行时返回值，仅影响编译器的优化行为。"
+msgstr "Return value: `None`: This operation is a compilation hint and does not return a value at runtime; it only affects the compiler's optimization behavior."
+
+msgid "支持任意形状的张量。"
+msgstr "Supports tensors of arbitrary shapes."
+
+msgid "限制参数"
+msgstr "Restrict parameters"
+
+msgid "当前实现仅支持 `size` 为 `2`。"
+msgstr "The current implementation only supports `size` being `2`."
+
+msgid "以下示例展示了如何在 kernel 中为张量 `tmp0` 设置多缓冲，并结合其他编译提示使用："
+msgstr "The following example demonstrates how to set up multi-buffering for tensor `tmp0` in a kernel and use it in combination with other compilation hints:"
+
+msgid "triton.language.parallel"
+msgstr "triton.language.parallel"
+
+msgid "`parallel` 是一个专门用于多核心并行执行的迭代器，继承自 `range` 类，提供显式的多核心并行语义。"
+msgstr "`parallel` is an iterator specifically designed for multi-core parallel execution, inheriting from the `range` class and providing explicit multi-core parallel semantics."
+
+msgid "`arg1`"
+msgstr "`arg1`"
+
+msgid "`int` /`constexpr`"
+msgstr "`int` / `constexpr`"
+
+msgid "起始值（单参数时作为结束值，从0开始）"
+msgstr "Starting value (when there is a single parameter, it serves as the end value, starting from 0)"
+
+msgid "`arg2`"
+msgstr "`arg2`"
+
+msgid "`int`/`constexpr`"
+msgstr "`int`/`constexpr`"
+
+msgid "结束值（不包含在范围内）"
+msgstr "End value (not included in the range)"
+
+msgid "`step`"
+msgstr "`step`"
+
+msgid "`1`"
+msgstr "`1`"
+
+msgid "每次迭代的步长增量"
+msgstr "Step size increment per iteration"
+
+msgid "`num_stages`"
+msgstr "`num_stages`"
+
+msgid "`int`"
+msgstr "`int`"
+
+msgid "流水线阶段数（同时执行的迭代数量）"
+msgstr "Number of pipeline stages (number of iterations executed simultaneously)"
+
+msgid "`loop_unroll_factor`"
+msgstr "`loop_unroll_factor`"
+
+msgid "循环展开因子（<2表示不展开）"
+msgstr "Loop unrolling factor (<2 means no unrolling)"
+
+msgid "`bind_sub_block`"
+msgstr "`bind_sub_block`"
+
+msgid "**关键参数**：绑定到子块，启用多核心并行执行"
+msgstr "**Key Parameters**: Bound to sub-blocks, enabling multi-core parallel execution."
+
+msgid "**注意**：`parallel` 相比于 `range` 移除了以下参数："
+msgstr "**Note**: `parallel` removes the following parameters compared to `range`:"
+
+msgid "`disallow_acc_multi_buffer`"
+msgstr "`disallow_acc_multi_buffer`"
+
+msgid "`flatten`"
+msgstr "`flatten`"
+
+msgid "`warp_specialize`"
+msgstr "`warp_specialize`"
+
+msgid "`disable_licm`"
+msgstr "`disable_licm`"
+
+msgid "`bind_sub_block` 为真时在IR中并体现出跟`range`的区别，功能是否实现待验证。"
+msgstr "When `bind_sub_block` is true, it is reflected in the IR and distinguished from `range`. Whether the functionality is implemented remains to be verified."
+
+msgid "3. 使用方法"
+msgstr "3. Usage"
+
+msgid "triton.language.sync_block_set"
+msgstr "triton.language.sync_block_set"
+
+msgid "显式的核心间同步指令，用于协调 Cube-Vector 架构中不同核心间的执行顺序和数据一致性。"
+msgstr "Explicit inter-core synchronization instruction used to coordinate execution order and data consistency among different cores in the Cube-Vector architecture."
+
+msgid "2. `sync_block_set` 操作"
+msgstr "2. `sync_block_set` operation"
+
+msgid "2.1 函数概述"
+msgstr "2.1 Function Overview"
+
+msgid "生产者核心完成任务后，向消费者发送同步信号。"
+msgstr "After the producer core completes its task, it sends a synchronization signal to the consumer core."
+
+msgid "2.2 规格"
+msgstr "2.2 Specifications"
+
+msgid "2.2.1 参数说明"
+msgstr "2.2.1 Parameter Description"
+
+msgid "`sender`"
+msgstr "`sender`"
+
+msgid "发送方核心类型：\"cube\" 或 \"vector\""
+msgstr "Sender core type: \"cube\" or \"vector\""
+
+msgid "`receiver`"
+msgstr "`receiver`"
+
+msgid "接收方核心类型：\"cube\" 或 \"vector\""
+msgstr "Receiver core type: \"cube\" or \"vector\""
+
+msgid "`event_id`"
+msgstr "`event_id`"
+
+msgid "事件ID，用于区分不同的同步点"
+msgstr "Event ID, used to distinguish different synchronization points"
+
+msgid "2.2.2 特殊限制说明"
+msgstr "2.2.2 Special Limitations"
+
+msgid "`sender` 和 `receiver` 不能相同，不能自己给自己发信号"
+msgstr "`sender` and `receiver` cannot be the same; you cannot send a signal to yourself."
+
+msgid "`event_id` 必须在 0-15 范围内（共16个独立事件）"
+msgstr "`event_id` must be within the range of 0-15 (16 independent events in total)."
+
+msgid "3. `sync_block_wait` 操作"
+msgstr "3. `sync_block_wait` operation"
+
+msgid "3.1 函数概述"
+msgstr "3.1 Function Overview"
+
+msgid "消费者核心等待生产者的同步信号。"
+msgstr "The consumer core waits for the synchronization signal from the producer."
+
+msgid "3.2 规格"
+msgstr "3.2 Specifications"
+
+msgid "3.2.1 参数说明"
+msgstr "3.2.1 Parameter Description"
+
+msgid "等待的事件ID"
+msgstr "Waiting event ID"
+
+msgid "3.2.2 特殊限制说明"
+msgstr "3.2.2 Special Restrictions"
+
+msgid "`sender` 和 `receiver` 不能相同"
+msgstr "`sender` and `receiver` cannot be the same."
+
+msgid "`event_id` 必须与对应 `sync_block_set` 使用的 ID 一致"
+msgstr "`event_id` must match the ID used by the corresponding `sync_block_set`."
+
+msgid "4. `sync_block_all` 操作"
+msgstr "4. `sync_block_all` operation"
+
+msgid "4.1 函数概述"
+msgstr "4.1 Function Overview"
+
+msgid "全局屏障同步，让所有指定类型的核心同步到同一点。"
+msgstr "Global barrier synchronization, synchronizing all cores of the specified type to the same point."
+
+msgid "4.2 规格"
+msgstr "4.2 Specifications"
+
+msgid "4.2.1 参数说明"
+msgstr "4.2.1 Parameter Description"
+
+msgid "`mode`"
+msgstr "`mode`"
+
+msgid "同步模式：\"all_cube\"、\"all_vector\" 或 \"all\""
+msgstr "Synchronous mode: \"all_cube\", \"all_vector\", or \"all\""
+
+msgid "全局同步事件ID"
+msgstr "Global synchronization event ID"
+
+msgid "4.2.2 特殊限制说明"
+msgstr "4.2.2 Special Restrictions Explanation"
+
+msgid "`mode` 必须为 \"all_cube\"、\"all_vector\" 或 \"all\" 之一"
+msgstr "`mode` must be one of \"all_cube\", \"all_vector\", or \"all\"."
+
+msgid "`event_id` 必须在 0-15 范围内"
+msgstr "`event_id` must be in the range 0-15."
+
+msgid "5. 使用方法"
+msgstr "5. Usage"
+
+msgid "5.1 基础使用示例"
+msgstr "5.1 Basic Usage Example"
+
+msgid "5.2 Flash Attention 流水线示例"
+msgstr "5.2 Flash Attention Pipeline Example"
+
+msgid "triton.language.flip"
+msgstr "triton.language.flip"
+
+msgid "简介：将tensor沿某一维度进行翻转。"
+msgstr "Brief description: Flip the tensor along a certain dimension."
+
+msgid "`x`"
+msgstr "`x`"
+
+msgid "张量数据"
+msgstr "Tensor data"
+
+msgid "`dim`"
+msgstr "`dim`"
+
+msgid "整型"
+msgstr "integer"
+
+msgid "返回值： `out`：输出张量的shape与输入x的shape相同"
+msgstr "Return value: `out`: The shape of the output tensor is the same as the shape of the input `x`."
+
+msgid "2.2 OP 规格"
+msgstr "2.2 OP Specifications"
+
+msgid "结论：Ascend 相比 GPU 缺失 uint、fp64 类型支持。"
+msgstr "Conclusion: Ascend lacks support for uint and fp64 types compared to GPU."
+
+msgid "Ascend 相比 GPU 缺失 uint、fp64 类型支持。"
+msgstr "Ascend lacks support for uint and fp64 types compared to GPU."
+
+msgid "以下示例将输入张量 `x` 沿指定维度进行翻转："
+msgstr "The following example flips the input tensor `x` along the specified dimension:"
+
+msgid "triton.language.gather"
+msgstr "triton.language.gather"
+
+msgid "简介：对`src`tensor沿`axis`维度按照`index`执行gather操作，gather操作含义见下图: ![image](./gather.png) 原型："
+msgstr "Introduction: Perform a gather operation on the `src` tensor along the `axis` dimension according to the `index`. The meaning of the gather operation is illustrated in the figure below: ![image](./gather.png) Prototype:"
+
+msgid "image"
+msgstr "image"
+
+msgid "被执行gather操作的tensor"
+msgstr "The tensor on which the gather operation is performed."
+
+msgid "`index`"
+msgstr "`index`"
+
+msgid "需要gather的索引"
+msgstr "Index that needs to be gathered"
+
+msgid "`axis`"
+msgstr "`axis`"
+
+msgid "需要执行gather操作的维度"
+msgstr "The dimension on which the gather operation needs to be performed"
+
+msgid "返回值：`tensor`： gather后的结果"
+msgstr "Return value: `tensor`: the result after gather"
+
+msgid "结论：Ascend 对比 GPU 缺失fp64的支持能力（硬件限制）。"
+msgstr "Conclusion: Ascend lacks fp64 support compared to GPU (hardware limitation)."
+
+msgid "Ascend 对比 GPU 缺失fp64的支持能力（硬件限制）。"
+msgstr "Ascend lacks fp64 support compared to GPU (hardware limitation)."
+
+msgid "参考以下示例："
+msgstr "Refer to the following example:"
+
+msgid "triton.language.swizzle2d"
+msgstr "triton.language.swizzle2d"
+
+msgid "简介：**将一个大小为 size_i × size_j 的行优先矩阵的索引，按每 size_g 行一组，分别转换为列优先矩阵的索引。**。"
+msgstr "Introduction: **Convert the index of a row-major matrix of size size_i × size_j into the index of a column-major matrix, grouped by every size_g rows.**"
+
+msgid "`i`"
+msgstr "`i`"
+
+msgid "index索引值 ，最大值为size(i)-1"
+msgstr "index value, maximum is size(i)-1"
+
+msgid "`j`"
+msgstr "`j`"
+
+msgid "index索引值 ，最大值为size(j)-1"
+msgstr "Index value, maximum is size(j)-1"
+
+msgid "`size_i`"
+msgstr "`size_i`"
+
+msgid "整型，表示索引值i的长度"
+msgstr "Integer, indicating the length of the index value i"
+
+msgid "`size_j`"
+msgstr "`size_j`"
+
+msgid "整型，表示索引值j的长度"
+msgstr "Integer, indicating the length of the index value j."
+
+msgid "`size_g`"
+msgstr "`size_g`"
+
+msgid "返回值： `out0, out1`：同i, j shape的张量"
+msgstr "Return value: `out0, out1`: tensors with the same shape as i, j."
+
+msgid "仅支持 2维 tensor"
+msgstr "Only supports 2D tensors."
+
+msgid "结论：在 Shape 方面，GPU 与 Ascend 平台无差异，均支持 2 维张量。"
+msgstr "Conclusion: In terms of Shape, there is no difference between GPU and Ascend platforms, both support 2-dimensional tensors."
+
+msgid "暂无。"
+msgstr "None."
+
+msgid "以下示例将行优先矩阵的索引按每 `size_g` 行一组转换为列优先矩阵的索引："
+msgstr "The following example converts the indices of a row-major matrix into those of a column-major matrix in groups of `size_g` rows each."
+
+msgid "triton.language.where"
+msgstr "triton.language.where"
+
+msgid "简介：根据条件进行判断返回的是张量x还是y的值，条件为真时，返回x的值，否则返回y的值。"
+msgstr "Introduction: Returns the value of tensor x or y based on a condition. If the condition is true, it returns the value of x; otherwise, it returns the value of y."
+
+msgid "`condition`"
+msgstr "`condition`"
+
+msgid "`tensor(bool)`"
+msgstr "`tensor(bool)`"
+
+msgid "`y`"
+msgstr "`y`"
+
+msgid "以下示例根据条件 `X < Y` 逐元素选择：条件为真时取 `X` 的元素，否则取常量 `1`。"
+msgstr "The following example selects elements element-wise based on the condition `X < Y`: it takes elements from `X` when the condition is true, otherwise it takes the constant `1`."
+
+msgid "triton.language.inline_asm_elementwise"
+msgstr "triton.language.inline_asm_elementwise"
+
+msgid "`inline_asm_elementwise` 用于在Triton内核中执行内联汇编代码，实现对张量的逐元素操作。"
+msgstr "`inline_asm_elementwise` is used to execute inline assembly code within a Triton kernel, enabling element-wise operations on tensors."
+
+msgid "`asm`"
+msgstr "`asm`"
+
+msgid "要执行的汇编代码，必须匹配目标平台的汇编格式"
+msgstr "Assembly code to be executed must match the assembly format of the target platform."
+
+msgid "`constraints`"
+msgstr "`constraints`"
+
+msgid "LLVM格式的汇编约束条件"
+msgstr "Assembly constraints in LLVM format"
+
+msgid "输入张量，其值会传递给汇编块"
+msgstr "Input tensor, whose values are passed to the assembly block"
+
+msgid "`dtype` / `Sequence[dtype]`"
+msgstr "`dtype` / `Sequence[dtype]`"
+
+msgid "返回张量的元素类型（可以是单个类型或类型元组）"
+msgstr "Returns the element type of the tensor (can be a single type or a tuple of types)."
+
+msgid "`is_pure`"
+msgstr "`is_pure`"
+
+msgid "如果为True，编译器假设汇编块没有副作用"
+msgstr "If True, the compiler assumes the assembly block has no side effects."
+
+msgid "`pack`"
+msgstr "`pack`"
+
+msgid "每次内联汇编调用处理的元素数量"
+msgstr "Number of elements processed per inline assembly call"
+
+msgid "Ascend 对比 GPU 的输入张量类型 缺失uint8、uint16、uint32、uint64、fp16、 fp64 、bf16 、bool的支持能力。"
+msgstr "Ascend compared to GPU lacks support for input tensor types uint8, uint16, uint32, uint64, fp16, fp64, bf16, and bool."
+
+msgid "1.内联汇编的寄存器仅支持`int64(s64)` 和`float32(f32)`。 2.约束限制仅支持`l`。 3.目前仅支持输入一维张量，计算高维张量需展开。"
+msgstr "1. Inline assembly registers only support `int64(s64)` and `float32(f32)`. 2. Constraint restrictions only support `l`. 3. Currently, only one-dimensional tensors are supported for input; computing higher-dimensional tensors requires flattening."
+
+msgid "triton.language.range"
+msgstr "triton.language.range"
+
+msgid "`range` 是一个向上计数的迭代器，类似于 Python 的 `range()` 函数，但是允许传入更多的参数。"
+msgstr "`range` is an iterator that counts upward, similar to Python's `range()` function, but allows for more parameters."
+
+msgid "一个整数，每次迭代的步长增量"
+msgstr "An integer, the step size increment for each iteration."
+
+msgid "禁止dot操作累加器的多缓冲优化"
+msgstr "Disable multi-buffer optimization for dot operation accumulators"
+
+msgid "自动展平嵌套循环为单层循环"
+msgstr "Automatically flatten nested loops into single-level loops."
+
+msgid "启用warp专业化（仅Blackwell GPU）"
+msgstr "Enable warp specialization (Blackwell GPU only)"
+
+msgid "禁用循环不变代码外提优化"
+msgstr "Disable loop-invariant code motion optimization"
+
+msgid "Ascend 对比 GPU 缺失uint8、uint16、uint32、uint64、fp64的支持能力（硬件限制）。 disallow_acc_multi_buffer, flatten, warp_specialize, disable_licm 相关功能还不全。"
+msgstr "Ascend lacks support for uint8, uint16, uint32, uint64, and fp64 compared to GPU (hardware limitation). The functionalities related to disallow_acc_multi_buffer, flatten, warp_specialize, and disable_licm are not yet complete."
+
+msgid "triton.language.static_range"
+msgstr "triton.language.static_range"
+
+msgid "`static_range` 是一个静态范围的迭代器，与 `range` 类似但会在编译时进行积极的循环展开优化。"
+msgstr "`static_range` is a static range iterator, similar to `range` but performs aggressive loop unrolling optimization at compile time."
+
+msgid "`constexpr`"
+msgstr "`constexpr`"
+
+msgid "Ascend 910系列"
+msgstr "Ascend 910 series"
+
+msgid "`static_range` 通过牺牲代码大小来换取运行时性能，适用于已知且较小的循环次数场景。"
+msgstr "`static_range` trades off code size for runtime performance and is suitable for scenarios where the loop count is known and small."
+
+msgid "triton.language.dot"
+msgstr "triton.language.dot"
+
+msgid "简介：对两个tensor进行矩阵乘操作。tensor需要是二维或三维并且维度需一致。对于三维块，tl.dot执行批量矩阵乘法，其中每个块的第一维代表批量维度。 原型："
+msgstr ""
+"Introduction: Performs matrix multiplication on two tensors. The tensors must be two-dimensional or three-dimensional and their dimensions must be consistent. For three-dimensional blocks, `tl.dot` performs batch matrix multiplication, where the first dimension of each block represents the batch dimension.  \n"
+"Prototype:\n"
+
+msgid "`int8 fp16 bf16 fp32`"
+msgstr "`int8 fp16 bf16 fp32`"
+
+msgid "第一个输入，2D or 3D 张量， 为了避免溢出 取值范围限制为-5-5"
+msgstr "First input, a 2D or 3D tensor, with value range limited to -5 to 5 to avoid overflow."
+
+msgid "第二个输入,  2D or 3D 张量，为了避免溢出 取值范围限制为-5-5"
+msgstr "Second input, 2D or 3D tensor, with value range limited to -5 to 5 to avoid overflow."
+
+msgid "`acc`"
+msgstr "`acc`"
+
+msgid "`int32  float32`"
+msgstr "`int32 float32`"
+
+msgid "存累加结果的张量, accumulator tensor. If not None, the result is added to this tensor, acc_dtype支持 {:code:`float16`, :code:`float32`, :code:`int32`}"
+msgstr "Tensor for storing accumulated results, accumulator tensor. If not None, the result is added to this tensor, acc_dtype supports {:code:`float16`, :code:`float32`, :code:`int32`}"
+
+msgid "`input_precision`"
+msgstr "`input_precision`"
+
+msgid "Available options for NVIDIA 通过选择精度模式来决定是否启用 Tensor Cores 加速"
+msgstr "Available options for NVIDIA: Decide whether to enable Tensor Cores acceleration by selecting the precision mode."
+
+msgid "`max_num_imprecise_acc`"
+msgstr "`max_num_imprecise_acc`"
+
+msgid "多少次低精度的累加数（当前昇腾不支持低精度累加）"
+msgstr "Number of low-precision accumulations (current Ascend does not support low-precision accumulation)"
+
+msgid "`out_dtype`"
+msgstr "`out_dtype`"
+
+msgid "`fp32  int32`"
+msgstr "`fp32 int32`"
+
+msgid "输出结果类型"
+msgstr "Output result type"
+
+msgid "返回值： `tl.tensor`：矩阵乘结果"
+msgstr "Return value: `tl.tensor`: matrix multiplication result"
+
+msgid "输入类型"
+msgstr "Input Type"
+
+msgid "结论：Ascend 对比 GPU 缺失uint8、uint16、uint32、uint64、fp64的支持能力（硬件限制）。"
+msgstr "Conclusion: Ascend lacks support for uint8, uint16, uint32, uint64, and fp64 compared to GPU (hardware limitation)."
+
+msgid "acc 不能支持fp16，为了精度硬件默认就是fp32"
+msgstr "acc does not support fp16; for precision, the hardware defaults to fp32."
+
+msgid "max_num_imprecise_acc 暂时不支持"
+msgstr "max_num_imprecise_acc is not currently supported"
+
+msgid "out_dtype对比GPU 缺乏int8和FP16的类型支持"
+msgstr "out_dtype comparison: GPU lacks support for int8 and FP16 types"
+
+msgid "以下示例实现了对输入张量 `x_ptr, y_ptr` 做矩阵乘计算，参考  ascend/examples/generalization_cases/test_matmul.py："
+msgstr "The following example implements matrix multiplication computation on input tensors `x_ptr, y_ptr`. Refer to `ascend/examples/generalization_cases/test_matmul.py`:"
+
+msgid "triton.language.dot_scaled"
+msgstr "triton.language.dot_scaled"
+
+msgid "简介：**计算以缩放格式表示两个矩阵块的矩阵乘积**"
+msgstr "Introduction: **Compute the matrix product of two matrix blocks represented in a scaled format**"
+
+msgid "`lhs`"
+msgstr "`lhs`"
+
+msgid "左矩阵张量的基指针（支持bf16、fp16格式）"
+msgstr "Base pointer of the left matrix tensor (supports bf16, fp16 formats)"
+
+msgid "`lhs_scale`"
+msgstr "`lhs_scale`"
+
+msgid "左矩阵缩放张量的基指针（支持int8格式）"
+msgstr "Base pointer of the left matrix scaling tensor (supports int8 format)"
+
+msgid "`lhs_format`"
+msgstr "`lhs_format`"
+
+msgid "`string`"
+msgstr "`string`"
+
+msgid "左矩阵张量的存放格式 （支持\"bf16\"和\"fp16\"）"
+msgstr "The storage format of the left matrix tensor (supports \"bf16\" and \"fp16\")"
+
+msgid "`rhs`"
+msgstr "`rhs`"
+
+msgid "右矩阵张量的基指针 （支持bf16、fp16格式）"
+msgstr "Base pointer of the right matrix tensor (supports bf16, fp16 formats)"
+
+msgid "`rhs_scale`"
+msgstr "`rhs_scale`"
+
+msgid "右矩阵缩放张量的基指针（支持int8格式）"
+msgstr "Base pointer for right matrix scaling tensor (supports int8 format)"
+
+msgid "`rhs_format`"
+msgstr "`rhs_format`"
+
+msgid "右矩阵张量的存放格式 （支持\"bf16\"和\"fp16\"）"
+msgstr "Storage format of the right matrix tensor (supports \"bf16\" and \"fp16\")"
+
+msgid "累积张量"
+msgstr "accumulated tensor"
+
+msgid "`lhs_k_pack`"
+msgstr "`lhs_k_pack`"
+
+msgid "`(bool, optional)`"
+msgstr "(bool, optional)"
+
+msgid "true 沿 K 维度打包<br>false 沿 M 维度打包<br>"
+msgstr "true: pack along the K dimension<br>false: pack along the M dimension<br>"
+
+msgid "`rhs_k_pack`"
+msgstr "`rhs_k_pack`"
+
+msgid "true 沿 K 维度打包<br>false 沿 N 维度打包<br>"
+msgstr "true packs along the K dimension<br>false packs along the N dimension<br>"
+
+msgid "返回值： `out`：tensor类型，计算缩放矩阵乘后输出的值"
+msgstr "Return value: `out`: tensor type, the output value after computing the scaled matrix multiplication."
+
+msgid "fp4"
+msgstr "fp4"
+
+msgid "fp8"
+msgstr "fp8"
+
+msgid "结论： 1、Ascend 对比 GPU 缺失fp4、fp8的支持能力（硬件限制）。 2、缩放张量的值为int8，GPU上为uint8。"
+msgstr "Conclusion: 1. Ascend lacks support for fp4 and fp8 compared to GPU (hardware limitation). 2. The value of the scaling tensor is int8, while on GPU it is uint8."
+
+msgid "可支持 2~3维 tensor"
+msgstr "Supports 2D to 3D tensors."
+
+msgid "结论：在 Shape 方面，GPU 与 Ascend 平台无差异，lhs/rhs矩阵均支持 2 至 3 维张量，但scale矩阵只支持2维。"
+msgstr "Conclusion: In terms of shape, there is no difference between GPU and Ascend platforms. Both lhs/rhs matrices support 2 to 3 dimensional tensors, but the scale matrix only supports 2 dimensions."
+
+msgid "1、由于不支持fp8，左右矩阵不支持fp4、fp8格式，Ascend 对比 GPU 缺失lhs_k_pack、rhs_k_pack的矩阵解压缩支持能力（硬件限制）。 2、输入矩阵lhs、rhs推荐输入范围为[-5, 5]，超过可能会出现极值inf。 3、由于硬件存在对齐要求，需要限制scale矩阵做broadcast的倍数，至少应为16"
+msgstr "1. Due to the lack of fp8 support, the left and right matrices do not support fp4 or fp8 formats. Compared to GPU, Ascend lacks the matrix decompression support capability for `lhs_k_pack` and `rhs_k_pack` (hardware limitation). 2. The recommended input range for the input matrices `lhs` and `rhs` is [-5, 5]; values beyond this range may result in extreme values such as inf. 3. Due to hardware alignment requirements, the broadcast multiplier for the scale matrix must be limited to at least 16."
+
+msgid "4、当前支持的缩放矩阵格式为int8，社区为uint8"
+msgstr "4. The currently supported scaling matrix format is int8, while the community uses uint8."
+
+msgid "以下示例实现了对输入张量 `x` 做就地绝对值计算："
+msgstr "The following example implements in-place absolute value computation on the input tensor `x`:"
+
+msgid "triton.language.tensor.__and__"
+msgstr "triton.language.tensor.__and__"
+
+msgid "简介：计算两个元素的与值。"
+msgstr "Introduction: Computes the AND value of two elements."
+
+msgid "返回值： `out`：同x、y的shape的张量"
+msgstr "Return value: `out`: a tensor with the same shape as `x` and `y`."
+
+msgid "结论：Ascend 相比 GPU 缺失 uint 类型支持。"
+msgstr "Conclusion: Ascend lacks support for the uint type compared to GPU."
+
+msgid "Ascend 相比 GPU 缺失 uint 类型支持。"
+msgstr "Ascend lacks support for the uint type compared to GPU."
+
+msgid "以下示例计算两个输入张量的逐元素与运算："
+msgstr "The following example computes the element-wise AND operation of two input tensors:"
+
+msgid "逻辑操作"
+msgstr "Logical Operations"
+
+msgid "api"
+msgstr "api"
+
+msgid "简要说明"
+msgstr "Brief Description"
+
+msgid "[and](./and.md)"
+msgstr "[and](./and.md)"
+
+msgid "逻辑与操作"
+msgstr "Logical AND operation"
+
+msgid "[or](./or.md)"
+msgstr "[or](./or.md)"
+
+msgid "逻辑或操作"
+msgstr "Logical OR operation"
+
+msgid "[not](./not.md)"
+msgstr "[not](./not.md)"
+
+msgid "逻辑非操作"
+msgstr "Logical NOT operation"
+
+msgid "[logical_and](./logical_and.md)"
+msgstr "[logical_and](./logical_and.md)"
+
+msgid "用于对两个张量进行逐元素逻辑与运算"
+msgstr "Used to perform element-wise logical AND operation on two tensors."
+
+msgid "[logical_or](./logical_or.md)"
+msgstr "[logical_or](./logical_or.md)"
+
+msgid "用于对两个张量进行逐元素逻辑或运算"
+msgstr "Used to perform element-wise logical OR operation on two tensors."
+
+msgid "将tensor的值按位取反。"
+msgstr "Invert the bits of the tensor's values."
+
+msgid "[invert](./invert.md)"
+msgstr "[invert](./invert.md)"
+
+msgid "将tensor每个值按比特位进行翻转。"
+msgstr "Flip each value of the tensor bitwise."
+
+msgid "[lshift](./lshift.md)"
+msgstr "[lshift](./lshift.md)"
+
+msgid "根据给定值 将tensor张量进行左移位。"
+msgstr "Shift the tensor to the left by the given value."
+
+msgid "[rshift](./rshift.md)"
+msgstr "[rshift](./rshift.md)"
+
+msgid "根据给定值 将tensor张量进行右移位。"
+msgstr "Right-shift the tensor according to the given value."
+
+msgid "[xor](./xor.md)"
+msgstr "[xor](./xor.md)"
+
+msgid "计算两个元素的异或值。"
+msgstr "Compute the XOR value of two elements."
+
+msgid "triton.language.tensor.__invert__"
+msgstr "triton.language.tensor.__invert__"
+
+msgid "简介：将tensor每个值按比特位进行翻转。"
+msgstr "Introduction: Flip each value of the tensor by bit."
+
+msgid "结论：Ascend 比 GPU 少了uint类型的支持。"
+msgstr "Conclusion: Ascend lacks support for the `uint` type compared to GPU."
+
+msgid "Ascend 比 GPU 少了uint类型的支持。"
+msgstr "Ascend lacks support for the uint type compared to GPU."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素按位取反："
+msgstr "The following example implements element-wise bitwise NOT on the input tensor `x`:"
+
+msgid "triton.language.tensor.logical_and"
+msgstr "triton.language.tensor.logical_and"
+
+msgid "简介：用于对两个张量进行逐元素逻辑与运算"
+msgstr "Introduction: Used to perform element-wise logical AND operation on two tensors."
+
+msgid "作为`tensor`的成员函数调用, 如`x0.logical_and(x1)`。"
+msgstr "Called as a member function of `tensor`, e.g., `x0.logical_and(x1)`."
+
+msgid "张量数据, 右操作数, 与`input`逐元素进行逻辑与"
+msgstr "Tensor data, right operand, performs element-wise logical AND with `input`."
+
+msgid "结论：在 DataType 方面, Ascend相比GPU额外增加了对整型、浮点型（除fp64, fp8）的支持。"
+msgstr "Conclusion: In terms of DataType, Ascend additionally supports integer and floating-point types (except fp64, fp8) compared to GPU."
+
+msgid "相对社区能力暂不支持"
+msgstr "Community capabilities are not currently supported."
+
+msgid "无。"
+msgstr "None."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做逻辑与运算："
+msgstr "The following example implements the logical AND operation on three-dimensional tensors `x0` and `x1`:"
+
+msgid "triton.language.tensor.logical_or"
+msgstr "triton.language.tensor.logical_or"
+
+msgid "简介：用于对两个张量进行逐元素逻辑或运算"
+msgstr "Introduction: Used to perform element-wise logical OR operation on two tensors."
+
+msgid "作为`tensor`的成员函数调用, 如`x0.logical_or(x1)`。"
+msgstr "Called as a member function of `tensor`, such as `x0.logical_or(x1)`."
+
+msgid "张量数据, 右操作数, 与`input`逐元素进行逻辑或"
+msgstr "Tensor data, right operand, performs element-wise logical OR with `input`."
+
+msgid "结论：在 DataType 方面, Ascend相比GPU额外增加了对整型、浮点型（除fp64,fp8）的支持。"
+msgstr "Conclusion: In terms of DataType, Ascend provides additional support for integer and floating-point types (except fp64, fp8) compared to GPU."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做逻辑或运算："
+msgstr "The following example implements the logical OR operation on three-dimensional tensors `x0` and `x1`:"
+
+msgid "triton.language.core.__lshift__"
+msgstr "triton.language.core.__lshift__"
+
+msgid "简介：根据给定值 将tensor张量进行左移位。"
+msgstr "Introduction: Perform a left shift on the tensor based on the given value."
+
+msgid "作为`tensor`的内置运算符使用，如`x<<y`。"
+msgstr "Used as a built-in operator for `tensor`, such as `x<<y`."
+
+msgid "张量数据，左操作数，代表要进行移位的主数据"
+msgstr "Tensor data, left operand, representing the primary data to be shifted."
+
+msgid "`tensor or scalar`"
+msgstr "`tensor or scalar`"
+
+msgid "张量数据，右操作数，进行移位的数值"
+msgstr "Tensor data, right operand, shift value"
+
+msgid "结论：Ascend 对比 GPU 缺失uint的支持能力。"
+msgstr "Conclusion: Ascend lacks support for uint compared to GPU."
+
+msgid "右操作数 `other` 仅支持标量，不支持 tensor（即 `x << 2` 合法，`x << y`（`y` 为 tensor）暂不支持）。"
+msgstr "The right operand `other` only supports scalars, not tensors (i.e., `x << 2` is valid, while `x << y` (where `y` is a tensor) is not currently supported)."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做左移位运算："
+msgstr "The following example implements left shift operation on three-dimensional tensors `x0` and `x1`:"
+
+msgid "triton.language.tensor.__neg__"
+msgstr "triton.language.tensor.__neg__"
+
+msgid "简介：将tensor的值取负。"
+msgstr "Introduction: Negate the value of the tensor."
+
+msgid "结论：Ascend 相比 GPU 缺失 uint、fp64、bool 类型支持。"
+msgstr "Conclusion: Ascend lacks support for uint, fp64, and bool types compared to GPU."
+
+msgid "Ascend 相比 GPU 缺失 uint、fp64、bool 类型支持。"
+msgstr "Ascend lacks support for uint, fp64, and bool types compared to GPU."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素取负："
+msgstr "The following example implements element-wise negation of the input tensor `x`:"
+
+msgid "triton.language.tensor.__not__"
+msgstr "triton.language.tensor.__not__"
+
+msgid "简介：对 tensor 做逐元素逻辑非（0 变 1，非零变 0）。对应 Python 的 `not` 关键字 —— Triton 通过 AST visitor 特殊处理，把 `not X` 重写为 `X.__not__()`。与按位取反 `~X`（见 [invert](./invert.md)）不同：前者是逻辑非，后者是按位翻转。"
+msgstr "Introduction: Performs element-wise logical NOT on a tensor (0 becomes 1, non-zero becomes 0). Corresponds to Python's `not` keyword — Triton handles it specially through an AST visitor, rewriting `not X` as `X.__not__()`. This differs from bitwise inversion `~X` (see [invert](./invert.md)): the former is logical NOT, while the latter is bitwise flipping."
+
+msgid "结论：Ascend 相比 GPU 额外支持非 bool 类型。"
+msgstr "Conclusion: Ascend additionally supports non-bool types compared to GPU."
+
+msgid "以下示例对输入张量 `x` 做逐元素按位取反："
+msgstr "The following example performs element-wise bitwise NOT on the input tensor `x`:"
+
+msgid "triton.language.tensor.__or__"
+msgstr "triton.language.tensor.__or__"
+
+msgid "简介：计算两个元素的或运算。"
+msgstr "Brief: Compute the OR operation of two elements."
+
+msgid "以下示例计算两个输入张量的逐元素或运算："
+msgstr "The following example computes the element-wise OR operation of two input tensors:"
+
+msgid "triton.language.core.__rshift__"
+msgstr "triton.language.core.__rshift__"
+
+msgid "简介：根据给定值 将tensor张量进行右移位。"
+msgstr "Introduction: Right-shift the tensor according to the given value."
+
+msgid "作为`tensor`的内置运算符使用，如`x>>y`。"
+msgstr "Used as a built-in operator for `tensor`, such as `x>>y`."
+
+msgid "右操作数 `other` 仅支持标量，不支持 tensor（即 `x >> 2` 合法，`x >> y`（`y` 为 tensor）暂不支持）。"
+msgstr "The right operand `other` only supports scalars, not tensors (i.e., `x >> 2` is valid, while `x >> y` (where `y` is a tensor) is not currently supported)."
+
+msgid "以下示例实现了对三维张量`x0`、`x1`做右移位运算："
+msgstr "The following example implements right shift operation on three-dimensional tensors `x0` and `x1`:"
+
+msgid "triton.language.tensor.__xor__"
+msgstr "triton.language.tensor.__xor__"
+
+msgid "简介：计算两个元素的异或值。"
+msgstr "Introduction: Computes the XOR of two elements."
+
+msgid "以下示例计算两个输入张量的逐元素异或："
+msgstr "The following example computes the element-wise XOR of two input tensors:"
+
+msgid "triton.language.abs"
+msgstr "triton.language.abs"
+
+msgid "简介：计算张量中每个元素的绝对值 函数原型："
+msgstr "Introduction: Computes the absolute value of each element in a tensor. Function prototype:"
+
+msgid "可以作为张量的成员函数调用, 如`x.abs()`, 与`abs(x)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.abs()`, which is equivalent to `abs(x)`."
+
+msgid "返回值： `out`：同`x`的shape的张量"
+msgstr "Return value: `out`: a tensor with the same shape as `x`."
+
+msgid "Triton-Ascend 对比 GPU 不支持fp64。"
+msgstr "Triton-Ascend does not support fp64 compared to GPU."
+
+msgid "以下示例实现了对输入张量 `x` 做绝对值运算："
+msgstr "The following example implements the absolute value operation on the input tensor `x`:"
+
+msgid "triton.language.add"
+msgstr "triton.language.add"
+
+msgid "简介：加法  ，与四则运算 ‘+’等价 原型："
+msgstr "Introduction: Addition, equivalent to the arithmetic operator '+'. Prototype:"
+
+msgid "`tensor or Number`"
+msgstr "`tensor or Number`"
+
+msgid "第一个入参"
+msgstr "The first input parameter"
+
+msgid "第二个入参"
+msgstr "Second input parameter"
+
+msgid "`sanitize_overflow`"
+msgstr "`sanitize_overflow`"
+
+msgid "是否对整数加法做溢出检查，默认值为True,无需显示指定"
+msgstr "Whether to perform overflow checking on integer addition, default value is True, no need to specify explicitly."
+
+msgid "返回值： `tl.tensor`：加法结果"
+msgstr "Return value: `tl.tensor`: result of addition"
+
+msgid "以下示例实现了对输入张量 `x_ptr, y_ptr` 做加法计算："
+msgstr "The following example implements addition computation on input tensors `x_ptr, y_ptr`:"
+
+msgid "3. 特殊说明"
+msgstr "3. Special Notes"
+
+msgid "Ascend A3 对比 GPU 不支持fp64"
+msgstr "Ascend A3 does not support fp64 compared to GPU."
+
+msgid "triton.language.cdiv"
+msgstr "triton.language.cdiv"
+
+msgid "简介：计算张量的向上取整除法 函数原型："
+msgstr "Introduction: Computes the ceiling division of a tensor. Function prototype:"
+
+msgid "可以作为张量的成员函数调用, 如`x.cdiv(...)`, 与`cdiv(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.cdiv(...)`, which is equivalent to `cdiv(x, ...)`."
+
+msgid "张量数据, 被除数"
+msgstr "Tensor data, dividend"
+
+msgid "`div`"
+msgstr "`div`"
+
+msgid "张量数据, 除数"
+msgstr "Tensor data, divisor"
+
+msgid "返回值： `out`：同`x`、`div`的shape的张量"
+msgstr "Return value: `out`: a tensor with the same shape as `x` and `div`."
+
+msgid "结论：Ascend 对比 GPU , 不支持uint, bool输入。"
+msgstr "Conclusion: Compared to GPU, Ascend does not support uint or bool inputs."
+
+msgid "输入范围：0~16777216"
+msgstr "Input range: 0~16777216"
+
+msgid "以下示例实现了对输入张量 `x` 和`y`做向上取整除法运算："
+msgstr "The following example implements ceiling division on input tensors `x` and `y`:"
+
+msgid "triton.language.ceil"
+msgstr "triton.language.ceil"
+
+msgid "简介：计算张量中每个元素的向上取整值"
+msgstr "Introduction: Computes the ceiling value for each element in the tensor."
+
+msgid "Ascend 对比 GPU 缺失fp64的支持能力, 但多了fp16、bf16的支持能力, 支持整型输入。"
+msgstr "Ascend lacks fp64 support compared to GPU, but adds support for fp16 and bf16, and supports integer input."
+
+msgid "以下示例实现了对输入张量 `x` 做向上取整运算："
+msgstr "The following example implements the ceiling operation on the input tensor `x`:"
+
+msgid "triton.language.clamp"
+msgstr "triton.language.clamp"
+
+msgid "简介：限制张量x的范围为[min，max]之间。"
+msgstr "Introduction: Clamp the values of tensor x to be within the range [min, max]."
+
+msgid "`min`"
+msgstr "`min`"
+
+msgid "下界（可为张量或标量，会广播到 `x` 的 shape）"
+msgstr "Lower bound (can be a tensor or scalar, broadcast to the shape of `x`)"
+
+msgid "`max`"
+msgstr "`max`"
+
+msgid "上界（可为张量或标量，会广播到 `x` 的 shape）"
+msgstr "Upper bound (can be a tensor or scalar, broadcast to the shape of `x`)"
+
+msgid "`propagate_nan`"
+msgstr "`propagate_nan`"
+
+msgid "`triton.language.core.constexpr`"
+msgstr "`triton.language.core.constexpr`"
+
+msgid "是否对min或max做Nan的传播"
+msgstr "Whether to propagate NaN for min or max."
+
+msgid "返回值： `x`：输出张量的shape与输入x的shape相同"
+msgstr "Return value: `x`: The shape of the output tensor is the same as that of the input `x`."
+
+msgid "Ascend 相比 GPU 缺失 fp64 支持。"
+msgstr "Ascend lacks fp64 support compared to GPU."
+
+msgid "2.3.1 propagate_nan 参数限制"
+msgstr "2.3.1 propagate_nan Parameter Constraints"
+
+msgid "**注意：当 `propagate_nan=tl.PropagateNAN.NONE` 时，系统会自动添加 NaN 值处理逻辑，这会导致：**"
+msgstr "**Note:** When `propagate_nan=tl.PropagateNAN.NONE`, the system automatically adds NaN value handling logic, which will result in:"
+
+msgid "**UB 空间使用增加**：额外的 NaN 检测和处理需要占用更多的 UB 空间"
+msgstr "**Increased UB Space Usage**: Additional NaN detection and handling requires more UB space."
+
+msgid "**可能的性能下降**：由于增加了额外的计算逻辑，可能导致算子执行性能下降"
+msgstr "**Possible Performance Degradation**: The addition of extra computational logic may lead to a decrease in operator execution performance."
+
+msgid "**建议：**"
+msgstr "**Recommendation:**"
+
+msgid "如果输入数据不包含 NaN 值，或不需要严格的 NaN 处理语义，建议使用默认值或根据实际需求选择合适的 `propagate_nan` 参数值"
+msgstr "If the input data does not contain NaN values or strict NaN handling semantics are not required, it is recommended to use the default value or select an appropriate `propagate_nan` parameter value based on actual needs."
+
+msgid "在 UB 空间紧张的场景下，应特别注意此参数的选择，避免因 UB 空间不足导致编译失败"
+msgstr "In scenarios where UB space is limited, special attention should be paid to the selection of this parameter to avoid compilation failures due to insufficient UB space."
+
+msgid "以下示例实现了对输入张量 `x` 做截断计算："
+msgstr "The following example implements truncation computation on the input tensor `x`:"
+
+msgid "triton.language.cos"
+msgstr "triton.language.cos"
+
+msgid "简介：对输入x计算的逐元素余弦。 函数原型（Triton3.4.0版本）："
+msgstr "Introduction: Computes the element-wise cosine of the input x. Function prototype (Triton 3.4.0 version):"
+
+msgid "结论：Ascend 比 GPU 少了对fp64的支持，但多了fp16和fp32的支持。 torch_npu支持uint8。"
+msgstr "Conclusion: Ascend lacks support for fp64 compared to GPU, but adds support for fp16 and fp32. torch_npu supports uint8."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素余弦计算："
+msgstr "The following example implements element-wise cosine computation on the input tensor `x`:"
+
+msgid "div"
+msgstr "div"
+
+msgid "简介：除法，四则运算 ‘/’，无tl.div方法"
+msgstr "Introduction: Division, the arithmetic operation '/', there is no tl.div method."
+
+msgid "底层实现与fdiv算子相同，只不过fdiv明确限制入参必须是float类型，‘/’无此限制，它会把非浮点型转换为浮点型再做计算"
+msgstr "The underlying implementation is the same as the `fdiv` operator, except that `fdiv` explicitly restricts input parameters to float type, while '/' has no such restriction—it converts non-floating-point types to floating-point before computation."
+
+msgid "`self`"
+msgstr "`self`"
+
+msgid "第一个入参 ，被除数"
+msgstr "The first parameter, the dividend"
+
+msgid "第二个入参 ，除数"
+msgstr "The second input parameter, divisor"
+
+msgid "返回值： `tl.tensor`：除法结果 返回结果类型：总是返回浮点型"
+msgstr "Return value: `tl.tensor`: division result. Return type: always returns a floating-point type."
+
+msgid "处理方式"
+msgstr "Processing method"
+
+msgid "结果类型"
+msgstr "Result type"
+
+msgid "`int / int`"
+msgstr "`int / int`"
+
+msgid "两个都转成 `float32`"
+msgstr "Both are converted to `float32`."
+
+msgid "`float32`"
+msgstr "`float32`"
+
+msgid "`int / float`"
+msgstr "`int / float`"
+
+msgid "int 转 float"
+msgstr "int to float"
+
+msgid "float 类型"
+msgstr "float type"
+
+msgid "`float / float`"
+msgstr "`float / float`"
+
+msgid "统一到更高精度 float"
+msgstr "Unified to higher precision float"
+
+msgid "高精度 float"
+msgstr "High-precision float"
+
+msgid "`float / int`"
+msgstr "`float / int`"
+
+msgid "Ascend A3 对比 GPU 缺失uint8、uint16、uint32、uint64、fp64的支持"
+msgstr "Ascend A3 lacks support for uint8, uint16, uint32, uint64, and fp64 compared to GPU."
+
+msgid "以下示例实现了对输入张量 `in_ptr0, in_ptr1` 做除法计算："
+msgstr "The following example implements division calculation on input tensors `in_ptr0, in_ptr1`:"
+
+msgid "triton.language.div_rn"
+msgstr "triton.language.div_rn"
+
+msgid "简介：计算x和y的逐元素精确除法。"
+msgstr "Brief: Compute the element-wise exact division of x and y."
+
+msgid "结论：Ascend 相比 GPU 额外支持 fp16、bf16。 torch 对 uint8 支持。"
+msgstr "Conclusion: Compared to GPU, Ascend additionally supports fp16 and bf16. torch supports uint8."
+
+msgid "以下示例实现了对输入张量 `x` 和`y`的逐元素精确除法："
+msgstr "The following example implements element-wise exact division of input tensors `x` and `y`:"
+
+msgid "triton.language.erf"
+msgstr "triton.language.erf"
+
+msgid "简介：计算x的逐元素误差函数。"
+msgstr "Introduction: Computes the element-wise error function of x."
+
+msgid "Ascend 比 GPU 少了fp64的支持，但多了fp16和bf16的支持。"
+msgstr "Ascend lacks fp64 support compared to GPU, but adds support for fp16 and bf16."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素误差计算："
+msgstr "The following example implements element-wise error calculation on the input tensor `x`:"
+
+msgid "triton.language.exp"
+msgstr "triton.language.exp"
+
+msgid "简介：计算x的逐元素指数。"
+msgstr "Introduction: Compute the element-wise exponential of x."
+
+msgid "结论：Ascend 比 GPU 少了fp64的支持，但多了fp16，bf16的支持。 torch_npu不支持u8。"
+msgstr "Conclusion: Ascend lacks fp64 support compared to GPU, but adds support for fp16 and bf16. torch_npu does not support u8."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素指数计算："
+msgstr "The following example implements element-wise exponential computation on the input tensor `x`:"
+
+msgid "triton.language.exp2"
+msgstr "triton.language.exp2"
+
+msgid "简介：计算x的逐元素指数（以2为底）。"
+msgstr "Brief: Compute the element-wise exponent of x (base 2)."
+
+msgid "结论：Ascend 比 GPU 少了fp64的支持，但多了fp16，bf16的支持。 torch_npu支持u8。"
+msgstr "Conclusion: Ascend lacks fp64 support compared to GPU, but adds support for fp16 and bf16. torch_npu supports u8."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素指数（以2为底）："
+msgstr "The following example implements element-wise exponentiation (base 2) on the input tensor `x`:"
+
+msgid "triton.language.fdiv"
+msgstr "triton.language.fdiv"
+
+msgid "简介：计算x和y的逐元素快速除法。"
+msgstr "Introduction: Compute the element-wise fast division of x and y."
+
+msgid "`ieee_rounding`"
+msgstr "`ieee_rounding`"
+
+msgid "控制浮点数除法运算是否遵循 IEEE 754 标准中规定的舍入行为"
+msgstr "Controls whether floating-point division operations follow the rounding behavior specified in the IEEE 754 standard."
+
+msgid "结论：Ascend 相比 GPU 缺失 fp64 支持，但额外支持 fp16、bf16。 torch 对 uint8 支持。"
+msgstr "Conclusion: Compared to GPU, Ascend lacks fp64 support but additionally supports fp16 and bf16. torch supports uint8."
+
+msgid "fp64开发中。"
+msgstr "fp64 is under development."
+
+msgid "以下示例实现了对输入张量 `x` 和`y`的逐元素快速除法："
+msgstr "The following example implements element-wise fast division of input tensors `x` and `y`:"
+
+msgid "triton.language.floor"
+msgstr "triton.language.floor"
+
+msgid "简介：该函数用于计算x的逐元素向下取整。"
+msgstr "Introduction: This function is used to compute the element-wise floor of x."
+
+msgid "结论：Ascend 比 GPU 少了fp64的支持，但多了fp16和bf16的支持。 torch_npu支持u8。"
+msgstr "Conclusion: Ascend lacks fp64 support compared to GPU, but adds support for fp16 and bf16. torch_npu supports u8."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素向下取整："
+msgstr "The following example implements element-wise floor operation on the input tensor `x`:"
+
+msgid "floordiv"
+msgstr "floordiv"
+
+msgid "简介：取整除法，返回向零取整后的除法结果，四则运算 ‘//’，无tl.floordiv方法"
+msgstr "Introduction: Floor division, returns the result of division rounded towards zero, arithmetic operator '//', no `tl.floordiv` method."
+
+msgid "第一个入参，被除数"
+msgstr "The first input parameter, the dividend."
+
+msgid "第二个入参，除数"
+msgstr "The second input parameter, divisor"
+
+msgid "以下示例实现了对输入张量 `in_ptr0, in_ptr1` 做整除计算："
+msgstr "The following example implements integer division on input tensors `in_ptr0, in_ptr1`:"
+
+msgid "2.4. 特殊限制"
+msgstr "2.4. Special Restrictions"
+
+msgid "Ascend A3 相比 GPU 缺失uint8、uint16、uint32、uint64的支持"
+msgstr "Ascend A3 lacks support for uint8, uint16, uint32, and uint64 compared to GPU."
+
+msgid "triton.language.fma"
+msgstr "triton.language.fma"
+
+msgid "简介：计算x、y和z的逐元素融合乘加操作。"
+msgstr "Introduction: Compute the element-wise fused multiply-add operation of x, y, and z."
+
+msgid "`z`"
+msgstr "`z`"
+
+msgid "返回值： `z`：同z的shape的张量"
+msgstr "Return value: `z`: a tensor with the same shape as `z`."
+
+msgid "结论：Ascend 相比 GPU 缺失 fp64 支持。 torch 对 uint8 支持。"
+msgstr "Conclusion: Ascend lacks fp64 support compared to GPU. torch supports uint8."
+
+msgid "以下示例实现了对输入张量 `x` ,`y`，`z`做逐元素融合乘加操作："
+msgstr "The following example implements element-wise fused multiply-add operations on input tensors `x`, `y`, and `z`:"
+
+msgid "数学操作"
+msgstr "Mathematical Operations"
+
+msgid "[add](./add.md)"
+msgstr "[add](./add.md)"
+
+msgid "四则运算加法 ‘+’"
+msgstr "Arithmetic Addition '+'"
+
+msgid "[sub](./sub.md)"
+msgstr "[sub](./sub.md)"
+
+msgid "四则运算减法 ‘-’"
+msgstr "Arithmetic subtraction '-'"
+
+msgid "[mul](./mul.md)"
+msgstr "[mul](./mul.md)"
+
+msgid "四则运算乘法 ‘*’"
+msgstr "Arithmetic multiplication '*'"
+
+msgid "[div](./div.md)"
+msgstr "[div](./div.md)"
+
+msgid "四则运算除法 ‘/’"
+msgstr "Arithmetic division '/'"
+
+msgid "[abs](./abs.md)"
+msgstr "[abs](./abs.md)"
+
+msgid "计算 x 的逐元素绝对值"
+msgstr "Compute the element-wise absolute value of x."
+
+msgid "[neg](./neg.md)"
+msgstr "[neg](./neg.md)"
+
+msgid "将tensor的值取负。"
+msgstr "Negate the value of the tensor."
+
+msgid "[cdiv](./cdiv.md)"
+msgstr "[cdiv](./cdiv.md)"
+
+msgid "计算 x 除以 div 的向上取整除法"
+msgstr "Compute the ceiling division of x divided by div."
+
+msgid "[ceil](./ceil.md)"
+msgstr "[ceil](./ceil.md)"
+
+msgid "计算 x 的逐元素向上取整值"
+msgstr "Computes the element-wise ceiling of x."
+
+msgid "[clamp](./clamp.md)"
+msgstr "[clamp](./clamp.md)"
+
+msgid "将输入张量 x 的值限制在 [min, max] 范围内"
+msgstr "Clamp the values of the input tensor x to the range [min, max]."
+
+msgid "[cos](./cos.md)"
+msgstr "[cos](./cos.md)"
+
+msgid "计算 x 的逐元素余弦值"
+msgstr "Computes the element-wise cosine of x."
+
+msgid "[div_rn](./div_rn.md)"
+msgstr "[div_rn](./div_rn.md)"
+
+msgid "计算 x 和 y 的逐元素精确除法（根据 IEEE 标准四舍五入到最近的值）"
+msgstr "Compute the element-wise exact division of x and y (rounded to the nearest value according to IEEE standard)."
+
+msgid "[erf](./erf.md)"
+msgstr "[erf](./erf.md)"
+
+msgid "计算 x 的逐元素误差函数"
+msgstr "Compute the element-wise error function of x."
+
+msgid "[exp](./exp.md)"
+msgstr "[exp](./exp.md)"
+
+msgid "计算 x 的逐元素指数"
+msgstr "Compute the element-wise exponential of x."
+
+msgid "[exp2](./exp2.md)"
+msgstr "[exp2](./exp2.md)"
+
+msgid "计算 x 的逐元素指数（以 2 为底）"
+msgstr "Compute the element-wise base-2 exponential of x."
+
+msgid "[fdiv](./fdiv.md)"
+msgstr "[fdiv](./fdiv.md)"
+
+msgid "计算 x 和 y 的逐元素快速除法"
+msgstr "Compute the element-wise fast division of x and y."
+
+msgid "[floor](./floor.md)"
+msgstr "[floor](./floor.md)"
+
+msgid "计算 x 的逐元素向下取整"
+msgstr "Computes the element-wise floor of x."
+
+msgid "[fma](./fma.md)"
+msgstr "[fma](./fma.md)"
+
+msgid "计算 x、y 和 z 的逐元素融合乘加运算"
+msgstr "Compute the element-wise fused multiply-add operation of x, y, and z."
+
+msgid "[log](./log.md)"
+msgstr "[log](./log.md)"
+
+msgid "计算 x 的逐元素自然对数"
+msgstr "Compute the element-wise natural logarithm of x."
+
+msgid "[log2](./log2.md)"
+msgstr "[log2](./log2.md)"
+
+msgid "计算 x 的逐元素对数（以 2 为底）"
+msgstr "Compute the element-wise base-2 logarithm of x."
+
+msgid "[mod](./mod.md)"
+msgstr "[mod](./mod.md)"
+
+msgid "取模运算"
+msgstr "modulo operation"
+
+msgid "[maximum](./maximum.md)"
+msgstr "[maximum](./maximum.md)"
+
+msgid "计算 x 和 y 的逐元素最大值"
+msgstr "Compute the element-wise maximum of x and y."
+
+msgid "[minimum](./minimum.md)"
+msgstr "[minimum](./minimum.md)"
+
+msgid "计算 x 和 y 的逐元素最小值"
+msgstr "Compute the element-wise minimum of x and y."
+
+msgid "[rsqrt](./rsqrt.md)"
+msgstr "[rsqrt](./rsqrt.md)"
+
+msgid "计算 x 的逐元素的平方根倒数"
+msgstr "Compute the element-wise reciprocal of the square root of x."
+
+msgid "[sigmoid](./sigmoid.md)"
+msgstr "[sigmoid](./sigmoid.md)"
+
+msgid "计算 x 的逐元素 sigmoid 函数值"
+msgstr "Compute the element-wise sigmoid function of x."
+
+msgid "[sin](./sin.md)"
+msgstr "[sin](./sin.md)"
+
+msgid "Computes the element-wise sine of x. 计算 x 的逐元素正弦值"
+msgstr "Computes the element-wise sine of x."
+
+msgid "[softmax](./softmax.md)"
+msgstr "[softmax](./softmax.md)"
+
+msgid "计算 x 的逐元素 softmax 值"
+msgstr "Compute the element-wise softmax of x."
+
+msgid "[sqrt](./sqrt.md)"
+msgstr "[sqrt](./sqrt.md)"
+
+msgid "计算 x 的逐元素快速平方根"
+msgstr "Compute the element-wise fast square root of x."
+
+msgid "[sqrt_rn](./sqrt_rn.md)"
+msgstr "[sqrt_rn](./sqrt_rn.md)"
+
+msgid "计算 x 的逐元素精确平方根（根据 IEEE 标准四舍五入到最近的值）"
+msgstr "Compute the element-wise exact square root of x (rounded to the nearest value according to IEEE standard)."
+
+msgid "[umulhi](./umulhi.md)"
+msgstr "[umulhi](./umulhi.md)"
+
+msgid "计算 x 和 y 的 2N 位乘积的逐元素最高有效 N 位"
+msgstr "Compute the element-wise most significant N bits of the 2N-bit product of x and y."
+
+msgid "triton.language.log"
+msgstr "triton.language.log"
+
+msgid "简介：该函数用于计算x的逐元素自然对数。"
+msgstr "Introduction: This function computes the element-wise natural logarithm of x."
+
+msgid "结论：Ascend 相比 GPU 缺失 fp64 支持，但额外支持 fp16、bf16。 torch_npu 支持 uint8。"
+msgstr "Conclusion: Compared to GPU, Ascend lacks fp64 support but additionally supports fp16 and bf16. torch_npu supports uint8."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素自然对数："
+msgstr "The following example implements element-wise natural logarithm on the input tensor `x`:"
+
+msgid "triton.language.log2"
+msgstr "triton.language.log2"
+
+msgid "简介：计算x的逐元素对数（以2为底）。"
+msgstr "Description: Computes the element-wise base-2 logarithm of x."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素对数（以2为底）："
+msgstr "The following example implements element-wise logarithm (base 2) on the input tensor `x`:"
+
+msgid "triton.language.maximum"
+msgstr "triton.language.maximum"
+
+msgid "简介：计算x和y的逐元素最大值。 函数原型（Triton3.4.0版本）："
+msgstr "Introduction: Compute the element-wise maximum of x and y. Function prototype (Triton 3.4.0 version):"
+
+msgid "`tl.PropagateNan`"
+msgstr "`tl.PropagateNan`"
+
+msgid "是否传播NaN值"
+msgstr "Whether to propagate NaN values"
+
+msgid "结论：Ascend 相比 GPU 缺失 fp64 支持。"
+msgstr "Conclusion: Ascend lacks fp64 support compared to GPU."
+
+msgid "以下示例实现了对输入张量 `x` 和`y`的逐元素最大值："
+msgstr "The following example implements element-wise maximum of input tensors `x` and `y`:"
+
+msgid "triton.language.minimum"
+msgstr "triton.language.minimum"
+
+msgid "简介：计算x和y的逐元素最小值。"
+msgstr "Introduction: Compute the element-wise minimum of x and y."
+
+msgid "返回值： `x`：与输入x的shape相同的张量"
+msgstr "Return value: `x`: a tensor with the same shape as the input `x`."
+
+msgid "以下示例实现了对输入张量 `x` 和`y`的逐元素最小值："
+msgstr "The following example implements element-wise minimum for input tensors `x` and `y`:"
+
+msgid "mod"
+msgstr "mod"
+
+msgid "简介：取模运算  ，四则运算 ‘%’"
+msgstr "Introduction: Modulo operation, arithmetic operation ‘%’"
+
+msgid "返回值： `tl.tensor`：取模运算结果"
+msgstr "Return value: `tl.tensor`: result of the modulo operation"
+
+msgid "以下示例实现了对输入张量 `in_ptr0, in_ptr1` 做取模计算："
+msgstr "The following example implements modulo computation on input tensors `in_ptr0, in_ptr1`:"
+
+msgid "mul"
+msgstr "mul"
+
+msgid "简介：四则运算 ‘*’,  无tl.mul调用方法"
+msgstr "Introduction: Four arithmetic operations '*', no tl.mul calling method"
+
+msgid "返回值： `tl.tensor`：乘法结果"
+msgstr "Return value: `tl.tensor`: multiplication result"
+
+msgid "以下示例实现了对输入张量 `in_ptr0, in_ptr1` 做乘法计算："
+msgstr "The following example implements multiplication computation on input tensors `in_ptr0, in_ptr1`:"
+
+msgid "3.  特殊说明"
+msgstr "3. Special Notes"
+
+msgid "Ascend A3 对比 GPU 缺失fp64的支持"
+msgstr "Ascend A3 lacks fp64 support compared to GPU."
+
+msgid "triton.language.neg"
+msgstr "triton.language.neg"
+
+msgid "结论：Ascend 比 GPU 少了uint、fp64、bool类型的支持。"
+msgstr "Conclusion: Ascend lacks support for uint, fp64, and bool types compared to GPU."
+
+msgid "Ascend 比 GPU 少了uint、fp64、bool类型的支持。"
+msgstr "Ascend lacks support for uint, fp64, and bool types compared to GPU."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素取反："
+msgstr "The following example implements element-wise negation of the input tensor `x`:"
+
+msgid "triton.language.rsqrt"
+msgstr "triton.language.rsqrt"
+
+msgid "简介：计算x的逐元素倒数平方根。"
+msgstr "Description: Computes the element-wise reciprocal square root of x."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素倒数平方根："
+msgstr "The following example implements element-wise reciprocal square root of the input tensor `x`:"
+
+msgid "triton.language.sigmoid"
+msgstr "triton.language.sigmoid"
+
+msgid "简介：计算x的逐元素sigmoid函数。"
+msgstr "Introduction: Compute the element-wise sigmoid function of x."
+
+msgid "以下示例实现了对输入张量 `x` 做元素sigmoid："
+msgstr "The following example implements element-wise sigmoid on the input tensor `x`:"
+
+msgid "triton.language.sin"
+msgstr "triton.language.sin"
+
+msgid "简介：计算x的逐元素正弦值。"
+msgstr "Introduction: Compute the element-wise sine of x."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素正弦值："
+msgstr "The following example implements element-wise sine computation on the input tensor `x`:"
+
+msgid "triton.language.softmax"
+msgstr "triton.language.softmax"
+
+msgid "简介：计算x的逐元素softmax。"
+msgstr "Introduction: Compute the element-wise softmax of x."
+
+msgid "指定在哪个维度上计算 softmax"
+msgstr "Specify the dimension on which to compute softmax"
+
+msgid "`keep_dims`"
+msgstr "`keep_dims`"
+
+msgid "控制计算后是否保留原维度的形状"
+msgstr "Controls whether to retain the shape of the original dimension after computation."
+
+msgid "控制浮点数运算是否遵循 IEEE 754 标准的舍入规则"
+msgstr "Controls whether floating-point operations follow the rounding rules of the IEEE 754 standard."
+
+msgid "返回值： `x`：与x相同的shape的张量"
+msgstr "Return value: `x`: a tensor with the same shape as `x`."
+
+msgid "结论：Ascend 相比 GPU 缺失 fp64 支持。 torch_npu 不支持 uint8。"
+msgstr "Conclusion: Ascend lacks fp64 support compared to GPU. torch_npu does not support uint8."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素softmax："
+msgstr "The following example implements element-wise softmax on the input tensor `x`:"
+
+msgid "triton.language.sqrt"
+msgstr "triton.language.sqrt"
+
+msgid "简介：该函数用于计算x的逐元素快速平方根。"
+msgstr "Introduction: This function is used to compute the element-wise fast square root of x."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素快速平方根："
+msgstr "The following example implements an element-wise fast square root on the input tensor `x`:"
+
+msgid "triton.language.sqrt_rn"
+msgstr "triton.language.sqrt_rn"
+
+msgid "简介：计算x的逐元素精确平方根（根据IEEE标准四舍五入）。"
+msgstr "Introduction: Compute the element-wise exact square root of x (rounded according to IEEE standard)."
+
+msgid "结论：Ascend 比 GPU 多了fp16，bf16的支持。 torch_npu支持u8。"
+msgstr "Conclusion: Ascend supports fp16 and bf16 in addition to GPU. torch_npu supports u8."
+
+msgid "以下示例实现了对输入张量 `x` 做逐元素精确平方根："
+msgstr "The following example implements an element-wise exact square root of the input tensor `x`:"
+
+msgid "sub"
+msgstr "sub"
+
+msgid "简介：减法  ，四则运算 ‘-’，无tl.sub方法"
+msgstr "Introduction: Subtraction, arithmetic operation '-', no tl.sub method"
+
+msgid "返回值： `tl.tensor`：减法结果"
+msgstr "Return value: `tl.tensor`: the result of subtraction"
+
+msgid "以下示例实现了对输入张量 `in_ptr0, in_ptr1` 做减法计算："
+msgstr "The following example implements subtraction computation on input tensors `in_ptr0, in_ptr1`:"
+
+msgid "triton.language.umulhi"
+msgstr "triton.language.umulhi"
+
+msgid "简介：计算x和y的2N位乘积中每个元素的最显著N位。"
+msgstr "Description: Compute the most significant N bits of each element in the 2N-bit product of x and y."
+
+msgid "结论：Ascend 相比 GPU 缺失 int64 支持。 torch_npu 对 uint8 的支持。"
+msgstr "Conclusion: Ascend lacks int64 support compared to GPU. torch_npu supports uint8."
+
+msgid "int64不支持"
+msgstr "int64 is not supported"
+
+msgid "以下示例实现了对输入张量 `x` 做显著N位："
+msgstr "The following example implements significant N-bit processing on the input tensor `x`."
+
+msgid "内存/指针操作"
+msgstr "Memory/Pointer Operations"
+
+msgid "[load](./tl.load.md)"
+msgstr "[load](./tl.load.md)"
+
+msgid "返回一个张量，其值从由指针定义的内存位置加载"
+msgstr "Returns a tensor whose values are loaded from the memory location defined by the pointer."
+
+msgid "[store](./tl.store.md)"
+msgstr "[store](./tl.store.md)"
+
+msgid "将数据张量存储到由指针定义的内存位置"
+msgstr "Store the data tensor to the memory location defined by the pointer."
+
+msgid "[make_block_ptr](./tl.make_block_ptr.md)"
+msgstr "[make_block_ptr](./tl.make_block_ptr.md)"
+
+msgid "返回指向父张量中某个块的指针"
+msgstr "Returns a pointer to a block within the parent tensor."
+
+msgid "[advance](./tl.advance.md)"
+msgstr "[advance](./tl.advance.md)"
+
+msgid "推进一个块指针"
+msgstr "Advance a block pointer"
+
+msgid "[load_tensor_descriptor](./load_tensor_descriptor.md)"
+msgstr "[load_tensor_descriptor](./load_tensor_descriptor.md)"
+
+msgid "从张量描述符加载数据块"
+msgstr "Load data block from tensor descriptor"
+
+msgid "[make_tensor_descriptor](./make_tensor_descriptor.md)"
+msgstr "[make_tensor_descriptor](./make_tensor_descriptor.md)"
+
+msgid "创建张量描述符对象"
+msgstr "Create a tensor descriptor object."
+
+msgid "triton.language.load_tensor_descriptor"
+msgstr "triton.language.load_tensor_descriptor"
+
+msgid "简介：该函数用于从张量描述符加载数据块"
+msgstr "Introduction: This function is used to load a data block from a tensor descriptor."
+
+msgid "`desc`"
+msgstr "`desc`"
+
+msgid "`tensor_descriptor_base`"
+msgstr "`tensor_descriptor_base`"
+
+msgid "张量描述符对象，由 `make_tensor_descriptor` 创建，定义了内存布局（形状、步长、块大小等）。"
+msgstr "Tensor descriptor object, created by `make_tensor_descriptor`, defines the memory layout (shape, stride, block size, etc.)."
+
+msgid "`Sequence[constexpr | tensor]`"
+msgstr "`Sequence[constexpr | tensor]`"
+
+msgid "数据加载的起始偏移量序列，用于指定当前线程块要加载的数据位置"
+msgstr "Starting offset sequence for data loading, used to specify the data position to be loaded by the current thread block."
+
+msgid "返回值：`tensor` - 根据张量描述符内存布局信息，从指定偏移量处加载的数据块"
+msgstr "Return value: `tensor` - A data block loaded from the specified offset based on the tensor descriptor memory layout information."
+
+msgid "结论：Ascend 对比 GPU 缺失uint16、uint32、uint64的支持能力（硬件限制）。"
+msgstr "Conclusion: Ascend lacks support for uint16, uint32, and uint64 compared to GPU (hardware limitation)."
+
+msgid "绑定使用限制"
+msgstr "Binding Usage Restrictions"
+
+msgid "`make_tensor_descriptor` / `load_tensor_descriptor` / `store_tensor_descriptor` 需配套使用，不能与 `tl.load()` / `tl.store()` 混用。"
+msgstr "`make_tensor_descriptor` / `load_tensor_descriptor` / `store_tensor_descriptor` must be used together and cannot be mixed with `tl.load()` / `tl.store()`."
+
+msgid "升级至 Triton 3.4.0 版本同步上游函数（如 `cast`）可解决"
+msgstr "Upgrading to Triton 3.4.0 version synchronizes upstream functions (such as `cast`) to resolve the issue."
+
+msgid "Triton 版本兼容性"
+msgstr "Triton Version Compatibility"
+
+msgid "Triton 3.2.0 存在部分函数（如 `cast`）的兼容性问题。建议升级 Triton版本至 3.4.0 来修复绑定限制。"
+msgstr "Triton 3.2.0 has compatibility issues with some functions (such as `cast`). It is recommended to upgrade the Triton version to 3.4.0 to fix binding restrictions."
+
+msgid "升级至 Triton 3.4.0"
+msgstr "Upgrade to Triton 3.4.0"
+
+msgid "`load_tensor_descriptor` 提供两种调用形式："
+msgstr "`load_tensor_descriptor` provides two calling forms:"
+
+msgid "面向对象方法调用（推荐）"
+msgstr "Object-Oriented Method Invocation (Recommended)"
+
+msgid "函数式接口调用"
+msgstr "Functional Interface Invocation"
+
+msgid "triton.language.make_tensor_descriptor"
+msgstr "triton.language.make_tensor_descriptor"
+
+msgid "简介：创建张量描述符对象 原型（Triton3.4.0版本）："
+msgstr "Introduction: Create a tensor descriptor object. Prototype (Triton 3.4.0 version):"
+
+msgid "`base`"
+msgstr "`base`"
+
+msgid "张量的基指针"
+msgstr "Base pointer of a tensor"
+
+msgid "`List[tensor]`"
+msgstr "`List[tensor]`"
+
+msgid "张量的形状"
+msgstr "Shape of a tensor"
+
+msgid "张量各维度的步长列表，约束如下：- 前面的维度必须是 16 字节的整数倍- 最后一维必须是连续存储的"
+msgstr "The list of strides for each dimension of the tensor, with the following constraints: - The preceding dimensions must be multiples of 16 bytes - The last dimension must be stored contiguously."
+
+msgid "`block_shape`"
+msgstr "`block_shape`"
+
+msgid "`List[constexpr]`"
+msgstr "`List[constexpr]`"
+
+msgid "从全局内存加载 / 存储的块的形状"
+msgstr "Shape of blocks loaded/stored from global memory"
+
+msgid "返回值： `tensor_descriptor`：张量描述符对象（不可直接进行算术运算，需配合 `load` / `store` 使用）"
+msgstr "Return value: `tensor_descriptor`: Tensor descriptor object (cannot be directly used for arithmetic operations; must be used with `load` / `store`)."
+
+msgid "升级至 Triton 3.4.0 版本同步上游函数(如 `cast` )可解决"
+msgstr "Upgrading to Triton 3.4.0 version synchronizes upstream functions (such as `cast`) to resolve the issue."
+
+msgid "不支持`padding_option`入参"
+msgstr "The `padding_option` parameter is not supported."
+
+msgid "当前社区主线分支新增`padding_option`入参，用于越界元素填充策略。"
+msgstr "The current community main branch has added the `padding_option` parameter for out-of-bounds element padding strategy."
+
+msgid "可软件开发支持"
+msgstr "Software development support is available."
+
+msgid "Triton 3.2.0 存在部分函数（如 `cast` ）的兼容性问题。建议升级 Triton版本至 3.4.0 来修复绑定限制。"
+msgstr "Triton 3.2.0 has compatibility issues with some functions (such as `cast`). It is recommended to upgrade the Triton version to 3.4.0 to fix the binding restrictions."
+
+msgid "triton.language.store_tensor_descriptor"
+msgstr "triton.language.store_tensor_descriptor"
+
+msgid "简介：将数据块存储到张量描述符指定内存位置"
+msgstr "Introduction: Store the data block to the memory location specified by the tensor descriptor."
+
+msgid "数据存储的起始偏移量序列，用于指定当前线程块要存储的数据位置"
+msgstr "Sequence of starting offsets for data storage, used to specify the data positions to be stored by the current thread block."
+
+msgid "待写入的张量数据块"
+msgstr "The tensor data block to be written."
+
+msgid "返回值：`tensor` - 实际写入的数据块"
+msgstr "Return value: `tensor` - the actual data block written"
+
+msgid "`store_tensor_descriptor` 提供两种调用形式："
+msgstr "`store_tensor_descriptor` provides two calling forms:"
+
+msgid "triton.language.advance"
+msgstr "triton.language.advance"
+
+msgid "简介：将`tl.make_block_ptr`的offset增加一个偏移量 原型："
+msgstr "Introduction: Add an offset to the offset of `tl.make_block_ptr`. Prototype:"
+
+msgid "`triton.PointerType`"
+msgstr "`triton.PointerType`"
+
+msgid "需要被更新的指针，`tl.make_block_ptr`的结果"
+msgstr "The pointer to be updated, result of `tl.make_block_ptr`."
+
+msgid "`tuple(int | constexpr)`"
+msgstr "`tuple(int | constexpr)`"
+
+msgid "张量各维度的基址偏移量列表，`len(offsets)`需要与`len(base.offsets)`相等"
+msgstr "List of base address offsets for each dimension of the tensor; `len(offsets)` must equal `len(base.offsets)`."
+
+msgid "返回值：`pointer_type<blocked<shape, element_type>>`： 指向tensor的指针"
+msgstr "Return value: `pointer_type<blocked<shape, element_type>>`: pointer to the tensor"
+
+msgid "Ascend只允许通过调整`order`参数的顺序来表达转置语义，不能通过调整`stride`参数的顺序实现转置语义。"
+msgstr "Ascend only allows expressing transpose semantics by adjusting the order of the `order` parameter, and cannot achieve transpose semantics by adjusting the order of the `stride` parameter."
+
+msgid "当前`tl.make_tensor_ptr`，如果与较复杂的循环和分支语句搭配使用，可能会出现编译问题"
+msgstr "Currently, `tl.make_tensor_ptr` may encounter compilation issues when used with more complex loops and branch statements."
+
+msgid "triton.language.load"
+msgstr "triton.language.load"
+
+msgid "原型："
+msgstr "Prototype:"
+
+msgid "简介：返回一个Tensor/Scalar，其值从GlobalMemory中`pointer`参数指向的位置加载。"
+msgstr "Description: Returns a Tensor/Scalar whose value is loaded from the location pointed to by the `pointer` parameter in GlobalMemory."
+
+msgid "`triton.PointerType` <br> 或 `tensor<triton.PointerType>` <br> 或`triton.PointerType<tensor>`（来源于`tl.make_block_ptr`）"
+msgstr "`triton.PointerType` <br> or `tensor<triton.PointerType>` <br> or `triton.PointerType<tensor>` (derived from `tl.make_block_ptr`)"
+
+msgid "指向GM上待读取数据的指针"
+msgstr "Pointer to the data to be read on GM"
+
+msgid "`int1`或`tensor<int1>`"
+msgstr "`int1` or `tensor<int1>`"
+
+msgid "可选参数，当且仅当`pointer` 不来源于`tl.make_block_ptr`时可传入<br>若`mask[i]==False` ，则不会读取`pointer[i]`指向的数据,是`True`则正常读取 <br>若`pointer`来源于`tl.make_block_ptr`，则`mask`必须是`None`"
+msgstr "Optional parameter, can only be passed when `pointer` does not originate from `tl.make_block_ptr`.<br>If `mask[i]==False`, the data pointed to by `pointer[i]` will not be read; if `True`, it will be read normally.<br>If `pointer` originates from `tl.make_block_ptr`, then `mask` must be `None`."
+
+msgid "`tensor` 或`scalar`"
+msgstr "`tensor` or `scalar`"
+
+msgid "可选参数，当且仅当`mask!=None`时可传入<br> 若`mask[i]==False` ，将返回值的第`i`个位置设置为`other[i]`或`other`（若`other`是`scalar`类型）, 需要支持tensor，因为tritonGPU社区上是tensor和scalar都支持的"
+msgstr "Optional parameter, can only be passed when `mask!=None`<br> If `mask[i]==False`, set the `i`-th position of the return value to `other[i]` or `other` (if `other` is of type `scalar`). Must support tensor, as the Triton GPU community supports both tensor and scalar."
+
+msgid "`boundary_check`"
+msgstr "`boundary_check`"
+
+msgid "`tuple(int)`"
+msgstr "`tuple(int)`"
+
+msgid "可选参数，当且仅当`pointer`来源于`tl.make_block_ptr`时可传入<br>整数元组，指示需要做边界检查的维度"
+msgstr "Optional parameter, can only be passed when `pointer` originates from `tl.make_block_ptr`<br>An integer tuple indicating the dimensions that require boundary checking."
+
+msgid "`padding_option`"
+msgstr "`padding_option`"
+
+msgid "`\"\"`或`\"zero\"`或`\"nan\"`"
+msgstr "`\"\"` or `\"zero\"` or `\"nan\"`"
+
+msgid "可选参数，当且仅当`boundary_check`不为空时可传入<br>表示访问越界时填充的值"
+msgstr "Optional parameter, can only be passed when `boundary_check` is not empty<br>Indicates the value to fill when accessing out of bounds"
+
+msgid "`cache_modifier`"
+msgstr "`cache_modifier`"
+
+msgid "`\"\"` 或 `\"ca\"`或`\"cg\"`"
+msgstr "`\"\"` or `\"ca\"` or `\"cg\"`"
+
+msgid "可选参数，控制NVIDIA PTX上的cache选项，对Ascend硬件无效"
+msgstr "Optional parameter, controls the cache option on NVIDIA PTX, and is invalid for Ascend hardware."
+
+msgid "`eviction_policy`"
+msgstr "`eviction_policy`"
+
+msgid "控制NVIDIA PTX的eviction策略， 对Ascend硬件无效"
+msgstr "Controls the eviction policy of NVIDIA PTX, invalid for Ascend hardware."
+
+msgid "`volatile`"
+msgstr "`volatile`"
+
+msgid "控制NVIDIA PTX的volatile选项， 对Ascend硬件无效"
+msgstr "Control the volatile option of NVIDIA PTX, invalid for Ascend hardware."
+
+msgid "当前910代际均还不支持cache_modifier，eviction_policy， volatile等参数"
+msgstr "The current 910 generation does not yet support parameters such as `cache_modifier`, `eviction_policy`, and `volatile`."
+
+msgid "支持scalar和1~5维tensor"
+msgstr "Supports scalar and 1D to 5D tensors."
+
+msgid "支持scalar和1~5维 tensor"
+msgstr "Supports scalar and 1~5 dimensional tensors."
+
+msgid "2.2.3 社区约束"
+msgstr "2.2.3 Community Constraints"
+
+msgid "若`pointer`是一个单指针："
+msgstr "If `pointer` is a single pointer:"
+
+msgid "此时`tl.load`返回一个标量"
+msgstr "At this point, `tl.load` returns a scalar."
+
+msgid "`mask`和`other`必须是标量"
+msgstr "`mask` and `other` must be scalars."
+
+msgid "`other`会隐式类型转换成`pointer.dtype.element_ty`的数据类型"
+msgstr "`other` will be implicitly type-cast to the data type of `pointer.dtype.element_ty`."
+
+msgid "此时不允许传入`boundary_check`和`padding_option`"
+msgstr "At this time, it is not allowed to pass `boundary_check` and `padding_option`."
+
+msgid "若`pointer`是一个N-Dimensional tensor："
+msgstr "If `pointer` is an N-dimensional tensor:"
+
+msgid "此时`tl.load`返回一个与`pointer`shape相同的N-Dimensional tensor"
+msgstr "At this point, `tl.load` returns an N-Dimensional tensor with the same shape as `pointer`."
+
+msgid "`mask`和`other`会隐式广播到和`pointer`相同的shape"
+msgstr "`mask` and `other` will be implicitly broadcast to the same shape as `pointer`."
+
+msgid "若`pointer`来自于`tl.make_block_ptr`:"
+msgstr "If `pointer` comes from `tl.make_block_ptr`:"
+
+msgid "此时`mask` 和 `other` 必须是None"
+msgstr "At this point, `mask` and `other` must be None."
+
+msgid "此时可以通过`boundary_check`和`padding_option`设置边界检查和越界补充值"
+msgstr "At this point, the boundary check and out-of-bounds padding values can be set using `boundary_check` and `padding_option`."
+
+msgid "当前使用的社区分支新增`padding_option`入参，用于越界元素填充策略。"
+msgstr "The currently used community branch adds the `padding_option` input parameter for out-of-bounds element padding strategy."
+
+msgid "与分支、循环语句搭配使用时的泛化性问题"
+msgstr "Generalization issues when used with branching and loop statements"
+
+msgid "当前tl.load的`pointer`和`mask`的计算过程，如果涉及较复杂的循环和分支语句，可能会出现编译问题"
+msgstr "The current computation process of `pointer` and `mask` in `tl.load` may encounter compilation issues if it involves complex loops and conditional statements."
+
+msgid "大量泛化测试暴露问题，迭代解决"
+msgstr "Extensive generalization testing revealed issues, resolved iteratively."
+
+msgid "以下示例中通过`triton_ldst_indirect_07_kernel`和`triton_ldst_indirect_07_func`的配合调用，实现了`torch_ldst_indirect_07_func`的功能："
+msgstr "In the following example, the functionality of `torch_ldst_indirect_07_func` is achieved through the coordinated invocation of `triton_ldst_indirect_07_kernel` and `triton_ldst_indirect_07_func`."
+
+msgid "triton.language.make_block_ptr"
+msgstr "triton.language.make_block_ptr"
+
+msgid "简介：创建指向GM上张量的指针 原型："
+msgstr ""
+"Introduction: Create a pointer to a tensor on GM  \n"
+"Prototype:\n"
+
+msgid "张量在GM上的形状"
+msgstr "Shape of tensor on GM"
+
+msgid "张量各维度的步长列表"
+msgstr "List of strides for each dimension of the tensor"
+
+msgid "张量各维度的基址偏移量列表"
+msgstr "List of base address offsets for each dimension of the tensor"
+
+msgid "`tuple(constexpr)`"
+msgstr "`tuple(constexpr)`"
+
+msgid "单次从全局内存加载 / 存储的块的形状"
+msgstr "Shape of a block loaded/stored from global memory in a single operation"
+
+msgid "`order`"
+msgstr "`order`"
+
+msgid "`tl.make_block_ptr`的结果不允许进行算数运算，需要改变偏移量时，可以通过："
+msgstr "The result of `tl.make_block_ptr` does not allow arithmetic operations. When the offset needs to be changed, it can be done by:"
+
+msgid "重新调用make_block_ptr，修改`offset`参数:"
+msgstr "Call `make_block_ptr` again, modifying the `offset` parameter:"
+
+msgid "调用`tl.advance`调整偏移量:"
+msgstr "Call `tl.advance` to adjust the offset:"
+
+msgid "当前`tl.make_block_ptr`，如果与较复杂的循环和分支语句搭配使用，可能会出现编译问题"
+msgstr "Currently, `tl.make_block_ptr` may encounter compilation issues when used with complex loops and branch statements."
+
+msgid "以下示例实现了通过tl.make_block_ptr读取一个tensor并将其转置的功能："
+msgstr "The following example implements the functionality of reading a tensor via `tl.make_block_ptr` and transposing it:"
+
+msgid "triton.language.store"
+msgstr "triton.language.store"
+
+msgid "简介：将一个Tensor/Scalar从UnifiedBuffer按照`pointer`所指的地址存回GlobalMemory"
+msgstr "Introduction: Store a Tensor/Scalar from UnifiedBuffer back to GlobalMemory according to the address pointed to by `pointer`."
+
+msgid "指向GM上待存储地址的指针"
+msgstr "Pointer to the address to be stored on GM"
+
+msgid "`tensor` 或 `scalar`"
+msgstr "`tensor` or `scalar`"
+
+msgid "要存储的值，支持隐式广播和隐式类型转换"
+msgstr "The value to be stored supports implicit broadcasting and implicit type conversion."
+
+msgid "可选参数，当且仅当`pointer` 不来源于`tl.make_block_ptr`时可传入<br>若`mask[i]==False` ，则不会将`value[i]`存储到`pointer[i]`指向的地址,是`True`则正常存储 <br>若`pointer`来源于`tl.make_block_ptr`，则`mask`必须是`None`"
+msgstr "Optional parameter, can only be passed when `pointer` does not originate from `tl.make_block_ptr`<br>If `mask[i]==False`, `value[i]` will not be stored to the address pointed to by `pointer[i]`; if `True`, it will be stored normally <br>If `pointer` originates from `tl.make_block_ptr`, then `mask` must be `None`"
+
+msgid "返回值：无返回值"
+msgstr "Return value: No return value."
+
+msgid "结论：Ascend 对比 GPU 缺失uint8、uint16、uint32、uint64、fp64的支持能力（硬件限制）。 专家意见：eviction_policy和cache_modifier参见load"
+msgstr "Conclusion: Ascend lacks support for uint8, uint16, uint32, uint64, and fp64 compared to GPU (hardware limitation). Expert opinion: For eviction_policy and cache_modifier, refer to load."
+
+msgid "此时`value`和`mask`必须是一个标量"
+msgstr "At this point, `value` and `mask` must be scalars."
+
+msgid "此时不允许传入`boundary_check`"
+msgstr "It is not allowed to pass `boundary_check` at this time."
+
+msgid "`mask`和`value`会隐式广播到和`pointer`相同的shape"
+msgstr "`mask` and `value` are implicitly broadcast to the same shape as `pointer`."
+
+msgid "此时`mask` 必须是None"
+msgstr "At this point, `mask` must be None."
+
+msgid "此时可以通过`boundary_check`设置边界检查"
+msgstr "At this point, boundary checking can be performed by setting `boundary_check`."
+
+msgid "Ascend 对比 GPU 缺失uint8、uint16、uint32、uint64、fp64的支持能力（硬件限制）, eviction_policy和cache_modifier在NPU上功能还不完善。"
+msgstr "Ascend lacks support for uint8, uint16, uint32, uint64, and fp64 compared to GPU (hardware limitation), and the functionality of eviction_policy and cache_modifier on NPU is not yet complete."
+
+msgid "离散mask的泛化性问题"
+msgstr "Generalization problem of discrete masks"
+
+msgid "当前对于store中离散mask的处理，是将store拆解为atomic {load,select,store}，在corner case中存在一定泛化性问题"
+msgstr "The current handling of discrete masks in the store involves decomposing the store into atomic {load, select, store} operations, which presents certain generalization issues in corner cases."
+
+msgid "以下示例中通过`triton_ldst_indirect_08_kernel`和`triton_ldst_indirect_08_func`的配合调用，实现了`torch_ldst_indirect_08_func`的功能："
+msgstr "In the following example, through the coordinated invocation of `triton_ldst_indirect_08_kernel` and `triton_ldst_indirect_08_func`, the functionality of `torch_ldst_indirect_08_func` is implemented:"
+
+msgid "编程模型"
+msgstr "Programming Model"
+
+msgid "表示一个值或指针的 N 维数组"
+msgstr "Represents an N-dimensional array of values or pointers."
+
+msgid "[program_id](./program_id.md)"
+msgstr "[program_id](./program_id.md)"
+
+msgid "沿指定轴返回当前程序实例的 id"
+msgstr "Returns the id of the current program instance along the specified axis."
+
+msgid "[num_programs](./num_programs.md)"
+msgstr "[num_programs](./num_programs.md)"
+
+msgid "沿指定轴返回当前程序实例的数量"
+msgstr "Returns the number of current program instances along the specified axis."
+
+msgid "triton.language.num_programs"
+msgstr "triton.language.num_programs"
+
+msgid "简介：返回沿给定 axis 启动的程序实例数量 函数原型："
+msgstr "Introduction: Returns the number of program instances launched along the given axis. Function prototype:"
+
+msgid "3D 启动网格的轴。必须是 0、1 或 2。"
+msgstr "Axis of the 3D launch grid. Must be 0, 1, or 2."
+
+msgid "返回值： 由启动的程序实例数量值组成的tl.tensor"
+msgstr "Return value: A `tl.tensor` consisting of the number of program instances launched."
+
+msgid "无相关设置"
+msgstr "No relevant settings"
+
+msgid "例子可以参考[test_3Dgrid.py](../../../../third_party/ascend/unittest/pytest_ut/test_3Dgrid.py)"
+msgstr "Examples can be found in [test_3Dgrid.py](../../../../third_party/ascend/unittest/pytest_ut/test_3Dgrid.py)"
+
+msgid "triton.language.program_id"
+msgstr "triton.language.program_id"
+
+msgid "简介：返回当前程序实例沿给定 axis 的 ID。 函数原型："
+msgstr "Introduction: Returns the ID of the current program instance along the given axis. Function prototype:"
+
+msgid "3D 启动网格的轴。必须是 0、1 或 2"
+msgstr "Axis of the 3D launch grid. Must be 0, 1, or 2."
+
+msgid "返回值： 由轴的值组成的tl.tensor"
+msgstr "Return value: a tl.tensor consisting of the axis values"
+
+msgid "在triton kernel中会用到，用于获取PID"
+msgstr "Used in triton kernel to obtain PID."
+
+msgid "随机数生成"
+msgstr "Random number generation"
+
+msgid "[randint4x](./randint4x.md)"
+msgstr "[randint4x](./randint4x.md)"
+
+msgid "给定 1 个seed 标量和 1 个offset 块，返回 4 个 int32 类型的随机块"
+msgstr "Given 1 seed scalar and 1 offset block, return 4 random blocks of type int32."
+
+msgid "[randint](./randint.md)"
+msgstr "[randint](./randint.md)"
+
+msgid "给定 1 个 seed 标量和 1 个 offset 块，返回 1 个 int32 类型的随机块"
+msgstr "Given 1 seed scalar and 1 offset block, return an int32 random block."
+
+msgid "[rand](./rand.md)"
+msgstr "[rand](./rand.md)"
+
+msgid "给定 1 个 seed 标量和 1 个 offset 块，返回 1 个在 U(0,1) 中的 float32 类型的随机块"
+msgstr "Given 1 seed scalar and 1 offset block, return a random block of type float32 in U(0,1)."
+
+msgid "[randn](./randn.md)"
+msgstr "[randn](./randn.md)"
+
+msgid "给定 1 个 seed 标量和 1 个 offset 块，返回 1 个在 N(0,1) 中的 float32 类型的随机块"
+msgstr "Given 1 seed scalar and 1 offset block, return a random block of type float32 in N(0,1)."
+
+msgid "triton.language.rand"
+msgstr "triton.language.rand"
+
+msgid "简介：给定 1 个 seed 标量和 1 个 offset 块，返回 1 个 在 **U**(**0**,**1**) 中的 float32 类型的随机块。 原型："
+msgstr "Introduction: Given 1 seed scalar and 1 offset block, returns a random block of type float32 in **U**(**0**,**1**). Prototype:"
+
+msgid "`seed`"
+msgstr "`seed`"
+
+msgid "`int`或 `tensor`"
+msgstr "`int` or `tensor`"
+
+msgid "用于生成随机数的种子"
+msgstr "Seed for generating random numbers"
+
+msgid "`offset`"
+msgstr "`offset`"
+
+msgid "用于生成随机数的偏移量"
+msgstr "Offset used for generating random numbers"
+
+msgid "`n_rounds`"
+msgstr "`n_rounds`"
+
+msgid "`constexpr`，默认值为10"
+msgstr "`constexpr`, default value is 10"
+
+msgid "Philox 算法的迭代轮数"
+msgstr "Number of iterations in the Philox algorithm"
+
+msgid "返回值： 1 个 float32 类型的随机块，其shape与offset的shape相同，其值在 `[0.0, 1.0)` 区间内均匀分布"
+msgstr "Return value: A random block of type float32, with the same shape as the offset, and its values uniformly distributed in the interval `[0.0, 1.0)`."
+
+msgid "输入seed的type："
+msgstr "Input seed type:"
+
+msgid "以下示例实现了对rand的调用："
+msgstr "The following example implements a call to `rand`:"
+
+msgid "triton.language.randint"
+msgstr "triton.language.randint"
+
+msgid "简介：给定 1 个 seed 标量和 1 个 offset 块，返回 1 个 int32 类型的随机块。 原型："
+msgstr "Introduction: Given 1 seed scalar and 1 offset block, returns a random block of type int32. Prototype:"
+
+msgid "如果需要多个随机数流，使用 randint4x 可能比连续调用 4 次 randint 更快。"
+msgstr "If multiple random number streams are needed, using `randint4x` may be faster than calling `randint` four times in succession."
+
+msgid "返回值： 1 个 int32 类型的随机块，shape与offset相同"
+msgstr "Return value: 1 random block of type int32, with the same shape as offset."
+
+msgid "以下示例实现了对randint的调用（调用时生成单个随机数）："
+msgstr "The following example implements a call to `randint` (generating a single random number when called):"
+
+msgid "triton.language.randint4x"
+msgstr "triton.language.randint4x"
+
+msgid "简介：给定 1 个 seed 标量和 1 个 offset 块，返回 4 个 int32 类型的随机块。 Triton 的 Philox 伪随机数生成器的最高效入口点。 原型："
+msgstr "Introduction: Given 1 seed scalar and 1 offset block, returns 4 random blocks of type int32. The most efficient entry point of Triton's Philox pseudo-random number generator. Prototype:"
+
+msgid "返回值： 4 个 int32 类型的随机块，每个块的shape与offset相同"
+msgstr "Return value: 4 random blocks of type int32, each with the same shape as offset."
+
+msgid "以下示例实现了offset标量时对randint4x的调用："
+msgstr "The following example implements a call to `randint4x` when the offset is a scalar:"
+
+msgid "以下例子实现了offset非标量时对randint4x的调用，其中存储所用的tensor大小是offset的4倍："
+msgstr "The following example implements a call to `randint4x` when offset is non-scalar, where the tensor size used for storage is 4 times the offset:"
+
+msgid "triton.language.randn"
+msgstr "triton.language.randn"
+
+msgid "简介：给定 1 个 seed 标量和 1 个 offset 块，返回 1 个 在 **N**(**0**,**1**)中（服从标准正态分布）的 float32 类型的随机块。 原型："
+msgstr "Introduction: Given 1 seed scalar and 1 offset block, returns a float32 random block in **N**(**0**,**1**) (following standard normal distribution). Prototype:"
+
+msgid "返回值： 1 个 float32 类型的随机块，shape与offset的相同，其值服从标准正态分布 `N(0, 1)`"
+msgstr "Return value: 1 random block of type float32, with the same shape as offset, whose values follow the standard normal distribution `N(0, 1)`."
+
+msgid "以下示例实现了对randn的调用："
+msgstr "The following example implements a call to `randn`:"
+
+msgid "triton.language.argmax"
+msgstr "triton.language.argmax"
+
+msgid "简介：在指定维度上返回最大值所在的下标"
+msgstr "Introduction: Returns the index of the maximum value along the specified dimension."
+
+msgid "张量数据，左操作数"
+msgstr "Tensor data, left operand"
+
+msgid "指定在哪个维度上进行规约"
+msgstr "Specifies the dimension on which to perform the reduction."
+
+msgid "保持规约轴规约后的维度"
+msgstr "Keep the dimension after reduction along the reduction axis."
+
+msgid "`tie_break_left`"
+msgstr "`tie_break_left`"
+
+msgid "如果多个元素有相同的最大值，返回最左侧最大值的下标"
+msgstr "If multiple elements have the same maximum value, return the index of the leftmost maximum value."
+
+msgid "Ascend A2A3系列"
+msgstr "Ascend A2A3 series"
+
+msgid "Ascend A3 对比 GPU 缺失uint16、uint32、uint64、fp64的支持"
+msgstr "Ascend A3 lacks support for uint16, uint32, uint64, and fp64 compared to GPU."
+
+msgid "更多示例参考triton-ascend代码仓，ascend/examples/generalization_cases/test_argmax.py"
+msgstr "For more examples, refer to the triton-ascend code repository, ascend/examples/generalization_cases/test_argmax.py."
+
+msgid "3. 特殊取值情况"
+msgstr "3. Special Value Cases"
+
+msgid "对于 tensor[nan,inf] 的情况，返回inf所在的下标"
+msgstr "For the case of tensor[nan, inf], return the index where inf is located."
+
+msgid "triton.language.argmin"
+msgstr "triton.language.argmin"
+
+msgid "简介：在指定维度上返回最小值所在的下标"
+msgstr "Description: Returns the index of the minimum value along the specified dimension."
+
+msgid "如果多个元素有相同的最小值，返回最左侧最小值的下标"
+msgstr "If multiple elements have the same minimum value, return the index of the leftmost minimum value."
+
+msgid "Ascend A3对比 GPU 缺失uint16、uint32、uint64、fp64的支持能力。"
+msgstr "Ascend A3 lacks support for uint16, uint32, uint64, and fp64 compared to GPU."
+
+msgid "更多示例参考triton-ascend代码仓，ascend/examples/generalization_cases/test_argmin.py"
+msgstr "For more examples, refer to the triton-ascend code repository, ascend/examples/generalization_cases/test_argmin.py"
+
+msgid "归约操作"
+msgstr "Reduction operation"
+
+msgid "[argmax](./argmax.md)"
+msgstr "[argmax](./argmax.md)"
+
+msgid "返回沿指定 axis 轴上 input 张量中所有元素的最大索引"
+msgstr "Returns the indices of the maximum values of all elements in the input tensor along the specified axis."
+
+msgid "[argmin](./argmin.md)"
+msgstr "[argmin](./argmin.md)"
+
+msgid "返回沿指定 axis 轴上 input 张量中所有元素的最小索引"
+msgstr "Returns the index of the minimum value among all elements in the `input` tensor along the specified `axis`."
+
+msgid "[max](./max.md)"
+msgstr "[max](./max.md)"
+
+msgid "返回沿指定 axis 轴上 input 张量中所有元素的最大值"
+msgstr "Returns the maximum value of all elements in the input tensor along the specified axis."
+
+msgid "[min](./min.md)"
+msgstr "[min](./min.md)"
+
+msgid "返回沿指定 axis 轴上 input 张量中所有元素的最小值"
+msgstr "Returns the minimum value among all elements of the input tensor along the specified axis."
+
+msgid "[reduce](./reduce.md)"
+msgstr "[reduce](./reduce.md)"
+
+msgid "将 combine_fn 应用于沿指定 axis 的 input 张量中的所有元素"
+msgstr "Apply combine_fn to all elements in the input tensor along the specified axis."
+
+msgid "[sum](./sum.md)"
+msgstr "[sum](./sum.md)"
+
+msgid "返回 input 张量中，沿指定 axis 的所有元素的总和"
+msgstr "Returns the sum of all elements along the specified axis in the input tensor."
+
+msgid "[xor_sum](./xor_sum.md)"
+msgstr "[xor_sum](./xor_sum.md)"
+
+msgid "返回 input 张量中，沿指定 axis 的所有元素的异或和"
+msgstr "Returns the XOR sum of all elements along the specified axis in the input tensor."
+
+msgid "triton.language.max"
+msgstr "triton.language.max"
+
+msgid "简介：在指定维度上返回其中最大值"
+msgstr "Introduction: Returns the maximum value along the specified dimension."
+
+msgid "输入的张量数据"
+msgstr "Input tensor data"
+
+msgid "指定在哪个维度上进行规约； axis = none时在所有轴进行规约"
+msgstr "Specifies the dimension along which reduction is performed; when `axis = none`, reduction is performed across all axes."
+
+msgid "`return_indices`"
+msgstr "`return_indices`"
+
+msgid "if true, return index corresponding to the maximum value 除了返回最大值外，返回最大值所在下标"
+msgstr "if true, return the index corresponding to the maximum value; in addition to returning the maximum value, also return the index of the maximum value."
+
+msgid "`return_indices_tie_break_left`"
+msgstr "`return_indices_tie_break_left`"
+
+msgid "如果多个元素有相同的最大值，返回最左侧最大值的下标  if true, in case of a tie (i.e., multiple elements have the same maximum value), return the left-most index for values that aren’t NaN"
+msgstr "If multiple elements have the same maximum value, return the index of the leftmost maximum. If true, in case of a tie (i.e., multiple elements have the same maximum value), return the left-most index for values that aren’t NaN."
+
+msgid "返回值： `tl.tensor`：同`input`的shape的张量 return_indices = true，返回的index下标类型是fp32类型。"
+msgstr "Return value: `tl.tensor`: A tensor with the same shape as `input`. If `return_indices = true`, the returned index type is fp32."
+
+msgid "参数组合支持："
+msgstr "Parameter combination support:"
+
+msgid "axis"
+msgstr "axis"
+
+msgid "keep_dims"
+msgstr "keep_dims"
+
+msgid "return_indices"
+msgstr "return_indices"
+
+msgid "return_indices_tie_break_left"
+msgstr "return_indices_tie_break_left"
+
+msgid "规格"
+msgstr "Specifications"
+
+msgid "1"
+msgstr "1"
+
+msgid "TRUE"
+msgstr "TRUE"
+
+msgid "支持"
+msgstr "Supported"
+
+msgid "FALSE"
+msgstr "FALSE"
+
+msgid "None"
+msgstr "None"
+
+msgid "不支持"
+msgstr "Not supported"
+
+msgid "无限制 （默认最高8维）"
+msgstr "Unlimited (default max 8 dimensions)"
+
+msgid "更多示例参考triton-ascend代码仓，ascend/examples/generalization_cases/test_max.py"
+msgstr "For more examples, refer to the triton-ascend code repository, ascend/examples/generalization_cases/test_max.py"
+
+msgid "2.4 特殊限制"
+msgstr "2.4 Special Restrictions"
+
+msgid "Ascend A3 对比 GPU 不支持uint16、uint32、uint64、fp64"
+msgstr "Ascend A3 compared to GPU does not support uint16, uint32, uint64, fp64"
+
+msgid "triton.language.min"
+msgstr "triton.language.min"
+
+msgid "简介：在指定维度上返回最小值"
+msgstr "Introduction: Returns the minimum value along the specified dimension."
+
+msgid "如果为True，保留被规约的维度(大小为1)"
+msgstr "If True, keep the reduced dimension (size 1)."
+
+msgid "True返回最小值的同时返回最小值相关所在下标"
+msgstr "True returns the minimum value along with the index of the minimum value."
+
+msgid "True如果多个元素有相同的最小值，返回最左侧最小值的下标。"
+msgstr "True: If multiple elements have the same minimum value, return the index of the leftmost minimum value."
+
+msgid "更多示例参考triton-ascend代码仓，ascend/examples/generalization_cases/test_min.py"
+msgstr "For more examples, refer to the triton-ascend code repository, ascend/examples/generalization_cases/test_min.py"
+
+msgid "Ascend A3对比 GPU 缺失uint16、uint32、uint64、fp64的支持。"
+msgstr "Ascend A3 lacks support for uint16, uint32, uint64, and fp64 compared to GPU."
+
+msgid "triton.language.reduce"
+msgstr "triton.language.reduce"
+
+msgid "简介：`triton.language.reduce` 沿指定轴 `axis` 对输入 tensor 应用 `combine_fn` 进行规约，返回规约后的结果张量。"
+msgstr "Introduction: `triton.language.reduce` applies `combine_fn` along the specified axis `axis` to reduce the input tensor, returning the resulting tensor after reduction."
+
+msgid "`Tensor` 或 `tuple of Tensor`"
+msgstr "`Tensor` or `tuple of Tensor`"
+
+msgid "输入tensor，可以是单个tensor或tensor元组"
+msgstr "Input tensor, can be a single tensor or a tuple of tensors."
+
+msgid "`int` 或 `None`"
+msgstr "`int` or `None`"
+
+msgid "沿着哪个维度进行reduce操作。如果为None，则reduce所有维度"
+msgstr "The dimension along which the reduce operation is performed. If None, all dimensions are reduced."
+
+msgid "`combine_fn`"
+msgstr "`combine_fn`"
+
+msgid "`Callable`"
+msgstr "`Callable`"
+
+msgid "用于组合两个标量tensor组的函数（必须用@triton.jit标记）"
+msgstr "Function for combining two scalar tensor groups (must be decorated with @triton.jit)"
+
+msgid "如果为True，保持被reduce的维度为长度1"
+msgstr "If True, keep the reduced dimension as length 1."
+
+msgid "`Optional[Generator]`"
+msgstr "`Optional[Generator]`"
+
+msgid "**注意**：此函数也可以作为tensor的成员函数调用，如 `x.reduce(...)` 而不是 `reduce(x, ...)`"
+msgstr "**Note**: This function can also be called as a member function of a tensor, such as `x.reduce(...)` instead of `reduce(x, ...)`."
+
+msgid "返回值： `tensor`：沿指定轴 `axis` 规约后的结果张量。"
+msgstr "Return value: `tensor`: The resulting tensor after reduction along the specified axis `axis`."
+
+msgid "相对社区能力缺失且无法实现 keep_dims=True需要测试更多规格，来确定是否全面支持。目前已测3D dim=2情况下，支持 keep_dims=True。"
+msgstr "The community lacks the capability and cannot implement `keep_dims=True`. More specifications need to be tested to determine full support. Currently, in the tested 3D dim=2 case, `keep_dims=True` is supported."
+
+msgid "以下示例实现了对2Dshape的tensor进行reduce计算，其中的combine_fn使用简单加法："
+msgstr "The following example implements reduce computation on a 2D shape tensor, where the combine_fn uses simple addition:"
+
+msgid "triton.language.sum"
+msgstr "triton.language.sum"
+
+msgid "简介：`triton.language.sum` 计算输入tensor沿指定轴的元素和，返回求和结果。"
+msgstr "Introduction: `triton.language.sum` computes the sum of elements of the input tensor along the specified axis and returns the summation result."
+
+msgid "**版本差异说明**"
+msgstr "**Version Differences Description**"
+
+msgid "`dtype` 参数为社区 Triton 3.5.0 引入的功能。当前发布的 Triton-Ascend 基于社区 Triton 3.2.0 开发，没有`dtype` 参数。后续升级至社区 Triton 3.5.0 版本时，将完整支持 `dtype` 参数的功能。"
+msgstr "The `dtype` parameter is a feature introduced in community Triton 3.5.0. The current release of Triton-Ascend is developed based on community Triton 3.2.0 and does not include the `dtype` parameter. When upgrading to community Triton 3.5.0 in the future, full support for the `dtype` parameter will be provided."
+
+msgid "沿着哪个维度进行求和操作。如果为None，则对所有维度求和"
+msgstr "The dimension along which the summation operation is performed. If None, sum over all dimensions."
+
+msgid "如果为True，保持被求和的维度为长度1"
+msgstr "If True, keep the summed dimension as length 1."
+
+msgid "返回值： `tensor`：计算输入tensor沿指定轴的元素和，返回求和结果。"
+msgstr "Return value: `tensor`: Computes the sum of elements of the input tensor along the specified axis and returns the result."
+
+msgid "相对社区能力缺失且无法实现 keep_dims=True需要测试更多规格，来确定是否全面支持。目前已测3D dim=2情况下，支持 keep_dims=True。 `dtype` 参数当前版本暂未支持。社区 Triton 3.5.0 中，`dtype` 参数用于控制求和运算的累加数据类型：未指定时，位宽小于 32 的整数类型会自动提升为 `int32`/`uint32` 以避免溢出；显式指定时，输入会先转换为指定类型再执行求和。当前 Triton-Ascend 基于社区 Triton 3.2.0，该类型提升逻辑尚未支持，将在后续升级至 3.5.0 版本时完整支持。"
+msgstr "Due to the lack of community capabilities and the inability to implement `keep_dims=True`, more specifications need to be tested to determine full support. Currently, in the tested 3D case with `dim=2`, `keep_dims=True` is supported. The `dtype` parameter is not yet supported in the current version. In community Triton 3.5.0, the `dtype` parameter is used to control the accumulation data type for sum operations: when not specified, integer types with a bit width less than 32 are automatically promoted to `int32`/`uint32` to avoid overflow; when explicitly specified, the input is first converted to the specified type before performing the sum. The current Triton-Ascend is based on community Triton 3.2.0, and this type promotion logic is not yet supported. It will be fully supported in a future upgrade to version 3.5.0."
+
+msgid "以下示例实现了对2Dshape的tensor进行sum运算："
+msgstr "The following example implements a sum operation on a 2D shape tensor:"
+
+msgid "triton.language.xor_sum"
+msgstr "triton.language.xor_sum"
+
+msgid "简介：`triton.language.xor_sum` 计算输入tensor沿指定轴的异或和，返回异或操作结果。"
+msgstr "Introduction: `triton.language.xor_sum` computes the XOR sum of the input tensor along the specified axis and returns the result of the XOR operation."
+
+msgid "沿着哪个维度进行异或和操作。如果为None，则对所有维度进行异或操作"
+msgstr "The dimension along which to perform the XOR and operation. If None, the XOR operation is performed on all dimensions."
+
+msgid "如果为True，保持被操作的维度为长度1"
+msgstr "If True, keep the dimension being operated on as length 1."
+
+msgid "返回值： `tensor`：输入tensor沿指定轴的异或和，返回异或操作结果"
+msgstr "Return value: `tensor`: XOR sum of the input tensor along the specified axis, returns the result of the XOR operation."
+
+msgid "以下示例实现了对2Dshape的tensor进行xor_sum运算："
+msgstr "The following example implements the xor_sum operation on a 2D shape tensor:"
+
+msgid "triton.language.associative_scan"
+msgstr "triton.language.associative_scan"
+
+msgid "简介：`triton.language.associative_scan` 对输入tensor沿指定轴应用关联扫描操作，使用combine_fn函数组合元素并更新进位值。"
+msgstr "Introduction: `triton.language.associative_scan` applies an associative scan operation to the input tensor along the specified axis, using the `combine_fn` function to combine elements and update the carry value."
+
+msgid "沿着哪个维度进行关联扫描操作"
+msgstr "Along which dimension is the associative scan operation performed"
+
+msgid "`reverse`"
+msgstr "`reverse`"
+
+msgid "是否沿轴的反方向应用关联扫描"
+msgstr "Whether to apply the associative scan in the reverse direction along the axis."
+
+msgid "返回值： `tensor`：对输入tensor沿指定轴应用关联扫描操作，使用combine_fn函数组合元素并更新进位值之后的tensor。"
+msgstr "Return value: `tensor`: The tensor after applying the associative scan operation along the specified axis to the input tensor, using the `combine_fn` function to combine elements and update the carry value."
+
+msgid "相对社区能力缺失且无法实现 reverse=True是否沿轴的反方向应用关联扫描，该功能需要tl.load加载数据时对齐，即不使用mask过滤掉多余数据索引，即如下面示例代码："
+msgstr "Relative to the lack of community capability and the inability to achieve `reverse=True`, whether to apply the associative scan in the reverse direction along the axis. This feature requires alignment when loading data with `tl.load`, meaning that no `mask` is used to filter out redundant data indices, as shown in the following example code:"
+
+msgid "以下示例实现了对2Dshape的tensor进行associative_scan运算："
+msgstr "The following example implements associative_scan operation on a 2D shape tensor:"
+
+msgid "triton.language.cumprod"
+msgstr "triton.language.cumprod"
+
+msgid "简介：`triton.language.cumprod` 计算输入tensor沿指定轴的累积乘积，返回累积乘积结果。"
+msgstr "Introduction: `triton.language.cumprod` computes the cumulative product of the input tensor along the specified axis and returns the cumulative product result."
+
+msgid "沿着哪个维度进行累积乘积操作，默认为0"
+msgstr "The dimension along which the cumulative product operation is performed, default is 0."
+
+msgid "如果为True，沿反方向进行累积乘积操作"
+msgstr "If True, performs cumulative product operation in the reverse direction."
+
+msgid "`cumprod` 函数计算沿指定轴的累积乘积（前缀乘积）。例如，对于输入 `[a, b, c, d]`，累积乘积结果为 `[a, a*b, a*b*c, a*b*c*d]`。"
+msgstr "The `cumprod` function computes the cumulative product (prefix product) along a specified axis. For example, for the input `[a, b, c, d]`, the cumulative product result is `[a, a*b, a*b*c, a*b*c*d]`."
+
+msgid "当 `reverse=True` 时，计算反向累积乘积：`[a*b*c*d, b*c*d, c*d, d]`。"
+msgstr "When `reverse=True`, compute the reverse cumulative product: `[a*b*c*d, b*c*d, c*d, d]`."
+
+msgid "与 `cumsum` 不同，`cumprod` 没有 `dtype` 参数，因此在使用时需要注意数据类型的溢出问题，特别是对于整数类型的累积乘积。"
+msgstr "Unlike `cumsum`, `cumprod` does not have a `dtype` parameter, so attention must be paid to data type overflow issues when using it, especially for cumulative products of integer types."
+
+msgid "以下示例实现了对2Dshape的tensor进行cumprod运算："
+msgstr "The following example implements the cumprod operation on a 2D shape tensor:"
+
+msgid "triton.language.cumsum"
+msgstr "triton.language.cumsum"
+
+msgid "简介：`triton.language.cumsum` 计算输入tensor沿指定轴的累积和，返回累积求和结果。"
+msgstr "Introduction: `triton.language.cumsum` computes the cumulative sum of the input tensor along a specified axis and returns the cumulative summation result."
+
+msgid "沿着哪个维度进行累积和操作，默认为0"
+msgstr "The dimension along which the cumulative sum operation is performed, default is 0."
+
+msgid "如果为True，沿反方向进行累积和操作"
+msgstr "If True, performs cumulative sum operation in the reverse direction."
+
+msgid "`cumsum` 函数计算沿指定轴的累积和（前缀和）。例如，对于输入 `[a, b, c, d]`，累积和结果为 `[a, a+b, a+b+c, a+b+c+d]`。"
+msgstr "The `cumsum` function computes the cumulative sum (prefix sum) along a specified axis. For example, for the input `[a, b, c, d]`, the cumulative sum result is `[a, a+b, a+b+c, a+b+c+d]`."
+
+msgid "当 `reverse=True` 时，计算反向累积和：`[a+b+c+d, b+c+d, c+d, d]`。"
+msgstr "When `reverse=True`, compute the reverse cumulative sum: `[a+b+c+d, b+c+d, c+d, d]`."
+
+msgid "返回值： `tensor`：计算输入tensor沿指定轴的累积和，返回累积求和结果。"
+msgstr "Return value: `tensor`: Computes the cumulative sum of the input tensor along the specified axis and returns the cumulative summation result."
+
+msgid "以下示例实现了对2Dshape的tensor进行cumsum运算："
+msgstr "The following example implements the cumsum operation on a 2D shape tensor:"
+
+msgid "triton.language.histogram"
+msgstr "triton.language.histogram"
+
+msgid "简介：基于 input 计算 1 个具有 num_bins 个 bin 的直方图，每个 bin 宽度为 1，起始于 0。 原型："
+msgstr "Introduction: Computes a histogram with `num_bins` bins based on `input`, each bin having a width of 1, starting from 0. Prototype:"
+
+msgid "可以作为tensor的成员函数调用，如`x.histogram(...)`，与`histogram(x, ...)`等效。"
+msgstr "Can be called as a member function of a tensor, such as `x.histogram(...)`, which is equivalent to `histogram(x, ...)`."
+
+msgid "输入数据，包含需要统计分布的所有数值点"
+msgstr "Input data, containing all numerical points for which the distribution needs to be calculated."
+
+msgid "`num_bins`"
+msgstr "`num_bins`"
+
+msgid "定义要将整个数据范围划分成多少个等宽的区间"
+msgstr "Defines how many equal-width intervals the entire data range should be divided into."
+
+msgid "返回值： 用tensor表示的直方图 注：当前triton3.2版本暂未支持mask，待版本更新后支持；input输入范围限制在[0,num_bins-1]中，待版本更新后支持全范围"
+msgstr "Return value: Histogram represented by tensor. Note: The current Triton 3.2 version does not support mask yet; support will be added in a future version. The input range is limited to [0, num_bins-1], and full range support will be added in a future version."
+
+msgid "目前仅支持一维"
+msgstr "Currently only one-dimensional is supported."
+
+msgid "以下示例实现了histogram的调用："
+msgstr "The following example implements the histogram call:"
+
+msgid "扫描/排序操作"
+msgstr "Scan/Sort Operation"
+
+msgid "[associative_scan](./associative_scan.md)"
+msgstr "[associative_scan](./associative_scan.md)"
+
+msgid "沿指定 axis 将 combine_fn 应用于 input 张量的每个元素和携带的值，并更新携带的值"
+msgstr "Apply `combine_fn` to each element of the `input` tensor and the carry value along the specified `axis`, and update the carry value."
+
+msgid "[cumprod](./cumprod.md)"
+msgstr "[cumprod](./cumprod.md)"
+
+msgid "返回沿指定 axis 的 input 张量中所有元素的累积乘积"
+msgstr "Returns the cumulative product of all elements in the input tensor along the specified axis."
+
+msgid "[cumsum](./cumsum.md)"
+msgstr "[cumsum](./cumsum.md)"
+
+msgid "返回沿指定 axis 的 input 张量中所有元素的累积和"
+msgstr "Returns the cumulative sum of all elements in the input tensor along the specified axis."
+
+msgid "[histogram](./histogram.md)"
+msgstr "[histogram](./histogram.md)"
+
+msgid "基于 input 张量计算 1 个具有 num_bins 个 bin 的直方图，每个 bin 宽度为 1，起始于 0"
+msgstr "Compute a histogram with num_bins bins based on the input tensor, where each bin has a width of 1 and starts at 0."
+
+msgid "[sort](./sort.md)"
+msgstr "[sort](./sort.md)"
+
+msgid "沿着指定维度对张量进行排序"
+msgstr "Sorts the tensor along the specified dimension."
+
+msgid "[topk](./topk.md)"
+msgstr "[topk](./topk.md)"
+
+msgid "返回沿指定维度的前 k 个最大元素"
+msgstr "Returns the top k largest elements along the specified dimension."
+
+msgid "triton.language.sort"
+msgstr "triton.language.sort"
+
+msgid "简介：对输入张量`x`按维度进行升序或者降序的排序。"
+msgstr "Introduction: Sorts the input tensor `x` in ascending or descending order along a specified dimension."
+
+msgid "排序维度"
+msgstr "Sort dimension"
+
+msgid "`descending`"
+msgstr "`descending`"
+
+msgid "是否降序"
+msgstr "Whether descending order"
+
+msgid "结论：Ascend 相比 GPU 缺失 int32、uint8、int64、float64、bool 支持。 torch_npu支持uint8。"
+msgstr "Conclusion: Compared to GPU, Ascend lacks support for int32, uint8, int64, float64, and bool. torch_npu supports uint8."
+
+msgid "毕升编译器限制，int32、uint8、int64、float64、bool 无法实现。"
+msgstr "Bisheng compiler limitation: int32, uint8, int64, float64, and bool cannot be implemented."
+
+msgid "以下示例实现了对输入张量 `x` 做排序："
+msgstr "The following example implements sorting of the input tensor `x`:"
+
+msgid "triton.language.topk"
+msgstr "triton.language.topk"
+
+msgid "简介：返回输入张量 `x` 沿指定维度的前 `k` 个最大元素，返回结果按从大到小排序。"
+msgstr "Introduction: Returns the top `k` largest elements of the input tensor `x` along the specified dimension, with the results sorted in descending order."
+
+msgid "`k`"
+msgstr "`k`"
+
+msgid "要返回的top元素数量，必须是 2 的幂"
+msgstr "The number of top elements to return must be a power of 2."
+
+msgid "`constexpr int` 或 `None`"
+msgstr "`constexpr int` or `None`"
+
+msgid "要查找 top k 元素的维度；该参数需要在编译期确定；如果为 `None`，则使用最后一个维度；当前仅支持最后一个维度"
+msgstr "The dimension to find the top k elements; this parameter must be determined at compile time; if `None`, the last dimension is used; currently only the last dimension is supported."
+
+msgid "返回值： `out`：输出张量的 shape 与输入张量一致，但指定维度长度变为 `k`"
+msgstr "Return value: `out`: The shape of the output tensor is the same as the input tensor, but the length of the specified dimension becomes `k`."
+
+msgid "结论：Ascend 相比 GPU 缺失 int32、uint8、int64、float64、bool 支持。 torch_npu 支持 uint8。"
+msgstr "Conclusion: Compared to GPU, Ascend lacks support for int32, uint8, int64, float64, and bool. torch_npu supports uint8."
+
+msgid "仅支持 1~5 维 tensor"
+msgstr "Only supports 1 to 5-dimensional tensors."
+
+msgid "当前 `topk` 仅返回最大值，不支持通过参数切换为返回最小值。 `dim` 仅支持最后一个维度。 `k` 必须为 2 的幂。"
+msgstr "Currently, `topk` only returns the maximum values and does not support switching to return minimum values via parameters. `dim` only supports the last dimension. `k` must be a power of 2."
+
+msgid "以下示例实现了对输入张量 `x` 沿最后一个维度取前 `k` 个最大元素："
+msgstr "The following example implements taking the top `k` largest elements along the last dimension of the input tensor `x`:"
+
+msgid "triton.language.broadcast"
+msgstr "triton.language.broadcast"
+
+msgid "将两个张量广播到共同兼容的形状，使它们可以进行逐元素操作。"
+msgstr "Broadcasts two tensors to a common compatible shape so that they can undergo element-wise operations."
+
+msgid "`triton.language.broadcast(input, other)` - 函数调用形式"
+msgstr "`triton.language.broadcast(input, other)` - Function call form"
+
+msgid "自动对齐不同秩张量得到目标形状"
+msgstr "Automatically align tensors of different ranks to obtain the target shape."
+
+msgid "将大小为1的维度扩展到目标形状中对应维度的大小"
+msgstr "Expand the dimension of size 1 to the size of the corresponding dimension in the target shape."
+
+msgid "第一个输入张量，必须为RankedTensorType"
+msgstr "The first input tensor must be of type RankedTensorType."
+
+msgid "other"
+msgstr "other"
+
+msgid "第二个输入张量，必须为RankedTensorType"
+msgstr "The second input tensor must be of type RankedTensorType."
+
+msgid "**形状：** 两个tensor共同兼容的目标形状"
+msgstr "**Shape:** The target shape that two tensors are compatible with."
+
+msgid "**数据类型：** 每个返回的张量保持其输入的原始数据类型"
+msgstr "**Data Type:** Each returned tensor retains the original data type of its input."
+
+msgid "**内存布局：**返回新创建的张量"
+msgstr "**Memory Layout:** Returns the newly created tensor."
+
+msgid "triton.language.broadcast_to"
+msgstr "triton.language.broadcast_to"
+
+msgid "将张量广播到目标形状，自动处理维度对齐。广播操作不会复制数据，而是通过改变张量的形状和步长来实现。"
+msgstr "Broadcast the tensor to the target shape, automatically handling dimension alignment. The broadcast operation does not copy data; instead, it is achieved by modifying the tensor's shape and stride."
+
+msgid "`triton.language.broadcast_to(input, shape)` - 函数调用形式"
+msgstr "`triton.language.broadcast_to(input, shape)` - Function call form"
+
+msgid "`input.broadcast_to(shape)` - 成员函数形式"
+msgstr "`input.broadcast_to(shape)` - member function form"
+
+msgid "自动处理维度对齐，将大小为1的维度扩展到目标形状中对应维度的大小"
+msgstr "Automatically handle dimension alignment, expanding dimensions of size 1 to the corresponding dimension size in the target shape."
+
+msgid "保持数据不变，仅改变张量的形状信息"
+msgstr "Keep the data unchanged, only modify the shape information of the tensor."
+
+msgid "shape"
+msgstr "shape"
+
+msgid "List[int]"
+msgstr "List[int]"
+
+msgid "目标形状"
+msgstr "Target shape"
+
+msgid "**形状：** 与shape参数指定的目标形状相同"
+msgstr "**Shape:** Same as the target shape specified by the `shape` parameter."
+
+msgid "**数据类型：** 与输入张量相同"
+msgstr "**Data type:** Same as the input tensor"
+
+msgid "**内存布局：** 通过改变步长信息实现广播，无数据拷贝"
+msgstr "**Memory Layout:** Broadcasting is achieved by modifying stride information, without data copying."
+
+msgid "输入张量的维度数必须等于目标形状的维度数"
+msgstr "The number of dimensions of the input tensor must equal the number of dimensions of the target shape."
+
+msgid "所有维度必须满足广播规则"
+msgstr "All dimensions must satisfy the broadcasting rules."
+
+msgid "与broadcast不同，Triton社区实现的broadcast_to必须保证tensor的shape和目标shape的rank一致"
+msgstr "Unlike broadcast, the broadcast_to implemented by the Triton community must ensure that the rank of the tensor's shape matches the rank of the target shape."
+
+msgid "triton.language.expand_dims"
+msgstr "triton.language.expand_dims"
+
+msgid "在指定轴位置插入大小为1的维度，不改变张量的数据，仅增加维度数。支持负索引，从右向左计数。"
+msgstr "Inserts a dimension of size 1 at the specified axis position, without changing the tensor's data, only increasing the number of dimensions. Supports negative indexing, counting from right to left."
+
+msgid "`triton.language.expand_dims(input, axis)` - 函数调用形式"
+msgstr "`triton.language.expand_dims(input, axis)` - function call form"
+
+msgid "`input.expand_dims(axis)` - 成员函数形式"
+msgstr "`input.expand_dims(axis)` - member function form"
+
+msgid "在指定轴位置插入大小为1的维度"
+msgstr "Insert a dimension of size 1 at the specified axis position."
+
+msgid "不改变张量的数据，仅增加维度数"
+msgstr "Does not change the tensor's data, only increases the number of dimensions."
+
+msgid "支持负索引，从右向左计数"
+msgstr "Supports negative indexing, counting from right to left."
+
+msgid "int | Tuple[int]"
+msgstr "int | Tuple[int]"
+
+msgid "插入维度的位置，支持负索引"
+msgstr "Position to insert the dimension, supports negative indexing."
+
+msgid "**形状：** 在指定axis位置插入大小为1的维度"
+msgstr "**Shape:** Insert a dimension of size 1 at the specified axis position."
+
+msgid "**内存布局：** 通过tensor::ExpandShapeOp实现，无数据拷贝"
+msgstr "**Memory Layout:** Implemented via `tensor::ExpandShapeOp`, no data copy."
+
+msgid "axis必须在[-rank-1, rank]范围内，其中rank为输入张量的维度数"
+msgstr "axis must be in the range [-rank-1, rank], where rank is the number of dimensions of the input tensor."
+
+msgid "插入的维度大小固定为1"
+msgstr "The inserted dimension size is fixed to 1."
+
+msgid "triton.language.interleave"
+msgstr "triton.language.interleave"
+
+msgid "将两个相同形状的输入张量在最后一个维度上交错排列，输出张量的最后一个维度大小为输入张量的2倍，其他维度保持不变。"
+msgstr "Interleave two input tensors of the same shape along the last dimension. The size of the last dimension of the output tensor is twice that of the input tensors, while the other dimensions remain unchanged."
+
+msgid "`triton.language.interleave(x, y)` - 函数调用形式"
+msgstr "`triton.language.interleave(x, y)` - Function call form"
+
+msgid "`x.interleave(y)` - 成员函数形式"
+msgstr "`x.interleave(y)` - member function form"
+
+msgid "将两个相同形状的输入张量在最后一个维度上交错排列"
+msgstr "Interleave two input tensors of the same shape along the last dimension."
+
+msgid "输出张量的最后一个维度大小为输入张量的2倍"
+msgstr "The last dimension size of the output tensor is twice that of the input tensor."
+
+msgid "其他维度保持不变"
+msgstr "Other dimensions remain unchanged."
+
+msgid "x"
+msgstr "x"
+
+msgid "第一个输入张量"
+msgstr "The first input tensor"
+
+msgid "y"
+msgstr "y"
+
+msgid "第二个输入张量，形状必须与x相同"
+msgstr "The second input tensor must have the same shape as `x`."
+
+msgid "**形状：** 输入形状的最后一个维度乘以2"
+msgstr "**Shape:** The last dimension of the input shape is multiplied by 2."
+
+msgid "**内存布局：** 交替排列x和y的元素"
+msgstr "**Memory Layout:** Interleave elements of x and y"
+
+msgid "两个输入张量必须具有相同的形状和数据类型"
+msgstr "The two input tensors must have the same shape and data type."
+
+msgid "输出张量的形状为输入形状的最后一个维度乘以2"
+msgstr "The shape of the output tensor is the last dimension of the input shape multiplied by 2."
+
+msgid "triton.language.join"
+msgstr "triton.language.join"
+
+msgid "将两个相同形状的输入张量沿着新的最小维度连接，输出张量比输入张量多一个维度，大小为2，保持其他维度不变。"
+msgstr "Concatenate two input tensors of the same shape along a new smallest dimension. The output tensor has one more dimension than the input tensors, with a size of 2, while the other dimensions remain unchanged."
+
+msgid "`triton.language.join(x, y)` - 函数调用形式"
+msgstr "`triton.language.join(x, y)` - Function call form"
+
+msgid "`x.join(y)` - 成员函数形式"
+msgstr "`x.join(y)` - member function form"
+
+msgid "将两个相同形状的输入张量沿着新的最小维度连接"
+msgstr "Concatenates two input tensors of the same shape along a new minimum dimension."
+
+msgid "输出张量比输入张量多一个维度，大小为2"
+msgstr "The output tensor has one more dimension than the input tensor, with a size of 2."
+
+msgid "保持其他维度不变"
+msgstr "Keep other dimensions unchanged"
+
+msgid "第二个输入张量"
+msgstr "second input tensor"
+
+msgid "**形状：** 输入tensor广播后的形状加上一个大小为2的维度"
+msgstr "**Shape:** The shape of the input tensor after broadcasting, plus a dimension of size 2."
+
+msgid "**内存布局：** 在新增维度上堆叠x和y"
+msgstr "**Memory Layout:** Stack x and y along the new dimension"
+
+msgid "两个输入张量必须具有可以广播到相同形状的形状和数据类型"
+msgstr "The two input tensors must have shapes and data types that can be broadcast to the same shape."
+
+msgid "triton.language.permute"
+msgstr "triton.language.permute"
+
+msgid "根据dims参数重新排列张量的维度，不改变张量的数据，仅改变维度的顺序。支持任意维度的重新排列。"
+msgstr "Rearranges the dimensions of a tensor according to the `dims` parameter, without changing the tensor's data, only the order of the dimensions. Supports arbitrary dimension rearrangement."
+
+msgid "`triton.language.permute(input, dims)` - 函数调用形式"
+msgstr "`triton.language.permute(input, dims)` - Function call form"
+
+msgid "`input.permute(dims)` - 成员函数形式"
+msgstr "`input.permute(dims)` - member function form"
+
+msgid "根据dims参数重新排列张量的维度"
+msgstr "Rearrange the dimensions of the tensor according to the `dims` parameter."
+
+msgid "不改变张量的数据，仅改变维度的顺序"
+msgstr "Does not change the tensor's data, only reorders the dimensions."
+
+msgid "支持任意维度的重新排列"
+msgstr "Supports rearrangement of arbitrary dimensions."
+
+msgid "dims"
+msgstr "dims"
+
+msgid "新的维度顺序"
+msgstr "new dimension order"
+
+msgid "**形状：** 按照dims参数重新排列的维度"
+msgstr "**Shape:** Dimensions rearranged according to the `dims` parameter."
+
+msgid "**内存布局：** 通过改变步长信息实现转置，无数据拷贝"
+msgstr "**Memory Layout:** Transposition is achieved by modifying stride information, without data copying."
+
+msgid "dims必须包含输入张量的所有维度索引"
+msgstr "dims must contain all dimension indices of the input tensor."
+
+msgid "支持任意维度数和任意形状大小。"
+msgstr "Supports any number of dimensions and any shape size."
+
+msgid "不支持维度高于8的转置"
+msgstr "Transposition with dimensions higher than 8 is not supported."
+
+msgid "triton.language.ravel"
+msgstr "triton.language.ravel"
+
+msgid "将输入张量展平为一维张量，保持元素在内存中的顺序，输出张量的总元素数与输入张量相同。"
+msgstr "Flatten the input tensor into a one-dimensional tensor, preserving the order of elements in memory, with the output tensor having the same total number of elements as the input tensor."
+
+msgid "`triton.language.ravel(input)` - 函数调用形式"
+msgstr "`triton.language.ravel(input)` - function call form"
+
+msgid "`input.ravel()` - 成员函数形式"
+msgstr "`input.ravel()` - member function form"
+
+msgid "将输入张量展平为一维张量"
+msgstr "Flatten the input tensor into a one-dimensional tensor."
+
+msgid "保持元素在内存中的顺序"
+msgstr "Keep the order of elements in memory"
+
+msgid "输出张量的总元素数与输入张量相同"
+msgstr "The total number of elements in the output tensor is the same as that in the input tensor."
+
+msgid "**形状：** 一维张量，包含输入张量的所有元素"
+msgstr "**Shape:** A one-dimensional tensor containing all elements of the input tensor."
+
+msgid "**内存布局：** 按行优先顺序展平"
+msgstr "**Memory Layout:** Flattened in row-major order"
+
+msgid "无特殊约束，支持任意形状的输入"
+msgstr "No special constraints, supports inputs of arbitrary shape."
+
+msgid "triton.language.reshape"
+msgstr "triton.language.reshape"
+
+msgid "将张量重新解释为新的形状。"
+msgstr "Reinterpret the tensor as a new shape."
+
+msgid "`triton.language.reshape(input, shape, can_reorder=False)` - 函数调用形式"
+msgstr "`triton.language.reshape(input, shape, can_reorder=False)` - Function call form"
+
+msgid "`input.reshape(shape, can_reorder=False)` - 成员函数形式"
+msgstr "`input.reshape(shape, can_reorder=False)` - member function form"
+
+msgid "将张量重新解释为新的形状"
+msgstr "Reinterpret the tensor as a new shape."
+
+msgid "can_reorder"
+msgstr "can_reorder"
+
+msgid "是否允许重新排序元素，默认False"
+msgstr "Whether reordering elements is allowed, default is False."
+
+msgid "**内存布局：** 根据can_reorder参数决定"
+msgstr "**Memory Layout:** Determined by the `can_reorder` parameter."
+
+msgid "输入和输出张量的总元素数必须相等"
+msgstr "The total number of elements in the input and output tensors must be equal."
+
+msgid "所有tensor不允许某个shape的size小于1"
+msgstr "All tensors must not have a shape with a size less than 1."
+
+msgid "can_reorder参数仅支持False"
+msgstr "The `can_reorder` parameter only supports `False`."
+
+msgid "triton.language.split"
+msgstr "triton.language.split"
+
+msgid "将输入张量沿着最后一个维度分割成两个张量，输出张量的最后一个维度大小为输入张量的一半，其他维度保持不变。"
+msgstr "Split the input tensor into two tensors along the last dimension. The size of the last dimension of the output tensors is half of that of the input tensor, while the other dimensions remain unchanged."
+
+msgid "`triton.language.split(input)` - 函数调用形式"
+msgstr "`triton.language.split(input)` - function call form"
+
+msgid "`input.split()` - 成员函数形式"
+msgstr "`input.split()` - member function form"
+
+msgid "将输入张量沿着最后一个维度分割成两个张量"
+msgstr "Split the input tensor into two tensors along the last dimension."
+
+msgid "输出张量的最后一个维度大小为输入张量的一半，最后一个维度的大小必须为2"
+msgstr "The last dimension of the output tensor is half the size of the last dimension of the input tensor, and the size of the last dimension must be 2."
+
+msgid "**类型：** Tuple[tensor, tensor]"
+msgstr "**Type:** Tuple[tensor, tensor]"
+
+msgid "**形状：** 两个张量，形状相同，最后一个维度为输入的一半"
+msgstr "**Shape:** Two tensors with the same shape, where the last dimension is half of the input."
+
+msgid "**内存布局：** 分别包含输入张量的奇数和偶数位置元素"
+msgstr "**Memory Layout:** Contains the odd and even indexed elements of the input tensor respectively."
+
+msgid "输入张量的最后一个维度大小必须为偶数"
+msgstr "The last dimension size of the input tensor must be even."
+
+msgid "输出两个张量，形状相同"
+msgstr "Output two tensors with the same shape."
+
+msgid "triton.language.trans"
+msgstr "triton.language.trans"
+
+msgid "根据dims参数转置张量的维度，不改变张量的数据，仅改变维度的顺序。专门优化的转置操作。"
+msgstr "Transposes the dimensions of a tensor according to the `dims` parameter, without altering the tensor's data, only changing the order of the dimensions. A specially optimized transpose operation."
+
+msgid "`triton.language.trans(input, dims)` - 函数调用形式"
+msgstr "`triton.language.trans(input, dims)` - Function call form"
+
+msgid "`input.trans(dims)` - 成员函数形式"
+msgstr "`input.trans(dims)` - member function form"
+
+msgid "根据dims参数转置张量的维度"
+msgstr "Transpose the dimensions of the tensor according to the `dims` parameter."
+
+msgid "专门优化的转置操作"
+msgstr "Specially optimized transpose operation"
+
+msgid "转置后的维度顺序"
+msgstr "The dimension order after transposition"
+
+msgid "triton.language.view"
+msgstr "triton.language.view"
+
+msgid "创建张量的视图，改变形状但不复制数据，类似于reshape，但更强调视图的概念，保持数据在内存中的连续性。"
+msgstr "Create a view of a tensor, changing the shape without copying the data, similar to `reshape`, but with a stronger emphasis on the concept of a view, maintaining the continuity of the data in memory."
+
+msgid "`triton.language.view(input, shape)` - 函数调用形式"
+msgstr "`triton.language.view(input, shape)` - function call form"
+
+msgid "`input.view(shape)` - 成员函数形式"
+msgstr "`input.view(shape)` - member function form"
+
+msgid "创建张量的视图，改变形状但不复制数据"
+msgstr "Create a view of a tensor, changing the shape without copying the data."
+
+msgid "类似于reshape，但更强调视图的概念"
+msgstr "Similar to reshape, but with a stronger emphasis on the concept of a view."
+
+msgid "保持数据在内存中的连续性"
+msgstr "Keep data contiguous in memory."
+
+msgid "**内存布局：** 与输入张量在内存中连续"
+msgstr "**Memory Layout:** Contiguous in memory with the input tensor"
+
+msgid "输出张量必须与输入张量在内存中连续"
+msgstr "Output tensors must be contiguous in memory with input tensors."
+
+msgid "triton.language"
+msgstr "triton.language"
+
+msgid "昇腾拓展API列表"
+msgstr "Ascend Extension API List"
+
+msgid "[extract_slice](./Extension_Ops/extract_slice.md)"
+msgstr "[extract_slice](./Extension_Ops/extract_slice.md)"
+
+msgid "从输入张量中按照操作指定的偏移量、大小和步幅参数提取一个张量。"
+msgstr "Extracts a tensor from the input tensor according to the offset, size, and stride parameters specified by the operation."
+
+msgid "[insert_slice](./Extension_Ops/insert_slice.md)"
+msgstr "[insert_slice](./Extension_Ops/insert_slice.md)"
+
+msgid "将一个张量（子张量）插入到另一个张量的指定位置，按照操作指定的偏移量、大小和步幅参数插入到另一个张量中。"
+msgstr "Insert a tensor (sub-tensor) into another tensor at a specified position, according to the offset, size, and stride parameters specified by the operation."
+
+msgid "[sync_block](./Extension_Ops/sync_block.md)"
+msgstr "[sync_block](./Extension_Ops/sync_block.md)"
+
+msgid "[compile_hint](./Extension_Ops/compile_hint.md)"
+msgstr "[compile_hint](./Extension_Ops/compile_hint.md)"
+
+msgid "一个编译器提示（hint）机制，允许用户为张量附加元数据信息，这些信息会被传递到编译器后端，用于指导优化和代码生成。"
+msgstr "A compiler hint mechanism that allows users to attach metadata information to tensors, which is passed to the compiler backend to guide optimization and code generation."
+
+msgid "[multibuffer](./Extension_Ops/multibuffer.md)"
+msgstr "[multibuffer](./Extension_Ops/multibuffer.md)"
+
+msgid "为张量设置多缓冲，允许编译器对同一张量创建多个副本。"
+msgstr "Set multi-buffering for a tensor, allowing the compiler to create multiple copies of the same tensor."
+
+msgid "[parallel](./Extension_Ops/parallel.md)"
+msgstr "[parallel](./Extension_Ops/parallel.md)"
+
+msgid "`parallel` 是一个专门用于多核心并行执行的迭代器,提供显式的多核心并行语义。"
+msgstr "`parallel` is an iterator specifically designed for multi-core parallel execution, providing explicit multi-core parallel semantics."
+
+msgid "[get_element](./Extension_Ops/get_element.md)"
+msgstr "[get_element](./Extension_Ops/get_element.md)"
+
+msgid "根据给定的索引，从输入张量中读取单个元素。"
+msgstr "Reads a single element from the input tensor based on the given index."
+
+msgid "[index_select 高性能接口](./Extension_Ops/index_select_simd.md)"
+msgstr "[index_select High-Performance Interface](./Extension_Ops/index_select_simd.md)"
+
+msgid "原子操作"
+msgstr "atomic operation"
+
+msgid "[atomic_add](./Atomic_Ops/atomic_add.md)"
+msgstr "[atomic_add](./Atomic_Ops/atomic_add.md)"
+
+msgid "在由 pointer 指定的内存位置执行原子加法"
+msgstr "Perform atomic addition at the memory location specified by pointer."
+
+msgid "[atomic_and](./Atomic_Ops/atomic_and.md)"
+msgstr "[atomic_and](./Atomic_Ops/atomic_and.md)"
+
+msgid "在由 pointer 指定的内存位置执行原子逻辑与操作"
+msgstr "Performs an atomic logical AND operation at the memory location specified by `pointer`."
+
+msgid "[atomic_cas](./Atomic_Ops/atomic_cas.md)"
+msgstr "[atomic_cas](./Atomic_Ops/atomic_cas.md)"
+
+msgid "在由 pointer 指定的内存位置执行 1 个原子比较并交换操作"
+msgstr "Perform 1 atomic compare-and-swap operation at the memory location specified by pointer."
+
+msgid "[atomic_max](./Atomic_Ops/atomic_max.md)"
+msgstr "[atomic_max](./Atomic_Ops/atomic_max.md)"
+
+msgid "在由 pointer 指定的内存位置执行 1 个原子最大值操作"
+msgstr "Performs 1 atomic maximum operation at the memory location specified by pointer."
+
+msgid "[atomic_min](./Atomic_Ops/atomic_min.md)"
+msgstr "[atomic_min](./Atomic_Ops/atomic_min.md)"
+
+msgid "在由 pointer 指定的内存位置执行 1 个原子最小值操作"
+msgstr "Perform 1 atomic minimum operation at the memory location specified by pointer."
+
+msgid "[atomic_or](./Atomic_Ops/atomic_or.md)"
+msgstr "[atomic_or](./Atomic_Ops/atomic_or.md)"
+
+msgid "在由 pointer 指定的内存位置执行 1 个原子逻辑或操作"
+msgstr "Performs 1 atomic logical OR operation at the memory location specified by pointer."
+
+msgid "[atomic_xchg](./Atomic_Ops/atomic_xchg.md)"
+msgstr "[atomic_xchg](./Atomic_Ops/atomic_xchg.md)"
+
+msgid "在由 pointer 指定的内存位置执行 1 个原子交换操作"
+msgstr "Perform 1 atomic exchange operation at the memory location specified by pointer."
+
+msgid "[atomic_xor](./Atomic_Ops/atomic_xor.md)"
+msgstr "[atomic_xor](./Atomic_Ops/atomic_xor.md)"
+
+msgid "在由 pointer 指定的内存位置执行原子逻辑异或操作"
+msgstr "Performs an atomic logical XOR operation at the memory location specified by pointer."
+
+msgid "比较操作"
+msgstr "Comparison operation"
+
+msgid "[eq](./Comparing_Ops/eq.md)"
+msgstr "[eq](./Comparing_Ops/eq.md)"
+
+msgid "用于比较两个张量的元素，与`==`等价"
+msgstr "Used to compare elements of two tensors, equivalent to `==`."
+
+msgid "[le](./Comparing_Ops/le.md)"
+msgstr "[le](./Comparing_Ops/le.md)"
+
+msgid "用于比较两个张量的元素，与`<=`等价。"
+msgstr "Used to compare elements of two tensors, equivalent to `<=`."
+
+msgid "[ge](./Comparing_Ops/ge.md)"
+msgstr "[ge](./Comparing_Ops/ge.md)"
+
+msgid "用于比较两个张量的元素，与`>=`等价。"
+msgstr "Used to compare elements of two tensors, equivalent to `>=`."
+
+msgid "[lt](./Comparing_Ops/lt.md)"
+msgstr "[lt](./Comparing_Ops/lt.md)"
+
+msgid "用于比较两个张量的元素，与`<`等价。"
+msgstr "Used to compare elements of two tensors, equivalent to `<`."
+
+msgid "[gt](./Comparing_Ops/gt.md)"
+msgstr "[gt](./Comparing_Ops/gt.md)"
+
+msgid "用于比较两个张量的元素，与`>`等价。"
+msgstr "Used to compare elements of two tensors, equivalent to `>`."
+
+msgid "[ne](./Comparing_Ops/ne.md)"
+msgstr "[ne](./Comparing_Ops/ne.md)"
+
+msgid "用于比较两个张量的元素，与`!=`等价。"
+msgstr "Used to compare elements of two tensors, equivalent to `!=`."
+
+msgid "编译器提示操作"
+msgstr "Compiler hint operation"
+
+msgid "[debug_barrier](./Compiler_Hint_Ops/debug_barrier.md)"
+msgstr "[debug_barrier](./Compiler_Hint_Ops/debug_barrier.md)"
+
+msgid "插入 1 个屏障以同步 1 个块中的所有线程"
+msgstr "Insert a barrier to synchronize all threads in a block."
+
+msgid "[max_constancy](./Compiler_Hint_Ops/max_constancy.md)"
+msgstr "[max_constancy](./Compiler_Hint_Ops/max_constancy.md)"
+
+msgid "告知编译器 input 中的第 1 个值是常量"
+msgstr "Inform the compiler that the first value in input is a constant."
+
+msgid "[max_contiguous](./Compiler_Hint_Ops/max_contiguous.md)"
+msgstr "[max_contiguous](./Compiler_Hint_Ops/max_contiguous.md)"
+
+msgid "告知编译器 input 中的第 1 个值是连续的"
+msgstr "Inform the compiler that the first value in `input` is contiguous."
+
+msgid "[multiple_of](./Compiler_Hint_Ops/multiple_of.md)"
+msgstr "[multiple_of](./Compiler_Hint_Ops/multiple_of.md)"
+
+msgid "告知编译器 input 中的所有值都是 value 的倍数"
+msgstr "Inform the compiler that all values in `input` are multiples of `value`."
+
+msgid "[assume](./Compiler_Hint_Ops/assume.md)"
+msgstr "[assume](./Compiler_Hint_Ops/assume.md)"
+
+msgid "用于向编译器提供条件假设信息，允许编译器基于已知为真的条件进行优化。"
+msgstr "Used to provide conditional assumption information to the compiler, allowing the compiler to optimize based on conditions known to be true."
+
+msgid "`parallel` 是一个专门用于多核心并行执行的迭代器，提供显式的多核心并行语义。"
+msgstr "`parallel` is an iterator specifically designed for multi-core parallel execution, providing explicit multi-core parallel semantics."
+
+msgid "[sync_block指令](./Extension_Ops/sync_block.md)"
+msgstr "[sync_block instruction](./Extension_Ops/sync_block.md)"
+
+msgid "创建操作"
+msgstr "Create operation"
+
+msgid "[arange](./Creation_Ops/arange.md)"
+msgstr "[arange](./Creation_Ops/arange.md)"
+
+msgid "返回半开区间 [start, end) 内的连续值"
+msgstr "Returns consecutive values within the half-open interval [start, end)."
+
+msgid "[cat](./Creation_Ops/cat.md)"
+msgstr "[cat](./Creation_Ops/cat.md)"
+
+msgid "连接给定的块"
+msgstr "Connect the given block"
+
+msgid "[full](./Creation_Ops/full.md)"
+msgstr "[full](./Creation_Ops/full.md)"
+
+msgid "返回一个张量，该张量填充了指定 shape 和 dtype 的标量值"
+msgstr "Returns a tensor filled with scalar values of the specified shape and dtype."
+
+msgid "[zeros](./Creation_Ops/zeros.md)"
+msgstr "[zeros](./Creation_Ops/zeros.md)"
+
+msgid "返回一个张量，该张量用指定 shape 和 dtype 填充了标量值 0"
+msgstr "Returns a tensor filled with the scalar value 0 with the specified shape and dtype."
+
+msgid "[zeros_like](./Creation_Ops/zeros_like.md)"
+msgstr "[zeros_like](./Creation_Ops/zeros_like.md)"
+
+msgid "返回一个 shape 和 dtype 与给定张量相同的全零张量"
+msgstr "Returns an all-zero tensor with the same shape and dtype as the given tensor."
+
+msgid "[cast](./Creation_Ops/cast.md)"
+msgstr "[cast](./Creation_Ops/cast.md)"
+
+msgid "将张量转换为指定的 dtype"
+msgstr "Convert the tensor to the specified dtype."
+
+msgid "调试操作"
+msgstr "Debugging operations"
+
+msgid "[static_print](./Debug_Ops/static_print.md)"
+msgstr "[static_print](./Debug_Ops/static_print.md)"
+
+msgid "在编译时打印数值"
+msgstr "Print the value at compile time"
+
+msgid "[static_assert](./Debug_Ops/static_assert.md)"
+msgstr "[static_assert](./Debug_Ops/static_assert.md)"
+
+msgid "在编译时断言条件"
+msgstr "Assert condition at compile time"
+
+msgid "[device_print](./Debug_Ops/device_print.md)"
+msgstr "[device_print](./Debug_Ops/device_print.md)"
+
+msgid "在运行时从设备打印数值"
+msgstr "Print values from the device at runtime"
+
+msgid "[device_assert](./Debug_Ops/device_assert.md)"
+msgstr "[device_assert](./Debug_Ops/device_assert.md)"
+
+msgid "在运行时从设备上断言条件"
+msgstr "Assert a condition on the device at runtime."
+
+msgid "索引与元素操作"
+msgstr "Indexing and Element Operations"
+
+msgid "[flip](./Indexing_Ops/flip.md)"
+msgstr "[flip](./Indexing_Ops/flip.md)"
+
+msgid "沿着维度 dim 翻转张量 x"
+msgstr "Flips the tensor `x` along the dimension `dim`."
+
+msgid "[where](./Indexing_Ops/where.md)"
+msgstr "[where](./Indexing_Ops/where.md)"
+
+msgid "根据 condition 返回来自 x 或 y 的元素组成的张量"
+msgstr "Returns a tensor of elements from `x` or `y` based on `condition`."
+
+msgid "[swizzle2d](./Indexing_Ops/swizzle2d.md)"
+msgstr "[swizzle2d](./Indexing_Ops/swizzle2d.md)"
+
+msgid "将行主序排列为 size_i * size_j 的矩阵的索引，转换为每组 size_g 行的列主序矩阵的索引"
+msgstr "Convert the row-major index of a matrix arranged as `size_i * size_j` to the column-major index of a matrix with `size_g` rows per group."
+
+msgid "[gather](./Indexing_Ops/gather.md)"
+msgstr "[gather](./Indexing_Ops/gather.md)"
+
+msgid "对`src`tensor沿`axis`维度按照`index`执行gather操作"
+msgstr "Performs a gather operation on the `src` tensor along the `axis` dimension according to `index`."
+
+msgid "内联汇编"
+msgstr "Inline Assembly"
+
+msgid "[inline_asm_elementwise](./Inline_Assembly/inline_asm_elementwise.md)"
+msgstr "[inline_asm_elementwise](./Inline_Assembly/inline_asm_elementwise.md)"
+
+msgid "在张量上执行内联汇编"
+msgstr "Execute inline assembly on a tensor"
+
+msgid "迭代器"
+msgstr "Iterator"
+
+msgid "[range](./Iterators/range.md)"
+msgstr "[range](./Iterators/range.md)"
+
+msgid "永远向上计数的迭代器"
+msgstr "An iterator that always counts upward."
+
+msgid "[static_range](./Iterators/static_range.md)"
+msgstr "[static_range](./Iterators/static_range.md)"
+
+msgid "线性代数操作"
+msgstr "Linear Algebra Operations"
+
+msgid "[dot](./Linear_Algebra_Ops/dot.md)"
+msgstr "[dot](./Linear_Algebra_Ops/dot.md)"
+
+msgid "返回两个块的矩阵乘积"
+msgstr "Returns the matrix product of two blocks."
+
+msgid "[dot_scaled](./Linear_Algebra_Ops/dot_scaled.md)"
+msgstr "[dot_scaled](./Linear_Algebra_Ops/dot_scaled.md)"
+
+msgid "计算以缩放格式表示两个矩阵块的矩阵乘积"
+msgstr "Compute the matrix product of two matrix blocks represented in scaled format."
+
+msgid "[and](./Logical_Ops/and.md)"
+msgstr "[and](./Logical_Ops/and.md)"
+
+msgid "[or](./Logical_Ops/or.md)"
+msgstr "[or](./Logical_Ops/or.md)"
+
+msgid "[not](./Logical_Ops/not.md)"
+msgstr "[not](./Logical_Ops/not.md)"
+
+msgid "[logical_and](./Logical_Ops/logical_and.md)"
+msgstr "[logical_and](./Logical_Ops/logical_and.md)"
+
+msgid "[logical_or](./Logical_Ops/logical_or.md)"
+msgstr "[logical_or](./Logical_Ops/logical_or.md)"
+
+msgid "[invert](./Logical_Ops/invert.md)"
+msgstr "[invert](./Logical_Ops/invert.md)"
+
+msgid "[lshift](./Logical_Ops/lshift.md)"
+msgstr "[lshift](./Logical_Ops/lshift.md)"
+
+msgid "根据给定的位移数将tensor张量进行左移位。"
+msgstr "Left-shift the tensor by the given number of positions."
+
+msgid "[rshift](./Logical_Ops/rshift.md)"
+msgstr "[rshift](./Logical_Ops/rshift.md)"
+
+msgid "根据给定的位移数将tensor张量进行右移位。"
+msgstr "Right-shift the tensor by the given number of displacements."
+
+msgid "[xor](./Logical_Ops/xor.md)"
+msgstr "[xor](./Logical_Ops/xor.md)"
+
+msgid "[add](./Math_Ops/add.md)"
+msgstr "[add](./Math_Ops/add.md)"
+
+msgid "[sub](./Math_Ops/sub.md)"
+msgstr "[sub](./Math_Ops/sub.md)"
+
+msgid "[mul](./Math_Ops/mul.md)"
+msgstr "[mul](./Math_Ops/mul.md)"
+
+msgid "[div](./Math_Ops/div.md)"
+msgstr "[div](./Math_Ops/div.md)"
+
+msgid "[floordiv](./Math_Ops/floordiv.md)"
+msgstr "[floordiv](./Math_Ops/floordiv.md)"
+
+msgid "取整除法，四则运算 ‘//’"
+msgstr "Integer division, arithmetic operator '//'"
+
+msgid "[abs](./Math_Ops/abs.md)"
+msgstr "[abs](./Math_Ops/abs.md)"
+
+msgid "[neg](./Math_Ops/neg.md)"
+msgstr "[neg](./Math_Ops/neg.md)"
+
+msgid "将tensor的值取负"
+msgstr "Negate the value of the tensor"
+
+msgid "[cdiv](./Math_Ops/cdiv.md)"
+msgstr "[cdiv](./Math_Ops/cdiv.md)"
+
+msgid "[ceil](./Math_Ops/ceil.md)"
+msgstr "[ceil](./Math_Ops/ceil.md)"
+
+msgid "[clamp](./Math_Ops/clamp.md)"
+msgstr "[clamp](./Math_Ops/clamp.md)"
+
+msgid "[cos](./Math_Ops/cos.md)"
+msgstr "[cos](./Math_Ops/cos.md)"
+
+msgid "[div_rn](./Math_Ops/div_rn.md)"
+msgstr "[div_rn](./Math_Ops/div_rn.md)"
+
+msgid "[erf](./Math_Ops/erf.md)"
+msgstr "[erf](./Math_Ops/erf.md)"
+
+msgid "[exp](./Math_Ops/exp.md)"
+msgstr "[exp](./Math_Ops/exp.md)"
+
+msgid "[exp2](./Math_Ops/exp2.md)"
+msgstr "[exp2](./Math_Ops/exp2.md)"
+
+msgid "[fdiv](./Math_Ops/fdiv.md)"
+msgstr "[fdiv](./Math_Ops/fdiv.md)"
+
+msgid "[floor](./Math_Ops/floor.md)"
+msgstr "[floor](./Math_Ops/floor.md)"
+
+msgid "[fma](./Math_Ops/fma.md)"
+msgstr "[fma](./Math_Ops/fma.md)"
+
+msgid "[log](./Math_Ops/log.md)"
+msgstr "[log](./Math_Ops/log.md)"
+
+msgid "[log2](./Math_Ops/log2.md)"
+msgstr "[log2](./Math_Ops/log2.md)"
+
+msgid "[mod](./Math_Ops/mod.md)"
+msgstr "[mod](./Math_Ops/mod.md)"
+
+msgid "[maximum](./Math_Ops/maximum.md)"
+msgstr "[maximum](./Math_Ops/maximum.md)"
+
+msgid "[minimum](./Math_Ops/minimum.md)"
+msgstr "[minimum](./Math_Ops/minimum.md)"
+
+msgid "[rsqrt](./Math_Ops/rsqrt.md)"
+msgstr "[rsqrt](./Math_Ops/rsqrt.md)"
+
+msgid "计算 x 的逐元素平方根倒数"
+msgstr "Compute the element-wise reciprocal of the square root of x."
+
+msgid "[sigmoid](./Math_Ops/sigmoid.md)"
+msgstr "[sigmoid](./Math_Ops/sigmoid.md)"
+
+msgid "[sin](./Math_Ops/sin.md)"
+msgstr "[sin](./Math_Ops/sin.md)"
+
+msgid "[softmax](./Math_Ops/softmax.md)"
+msgstr "[softmax](./Math_Ops/softmax.md)"
+
+msgid "[sqrt](./Math_Ops/sqrt.md)"
+msgstr "[sqrt](./Math_Ops/sqrt.md)"
+
+msgid "[sqrt_rn](./Math_Ops/sqrt_rn.md)"
+msgstr "[sqrt_rn](./Math_Ops/sqrt_rn.md)"
+
+msgid "[umulhi](./Math_Ops/umulhi.md)"
+msgstr "[umulhi](./Math_Ops/umulhi.md)"
+
+msgid "[load](./Memory_Pointer_Ops/tl.load.md)"
+msgstr "[load](./Memory_Pointer_Ops/tl.load.md)"
+
+msgid "[store](./Memory_Pointer_Ops/tl.store.md)"
+msgstr "[store](./Memory_Pointer_Ops/tl.store.md)"
+
+msgid "[make_block_ptr](./Memory_Pointer_Ops/tl.make_block_ptr.md)"
+msgstr "[make_block_ptr](./Memory_Pointer_Ops/tl.make_block_ptr.md)"
+
+msgid "[advance](./Memory_Pointer_Ops/tl.advance.md)"
+msgstr "[advance](./Memory_Pointer_Ops/tl.advance.md)"
+
+msgid "[load_tensor_descriptor](./Memory_Pointer_Ops/load_tensor_descriptor.md)"
+msgstr "[load_tensor_descriptor](./Memory_Pointer_Ops/load_tensor_descriptor.md)"
+
+msgid "[make_tensor_descriptor](./Memory_Pointer_Ops/make_tensor_descriptor.md)"
+msgstr "[make_tensor_descriptor](./Memory_Pointer_Ops/make_tensor_descriptor.md)"
+
+msgid "[store_tensor_descriptor](./Memory_Pointer_Ops/store_tensor_descriptor.md)"
+msgstr "[store_tensor_descriptor](./Memory_Pointer_Ops/store_tensor_descriptor.md)"
+
+msgid "将数据块存储到张量描述符指定内存位置"
+msgstr "Store the data block to the memory location specified by the tensor descriptor."
+
+msgid "[program_id](./Programming_Model/program_id.md)"
+msgstr "[program_id](./Programming_Model/program_id.md)"
+
+msgid "[num_programs](./Programming_Model/num_programs.md)"
+msgstr "[num_programs](./Programming_Model/num_programs.md)"
+
+msgid "[randint4x](./Random_Number_Generation/randint4x.md)"
+msgstr "[randint4x](./Random_Number_Generation/randint4x.md)"
+
+msgid "[randint](./Random_Number_Generation/randint.md)"
+msgstr "[randint](./Random_Number_Generation/randint.md)"
+
+msgid "[rand](./Random_Number_Generation/rand.md)"
+msgstr "[rand](./Random_Number_Generation/rand.md)"
+
+msgid "[randn](./Random_Number_Generation/randn.md)"
+msgstr "[randn](./Random_Number_Generation/randn.md)"
+
+msgid "[argmax](./Reduction_Ops/argmax.md)"
+msgstr "[argmax](./Reduction_Ops/argmax.md)"
+
+msgid "[argmin](./Reduction_Ops/argmin.md)"
+msgstr "[argmin](./Reduction_Ops/argmin.md)"
+
+msgid "[max](./Reduction_Ops/max.md)"
+msgstr "[max](./Reduction_Ops/max.md)"
+
+msgid "[min](./Reduction_Ops/min.md)"
+msgstr "[min](./Reduction_Ops/min.md)"
+
+msgid "[reduce](./Reduction_Ops/reduce.md)"
+msgstr "[reduce](./Reduction_Ops/reduce.md)"
+
+msgid "[sum](./Reduction_Ops/sum.md)"
+msgstr "[sum](./Reduction_Ops/sum.md)"
+
+msgid "[xor_sum](./Reduction_Ops/xor_sum.md)"
+msgstr "[xor_sum](./Reduction_Ops/xor_sum.md)"
+
+msgid "[associative_scan](./Scan_Sort_Ops/associative_scan.md)"
+msgstr "[associative_scan](./Scan_Sort_Ops/associative_scan.md)"
+
+msgid "[cumprod](./Scan_Sort_Ops/cumprod.md)"
+msgstr "[cumprod](./Scan_Sort_Ops/cumprod.md)"
+
+msgid "[cumsum](./Scan_Sort_Ops/cumsum.md)"
+msgstr "[cumsum](./Scan_Sort_Ops/cumsum.md)"
+
+msgid "[histogram](./Scan_Sort_Ops/histogram.md)"
+msgstr "[histogram](./Scan_Sort_Ops/histogram.md)"
+
+msgid "基于 input 张量计算 1 个具有 num_bins 个 bin 的直方图，每个 bin 宽度为 1，起始值为0"
+msgstr "Compute a histogram with `num_bins` bins based on the `input` tensor, where each bin has a width of 1 and the starting value is 0."
+
+msgid "[sort](./Scan_Sort_Ops/sort.md)"
+msgstr "[sort](./Scan_Sort_Ops/sort.md)"
+
+msgid "Shape操作"
+msgstr "Shape operation"
+
+msgid "[broadcast](./Shape_Manipulation_Ops/broadcast.md)"
+msgstr "[broadcast](./Shape_Manipulation_Ops/broadcast.md)"
+
+msgid "尝试将两个给定的块广播到一个共同兼容的 shape"
+msgstr "Attempt to broadcast two given blocks to a mutually compatible shape."
+
+msgid "[broadcast_to](./Shape_Manipulation_Ops/broadcast_to.md)"
+msgstr "[broadcast_to](./Shape_Manipulation_Ops/broadcast_to.md)"
+
+msgid "尝试将给定的张量广播到新的 shape"
+msgstr "Attempt to broadcast the given tensor to a new shape."
+
+msgid "[expand_dims](./Shape_Manipulation_Ops/expand_dims.md)"
+msgstr "[expand_dims](./Shape_Manipulation_Ops/expand_dims.md)"
+
+msgid "通过插入新的长度为 1 的维度来扩展张量的形状"
+msgstr "Expand the shape of a tensor by inserting a new dimension of length 1."
+
+msgid "[interleave](./Shape_Manipulation_Ops/interleave.md)"
+msgstr "[interleave](./Shape_Manipulation_Ops/interleave.md)"
+
+msgid "沿着最后一个维度交错两个张量的值"
+msgstr "Interleave the values of two tensors along the last dimension."
+
+msgid "[join](./Shape_Manipulation_Ops/join.md)"
+msgstr "[join](./Shape_Manipulation_Ops/join.md)"
+
+msgid "在一个新的次要维度中连接给定的张量"
+msgstr "Concatenate the given tensors along a new minor dimension."
+
+msgid "[permute](./Shape_Manipulation_Ops/permute.md)"
+msgstr "[permute](./Shape_Manipulation_Ops/permute.md)"
+
+msgid "排列张量的维度"
+msgstr "Permute the dimensions of a tensor"
+
+msgid "[ravel](./Shape_Manipulation_Ops/ravel.md)"
+msgstr "[ravel](./Shape_Manipulation_Ops/ravel.md)"
+
+msgid "返回 x 的连续扁平视图"
+msgstr "Returns a contiguous flattened view of `x`."
+
+msgid "[reshape](./Shape_Manipulation_Ops/reshape.md)"
+msgstr "[reshape](./Shape_Manipulation_Ops/reshape.md)"
+
+msgid "返回一个具有与输入相同元素数但具有提供的形状的张量"
+msgstr "Returns a tensor with the same number of elements as the input but with the provided shape."
+
+msgid "[split](./Shape_Manipulation_Ops/split.md)"
+msgstr "[split](./Shape_Manipulation_Ops/split.md)"
+
+msgid "将张量沿其最后一个维度分成两部分，该维度大小必须为 2"
+msgstr "Split the tensor into two parts along its last dimension, which must have size 2."
+
+msgid "[trans](./Shape_Manipulation_Ops/trans.md)"
+msgstr "[trans](./Shape_Manipulation_Ops/trans.md)"
+
+msgid "将张量转置"
+msgstr "Transpose the tensor."
+
+msgid "[view](./Shape_Manipulation_Ops/view.md)"
+msgstr "[view](./Shape_Manipulation_Ops/view.md)"
+
+msgid "返回具有与输入相同元素但形状不同的张量"
+msgstr "Returns a tensor with the same elements as the input but with a different shape."
+
+msgid "triton.Config"
+msgstr "triton.Config"
+
+msgid "表示自动调优可能尝试的内核配置的对象"
+msgstr "An object representing the kernel configurations that automatic tuning may attempt."
+
+msgid "**变量：**"
+msgstr "**Variables:**"
+
+msgid "kwargs – 1 个元参数字典，用于作为关键字参数传递给内核。"
+msgstr "kwargs – A dictionary of keyword arguments to be passed to the kernel."
+
+msgid "num_warps – 在为 GPU 编译时内核使用的线程数。例如，如果 num_warps=8，则每个内核实例将自动并行化，使用 8 * 32 = 256 个线程协作执行。"
+msgstr "num_warps – The number of threads used by the kernel when compiling for GPU. For example, if num_warps=8, each kernel instance will be automatically parallelized, using 8 * 32 = 256 threads to execute cooperatively."
+
+msgid "num_stages – 编译器在软件流水线循环时应使用的阶段数。对于 SM80+ GPU 上的矩阵乘法工作负载非常有用。"
+msgstr "num_stages – The number of stages the compiler should use when software pipelining loops. This is particularly useful for matrix multiplication workloads on SM80+ GPUs."
+
+msgid "num_ctas - 块集群中的块数。仅适用于 SM90+。"
+msgstr "num_ctas - The number of blocks in a block cluster. Only applicable for SM90+."
+
+msgid "maxnreg - 单个线程可以使用的最大寄存器数。对应于 ptx 的 .maxnreg 指令。并非所有平台都支持。"
+msgstr "maxnreg - The maximum number of registers that a single thread can use. Corresponds to the `.maxnreg` directive in PTX. Not supported on all platforms."
+
+msgid "pre_hook – 在调用内核之前将被调用的函数。该函数的参数是 args。"
+msgstr "pre_hook – A function that will be called before invoking the kernel. The argument of this function is args."
+
+msgid "**方法：**"
+msgstr "**Method:**"
+
+msgid "init(self, kwargs[, num_warps, ...])"
+msgstr "init(self, kwargs[, num_warps, ...])"
+
+msgid "all_kwargs (self)"
+msgstr "all_kwargs (self)"
+
+msgid "triton.autotune"
+msgstr "triton.autotune"
+
+msgid "用于自动调优 triton.jit 函数的装饰器。"
+msgstr "Decorator for automatically tuning `triton.jit` functions."
+
+msgid "注：当所有配置都被解析时，内核将运行多次。也就是说内核更新的任何值都会进行多次更新。为了避免这种不希望出现的行为，可以使用 `reset_to_zero` 参数，该参数会在运行任何配置之前将提供的张量值重置为零。"
+msgstr "Note: When all configurations are parsed, the kernel will run multiple times. This means that any values updated by the kernel will be updated multiple times. To avoid this undesired behavior, the `reset_to_zero` parameter can be used, which resets the provided tensor values to zero before running any configuration."
+
+msgid "注：如果环境变量 `TRITON_PRINT_AUTOTUNING` 设置为 `\"1\"`，Triton 会在每次自动调优内核后向标准输出 (stdout) 打印一条消息，包括自动调优所花费的时间和最佳配置。"
+msgstr "Note: If the environment variable `TRITON_PRINT_AUTOTUNING` is set to `\"1\"`, Triton will print a message to stdout after each autotuning kernel, including the time spent on autotuning and the optimal configuration."
+
+msgid "**参数：**"
+msgstr "**Parameters:**"
+
+msgid "`configs (list[triton.Config])` - `triton.Config` 对象列表。"
+msgstr "`configs (list[triton.Config])` - A list of `triton.Config` objects."
+
+msgid "`key (list[str])` - 参数名列表，当值发生改变时将触发对所有配置的解析。"
+msgstr "`key (list[str])` - A list of parameter names; when the value changes, it will trigger the parsing of all configurations."
+
+msgid "`prune_configs_by (dict)` - 修剪配置的函数字典。包含以下字段："
+msgstr "`prune_configs_by (dict)` - A dictionary of functions for pruning configurations. Contains the following fields:"
+
+msgid "`'perf_model'`: 性能模型，用于预测不同配置的运行时间，返回运行时间"
+msgstr "`'perf_model'`: A performance model used to predict the runtime of different configurations, returning the runtime."
+
+msgid "`'top_k'`: 要进行基准测试的配置数量"
+msgstr "`'top_k'`: The number of configurations to benchmark."
+
+msgid "`'early_config_prune'`（可选）: 用于提前修剪配置的函数（例如，`num_stages`）。它接收 `configs: List[Config]` 作为输入，并返回修剪后的配置"
+msgstr "`'early_config_prune'` (optional): A function used to prune configurations early (e.g., `num_stages`). It takes `configs: List[Config]` as input and returns the pruned configurations."
+
+msgid "`reset_to_zero (list[str])` - 参数名称列表，将在任何配置解析之前被重置为零。"
+msgstr "`reset_to_zero (list[str])` - A list of parameter names that will be reset to zero before any configuration parsing."
+
+msgid "`restore_value (list[str])` - 参数名称列表，这些参数的值将在解析任何配置之后恢复。"
+msgstr "`restore_value (list[str])` - A list of parameter names whose values will be restored after parsing any configuration."
+
+msgid "`pre_hook (lambda args, reset_only)` - 一个将在调用内核之前被调用的函数。该参数会覆盖 `reset_to_zero` 和 `restore_value` 的默认 `pre_hook`。"
+msgstr "`pre_hook (lambda args, reset_only)` - A function that will be called before invoking the kernel. This parameter overrides the default `pre_hook` for `reset_to_zero` and `restore_value`."
+
+msgid "`args`：传递给内核的参数列表"
+msgstr "`args`: The list of arguments passed to the kernel."
+
+msgid "`reset_only`：一个布尔值，表示 `pre_hook` 是否仅用于重置值，而没有对应的 `post_hook`"
+msgstr "`reset_only`: A boolean value indicating whether `pre_hook` is only used to reset values without a corresponding `post_hook`."
+
+msgid "`post_hook (lambda args, exception)` - 一个将在调用内核之后被调用的函数。该参数会覆盖 `restore_value` 的默认 `post_hook`。"
+msgstr "`post_hook (lambda args, exception)` - A function that will be called after the kernel is invoked. This parameter overrides the default `post_hook` of `restore_value`."
+
+msgid "`exception`：在出现编译或运行时错误情况下，由内核引发的异常"
+msgstr "`exception`: An exception raised by the kernel in the event of a compilation or runtime error."
+
+msgid "`warmup (int)` - 传递给基准测试的预热时间（以毫秒为单位），默认值为 25。"
+msgstr "`warmup (int)` - The warm-up time passed to the benchmark (in milliseconds), with a default value of 25."
+
+msgid "`rep (int)` - 传递给基准测试的重复时间（以毫秒为单位），默认值为 100。"
+msgstr "`rep (int)` - The repetition time passed to the benchmark (in milliseconds), default value is 100."
+
+msgid "`use_cuda_graph (bool)` - 是否使用 CUDA Graph 进行性能测量（默认为 `False`）。"
+msgstr "`use_cuda_graph (bool)` - Whether to use CUDA Graph for performance measurement (default is `False`)."
+
+msgid "triton.heuristics"
+msgstr "triton.heuristics"
+
+msgid "用于指定如何计算某些元参数值的装饰器。这在自动调优成本过高或不适用的情况下非常有用。"
+msgstr "Decorator used to specify how certain meta-parameter values are computed. This is useful in cases where automatic tuning is too costly or not applicable."
+
+msgid "**参数：** `values (dict[str, Callable[[list[Any]], Any]]**)` - 包含元参数名称和计算元参数值的函数的字典。每个这样的函数都接受一个位置参数列表作为输入。"
+msgstr "**Parameters:** `values (dict[str, Callable[[list[Any]], Any]]**)` - A dictionary containing metaparameter names and functions that compute metaparameter values. Each such function accepts a list of positional arguments as input."
+
+msgid "triton"
+msgstr "triton"
+
+msgid "API"
+msgstr "API"
+
+msgid "[jit](./jit.md)"
+msgstr "[jit](./jit.md)"
+
+msgid "JIT 装饰器 - 使用 Triton 编译器编译函数"
+msgstr "JIT Decorator - Compile Functions Using the Triton Compiler"
+
+msgid "[autotune](./autotune.md)"
+msgstr "[autotune](./autotune.md)"
+
+msgid "用于自动调优一个经过 `triton.jit` 编译的函数的装饰器"
+msgstr "A decorator for automatically tuning a function compiled with `triton.jit`."
+
+msgid "[heuristics](./heuristics.md)"
+msgstr "[heuristics](./heuristics.md)"
+
+msgid "用于指定如何计算某些元参数值的装饰器"
+msgstr "Decorator used to specify how to calculate certain meta-parameter values"
+
+msgid "[Config](./Config.md)"
+msgstr "[Config](./Config.md)"
+
+msgid "一个表示自动调优器可以尝试的可能内核配置的对象"
+msgstr "An object representing possible kernel configurations that the auto-tuner can attempt."
+
+msgid "triton.jit"
+msgstr "triton.jit"
+
+msgid "使用 Triton 编译器的 JIT 编译函数的装饰器。"
+msgstr "Decorator for JIT-compiled functions using the Triton compiler."
+
+msgid "注：当调用 JIT 编译的函数时，如果参数具有 `.data_ptr()` 方法和 `.dtype` 属性，则会隐式转换为指针。"
+msgstr "Note: When calling a JIT-compiled function, if the parameter has a `.data_ptr()` method and a `.dtype` attribute, it will be implicitly converted to a pointer."
+
+msgid "注：此函数将在 GPU 上编译和运行。它只能访问以下内容："
+msgstr "Note: This function will be compiled and run on the GPU. It can only access the following:"
+
+msgid "Python 原语，"
+msgstr "Python primitives,"
+
+msgid "Triton 包内的内置函数，"
+msgstr "Built-in functions within the Triton package,"
+
+msgid "此函数的参数，"
+msgstr "The parameters of this function are,"
+
+msgid "其他 JIT 编译的函数。"
+msgstr "Other JIT-compiled functions."
+
+msgid "**参数：**`fn (Callable)` - 要进行 JIT 编译的函数"
+msgstr "**Parameters:** `fn (Callable)` - The function to be JIT compiled."
