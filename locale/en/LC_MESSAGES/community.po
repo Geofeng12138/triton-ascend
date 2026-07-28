@@ -1,0 +1,2817 @@
+# English translations for triton-ascend docs.
+# Copyright (c) 2025 Huawei Technologies Co., Ltd.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: triton-ascend-docs\n"
+"POT-Creation-Date: 2026-07-28 02:32+0000\n"
+"PO-Revision-Date: 2026-07-28 02:32+0000\n"
+"Last-Translator: Auto Translation (DeepSeek)\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+msgstr "The community is an open space where developers and users can share experiences, ask questions, and discuss technical topics."
+
+msgid "贡献者公约"
+msgstr "Contributor Covenant"
+
+msgid "我们的承诺"
+msgstr "Our Commitment"
+
+msgid "我们承诺使我们的社区对所有人保持友好、安全且公平。"
+msgstr "We are committed to keeping our community friendly, safe, and fair for everyone."
+
+msgid "我们承诺营造一个尊重并促进每位个体尊严、权利与贡献的环境，无论其种族、民族、种姓、肤色、年龄、体貌特征、神经多样性、残疾状况、生理性别或社会性别、性别认同或表达、性取向、语言、哲学或宗教信仰、国籍或社会出身、社会经济地位、教育程度或其他身份属性。所有真诚参与并遵守本公约者，均享有同等的参与权利。"
+msgstr "We are committed to fostering an environment that respects and promotes the dignity, rights, and contributions of every individual, regardless of race, ethnicity, caste, skin color, age, physical appearance, neurodiversity, disability status, sex or gender, gender identity or expression, sexual orientation, language, philosophical or religious beliefs, nationality or social origin, socioeconomic status, education level, or other identity attributes. All individuals who sincerely participate and adhere to this covenant are entitled to equal participation rights."
+
+msgid "受鼓励的行为"
+msgstr "Encouraged Behaviors"
+
+msgid "虽然各自的社会规范可能有差异，但我们都努力达到这个社区对积极行为的期待。我们也了解，因为文化、背景或母语的不同，别人对我们的言行的解读可能不同于我们的初衷。"
+msgstr "Although our social norms may differ, we all strive to meet this community's expectations of positive behavior. We also understand that due to differences in culture, background, or native language, others may interpret our words and actions differently from our original intentions."
+
+msgid "考虑到以上这些，我们承诺以审慎的态度彼此相待，并以践行以下共同价值为行为准则："
+msgstr "Considering the above, we commit to treating each other with prudence and adhering to the following shared values as our code of conduct:"
+
+msgid "尊重我们**社区的宗旨**、各项活动及集会方式"
+msgstr "Respect the **purpose** of our community, its activities, and its ways of gathering."
+
+msgid "以**善意与诚实**的态度与他人互动"
+msgstr "Interact with others with **goodwill and honesty**."
+
+msgid "尊重**不同的观点与经历**"
+msgstr "Respect **different perspectives and experiences**"
+
+msgid "对自己的言行及贡献**负责**"
+msgstr "Take **responsibility** for your own words, actions, and contributions."
+
+msgid "以得体的方式给予并接受**建设性意见**"
+msgstr "Give and receive **constructive feedback** in a respectful manner."
+
+msgid "承诺在造成伤害时进行**弥补**"
+msgstr "Promise to **make amends** when harm is caused."
+
+msgid "采取其他有益于**社区福祉**的行为"
+msgstr "Take other actions that benefit **community well-being**."
+
+msgid "受限制的行为"
+msgstr "Restricted Behaviors"
+
+msgid "我们同意在社区内限制以下行为。出现这些行为、威胁实施这些行为、或宣传这些行为，均视为违反本行为准则。"
+msgstr "We agree to restrict the following behaviors within the community. Engaging in these behaviors, threatening to do so, or promoting them is considered a violation of this Code of Conduct."
+
+msgid "**骚扰**：在明确表达界限后仍侵犯这些界限，或在被清楚要求停止后，仍进行不必要的个人关注。"
+msgstr "**Harassment**: Continuing to violate boundaries after they have been clearly expressed, or persisting in unwanted personal attention after being explicitly asked to stop."
+
+msgid "**人身攻击**：针对社区成员或群体发表侮辱、贬低或带有蔑视性的言论。"
+msgstr "**Personal Attacks**: Making insulting, demeaning, or contemptuous remarks toward community members or groups."
+
+msgid "**刻板印象或歧视**：基于无法改变的身份或特征，来评判他人的性格或行为。"
+msgstr "**Stereotyping or Discrimination**: Judging others' character or behavior based on unchangeable identities or traits."
+
+msgid "**性化**：做出在社区场景或宗旨下普遍认为不恰当的亲密举动。"
+msgstr "**Sexualization**: Engaging in intimate behavior that is generally considered inappropriate within the context or purpose of the community."
+
+msgid "**侵犯保密性**：未经允许分享或利用他人的个人或隐私信息。"
+msgstr "**Breach of Confidentiality**: Sharing or exploiting others' personal or private information without permission."
+
+msgid "**危害行为**：对任何人或群体实施、煽动或威胁施加暴力及其他伤害。"
+msgstr "**Harmful Behavior**: Committing, inciting, or threatening violence and other harm against any person or group."
+
+msgid "其他威胁**社区福祉**的行为。"
+msgstr "Other behaviors that threaten the **well-being of the community**."
+
+msgid "其他限制行为"
+msgstr "Other Restricted Acts"
+
+msgid "**虚假身份**：出于任何原因冒充他人，或假扮他人以规避监管措施。"
+msgstr "**False Identity**: Impersonating others for any reason, or pretending to be someone else to circumvent regulatory measures."
+
+msgid "**未正确标明来源**：未正确标明所贡献内容的来源。"
+msgstr "**Incorrectly attributed source**: The source of the contributed content is not properly cited."
+
+msgid "**宣传材料**：以不符合社区规范的方式分享营销或其他商业内容。"
+msgstr "**Promotional Materials**: Sharing marketing or other commercial content in a manner that does not comply with community guidelines."
+
+msgid "**不当传播**：未能以负责任的方式呈现包含、链接或描述任何其他受限制行为的内容。"
+msgstr "**Improper Dissemination**: Failure to present content that includes, links to, or describes any other restricted behavior in a responsible manner."
+
+msgid "通报问题"
+msgstr "Report an Issue"
+
+msgid "即使社区成员之间尽其所能地合作，也仍然可能发生矛盾。并不是所有冲突都涉及违反行为准则，本准则旨在强化受鼓励的行为与规范，它们有助于预防冲突并将伤害降到最低。"
+msgstr "Even when community members collaborate to the best of their ability, conflicts may still arise. Not all conflicts involve violations of the code of conduct; this code is intended to reinforce encouraged behaviors and norms, which help prevent conflicts and minimize harm."
+
+msgid "当事件发生时，及时报告非常重要。要报告可能的违规行为，**[注意：请在此填入举报方式]**。"
+msgstr "When an incident occurs, timely reporting is crucial. To report potential violations, **[Note: Please fill in the reporting method here]**."
+
+msgid "社区管理员会严肃对待违规报告，并尽力及时回应。将对所有违反行为准则的报告展开调查，方式包括查阅消息、日志及录音，或访谈证人及其他相关参与人。社区管理员在优先保障安全与保密性的前提下，会尽可能保持调查与执行过程的透明度。为践行这些价值观，执行措施会在涉事各方的私下环境中进行，但如经各方同意，将事件通报全体社区也可以作为解决方案的一部分。"
+msgstr "Community administrators take violation reports seriously and strive to respond in a timely manner. All reports of violations of the code of conduct will be investigated, including reviewing messages, logs, and recordings, or interviewing witnesses and other relevant participants. Community administrators will maintain as much transparency as possible in the investigation and enforcement process, while prioritizing safety and confidentiality. To uphold these values, enforcement measures will be carried out in private settings involving the relevant parties; however, with the consent of all parties, reporting the incident to the entire community may also be part of the resolution."
+
+msgid "处理与弥补伤害"
+msgstr "Handling and Remedying Harm"
+
+msgid "**[注意：下文所列的处理办法与补救措施，是基于行为准则执行过程中的最佳做法而提出的建议。如果你们的社区已经有既定的执行流程，请确保修改本段内容，以描述你们自己的政策。]**"
+msgstr "**[Note: The handling methods and remedial measures listed below are suggestions based on best practices in the enforcement of the Code of Conduct. If your community already has an established enforcement process, please ensure you modify this section to describe your own policies.]**"
+
+msgid "若社区管理员经调查确认存在违反此行为准则的行为，将参照以下\"分级处理\"机制，根据事件对相关人员及社区整体造成的影响程度，确定最适宜的伤害弥补方案。根据违规严重程度，可跳过较低级别的处理措施。"
+msgstr "If a community administrator confirms through investigation that a violation of this Code of Conduct has occurred, the following \"graduated response\" mechanism will be applied to determine the most appropriate remedy based on the impact of the incident on the individuals involved and the community as a whole. Depending on the severity of the violation, lower-level response measures may be bypassed."
+
+msgid "警告"
+msgstr "Warning"
+
+msgid "**事件**：单次或连续违规行为"
+msgstr "**Event**: Single or continuous violation"
+
+msgid "**后果**：社区管理员将发出书面私信警告"
+msgstr "**Consequence**: The community administrator will issue a written private message warning."
+
+msgid "**弥补**：弥补的方式如书面私下致歉、坦承自己的责任，或主动确认清楚今后该如何做才符合期待。"
+msgstr "**Remedy**: Ways to remedy include offering a written private apology, acknowledging one's responsibility, or proactively clarifying how to act in line with expectations in the future."
+
+msgid "暂时限制活动"
+msgstr "Temporarily restrict activity"
+
+msgid "**事件**：重复造成先前已被警告的违规，或首次发生略为严重的违规行为。"
+msgstr "**Event**: Repeated violations that have been previously warned, or a first occurrence of a slightly serious violation."
+
+msgid "**后果**：发出私下的书面警告，并设定一个有时间限制的冷静期，旨在强调事态的严重性，并让相关社区成员有时间消化与处理该事件。冷静期可能是限制在特定的交流渠道，或限制与特定社区成员的互动。"
+msgstr "**Consequence**: Issue a private written warning and set a time-limited cooling-off period, aimed at emphasizing the severity of the situation and allowing the relevant community member time to process and address the incident. The cooling-off period may be restricted to specific communication channels or interactions with particular community members."
+
+msgid "**弥补**：修复的方式可能包括道歉、利用冷静期反思自身行为及其影响，以及充分意识到在冷静期结束后如何重新进入社区空间。"
+msgstr "**Remediation**: Methods of remediation may include apologizing, using a cooling-off period to reflect on one's own behavior and its impact, and fully understanding how to re-enter the community space once the cooling-off period ends."
+
+msgid "暂时停权"
+msgstr "Temporary Suspension"
+
+msgid "**事件**：出现社区管理员已多次警告后仍然重复违规的模式，或一次严重违规行为。"
+msgstr "**Event**: A pattern of repeated violations after multiple warnings from community administrators, or a single severe violation."
+
+msgid "**后果**：发出私下的书面警告，并附上恢复权限所需满足的条件。通常，临时停权旨在给予被停权者时间，反思其行为以及考虑可能的改正措施。"
+msgstr "**Consequence**: Issue a private written warning, along with the conditions required to restore permissions. Typically, a temporary suspension is intended to give the suspended party time to reflect on their behavior and consider possible corrective measures."
+
+msgid "**弥补**：弥补的条件包括尊重停权的意旨、达成恢复权限的指定条件，以及充分认识到在停权解除后如何重新融入社区。"
+msgstr "**Remedy**: The conditions for remedy include respecting the intent of the suspension, meeting the specified conditions for reinstatement of privileges, and fully understanding how to reintegrate into the community after the suspension is lifted."
+
+msgid "永久封禁"
+msgstr "Permanent Ban"
+
+msgid "**事件**：多次违反行为准则，且其他分级处理措施均未能解决问题，或发生严重到社区管理员认定无法在该成员继续存在的情况下保障社区安全的违规行为。"
+msgstr "**Event**: Repeated violations of the code of conduct where other graduated measures have failed to resolve the issue, or a violation severe enough that the community administrators determine the community's safety cannot be ensured with the member's continued presence."
+
+msgid "**后果**：撤销其对所有社区空间、工具及交流渠道的访问权限。一般而言，永久封禁应极少使用，必须有充分且有力的理由，且仅在其他弥补手段未能改变其行为时才作为最后手段实施。"
+msgstr "**Consequence**: Revoke their access to all community spaces, tools, and communication channels. Generally, permanent bans should be used sparingly, must have sufficient and compelling reasons, and should only be implemented as a last resort when other remedial measures have failed to change their behavior."
+
+msgid "**弥补**：此类严重情形下，不存在可行的弥补途径。"
+msgstr "**Mitigation**: In such severe cases, there are no feasible mitigation paths."
+
+msgid "本分级处理措施旨在作为指导方针，并不限制社区管理者在符合社区最大利益的前提下，运用其自主裁量权与判断力。"
+msgstr "These tiered moderation measures are intended as guidelines and do not restrict community managers from exercising their discretion and judgment in the best interests of the community."
+
+msgid "施行范围"
+msgstr "Scope of Implementation"
+
+msgid "本行为准则适用于社区所有空间，同时也适用于个人在公共场合或其他场合正式代表社区的情况。代表社区的行为包括但不限于：使用官方电子邮件地址；通过官方社交媒体账号发布内容；作为指定代表出席线上或线下活动。"
+msgstr "This Code of Conduct applies to all community spaces, and also applies when an individual is officially representing the community in public or other settings. Examples of representing the community include, but are not limited to: using an official email address; posting via official social media accounts; acting as a designated representative at online or offline events."
+
+msgid "贡献归属"
+msgstr "Contribution Attribution"
+
+msgid "本行为准则改编自 贡献者公约 3.0 版，该公约永久可在此查阅：[https://www.contributor-covenant.org/version/3/0/](https://www.contributor-covenant.org/version/3/0/)。"
+msgstr "This Code of Conduct is adapted from the Contributor Covenant version 3.0, which is permanently available at: [https://www.contributor-covenant.org/version/3/0/](https://www.contributor-covenant.org/version/3/0/)."
+
+msgid "贡献者公约 由 Organization for Ethical Source 负责维护，并以 CC BY-SA 4.0 许可协议发布。查看该许可协议请访问：[https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/)。"
+msgstr "Contributor Covenant is maintained by the Organization for Ethical Source and is published under the CC BY-SA 4.0 license. To view this license, please visit: [https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/)."
+
+msgid "关于 贡献者公约 的常见问题解答，请参阅：[https://www.contributor-covenant.org/faq](https://www.contributor-covenant.org/faq)。各语言版本译文请见：[https://www.contributor-covenant.org/translations](https://www.contributor-covenant.org/translations)。更多执行与社区指南资源请见：[https://www.contributor-covenant.org/resources](https://www.contributor-covenant.org/resources)。本分级措施的灵感来源于 [Mozilla 行为准则团队](https://github.com/mozilla/inclusion) 的工作。"
+msgstr "For frequently asked questions regarding the Contributor Covenant, please see: [https://www.contributor-covenant.org/faq](https://www.contributor-covenant.org/faq). Translations in various languages are available at: [https://www.contributor-covenant.org/translations](https://www.contributor-covenant.org/translations). For additional resources on enforcement and community guidelines, please visit: [https://www.contributor-covenant.org/resources](https://www.contributor-covenant.org/resources). This graduated enforcement measure is inspired by the work of the [Mozilla Inclusion Team](https://github.com/mozilla/inclusion)."
+
+msgid "贡献指南"
+msgstr "Contribution Guide"
+
+msgid "[入门](#入门.md)"
+msgstr "[Getting Started](#getting-started.md)"
+
+msgid "[开发者来源认证（DCO）](#开发者来源认证.md)"
+msgstr "[Developer Certificate of Origin (DCO)](#developer-certificate-of-origin.md)"
+
+msgid "[开发指导](#开发指导.md)"
+msgstr "[Development Guide](#development-guide.md)"
+
+msgid "[代码风格](#代码风格.md)"
+msgstr "[Code Style](#代码风格.md)"
+
+msgid "[Fork-Pull开发模式](#Fork-Pull开发模式.md)"
+msgstr "[Fork-Pull Development Model](#Fork-Pull开发模式.md)"
+
+msgid "[代码门禁异常处理](#代码门禁异常处理.md)"
+msgstr "[Code Gate Exception Handling](#代码门禁异常处理.md)"
+
+msgid "[ISSUE规范](#ISSUE规范.md)"
+msgstr "[ISSUE Guidelines](#ISSUE规范.md)"
+
+msgid "[提出PR](#提出PR.md)"
+msgstr "[Submit PR](#submit-pr.md)"
+
+msgid "在[GitHub](https://github.com/triton-lang/triton-ascend)上fork Triton-Ascend代码库。"
+msgstr "Fork the Triton-Ascend repository on [GitHub](https://github.com/triton-lang/triton-ascend)."
+
+msgid "阅读[README.md](https://github.com/triton-lang/triton-ascend/blob/main/README.md)获取项目信息和构建开发环境。"
+msgstr "Read [README.md](https://github.com/triton-lang/triton-ascend/blob/main/README.md) for project information and building the development environment."
+
+msgid "所有提交需包含 `Signed-off-by:` 行，使用 `git commit -s` 自动添加："
+msgstr "All submissions must include a `Signed-off-by:` line, which can be automatically added using `git commit -s`."
+
+msgid "这会在提交信息末尾自动添加一行 `Signed-off-by: Your Name <your.email@example.com>`，表明你确认该贡献的来源和授权。"
+msgstr "This will automatically add a line `Signed-off-by: Your Name <your.email@example.com>` at the end of the commit message, indicating that you confirm the origin and authorization of the contribution."
+
+msgid "**[代码风格](#代码风格.md)**"
+msgstr "**[Code Style](#code-style.md)**"
+
+msgid "**[Fork-Pull开发模式](#Fork-Pull开发模式.md)**"
+msgstr "**[Fork-Pull Development Model](#Fork-Pull Development Model.md)**"
+
+msgid "**[代码门禁异常处理](#代码门禁异常处理.md)**"
+msgstr "**[Code Gate Exception Handling](#code-gate-exception-handling.md)**"
+
+msgid "**[ISSUE规范](#ISSUE规范.md)**"
+msgstr "**[ISSUE Guidelines](#ISSUE规范.md)**"
+
+msgid "**[提出PR](#提出PR.md)**"
+msgstr "**[Submitting PR](#submitting-pr.md)**"
+
+msgid "请遵循以下编码风格，以使得Triton Ascend易于开发、维护和审查。"
+msgstr "Please follow the coding style below to make Triton Ascend easy to develop, maintain, and review."
+
+msgid "编码指南"
+msgstr "Coding Guidelines"
+
+msgid "请使用Triton Ascend社区统一的编码风格，python建议的编码风格是[PEP 8编码样式](https://pep8.org/)，C++编码所建议的风格是  [LLVM 编码规范](https://llvm.org/docs/CodingStandards.html)。可以使用[clang-tidy](https://github.com/llvm/llvm-project/blob/main/.clang-tidy)，[CppLint](https://github.com/cpplint/cpplint)，[CppCheck](http://cppcheck.sourceforge.net/)，[CMakeLint](https://github.com/cmake-lint/cmake-lint)，[CodeSpell](https://github.com/codespell-project/codespell)，[ShellCheck](https://github.com/koalaman/shellcheck)和[pylint](https://pylint.org/)检查代码的格式，建议在您的IDE中安装这些插件。"
+msgstr "Please use the unified coding style of the Triton Ascend community. The recommended coding style for Python is [PEP 8 Coding Style](https://pep8.org/), and the recommended style for C++ is [LLVM Coding Standards](https://llvm.org/docs/CodingStandards.html). You can use [clang-tidy](https://github.com/llvm/llvm-project/blob/main/.clang-tidy), [CppLint](https://github.com/cpplint/cpplint), [CppCheck](http://cppcheck.sourceforge.net/), [CMakeLint](https://github.com/cmake-lint/cmake-lint), [CodeSpell](https://github.com/codespell-project/codespell), [ShellCheck](https://github.com/koalaman/shellcheck), and [pylint](https://pylint.org/) to check code formatting. It is recommended to install these plugins in your IDE."
+
+msgid "单元测试指南"
+msgstr "Unit Testing Guide"
+
+msgid "请使用Triton Ascend社区统一的单元测试风格，python建议的单元测试风格是[pytest](http://www.pytest.org/en/latest/)，C++建议的单元测试风格是[Googletest Primer](https://github.com/google/googletest/blob/main/docs/primer.md)。测试用例的设计意图应该通过它的注释名称来反映。测试用例的设计请参考[gather测试用例](https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/unittest/custom_op/test_gather_load.py)，[layer_norm测试用例](https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/05-layer-norm.py)"
+msgstr "Please use the unified unit testing style of the Triton Ascend community. The recommended unit testing style for Python is [pytest](http://www.pytest.org/en/latest/), and for C++ it is [Googletest Primer](https://github.com/google/googletest/blob/main/docs/primer.md). The design intent of a test case should be reflected through its comment name. For test case design, please refer to the [gather test case](https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/unittest/custom_op/test_gather_load.py) and the [layer_norm test case](https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/05-layer-norm.py)."
+
+msgid "重构指南"
+msgstr "Refactoring Guide"
+
+msgid "我们鼓励开发人员对我们的代码进行重构来消除【代码坏味道】。重构的代码也应该遵循编码风格和测试风格的要求。当您收到警告时，您需要重构要合并的代码。"
+msgstr "We encourage developers to refactor our code to eliminate \"code smells.\" Refactored code should also follow the coding style and testing style requirements. When you receive a warning, you need to refactor the code to be merged."
+
+msgid "1、Fork Triton Ascend项目"
+msgstr "1. Fork the Triton Ascend project"
+
+msgid "在您向Triton Ascend项目提交自己的代码之前，请确保已经将Triton Ascend项目Fork到您自己的存储库。后续您将在自己Fork的项目上进行开发，并通过Pull Request的方式合并到Triton Ascend项目。这意味着Triton Ascend存储库和您自己的存储库之间存在并行开发，因此请注意保持存储库之间的一致性。"
+msgstr "Before submitting your code to the Triton Ascend project, please ensure that you have forked the Triton Ascend project to your own repository. You will then develop on your forked project and merge it into the Triton Ascend project via a Pull Request. This means there is parallel development between the Triton Ascend repository and your own repository, so please pay attention to maintaining consistency between the repositories."
+
+msgid "2、克隆远程仓库"
+msgstr "2. Clone the remote repository"
+
+msgid "使用git克隆您fork的Triton Ascend项目&添加上游仓库upstream："
+msgstr "Clone your forked Triton Ascend project using git and add the upstream repository:"
+
+msgid "3、本地环境开发代码"
+msgstr "3. Develop code in a local environment"
+
+msgid "在开发您的代码之前，您需要根据[Triton Ascend安装指南](https://github.com/triton-lang/triton-ascend/blob/main/docs/zh/installation_guide.md)搭建开发环境。"
+msgstr "Before developing your code, you need to set up the development environment according to the [Triton Ascend Installation Guide](https://github.com/triton-lang/triton-ascend/blob/main/docs/zh/installation_guide.md)."
+
+msgid "为避免多个分支间的不一致问题，请创建新的本地开发分支进行新特性的开发："
+msgstr "To avoid inconsistencies between multiple branches, please create a new local development branch for developing new features:"
+
+msgid "以main分支为例，Triton Ascend可能会根据需要创建版本分支或下游开发分支。当您创建完分支&同步上游main分支更新后，就可以开始开发您的代码了。"
+msgstr "Taking the main branch as an example, Triton Ascend may create version branches or downstream development branches as needed. Once you have created a branch and synchronized the upstream main branch updates, you can start developing your code."
+
+msgid "4、代码更改自测"
+msgstr "4. Self-testing of code changes"
+
+msgid "完成代码更改后，请检查您的更改是否可以通过测试："
+msgstr "After completing the code changes, please check whether your changes pass the tests."
+
+msgid "在本地代码分支的ascend/examples/pytest_ut路径下为您开发的代码编写测试用例代码，并在本地环境中验证您的测试脚本，确保您的更改可以通过测试。"
+msgstr "Write test case code for your developed code under the `ascend/examples/pytest_ut` path of the local code branch, and verify your test script in the local environment to ensure that your changes can pass the tests."
+
+msgid "5、代码推送到远程仓库"
+msgstr "5. Push the code to the remote repository"
+
+msgid "代码更新&测试完成后，推送您的commit到您的远程仓库。"
+msgstr "After code updates and testing are complete, push your commit to your remote repository."
+
+msgid "6、向Triton Ascend主仓创建拉取请求"
+msgstr "6. Create a pull request to the Triton Ascend main repository"
+
+msgid "代码推送至您的远程仓库后，您需要在您的新分支和Triton Ascend main分支之间新建Pull Request。完成新建合并请求后，“Jenkins CI“将自动设置为您构建流水线测试。您的Pull Request请尽快合并到上游main分支，以降低合并风险。"
+msgstr "After pushing the code to your remote repository, you need to create a Pull Request between your new branch and the Triton Ascend main branch. Once the merge request is created, \"Jenkins CI\" will be automatically set up to run your pipeline tests. Please merge your Pull Request into the upstream main branch as soon as possible to reduce merge risks."
+
+msgid "代码门禁异常主要包含以下几种情况，请根据相关提示信息解决门禁异常问题。"
+msgstr "Code access control anomalies mainly include the following situations. Please resolve the access control anomaly based on the relevant prompt information."
+
+msgid "编译失败"
+msgstr "Compilation failed"
+
+msgid "请根据提示信息，检查编译失败的原因，解决后重新编译即可 。"
+msgstr "Please check the cause of the compilation failure based on the prompt information, resolve it, and then recompile."
+
+msgid "静态检查失败"
+msgstr "Static check failed"
+
+msgid "请根据提示信息，查找出代码中的异常信息并解决。"
+msgstr "Please identify the exception information in the code based on the prompt and resolve it."
+
+msgid "CI流水线未通过"
+msgstr "CI pipeline failed"
+
+msgid "请根据提示信息，查找出CI流水线未通过的测试用例并检查原因，解决后重新运行CI流水线。"
+msgstr "Please follow the prompts to identify the test cases that failed in the CI pipeline, check the reasons, resolve them, and then rerun the CI pipeline."
+
+msgid "为项目做贡献的一个好的方法是在遇到问题时发送详细报告。我们总是非常感谢写得详细、彻底的错误报告，并会因此非常感谢您！"
+msgstr "A good way to contribute to a project is to send detailed reports when encountering issues. We always greatly appreciate well-written, thorough bug reports and will be very grateful to you for them!"
+
+msgid "在报告问题时，请参考以下格式："
+msgstr "When reporting issues, please refer to the following format:"
+
+msgid "您环境里使用的软件版本（Triton Ascend、python、os等）？"
+msgstr "What software versions are used in your environment (Triton Ascend, Python, OS, etc.)?"
+
+msgid "这是一个错误报告还是功能请求？"
+msgstr "Is this a bug report or a feature request?"
+
+msgid "您报告的是什么样的问题，添加对应的标签以便在问题仪表盘上突出显示？"
+msgstr "What kind of issue are you reporting? Add the corresponding label to highlight it on the issue dashboard."
+
+msgid "发生了什么？"
+msgstr "What happened?"
+
+msgid "您预计会发生什么？"
+msgstr "What do you expect to happen?"
+
+msgid "如何重现它？（尽可能精确）"
+msgstr "How to reproduce it? (As precisely as possible)"
+
+msgid "您也可以选择其中一个预定义的[issue填写模板](https://github.com/triton-lang/triton-ascend/issues/new/choose)"
+msgstr "You can also choose one of the predefined [issue templates](https://github.com/triton-lang/triton-ascend/issues/new/choose)."
+
+msgid "问题咨询："
+msgstr "Issue Consultation:"
+
+msgid "如果您发现一个未解决的问题，而这个问题正是您要解决的，请对该问题发表评论，告诉其他人您将负责这个问题。"
+msgstr "If you find an unresolved issue that you are going to address, please comment on that issue to let others know you will be working on it."
+
+msgid "如果问题已经打开一段时间，请您在解决该问题前进行预检查。"
+msgstr "If the issue has been open for a while, please perform a pre-check before resolving it."
+
+msgid "如果您解决了自己报告的问题，在关闭该问题前还需要让其他人知道。"
+msgstr "If you have resolved an issue you reported yourself, let others know before closing it."
+
+msgid "在[GitHub](https://github.com/triton-lang/triton-ascend)上提出您的想法作为问题。"
+msgstr "Submit your ideas as issues on [GitHub](https://github.com/triton-lang/triton-ascend)."
+
+msgid "如果要开发的新功能需要大量设计细节，您还应提交设计方案。"
+msgstr "If the new feature to be developed requires extensive design details, you should also submit a design proposal."
+
+msgid "在问题讨论和设计方案审查达成共识后，再进行fork开发并提交PR。"
+msgstr "After reaching consensus through problem discussion and design plan review, proceed with fork development and submit a PR."
+
+msgid "在从Approver那里收到2+LGTM（Looks Good To Me）前不允许任何PR 。请注意审批人不允许在自己的PR上添加LGTM。"
+msgstr "No PR is allowed until receiving 2+LGTM (Looks Good To Me) from Approvers. Note that approvers are not allowed to add LGTM to their own PRs."
+
+msgid "在PR被充分讨论后，将根据讨论结果对PR进行合并、拒绝或放弃。"
+msgstr "After the PR has been fully discussed, it will be merged, rejected, or abandoned based on the discussion results."
+
+msgid "注意事项"
+msgstr "Precautions"
+
+msgid "应避免任何不相关的更改。"
+msgstr "Avoid any irrelevant changes."
+
+msgid "确保您的提交历史是简洁有序的。"
+msgstr "Ensure your commit history is clean and organized."
+
+msgid "创建PR前请rebase上游仓库最新代码。"
+msgstr "Before creating a PR, please rebase the latest code from the upstream repository."
+
+msgid "对于错误修复 PR，请确保链接所有相关Issue 和 PR。"
+msgstr "For bug fix PRs, please ensure linking all related Issues and PRs."
+
+msgid "Contributors"
+msgstr "Contributors"
+
+msgid "Every release of Triton-Ascend would not have been possible without the following contributors:"
+msgstr "Every release of Triton-Ascend would not have been possible without the following contributors:"
+
+msgid "Updated on 2026-05-06:"
+msgstr "Updated on 2026-05-06"
+
+msgid "No."
+msgstr "No."
+
+msgid "Contributor"
+msgstr "Contributor"
+
+msgid "First Contribution Date"
+msgstr "First Contribution Date"
+
+msgid "PR"
+msgstr "PR"
+
+msgid "149"
+msgstr "149"
+
+msgid "[ggppff24](https://gitcode.com/ggppff24)"
+msgstr "[ggppff24](https://gitcode.com/ggppff24)"
+
+msgid "2026-05-06"
+msgstr "2026-05-06"
+
+msgid "[#1769](https://gitcode.com/Ascend/triton-ascend/merge_requests/1769)"
+msgstr "[#1769](https://gitcode.com/Ascend/triton-ascend/merge_requests/1769)"
+
+msgid "148"
+msgstr "148"
+
+msgid "[wxlong_ustc](https://gitcode.com/wxlong_ustc)"
+msgstr "[wxlong_ustc](https://gitcode.com/wxlong_ustc)"
+
+msgid "2026-04-29"
+msgstr "2026-04-29"
+
+msgid "[#1733](https://gitcode.com/Ascend/triton-ascend/merge_requests/1733)"
+msgstr "[#1733](https://gitcode.com/Ascend/triton-ascend/merge_requests/1733)"
+
+msgid "147"
+msgstr "147"
+
+msgid "[liwei571](https://gitcode.com/liwei571)"
+msgstr "[liwei571](https://gitcode.com/liwei571)"
+
+msgid "[#1740](https://gitcode.com/Ascend/triton-ascend/merge_requests/1740)"
+msgstr "[#1740](https://gitcode.com/Ascend/triton-ascend/merge_requests/1740)"
+
+msgid "146"
+msgstr "146"
+
+msgid "[WangYiMou](https://gitcode.com/WangYiMou)"
+msgstr "[WangYiMou](https://gitcode.com/WangYiMou)"
+
+msgid "2026-04-28"
+msgstr "2026-04-28"
+
+msgid "[#1697](https://gitcode.com/Ascend/triton-ascend/merge_requests/1697)"
+msgstr "[#1697](https://gitcode.com/Ascend/triton-ascend/merge_requests/1697)"
+
+msgid "145"
+msgstr "145"
+
+msgid "[Four1er](https://gitcode.com/Four1er)"
+msgstr "[Four1er](https://gitcode.com/Four1er)"
+
+msgid "[#1742](https://gitcode.com/Ascend/triton-ascend/merge_requests/1742)"
+msgstr "[#1742](https://gitcode.com/Ascend/triton-ascend/merge_requests/1742)"
+
+msgid "144"
+msgstr "144"
+
+msgid "[gcw_LcYTzRJy](https://gitcode.com/gcw_LcYTzRJy)"
+msgstr "[gcw_LcYTzRJy](https://gitcode.com/gcw_LcYTzRJy)"
+
+msgid "2026-04-27"
+msgstr "2026-04-27"
+
+msgid "[#1690](https://gitcode.com/Ascend/triton-ascend/merge_requests/1690)"
+msgstr "[#1690](https://gitcode.com/Ascend/triton-ascend/merge_requests/1690)"
+
+msgid "143"
+msgstr "143"
+
+msgid "[zhaojiqiao](https://gitcode.com/zhaojiqiao)"
+msgstr "[zhaojiqiao](https://gitcode.com/zhaojiqiao)"
+
+msgid "[#1722](https://gitcode.com/Ascend/triton-ascend/merge_requests/1722)"
+msgstr "[#1722](https://gitcode.com/Ascend/triton-ascend/merge_requests/1722)"
+
+msgid "142"
+msgstr "142"
+
+msgid "[andreybokhanko](https://gitcode.com/andreybokhanko)"
+msgstr "[andreybokhanko](https://gitcode.com/andreybokhanko)"
+
+msgid "[#1675](https://gitcode.com/Ascend/triton-ascend/merge_requests/1675)"
+msgstr "[#1675](https://gitcode.com/Ascend/triton-ascend/merge_requests/1675)"
+
+msgid "141"
+msgstr "141"
+
+msgid "[weizhan4](https://gitcode.com/weizhan4)"
+msgstr "[weizhan4](https://gitcode.com/weizhan4)"
+
+msgid "2026-04-25"
+msgstr "2026-04-25"
+
+msgid "[#1702](https://gitcode.com/Ascend/triton-ascend/merge_requests/1702)"
+msgstr "[#1702](https://gitcode.com/Ascend/triton-ascend/merge_requests/1702)"
+
+msgid "140"
+msgstr "140"
+
+msgid "[Sky_miner](https://gitcode.com/Sky_miner)"
+msgstr "[Sky_miner](https://gitcode.com/Sky_miner)"
+
+msgid "2026-04-24"
+msgstr "2026-04-24"
+
+msgid "[#1680](https://gitcode.com/Ascend/triton-ascend/merge_requests/1680)"
+msgstr "[#1680](https://gitcode.com/Ascend/triton-ascend/merge_requests/1680)"
+
+msgid "139"
+msgstr "139"
+
+msgid "[zhangchaofan](https://gitcode.com/zhangchaofan)"
+msgstr "[zhangchaofan](https://gitcode.com/zhangchaofan)"
+
+msgid "2026-04-22"
+msgstr "2026-04-22"
+
+msgid "[#1265](https://gitcode.com/Ascend/triton-ascend/merge_requests/1265)"
+msgstr "[#1265](https://gitcode.com/Ascend/triton-ascend/merge_requests/1265)"
+
+msgid "138"
+msgstr "138"
+
+msgid "[yuanjingya](https://gitcode.com/yuanjingya)"
+msgstr "[yuanjingya](https://gitcode.com/yuanjingya)"
+
+msgid "[#1638](https://gitcode.com/Ascend/triton-ascend/merge_requests/1638)"
+msgstr "[#1638](https://gitcode.com/Ascend/triton-ascend/merge_requests/1638)"
+
+msgid "137"
+msgstr "137"
+
+msgid "[shi-yufeng99](https://gitcode.com/shi-yufeng99)"
+msgstr "[shi-yufeng99](https://gitcode.com/shi-yufeng99)"
+
+msgid "2026-04-13"
+msgstr "2026-04-13"
+
+msgid "[#1570](https://gitcode.com/Ascend/triton-ascend/merge_requests/1570)"
+msgstr "[#1570](https://gitcode.com/Ascend/triton-ascend/merge_requests/1570)"
+
+msgid "136"
+msgstr "136"
+
+msgid "[zaq15csdn](https://gitcode.com/zaq15csdn)"
+msgstr "[zaq15csdn](https://gitcode.com/zaq15csdn)"
+
+msgid "2026-04-11"
+msgstr "2026-04-11"
+
+msgid "[#1593](https://gitcode.com/Ascend/triton-ascend/merge_requests/1593)"
+msgstr "[#1593](https://gitcode.com/Ascend/triton-ascend/merge_requests/1593)"
+
+msgid "135"
+msgstr "135"
+
+msgid "[wuyao51511](https://gitcode.com/wuyao51511)"
+msgstr "[wuyao51511](https://gitcode.com/wuyao51511)"
+
+msgid "2026-04-10"
+msgstr "2026-04-10"
+
+msgid "[#1592](https://gitcode.com/Ascend/triton-ascend/merge_requests/1592)"
+msgstr "[#1592](https://gitcode.com/Ascend/triton-ascend/merge_requests/1592)"
+
+msgid "134"
+msgstr "134"
+
+msgid "[jtaizhang](https://gitcode.com/jtaizhang)"
+msgstr "[jtaizhang](https://gitcode.com/jtaizhang)"
+
+msgid "2026-04-08"
+msgstr "2026-04-08"
+
+msgid "[#1575](https://gitcode.com/Ascend/triton-ascend/merge_requests/1575)"
+msgstr "[#1575](https://gitcode.com/Ascend/triton-ascend/merge_requests/1575)"
+
+msgid "133"
+msgstr "133"
+
+msgid "[jjin_750629](https://gitcode.com/jjin_750629)"
+msgstr "[jjin_750629](https://gitcode.com/jjin_750629)"
+
+msgid "2026-04-07"
+msgstr "2026-04-07"
+
+msgid "[#1498](https://gitcode.com/Ascend/triton-ascend/merge_requests/1498)"
+msgstr "[#1498](https://gitcode.com/Ascend/triton-ascend/merge_requests/1498)"
+
+msgid "132"
+msgstr "132"
+
+msgid "[lbqg](https://gitcode.com/lbqg)"
+msgstr "[lbqg](https://gitcode.com/lbqg)"
+
+msgid "2026-04-02"
+msgstr "2026-04-02"
+
+msgid "[#1506](https://gitcode.com/Ascend/triton-ascend/merge_requests/1506)"
+msgstr "[#1506](https://gitcode.com/Ascend/triton-ascend/merge_requests/1506)"
+
+msgid "131"
+msgstr "131"
+
+msgid "[huangyujun123](https://gitcode.com/huangyujun123)"
+msgstr "[huangyujun123](https://gitcode.com/huangyujun123)"
+
+msgid "2026-03-31"
+msgstr "2026-03-31"
+
+msgid "[#1505](https://gitcode.com/Ascend/triton-ascend/merge_requests/1505)"
+msgstr "[#1505](https://gitcode.com/Ascend/triton-ascend/merge_requests/1505)"
+
+msgid "130"
+msgstr "130"
+
+msgid "[danielcm585](https://gitcode.com/danielcm585)"
+msgstr "[danielcm585](https://gitcode.com/danielcm585)"
+
+msgid "2026-03-26"
+msgstr "2026-03-26"
+
+msgid "[#1444](https://gitcode.com/Ascend/triton-ascend/merge_requests/1444)"
+msgstr "[#1444](https://gitcode.com/Ascend/triton-ascend/merge_requests/1444)"
+
+msgid "129"
+msgstr "129"
+
+msgid "[OliverCWY](https://gitcode.com/OliverCWY)"
+msgstr "[OliverCWY](https://gitcode.com/OliverCWY)"
+
+msgid "[#1441](https://gitcode.com/Ascend/triton-ascend/merge_requests/1441)"
+msgstr "[#1441](https://gitcode.com/Ascend/triton-ascend/merge_requests/1441)"
+
+msgid "128"
+msgstr "128"
+
+msgid "[cxtverygood123](https://gitcode.com/cxtverygood123)"
+msgstr "[cxtverygood123](https://gitcode.com/cxtverygood123)"
+
+msgid "[#1459](https://gitcode.com/Ascend/triton-ascend/merge_requests/1459)"
+msgstr "[#1459](https://gitcode.com/Ascend/triton-ascend/merge_requests/1459)"
+
+msgid "127"
+msgstr "127"
+
+msgid "[shaoyiyang](https://gitcode.com/shaoyiyang)"
+msgstr "[shaoyiyang](https://gitcode.com/shaoyiyang)"
+
+msgid "2026-03-21"
+msgstr "2026-03-21"
+
+msgid "[#1429](https://gitcode.com/Ascend/triton-ascend/merge_requests/1429)"
+msgstr "[#1429](https://gitcode.com/Ascend/triton-ascend/merge_requests/1429)"
+
+msgid "126"
+msgstr "126"
+
+msgid "[xiechenye](https://gitcode.com/xiechenye)"
+msgstr "[xiechenye](https://gitcode.com/xiechenye)"
+
+msgid "2026-03-20"
+msgstr "2026-03-20"
+
+msgid "[#1407](https://gitcode.com/Ascend/triton-ascend/merge_requests/1407)"
+msgstr "[#1407](https://gitcode.com/Ascend/triton-ascend/merge_requests/1407)"
+
+msgid "125"
+msgstr "125"
+
+msgid "[wuzw_05](https://gitcode.com/wuzw_05)"
+msgstr "[wuzw_05](https://gitcode.com/wuzw_05)"
+
+msgid "[#1418](https://gitcode.com/Ascend/triton-ascend/merge_requests/1418)"
+msgstr "[#1418](https://gitcode.com/Ascend/triton-ascend/merge_requests/1418)"
+
+msgid "124"
+msgstr "124"
+
+msgid "[Zackc](https://gitcode.com/Zackc)"
+msgstr "[Zackc](https://gitcode.com/Zackc)"
+
+msgid "[#1394](https://gitcode.com/Ascend/triton-ascend/merge_requests/1394)"
+msgstr "[#1394](https://gitcode.com/Ascend/triton-ascend/merge_requests/1394)"
+
+msgid "123"
+msgstr "123"
+
+msgid "[Wangxiaoshuai2](https://gitcode.com/Wangxiaoshuai2)"
+msgstr "[Wangxiaoshuai2](https://gitcode.com/Wangxiaoshuai2)"
+
+msgid "2026-03-18"
+msgstr "2026-03-18"
+
+msgid "[#1402](https://gitcode.com/Ascend/triton-ascend/merge_requests/1402)"
+msgstr "[#1402](https://gitcode.com/Ascend/triton-ascend/merge_requests/1402)"
+
+msgid "122"
+msgstr "122"
+
+msgid "[Levein](https://gitcode.com/Levein)"
+msgstr "[Levein](https://gitcode.com/Levein)"
+
+msgid "2026-03-16"
+msgstr "2026-03-16"
+
+msgid "[#1389](https://gitcode.com/Ascend/triton-ascend/merge_requests/1389)"
+msgstr "[#1389](https://gitcode.com/Ascend/triton-ascend/merge_requests/1389)"
+
+msgid "121"
+msgstr "121"
+
+msgid "[ciggaco](https://gitcode.com/ciggaco)"
+msgstr "[ciggaco](https://gitcode.com/ciggaco)"
+
+msgid "2026-03-13"
+msgstr "2026-03-13"
+
+msgid "[#1375](https://gitcode.com/Ascend/triton-ascend/merge_requests/1375)"
+msgstr "[#1375](https://gitcode.com/Ascend/triton-ascend/merge_requests/1375)"
+
+msgid "120"
+msgstr "120"
+
+msgid "[ZhaoWentengZWT](https://gitcode.com/ZhaoWentengZWT)"
+msgstr "[ZhaoWentengZWT](https://gitcode.com/ZhaoWentengZWT)"
+
+msgid "2026-03-10"
+msgstr "2026-03-10"
+
+msgid "[#1367](https://gitcode.com/Ascend/triton-ascend/merge_requests/1367)"
+msgstr "[#1367](https://gitcode.com/Ascend/triton-ascend/merge_requests/1367)"
+
+msgid "119"
+msgstr "119"
+
+msgid "[qq_43310834](https://gitcode.com/qq_43310834)"
+msgstr "[qq_43310834](https://gitcode.com/qq_43310834)"
+
+msgid "2026-03-09"
+msgstr "2026-03-09"
+
+msgid "[#1362](https://gitcode.com/Ascend/triton-ascend/merge_requests/1362)"
+msgstr "[#1362](https://gitcode.com/Ascend/triton-ascend/merge_requests/1362)"
+
+msgid "118"
+msgstr "118"
+
+msgid "[xlinn](https://gitcode.com/xlinn)"
+msgstr "[xlinn](https://gitcode.com/xlinn)"
+
+msgid "2026-02-26"
+msgstr "2026-02-26"
+
+msgid "[#1300](https://gitcode.com/Ascend/triton-ascend/merge_requests/1300)"
+msgstr "[#1300](https://gitcode.com/Ascend/triton-ascend/merge_requests/1300)"
+
+msgid "117"
+msgstr "117"
+
+msgid "[MaxYy](https://gitcode.com/MaxYy)"
+msgstr "[MaxYy](https://gitcode.com/MaxYy)"
+
+msgid "[#1292](https://gitcode.com/Ascend/triton-ascend/merge_requests/1292)"
+msgstr "[#1292](https://gitcode.com/Ascend/triton-ascend/merge_requests/1292)"
+
+msgid "116"
+msgstr "116"
+
+msgid "[jeanniely](https://gitcode.com/jeanniely)"
+msgstr "[jeanniely](https://gitcode.com/jeanniely)"
+
+msgid "[#1276](https://gitcode.com/Ascend/triton-ascend/merge_requests/1276)"
+msgstr "[#1276](https://gitcode.com/Ascend/triton-ascend/merge_requests/1276)"
+
+msgid "115"
+msgstr "115"
+
+msgid "[elizavetaV](https://gitcode.com/elizavetaV)"
+msgstr "[elizavetaV](https://gitcode.com/elizavetaV)"
+
+msgid "2026-02-25"
+msgstr "2026-02-25"
+
+msgid "[#1255](https://gitcode.com/Ascend/triton-ascend/merge_requests/1255)"
+msgstr "[#1255](https://gitcode.com/Ascend/triton-ascend/merge_requests/1255)"
+
+msgid "114"
+msgstr "114"
+
+msgid "[wuzhenqing](https://gitcode.com/wuzhenqing)"
+msgstr "[wuzhenqing](https://gitcode.com/wuzhenqing)"
+
+msgid "[#1291](https://gitcode.com/Ascend/triton-ascend/merge_requests/1291)"
+msgstr "[#1291](https://gitcode.com/Ascend/triton-ascend/merge_requests/1291)"
+
+msgid "113"
+msgstr "113"
+
+msgid "[tsczajkowski_2025](https://gitcode.com/tsczajkowski_2025)"
+msgstr "[tsczajkowski_2025](https://gitcode.com/tsczajkowski_2025)"
+
+msgid "2026-02-05"
+msgstr "2026-02-05"
+
+msgid "[#1246](https://gitcode.com/Ascend/triton-ascend/merge_requests/1246)"
+msgstr "[#1246](https://gitcode.com/Ascend/triton-ascend/merge_requests/1246)"
+
+msgid "112"
+msgstr "112"
+
+msgid "[xuweixin_](https://gitcode.com/xuweixin_)"
+msgstr "[xuweixin_](https://gitcode.com/xuweixin_)"
+
+msgid "2026-01-27"
+msgstr "2026-01-27"
+
+msgid "[#1160](https://gitcode.com/Ascend/triton-ascend/merge_requests/1160)"
+msgstr "[#1160](https://gitcode.com/Ascend/triton-ascend/merge_requests/1160)"
+
+msgid "111"
+msgstr "111"
+
+msgid "[Zz_zl](https://gitcode.com/Zz_zl)"
+msgstr "[Zz_zl](https://gitcode.com/Zz_zl)"
+
+msgid "[#1189](https://gitcode.com/Ascend/triton-ascend/merge_requests/1189)"
+msgstr "[#1189](https://gitcode.com/Ascend/triton-ascend/merge_requests/1189)"
+
+msgid "110"
+msgstr "110"
+
+msgid "[Ritsuka314](https://gitcode.com/Ritsuka314)"
+msgstr "[Ritsuka314](https://gitcode.com/Ritsuka314)"
+
+msgid "2026-01-21"
+msgstr "2026-01-21"
+
+msgid "[#720](https://gitcode.com/Ascend/triton-ascend/merge_requests/720)"
+msgstr "[#720](https://gitcode.com/Ascend/triton-ascend/merge_requests/720)"
+
+msgid "109"
+msgstr "109"
+
+msgid "[wrq_0425](https://gitcode.com/wrq_0425)"
+msgstr "[wrq_0425](https://gitcode.com/wrq_0425)"
+
+msgid "[#1129](https://gitcode.com/Ascend/triton-ascend/merge_requests/1129)"
+msgstr "[#1129](https://gitcode.com/Ascend/triton-ascend/merge_requests/1129)"
+
+msgid "108"
+msgstr "108"
+
+msgid "[hua_yc](https://gitcode.com/hua_yc)"
+msgstr "[hua_yc](https://gitcode.com/hua_yc)"
+
+msgid "[#1127](https://gitcode.com/Ascend/triton-ascend/merge_requests/1127)"
+msgstr "[#1127](https://gitcode.com/Ascend/triton-ascend/merge_requests/1127)"
+
+msgid "107"
+msgstr "107"
+
+msgid "[stonexxx](https://gitcode.com/stonexxx)"
+msgstr "[stonexxx](https://gitcode.com/stonexxx)"
+
+msgid "[#1151](https://gitcode.com/Ascend/triton-ascend/merge_requests/1151)"
+msgstr "[#1151](https://gitcode.com/Ascend/triton-ascend/merge_requests/1151)"
+
+msgid "106"
+msgstr "106"
+
+msgid "[wen_xiang_zou_admin](https://gitcode.com/wen_xiang_zou_admin)"
+msgstr "[wen_xiang_zou_admin](https://gitcode.com/wen_xiang_zou_admin)"
+
+msgid "2026-01-20"
+msgstr "2026-01-20"
+
+msgid "[#1095](https://gitcode.com/Ascend/triton-ascend/merge_requests/1095)"
+msgstr "[#1095](https://gitcode.com/Ascend/triton-ascend/merge_requests/1095)"
+
+msgid "105"
+msgstr "105"
+
+msgid "[HinPeng](https://gitcode.com/HinPeng)"
+msgstr "[HinPeng](https://gitcode.com/HinPeng)"
+
+msgid "[#1132](https://gitcode.com/Ascend/triton-ascend/merge_requests/1132)"
+msgstr "[#1132](https://gitcode.com/Ascend/triton-ascend/merge_requests/1132)"
+
+msgid "104"
+msgstr "104"
+
+msgid "[high-cloud](https://gitcode.com/high-cloud)"
+msgstr "[high-cloud](https://gitcode.com/high-cloud)"
+
+msgid "2026-01-19"
+msgstr "2026-01-19"
+
+msgid "[#1058](https://gitcode.com/Ascend/triton-ascend/merge_requests/1058)"
+msgstr "[#1058](https://gitcode.com/Ascend/triton-ascend/merge_requests/1058)"
+
+msgid "103"
+msgstr "103"
+
+msgid "[szhewei](https://gitcode.com/szhewei)"
+msgstr "[szhewei](https://gitcode.com/szhewei)"
+
+msgid "2026-01-16"
+msgstr "2026-01-16"
+
+msgid "[#1084](https://gitcode.com/Ascend/triton-ascend/merge_requests/1084)"
+msgstr "[#1084](https://gitcode.com/Ascend/triton-ascend/merge_requests/1084)"
+
+msgid "102"
+msgstr "102"
+
+msgid "[Alae-eddine](https://gitcode.com/Alae-eddine)"
+msgstr "[Alae-eddine](https://gitcode.com/Alae-eddine)"
+
+msgid "2026-01-14"
+msgstr "2026-01-14"
+
+msgid "[#1097](https://gitcode.com/Ascend/triton-ascend/merge_requests/1097)"
+msgstr "[#1097](https://gitcode.com/Ascend/triton-ascend/merge_requests/1097)"
+
+msgid "101"
+msgstr "101"
+
+msgid "[jqran](https://gitcode.com/jqran)"
+msgstr "[jqran](https://gitcode.com/jqran)"
+
+msgid "2026-01-13"
+msgstr "2026-01-13"
+
+msgid "[#1073](https://gitcode.com/Ascend/triton-ascend/merge_requests/1073)"
+msgstr "[#1073](https://gitcode.com/Ascend/triton-ascend/merge_requests/1073)"
+
+msgid "100"
+msgstr "100"
+
+msgid "[f42e278](https://gitcode.com/f42e278)"
+msgstr "[f42e278](https://gitcode.com/f42e278)"
+
+msgid "[#1054](https://gitcode.com/Ascend/triton-ascend/merge_requests/1054)"
+msgstr "[#1054](https://gitcode.com/Ascend/triton-ascend/merge_requests/1054)"
+
+msgid "99"
+msgstr "99"
+
+msgid "[zhengqishui1](https://gitcode.com/zhengqishui1)"
+msgstr "[zhengqishui1](https://gitcode.com/zhengqishui1)"
+
+msgid "[#1081](https://gitcode.com/Ascend/triton-ascend/merge_requests/1081)"
+msgstr "[#1081](https://gitcode.com/Ascend/triton-ascend/merge_requests/1081)"
+
+msgid "98"
+msgstr "98"
+
+msgid "[zircon_wang](https://gitcode.com/zircon_wang)"
+msgstr "[zircon_wang](https://gitcode.com/zircon_wang)"
+
+msgid "[#1079](https://gitcode.com/Ascend/triton-ascend/merge_requests/1079)"
+msgstr "[#1079](https://gitcode.com/Ascend/triton-ascend/merge_requests/1079)"
+
+msgid "97"
+msgstr "97"
+
+msgid "[Jemtaly](https://gitcode.com/Jemtaly)"
+msgstr "[Jemtaly](https://gitcode.com/Jemtaly)"
+
+msgid "2026-01-12"
+msgstr "2026-01-12"
+
+msgid "[#1076](https://gitcode.com/Ascend/triton-ascend/merge_requests/1076)"
+msgstr "[#1076](https://gitcode.com/Ascend/triton-ascend/merge_requests/1076)"
+
+msgid "96"
+msgstr "96"
+
+msgid "[nanalin](https://gitcode.com/nanalin)"
+msgstr "[nanalin](https://gitcode.com/nanalin)"
+
+msgid "[#1059](https://gitcode.com/Ascend/triton-ascend/merge_requests/1059)"
+msgstr "[#1059](https://gitcode.com/Ascend/triton-ascend/merge_requests/1059)"
+
+msgid "95"
+msgstr "95"
+
+msgid "[noodleslx](https://gitcode.com/noodleslx)"
+msgstr "[noodleslx](https://gitcode.com/noodleslx)"
+
+msgid "2026-01-10"
+msgstr "2026-01-10"
+
+msgid "[#1075](https://gitcode.com/Ascend/triton-ascend/merge_requests/1075)"
+msgstr "[#1075](https://gitcode.com/Ascend/triton-ascend/merge_requests/1075)"
+
+msgid "94"
+msgstr "94"
+
+msgid "[liheng1234](https://gitcode.com/liheng1234)"
+msgstr "[liheng1234](https://gitcode.com/liheng1234)"
+
+msgid "2026-01-09"
+msgstr "2026-01-09"
+
+msgid "[#1049](https://gitcode.com/Ascend/triton-ascend/merge_requests/1049)"
+msgstr "[#1049](https://gitcode.com/Ascend/triton-ascend/merge_requests/1049)"
+
+msgid "93"
+msgstr "93"
+
+msgid "[hocky](https://gitcode.com/hocky)"
+msgstr "[hocky](https://gitcode.com/hocky)"
+
+msgid "2026-01-07"
+msgstr "2026-01-07"
+
+msgid "[#1021](https://gitcode.com/Ascend/triton-ascend/merge_requests/1021)"
+msgstr "[#1021](https://gitcode.com/Ascend/triton-ascend/merge_requests/1021)"
+
+msgid "92"
+msgstr "92"
+
+msgid "[zhudada](https://gitcode.com/zhudada)"
+msgstr "[zhudada](https://gitcode.com/zhudada)"
+
+msgid "[#1053](https://gitcode.com/Ascend/triton-ascend/merge_requests/1053)"
+msgstr "[#1053](https://gitcode.com/Ascend/triton-ascend/merge_requests/1053)"
+
+msgid "91"
+msgstr "91"
+
+msgid "[lipschitz_von](https://gitcode.com/lipschitz_von)"
+msgstr "[lipschitz_von](https://gitcode.com/lipschitz_von)"
+
+msgid "2026-01-06"
+msgstr "2026-01-06"
+
+msgid "[#1041](https://gitcode.com/Ascend/triton-ascend/merge_requests/1041)"
+msgstr "[#1041](https://gitcode.com/Ascend/triton-ascend/merge_requests/1041)"
+
+msgid "90"
+msgstr "90"
+
+msgid "[hbhu_bin](https://gitcode.com/hbhu_bin)"
+msgstr "[hbhu_bin](https://gitcode.com/hbhu_bin)"
+
+msgid "2026-01-04"
+msgstr "2026-01-04"
+
+msgid "[#1009](https://gitcode.com/Ascend/triton-ascend/merge_requests/1009)"
+msgstr "[#1009](https://gitcode.com/Ascend/triton-ascend/merge_requests/1009)"
+
+msgid "89"
+msgstr "89"
+
+msgid "[uladz](https://gitcode.com/uladz)"
+msgstr "[uladz](https://gitcode.com/uladz)"
+
+msgid "2025-12-23"
+msgstr "2025-12-23"
+
+msgid "[#938](https://gitcode.com/Ascend/triton-ascend/merge_requests/938)"
+msgstr "[#938](https://gitcode.com/Ascend/triton-ascend/merge_requests/938)"
+
+msgid "88"
+msgstr "88"
+
+msgid "[zhaojingkai](https://gitcode.com/zhaojingkai)"
+msgstr "[zhaojingkai](https://gitcode.com/zhaojingkai)"
+
+msgid "2025-12-22"
+msgstr "2025-12-22"
+
+msgid "[#918](https://gitcode.com/Ascend/triton-ascend/merge_requests/918)"
+msgstr "[#918](https://gitcode.com/Ascend/triton-ascend/merge_requests/918)"
+
+msgid "87"
+msgstr "87"
+
+msgid "[ardazishvili](https://gitcode.com/ardazishvili)"
+msgstr "[ardazishvili](https://gitcode.com/ardazishvili)"
+
+msgid "2025-12-19"
+msgstr "2025-12-19"
+
+msgid "[#934](https://gitcode.com/Ascend/triton-ascend/merge_requests/934)"
+msgstr "[#934](https://gitcode.com/Ascend/triton-ascend/merge_requests/934)"
+
+msgid "86"
+msgstr "86"
+
+msgid "[jeshd](https://gitcode.com/jeshd)"
+msgstr "[jeshd](https://gitcode.com/jeshd)"
+
+msgid "2025-12-03"
+msgstr "2025-12-03"
+
+msgid "[#823](https://gitcode.com/Ascend/triton-ascend/merge_requests/823)"
+msgstr "[#823](https://gitcode.com/Ascend/triton-ascend/merge_requests/823)"
+
+msgid "85"
+msgstr "85"
+
+msgid "[chongweizhi](https://gitcode.com/chongweizhi)"
+msgstr "[chongweizhi](https://gitcode.com/chongweizhi)"
+
+msgid "2025-11-27"
+msgstr "2025-11-27"
+
+msgid "[#807](https://gitcode.com/Ascend/triton-ascend/merge_requests/807)"
+msgstr "[#807](https://gitcode.com/Ascend/triton-ascend/merge_requests/807)"
+
+msgid "84"
+msgstr "84"
+
+msgid "[BaiSifan](https://gitcode.com/BaiSifan)"
+msgstr "[BaiSifan](https://gitcode.com/BaiSifan)"
+
+msgid "2025-11-25"
+msgstr "2025-11-25"
+
+msgid "[#797](https://gitcode.com/Ascend/triton-ascend/merge_requests/797)"
+msgstr "[#797](https://gitcode.com/Ascend/triton-ascend/merge_requests/797)"
+
+msgid "83"
+msgstr "83"
+
+msgid "[weilinquan](https://gitcode.com/weilinquan)"
+msgstr "[weilinquan](https://gitcode.com/weilinquan)"
+
+msgid "2025-11-18"
+msgstr "2025-11-18"
+
+msgid "[#739](https://gitcode.com/Ascend/triton-ascend/merge_requests/739)"
+msgstr "[#739](https://gitcode.com/Ascend/triton-ascend/merge_requests/739)"
+
+msgid "82"
+msgstr "82"
+
+msgid "[vgaskov](https://gitcode.com/vgaskov)"
+msgstr "[vgaskov](https://gitcode.com/vgaskov)"
+
+msgid "2025-11-17"
+msgstr "2025-11-17"
+
+msgid "[#748](https://gitcode.com/Ascend/triton-ascend/merge_requests/748)"
+msgstr "[#748](https://gitcode.com/Ascend/triton-ascend/merge_requests/748)"
+
+msgid "81"
+msgstr "81"
+
+msgid "[LH_123L](https://gitcode.com/LH_123L)"
+msgstr "[LH_123L](https://gitcode.com/LH_123L)"
+
+msgid "[#747](https://gitcode.com/Ascend/triton-ascend/merge_requests/747)"
+msgstr "[#747](https://gitcode.com/Ascend/triton-ascend/merge_requests/747)"
+
+msgid "80"
+msgstr "80"
+
+msgid "[hongshiyi](https://gitcode.com/hongshiyi)"
+msgstr "[hongshiyi](https://gitcode.com/hongshiyi)"
+
+msgid "2025-11-11"
+msgstr "2025-11-11"
+
+msgid "[#715](https://gitcode.com/Ascend/triton-ascend/merge_requests/715)"
+msgstr "[#715](https://gitcode.com/Ascend/triton-ascend/merge_requests/715)"
+
+msgid "79"
+msgstr "79"
+
+msgid "[wutianyao](https://gitcode.com/wutianyao)"
+msgstr "[wutianyao](https://gitcode.com/wutianyao)"
+
+msgid "2025-11-08"
+msgstr "2025-11-08"
+
+msgid "[#691](https://gitcode.com/Ascend/triton-ascend/merge_requests/691)"
+msgstr "[#691](https://gitcode.com/Ascend/triton-ascend/merge_requests/691)"
+
+msgid "78"
+msgstr "78"
+
+msgid "[luobaiqing](https://gitcode.com/luobaiqing)"
+msgstr "[luobaiqing](https://gitcode.com/luobaiqing)"
+
+msgid "2025-11-03"
+msgstr "2025-11-03"
+
+msgid "[#655](https://gitcode.com/Ascend/triton-ascend/merge_requests/655)"
+msgstr "[#655](https://gitcode.com/Ascend/triton-ascend/merge_requests/655)"
+
+msgid "77"
+msgstr "77"
+
+msgid "[jy834507063](https://gitcode.com/jy834507063)"
+msgstr "[jy834507063](https://gitcode.com/jy834507063)"
+
+msgid "2025-10-30"
+msgstr "2025-10-30"
+
+msgid "[#647](https://gitcode.com/Ascend/triton-ascend/merge_requests/647)"
+msgstr "[#647](https://gitcode.com/Ascend/triton-ascend/merge_requests/647)"
+
+msgid "76"
+msgstr "76"
+
+msgid "[AhmedYaser](https://gitcode.com/AhmedYaser)"
+msgstr "[AhmedYaser](https://gitcode.com/AhmedYaser)"
+
+msgid "[#619](https://gitcode.com/Ascend/triton-ascend/merge_requests/619)"
+msgstr "[#619](https://gitcode.com/Ascend/triton-ascend/merge_requests/619)"
+
+msgid "75"
+msgstr "75"
+
+msgid "[AmmarDab3an](https://gitcode.com/AmmarDab3an)"
+msgstr "[AmmarDab3an](https://gitcode.com/AmmarDab3an)"
+
+msgid "2025-10-29"
+msgstr "2025-10-29"
+
+msgid "[#646](https://gitcode.com/Ascend/triton-ascend/merge_requests/646)"
+msgstr "[#646](https://gitcode.com/Ascend/triton-ascend/merge_requests/646)"
+
+msgid "74"
+msgstr "74"
+
+msgid "[gymgit1](https://gitcode.com/gymgit1)"
+msgstr "[gymgit1](https://gitcode.com/gymgit1)"
+
+msgid "2025-10-25"
+msgstr "2025-10-25"
+
+msgid "[#620](https://gitcode.com/Ascend/triton-ascend/merge_requests/620)"
+msgstr "[#620](https://gitcode.com/Ascend/triton-ascend/merge_requests/620)"
+
+msgid "73"
+msgstr "73"
+
+msgid "[alankadiev](https://gitcode.com/alankadiev)"
+msgstr "[alankadiev](https://gitcode.com/alankadiev)"
+
+msgid "2025-10-23"
+msgstr "2025-10-23"
+
+msgid "[#583](https://gitcode.com/Ascend/triton-ascend/merge_requests/583)"
+msgstr "[#583](https://gitcode.com/Ascend/triton-ascend/merge_requests/583)"
+
+msgid "72"
+msgstr "72"
+
+msgid "[zhaojieshan](https://gitcode.com/zhaojieshan)"
+msgstr "[zhaojieshan](https://gitcode.com/zhaojieshan)"
+
+msgid "2025-10-21"
+msgstr "2025-10-21"
+
+msgid "[#595](https://gitcode.com/Ascend/triton-ascend/merge_requests/595)"
+msgstr "[#595](https://gitcode.com/Ascend/triton-ascend/merge_requests/595)"
+
+msgid "71"
+msgstr "71"
+
+msgid "[dainbow](https://gitcode.com/dainbow)"
+msgstr "[dainbow](https://gitcode.com/dainbow)"
+
+msgid "2025-10-14"
+msgstr "2025-10-14"
+
+msgid "[#541](https://gitcode.com/Ascend/triton-ascend/merge_requests/541)"
+msgstr "[#541](https://gitcode.com/Ascend/triton-ascend/merge_requests/541)"
+
+msgid "70"
+msgstr "70"
+
+msgid "[lichengfeng497](https://gitcode.com/lichengfeng497)"
+msgstr "[lichengfeng497](https://gitcode.com/lichengfeng497)"
+
+msgid "[#555](https://gitcode.com/Ascend/triton-ascend/merge_requests/555)"
+msgstr "[#555](https://gitcode.com/Ascend/triton-ascend/merge_requests/555)"
+
+msgid "69"
+msgstr "69"
+
+msgid "[shenzhaofeng](https://gitcode.com/shenzhaofeng)"
+msgstr "[shenzhaofeng](https://gitcode.com/shenzhaofeng)"
+
+msgid "2025-10-13"
+msgstr "2025-10-13"
+
+msgid "[#554](https://gitcode.com/Ascend/triton-ascend/merge_requests/554)"
+msgstr "[#554](https://gitcode.com/Ascend/triton-ascend/merge_requests/554)"
+
+msgid "68"
+msgstr "68"
+
+msgid "[ccbin1](https://gitcode.com/ccbin1)"
+msgstr "[ccbin1](https://gitcode.com/ccbin1)"
+
+msgid "2025-10-09"
+msgstr "2025-10-09"
+
+msgid "[#514](https://gitcode.com/Ascend/triton-ascend/merge_requests/514)"
+msgstr "[#514](https://gitcode.com/Ascend/triton-ascend/merge_requests/514)"
+
+msgid "67"
+msgstr "67"
+
+msgid "[fishofnanqi](https://gitcode.com/fishofnanqi)"
+msgstr "[fishofnanqi](https://gitcode.com/fishofnanqi)"
+
+msgid "[#518](https://gitcode.com/Ascend/triton-ascend/merge_requests/518)"
+msgstr "[#518](https://gitcode.com/Ascend/triton-ascend/merge_requests/518)"
+
+msgid "66"
+msgstr "66"
+
+msgid "[lu2038](https://gitcode.com/lu2038)"
+msgstr "[lu2038](https://gitcode.com/lu2038)"
+
+msgid "[#507](https://gitcode.com/Ascend/triton-ascend/merge_requests/507)"
+msgstr "[#507](https://gitcode.com/Ascend/triton-ascend/merge_requests/507)"
+
+msgid "65"
+msgstr "65"
+
+msgid "[wdy45](https://gitcode.com/wdy45)"
+msgstr "[wdy45](https://gitcode.com/wdy45)"
+
+msgid "[#513](https://gitcode.com/Ascend/triton-ascend/merge_requests/513)"
+msgstr "[#513](https://gitcode.com/Ascend/triton-ascend/merge_requests/513)"
+
+msgid "64"
+msgstr "64"
+
+msgid "[Zzyiiii](https://gitcode.com/Zzyiiii)"
+msgstr "[Zzyiiii](https://gitcode.com/Zzyiiii)"
+
+msgid "[#510](https://gitcode.com/Ascend/triton-ascend/merge_requests/510)"
+msgstr "[#510](https://gitcode.com/Ascend/triton-ascend/merge_requests/510)"
+
+msgid "63"
+msgstr "63"
+
+msgid "[dang_yiwei](https://gitcode.com/dang_yiwei)"
+msgstr "[dang_yiwei](https://gitcode.com/dang_yiwei)"
+
+msgid "[#516](https://gitcode.com/Ascend/triton-ascend/merge_requests/516)"
+msgstr "[#516](https://gitcode.com/Ascend/triton-ascend/merge_requests/516)"
+
+msgid "62"
+msgstr "62"
+
+msgid "[maxiaohui2732300406](https://gitcode.com/maxiaohui2732300406)"
+msgstr "[maxiaohui2732300406](https://gitcode.com/maxiaohui2732300406)"
+
+msgid "[#509](https://gitcode.com/Ascend/triton-ascend/merge_requests/509)"
+msgstr "[#509](https://gitcode.com/Ascend/triton-ascend/merge_requests/509)"
+
+msgid "61"
+msgstr "61"
+
+msgid "[dinosaurking](https://gitcode.com/dinosaurking)"
+msgstr "[dinosaurking](https://gitcode.com/dinosaurking)"
+
+msgid "[#522](https://gitcode.com/Ascend/triton-ascend/merge_requests/522)"
+msgstr "[#522](https://gitcode.com/Ascend/triton-ascend/merge_requests/522)"
+
+msgid "60"
+msgstr "60"
+
+msgid "[wodelt](https://gitcode.com/wodelt)"
+msgstr "[wodelt](https://gitcode.com/wodelt)"
+
+msgid "[#511](https://gitcode.com/Ascend/triton-ascend/merge_requests/511)"
+msgstr "[#511](https://gitcode.com/Ascend/triton-ascend/merge_requests/511)"
+
+msgid "59"
+msgstr "59"
+
+msgid "[liurufeng25](https://gitcode.com/liurufeng25)"
+msgstr "[liurufeng25](https://gitcode.com/liurufeng25)"
+
+msgid "[#517](https://gitcode.com/Ascend/triton-ascend/merge_requests/517)"
+msgstr "[#517](https://gitcode.com/Ascend/triton-ascend/merge_requests/517)"
+
+msgid "58"
+msgstr "58"
+
+msgid "[ma_journey](https://gitcode.com/ma_journey)"
+msgstr "[ma_journey](https://gitcode.com/ma_journey)"
+
+msgid "[#508](https://gitcode.com/Ascend/triton-ascend/merge_requests/508)"
+msgstr "[#508](https://gitcode.com/Ascend/triton-ascend/merge_requests/508)"
+
+msgid "57"
+msgstr "57"
+
+msgid "[jintang_wang](https://gitcode.com/jintang_wang)"
+msgstr "[jintang_wang](https://gitcode.com/jintang_wang)"
+
+msgid "[#530](https://gitcode.com/Ascend/triton-ascend/merge_requests/530)"
+msgstr "[#530](https://gitcode.com/Ascend/triton-ascend/merge_requests/530)"
+
+msgid "56"
+msgstr "56"
+
+msgid "[huchengbei](https://gitcode.com/huchengbei)"
+msgstr "[huchengbei](https://gitcode.com/huchengbei)"
+
+msgid "[#545](https://gitcode.com/Ascend/triton-ascend/merge_requests/545)"
+msgstr "[#545](https://gitcode.com/Ascend/triton-ascend/merge_requests/545)"
+
+msgid "55"
+msgstr "55"
+
+msgid "[HallCin](https://gitcode.com/HallCin)"
+msgstr "[HallCin](https://gitcode.com/HallCin)"
+
+msgid "2025-09-29"
+msgstr "2025-09-29"
+
+msgid "[#523](https://gitcode.com/Ascend/triton-ascend/merge_requests/523)"
+msgstr "[#523](https://gitcode.com/Ascend/triton-ascend/merge_requests/523)"
+
+msgid "54"
+msgstr "54"
+
+msgid "[junelotus](https://gitcode.com/junelotus)"
+msgstr "[junelotus](https://gitcode.com/junelotus)"
+
+msgid "[#531](https://gitcode.com/Ascend/triton-ascend/merge_requests/531)"
+msgstr "[#531](https://gitcode.com/Ascend/triton-ascend/merge_requests/531)"
+
+msgid "53"
+msgstr "53"
+
+msgid "[cc137999](https://gitee.com/cc137999)"
+msgstr "[cc137999](https://gitee.com/cc137999)"
+
+msgid "2025-09-26"
+msgstr "2025-09-26"
+
+msgid "[#442](https://gitee.com/ascend/triton-ascend/pulls/442)"
+msgstr "[#442](https://gitee.com/ascend/triton-ascend/pulls/442)"
+
+msgid "52"
+msgstr "52"
+
+msgid "[kingdinosaur](https://gitee.com/kingdinosaur)"
+msgstr "[kingdinosaur](https://gitee.com/kingdinosaur)"
+
+msgid "[#418](https://gitee.com/ascend/triton-ascend/pulls/418)"
+msgstr "[#418](https://gitee.com/ascend/triton-ascend/pulls/418)"
+
+msgid "51"
+msgstr "51"
+
+msgid "[zhaojies](https://gitee.com/zhaojies)"
+msgstr "[zhaojies](https://gitee.com/zhaojies)"
+
+msgid "2025-09-25"
+msgstr "2025-09-25"
+
+msgid "[#414](https://gitee.com/ascend/triton-ascend/pulls/414)"
+msgstr "[#414](https://gitee.com/ascend/triton-ascend/pulls/414)"
+
+msgid "50"
+msgstr "50"
+
+msgid "[lu2048](https://gitee.com/lu2048)"
+msgstr "[lu2048](https://gitee.com/lu2048)"
+
+msgid "[#421](https://gitee.com/ascend/triton-ascend/pulls/421)"
+msgstr "[#421](https://gitee.com/ascend/triton-ascend/pulls/421)"
+
+msgid "49"
+msgstr "49"
+
+msgid "[kig_35c7](https://gitee.com/kig_35c7)"
+msgstr "[kig_35c7](https://gitee.com/kig_35c7)"
+
+msgid "2025-09-19"
+msgstr "2025-09-19"
+
+msgid "[#384](https://gitee.com/ascend/triton-ascend/pulls/384)"
+msgstr "[#384](https://gitee.com/ascend/triton-ascend/pulls/384)"
+
+msgid "48"
+msgstr "48"
+
+msgid "[jiangzheng1123](https://gitee.com/jiangzheng1123)"
+msgstr "[jiangzheng1123](https://gitee.com/jiangzheng1123)"
+
+msgid "2025-09-18"
+msgstr "2025-09-18"
+
+msgid "[#379](https://gitee.com/ascend/triton-ascend/pulls/379)"
+msgstr "[#379](https://gitee.com/ascend/triton-ascend/pulls/379)"
+
+msgid "47"
+msgstr "47"
+
+msgid "[chnjz233](https://gitcode.com/chnjz233)"
+msgstr "[chnjz233](https://gitcode.com/chnjz233)"
+
+msgid "[#379](https://gitcode.com/Ascend/triton-ascend/merge_requests/379)"
+msgstr "[#379](https://gitcode.com/Ascend/triton-ascend/merge_requests/379)"
+
+msgid "46"
+msgstr "46"
+
+msgid "[KanuaK](https://gitee.com/KanuaK)"
+msgstr "[KanuaK](https://gitee.com/KanuaK)"
+
+msgid "[#380](https://gitee.com/ascend/triton-ascend/pulls/380)"
+msgstr "[#380](https://gitee.com/ascend/triton-ascend/pulls/380)"
+
+msgid "45"
+msgstr "45"
+
+msgid "[elstainniles](https://gitee.com/elstainniles)"
+msgstr "[elstainniles](https://gitee.com/elstainniles)"
+
+msgid "[#331](https://gitee.com/ascend/triton-ascend/pulls/331)"
+msgstr "[#331](https://gitee.com/ascend/triton-ascend/pulls/331)"
+
+msgid "44"
+msgstr "44"
+
+msgid "[s00504327](https://gitee.com/s00504327)"
+msgstr "[s00504327](https://gitee.com/s00504327)"
+
+msgid "2025-09-15"
+msgstr "2025-09-15"
+
+msgid "[#366](https://gitee.com/ascend/triton-ascend/pulls/366)"
+msgstr "[#366](https://gitee.com/ascend/triton-ascend/pulls/366)"
+
+msgid "43"
+msgstr "43"
+
+msgid "[SL25](https://gitcode.com/SL25)"
+msgstr "[SL25](https://gitcode.com/SL25)"
+
+msgid "[#366](https://gitcode.com/Ascend/triton-ascend/merge_requests/366)"
+msgstr "[#366](https://gitcode.com/Ascend/triton-ascend/merge_requests/366)"
+
+msgid "42"
+msgstr "42"
+
+msgid "[kang-ingu](https://gitee.com/kang-ingu)"
+msgstr "[kang-ingu](https://gitee.com/kang-ingu)"
+
+msgid "2025-09-10"
+msgstr "2025-09-10"
+
+msgid "[#355](https://gitee.com/ascend/triton-ascend/pulls/355)"
+msgstr "[#355](https://gitee.com/ascend/triton-ascend/pulls/355)"
+
+msgid "41"
+msgstr "41"
+
+msgid "[zhuxuejie](https://gitee.com/zhuxuejie)"
+msgstr "[zhuxuejie](https://gitee.com/zhuxuejie)"
+
+msgid "2025-08-22"
+msgstr "2025-08-22"
+
+msgid "[#284](https://gitee.com/ascend/triton-ascend/pulls/284)"
+msgstr "[#284](https://gitee.com/ascend/triton-ascend/pulls/284)"
+
+msgid "40"
+msgstr "40"
+
+msgid "[lord_of_ironhill](https://gitee.com/lord_of_ironhill)"
+msgstr "[lord_of_ironhill](https://gitee.com/lord_of_ironhill)"
+
+msgid "2025-08-21"
+msgstr "2025-08-21"
+
+msgid "[#278](https://gitee.com/ascend/triton-ascend/pulls/278)"
+msgstr "[#278](https://gitee.com/ascend/triton-ascend/pulls/278)"
+
+msgid "39"
+msgstr "39"
+
+msgid "[wcleungaj](https://gitee.com/wcleungaj)"
+msgstr "[wcleungaj](https://gitee.com/wcleungaj)"
+
+msgid "2025-08-14"
+msgstr "2025-08-14"
+
+msgid "[#250](https://gitee.com/ascend/triton-ascend/pulls/250)"
+msgstr "[#250](https://gitee.com/ascend/triton-ascend/pulls/250)"
+
+msgid "38"
+msgstr "38"
+
+msgid "[huawei-zhangjunbo](https://gitee.com/huawei-zhangjunbo)"
+msgstr "[huawei-zhangjunbo](https://gitee.com/huawei-zhangjunbo)"
+
+msgid "[#244](https://gitee.com/ascend/triton-ascend/pulls/244)"
+msgstr "[#244](https://gitee.com/ascend/triton-ascend/pulls/244)"
+
+msgid "37"
+msgstr "37"
+
+msgid "[AiBoGe](https://gitcode.com/AiBoGe)"
+msgstr "[AiBoGe](https://gitcode.com/AiBoGe)"
+
+msgid "[#244](https://gitcode.com/Ascend/triton-ascend/merge_requests/244)"
+msgstr "[#244](https://gitcode.com/Ascend/triton-ascend/merge_requests/244)"
+
+msgid "36"
+msgstr "36"
+
+msgid "[wangtao489](https://gitee.com/wangtao489)"
+msgstr "[wangtao489](https://gitee.com/wangtao489)"
+
+msgid "2025-08-13"
+msgstr "2025-08-13"
+
+msgid "[#247](https://gitee.com/ascend/triton-ascend/pulls/247)"
+msgstr "[#247](https://gitee.com/ascend/triton-ascend/pulls/247)"
+
+msgid "35"
+msgstr "35"
+
+msgid "[mengxuancai](https://gitee.com/mengxuancai)"
+msgstr "[mengxuancai](https://gitee.com/mengxuancai)"
+
+msgid "2025-08-04"
+msgstr "2025-08-04"
+
+msgid "[#213](https://gitee.com/ascend/triton-ascend/pulls/213)"
+msgstr "[#213](https://gitee.com/ascend/triton-ascend/pulls/213)"
+
+msgid "34"
+msgstr "34"
+
+msgid "[zhangshuolei](https://gitee.com/zhangshuolei)"
+msgstr "[zhangshuolei](https://gitee.com/zhangshuolei)"
+
+msgid "2025-07-28"
+msgstr "2025-07-28"
+
+msgid "[#208](https://gitee.com/ascend/triton-ascend/pulls/208)"
+msgstr "[#208](https://gitee.com/ascend/triton-ascend/pulls/208)"
+
+msgid "33"
+msgstr "33"
+
+msgid "[zhangshuoleiokok](https://gitcode.com/zhangshuoleiokok)"
+msgstr "[zhangshuoleiokok](https://gitcode.com/zhangshuoleiokok)"
+
+msgid "[#208](https://gitcode.com/Ascend/triton-ascend/merge_requests/208)"
+msgstr "[#208](https://gitcode.com/Ascend/triton-ascend/merge_requests/208)"
+
+msgid "32"
+msgstr "32"
+
+msgid "[cxtjjcz](https://gitee.com/cxtjjcz)"
+msgstr "[cxtjjcz](https://gitee.com/cxtjjcz)"
+
+msgid "2025-07-26"
+msgstr "2025-07-26"
+
+msgid "[#201](https://gitee.com/ascend/triton-ascend/pulls/201)"
+msgstr "[#201](https://gitee.com/ascend/triton-ascend/pulls/201)"
+
+msgid "31"
+msgstr "31"
+
+msgid "[candyhong](https://gitee.com/candyhong)"
+msgstr "[candyhong](https://gitee.com/candyhong)"
+
+msgid "[#200](https://gitee.com/ascend/triton-ascend/pulls/200)"
+msgstr "[#200](https://gitee.com/ascend/triton-ascend/pulls/200)"
+
+msgid "30"
+msgstr "30"
+
+msgid "[dingshuooffice](https://gitee.com/dingshuooffice)"
+msgstr "[dingshuooffice](https://gitee.com/dingshuooffice)"
+
+msgid "[#207](https://gitee.com/ascend/triton-ascend/pulls/207)"
+msgstr "[#207](https://gitee.com/ascend/triton-ascend/pulls/207)"
+
+msgid "29"
+msgstr "29"
+
+msgid "[fengrui886](https://gitee.com/fengrui886)"
+msgstr "[fengrui886](https://gitee.com/fengrui886)"
+
+msgid "[#192](https://gitee.com/ascend/triton-ascend/pulls/192)"
+msgstr "[#192](https://gitee.com/ascend/triton-ascend/pulls/192)"
+
+msgid "28"
+msgstr "28"
+
+msgid "[vince8866](https://gitee.com/vince8866)"
+msgstr "[vince8866](https://gitee.com/vince8866)"
+
+msgid "2025-07-19"
+msgstr "2025-07-19"
+
+msgid "[#183](https://gitee.com/ascend/triton-ascend/pulls/183)"
+msgstr "[#183](https://gitee.com/ascend/triton-ascend/pulls/183)"
+
+msgid "27"
+msgstr "27"
+
+msgid "[saruagithub](https://gitee.com/saruagithub)"
+msgstr "[saruagithub](https://gitee.com/saruagithub)"
+
+msgid "2025-07-11"
+msgstr "2025-07-11"
+
+msgid "[#166](https://gitee.com/ascend/triton-ascend/pulls/166)"
+msgstr "[#166](https://gitee.com/ascend/triton-ascend/pulls/166)"
+
+msgid "26"
+msgstr "26"
+
+msgid "[junelutus](https://gitee.com/junelutus)"
+msgstr "[junelutus](https://gitee.com/junelutus)"
+
+msgid "2025-07-09"
+msgstr "2025-07-09"
+
+msgid "[#156](https://gitee.com/ascend/triton-ascend/pulls/156)"
+msgstr "[#156](https://gitee.com/ascend/triton-ascend/pulls/156)"
+
+msgid "25"
+msgstr "25"
+
+msgid "[hipudding](https://gitee.com/hipudding)"
+msgstr "[hipudding](https://gitee.com/hipudding)"
+
+msgid "2025-06-28"
+msgstr "2025-06-28"
+
+msgid "[#76](https://gitee.com/ascend/triton-ascend/pulls/76)"
+msgstr "[#76](https://gitee.com/ascend/triton-ascend/pulls/76)"
+
+msgid "24"
+msgstr "24"
+
+msgid "[huafengchun](https://gitcode.com/huafengchun)"
+msgstr "[huafengchun](https://gitcode.com/huafengchun)"
+
+msgid "[#76](https://gitcode.com/Ascend/triton-ascend/merge_requests/76)"
+msgstr "[#76](https://gitcode.com/Ascend/triton-ascend/merge_requests/76)"
+
+msgid "23"
+msgstr "23"
+
+msgid "[waiting_4u](https://gitee.com/waiting_4u)"
+msgstr "[waiting_4u](https://gitee.com/waiting_4u)"
+
+msgid "2025-06-26"
+msgstr "2025-06-26"
+
+msgid "[#113](https://gitee.com/ascend/triton-ascend/pulls/113)"
+msgstr "[#113](https://gitee.com/ascend/triton-ascend/pulls/113)"
+
+msgid "22"
+msgstr "22"
+
+msgid "[george_zhanglei](https://gitee.com/george_zhanglei)"
+msgstr "[george_zhanglei](https://gitee.com/george_zhanglei)"
+
+msgid "2025-06-24"
+msgstr "2025-06-24"
+
+msgid "[#92](https://gitee.com/ascend/triton-ascend/pulls/92)"
+msgstr "[#92](https://gitee.com/ascend/triton-ascend/pulls/92)"
+
+msgid "21"
+msgstr "21"
+
+msgid "[zhiliangtang](https://gitee.com/zhiliangtang)"
+msgstr "[zhiliangtang](https://gitee.com/zhiliangtang)"
+
+msgid "[#97](https://gitee.com/ascend/triton-ascend/pulls/97)"
+msgstr "[#97](https://gitee.com/ascend/triton-ascend/pulls/97)"
+
+msgid "20"
+msgstr "20"
+
+msgid "[zhiliangtang0727](https://gitcode.com/zhiliangtang0727)"
+msgstr "[zhiliangtang0727](https://gitcode.com/zhiliangtang0727)"
+
+msgid "[#97](https://gitcode.com/Ascend/triton-ascend/merge_requests/97)"
+msgstr "[#97](https://gitcode.com/Ascend/triton-ascend/merge_requests/97)"
+
+msgid "19"
+msgstr "19"
+
+msgid "[adamasW](https://gitee.com/adamasW)"
+msgstr "[adamasW](https://gitee.com/adamasW)"
+
+msgid "[#101](https://gitee.com/ascend/triton-ascend/pulls/101)"
+msgstr "[#101](https://gitee.com/ascend/triton-ascend/pulls/101)"
+
+msgid "18"
+msgstr "18"
+
+msgid "[kpxing](https://gitee.com/kpxing)"
+msgstr "[kpxing](https://gitee.com/kpxing)"
+
+msgid "2025-06-21"
+msgstr "2025-06-21"
+
+msgid "[#85](https://gitee.com/ascend/triton-ascend/pulls/85)"
+msgstr "[#85](https://gitee.com/ascend/triton-ascend/pulls/85)"
+
+msgid "17"
+msgstr "17"
+
+msgid "[wszh-01](https://gitee.com/wszh-01)"
+msgstr "[wszh-01](https://gitee.com/wszh-01)"
+
+msgid "2025-06-17"
+msgstr "2025-06-17"
+
+msgid "[#62](https://gitee.com/ascend/triton-ascend/pulls/62)"
+msgstr "[#62](https://gitee.com/ascend/triton-ascend/pulls/62)"
+
+msgid "16"
+msgstr "16"
+
+msgid "[zhucehw](https://gitee.com/zhucehw)"
+msgstr "[zhucehw](https://gitee.com/zhucehw)"
+
+msgid "2025-06-16"
+msgstr "2025-06-16"
+
+msgid "[#45](https://gitee.com/ascend/triton-ascend/pulls/45)"
+msgstr "[#45](https://gitee.com/ascend/triton-ascend/pulls/45)"
+
+msgid "15"
+msgstr "15"
+
+msgid "[w00504335](https://gitee.com/w00504335)"
+msgstr "[w00504335](https://gitee.com/w00504335)"
+
+msgid "2025-06-11"
+msgstr "2025-06-11"
+
+msgid "[#55](https://gitee.com/ascend/triton-ascend/pulls/55)"
+msgstr "[#55](https://gitee.com/ascend/triton-ascend/pulls/55)"
+
+msgid "14"
+msgstr "14"
+
+msgid "[hin-peng](https://gitee.com/hin-peng)"
+msgstr "[hin-peng](https://gitee.com/hin-peng)"
+
+msgid "[#48](https://gitee.com/ascend/triton-ascend/pulls/48)"
+msgstr "[#48](https://gitee.com/ascend/triton-ascend/pulls/48)"
+
+msgid "13"
+msgstr "13"
+
+msgid "[meloliu12327](https://gitee.com/meloliu12327)"
+msgstr "[meloliu12327](https://gitee.com/meloliu12327)"
+
+msgid "2025-06-04"
+msgstr "2025-06-04"
+
+msgid "[#30](https://gitee.com/ascend/triton-ascend/pulls/30)"
+msgstr "[#30](https://gitee.com/ascend/triton-ascend/pulls/30)"
+
+msgid "12"
+msgstr "12"
+
+msgid "[qhrusty](https://gitee.com/qhrusty)"
+msgstr "[qhrusty](https://gitee.com/qhrusty)"
+
+msgid "2025-06-03"
+msgstr "2025-06-03"
+
+msgid "[#27](https://gitee.com/ascend/triton-ascend/pulls/27)"
+msgstr "[#27](https://gitee.com/ascend/triton-ascend/pulls/27)"
+
+msgid "11"
+msgstr "11"
+
+msgid "[leopold0801](https://gitee.com/leopold0801)"
+msgstr "[leopold0801](https://gitee.com/leopold0801)"
+
+msgid "2025-05-29"
+msgstr "2025-05-29"
+
+msgid "[#26](https://gitee.com/ascend/triton-ascend/pulls/26)"
+msgstr "[#26](https://gitee.com/ascend/triton-ascend/pulls/26)"
+
+msgid "10"
+msgstr "10"
+
+msgid "[shen-zhaofeng](https://gitee.com/shen-zhaofeng)"
+msgstr "[shen-zhaofeng](https://gitee.com/shen-zhaofeng)"
+
+msgid "2025-05-28"
+msgstr "2025-05-28"
+
+msgid "[#23](https://gitee.com/ascend/triton-ascend/pulls/23)"
+msgstr "[#23](https://gitee.com/ascend/triton-ascend/pulls/23)"
+
+msgid "9"
+msgstr "9"
+
+msgid "[ffrog](https://gitee.com/ffrog)"
+msgstr "[ffrog](https://gitee.com/ffrog)"
+
+msgid "[#12](https://gitee.com/ascend/triton-ascend/pulls/12)"
+msgstr "[#12](https://gitee.com/ascend/triton-ascend/pulls/12)"
+
+msgid "8"
+msgstr "8"
+
+msgid "[qiuqianjin](https://gitee.com/qiuqianjin)"
+msgstr "[qiuqianjin](https://gitee.com/qiuqianjin)"
+
+msgid "2025-05-27"
+msgstr "2025-05-27"
+
+msgid "[#17](https://gitee.com/ascend/triton-ascend/pulls/17)"
+msgstr "[#17](https://gitee.com/ascend/triton-ascend/pulls/17)"
+
+msgid "7"
+msgstr "7"
+
+msgid "[qiuqianjin233](https://gitcode.com/qiuqianjin233)"
+msgstr "[qiuqianjin233](https://gitcode.com/qiuqianjin233)"
+
+msgid "[#17](https://gitcode.com/Ascend/triton-ascend/merge_requests/17)"
+msgstr "[#17](https://gitcode.com/Ascend/triton-ascend/merge_requests/17)"
+
+msgid "6"
+msgstr "6"
+
+msgid "[wangzhanpeng5](https://gitee.com/wangzhanpeng5)"
+msgstr "[wangzhanpeng5](https://gitee.com/wangzhanpeng5)"
+
+msgid "2025-05-26"
+msgstr "2025-05-26"
+
+msgid "[#5](https://gitee.com/ascend/triton-ascend/pulls/5)"
+msgstr "[#5](https://gitee.com/ascend/triton-ascend/pulls/5)"
+
+msgid "5"
+msgstr "5"
+
+msgid "[yang-bochu](https://gitee.com/yang-bochu)"
+msgstr "[yang-bochu](https://gitee.com/yang-bochu)"
+
+msgid "[#7](https://gitee.com/ascend/triton-ascend/pulls/7)"
+msgstr "[#7](https://gitee.com/ascend/triton-ascend/pulls/7)"
+
+msgid "4"
+msgstr "4"
+
+msgid "[handsome20](https://gitcode.com/handsome20)"
+msgstr "[handsome20](https://gitcode.com/handsome20)"
+
+msgid "[#7](https://gitcode.com/Ascend/triton-ascend/merge_requests/7)"
+msgstr "[#7](https://gitcode.com/Ascend/triton-ascend/merge_requests/7)"
+
+msgid "3"
+msgstr "3"
+
+msgid "[zhangyong102](https://gitee.com/zhangyong102)"
+msgstr "[zhangyong102](https://gitee.com/zhangyong102)"
+
+msgid "[#8](https://gitee.com/ascend/triton-ascend/pulls/8)"
+msgstr "[#8](https://gitee.com/ascend/triton-ascend/pulls/8)"
+
+msgid "2"
+msgstr "2"
+
+msgid "[shijingchang](https://gitee.com/shijingchang)"
+msgstr "[shijingchang](https://gitee.com/shijingchang)"
+
+msgid "[#9](https://gitee.com/ascend/triton-ascend/pulls/9)"
+msgstr "[#9](https://gitee.com/ascend/triton-ascend/pulls/9)"
+
+msgid "1"
+msgstr "I am sorry, but you did not provide the Chinese text to translate. Please provide the text."
+
+msgid "[zhang-chunli01](https://gitee.com/zhang-chunli01)"
+msgstr "[zhang-chunli01](https://gitee.com/zhang-chunli01)"
+
+msgid "2025-05-23"
+msgstr "2025-05-23"
+
+msgid "[#1](https://gitee.com/ascend/triton-ascend/pulls/1)"
+msgstr "[#1](https://gitee.com/ascend/triton-ascend/pulls/1)"
+
+msgid "*Due to repository migration, contributors listed above are counted by contributor ID (IDs from different platforms are treated as separate contributors).*"
+msgstr "*Due to repository migration, contributors listed above are counted by contributor ID (IDs from different platforms are treated as separate contributors).*"
+
+msgid "治理机制"
+msgstr "Governance Mechanism"
+
+msgid "使命"
+msgstr "Mission"
+
+msgid "作为 Triton 生态的重要组成部分，Triton-Ascend 项目致力于为所有昇腾 NPU 用户提供高效易用的 Triton 编译框架，使 Triton 代码能够在昇腾硬件上高效运行，并积极贡献于丰富 Triton 和昇腾生态。"
+msgstr "As an important part of the Triton ecosystem, the Triton-Ascend project is dedicated to providing all Ascend NPU users with an efficient and easy-to-use Triton compilation framework, enabling Triton code to run efficiently on Ascend hardware, and actively contributing to enriching the Triton and Ascend ecosystems."
+
+msgid "原则"
+msgstr "Principles"
+
+msgid "**开放透明**：所有技术决策和社区讨论均通过公开渠道进行"
+msgstr "**Open and Transparent**: All technical decisions and community discussions are conducted through public channels."
+
+msgid "**贡献导向**：成员资格基于个人能力和贡献，而非与雇主绑定"
+msgstr "**Contribution-Oriented**: Membership is based on individual ability and contribution, rather than being tied to an employer."
+
+msgid "**社区驱动**：鼓励广泛参与，尊重多元观点，通过讨论和投票达成共识"
+msgstr "**Community-Driven**: Encourages broad participation, respects diverse perspectives, and reaches consensus through discussion and voting."
+
+msgid "治理结构"
+msgstr "Governance Structure"
+
+msgid "Triton-Ascend 是 Triton 社区下的开源项目，角色任命最终由 Triton 社区决定。项目采用分层技术治理结构："
+msgstr "Triton-Ascend is an open-source project under the Triton community, and role appointments are ultimately determined by the Triton community. The project adopts a layered technical governance structure:"
+
+msgid "贡献者"
+msgstr "Contributors"
+
+msgid "**职责**："
+msgstr "**Responsibilities**:"
+
+msgid "帮助新贡献者融入项目"
+msgstr "Help new contributors integrate into the project"
+
+msgid "处理和回应社区 `Issue`"
+msgstr "Process and respond to community `Issue`"
+
+msgid "审阅 `RFC` 和代码"
+msgstr "Review `RFC` and code"
+
+msgid "**要求**："
+msgstr "**Requirements**:"
+
+msgid "完成至少一次贡献"
+msgstr "Complete at least one contribution"
+
+msgid "通过提交 `Issue`、代码评审、代码提交和参与社区活动等方式持续积极参与项目"
+msgstr "Actively participate in the project by submitting `Issue`s, conducting code reviews, making code commits, and engaging in community activities."
+
+msgid "**权限**：授予 GitHub 仓库 `Triage` 角色，包括读取和克隆权限，以及提交 Issue 和 PR 的权限。"
+msgstr "**Permissions**: Grant the `Triage` role for the GitHub repository, including read and clone permissions, as well as permissions to submit Issues and PRs."
+
+msgid "Maintainer"
+msgstr "Maintainer"
+
+msgid "定义项目的愿景和使命，塑造技术方向，确保长期成功"
+msgstr "Define the project's vision and mission, shape the technical direction, and ensure long-term success."
+
+msgid "拥有代码合并权限，主导路线图规划"
+msgstr "Has code merge permissions and leads roadmap planning."
+
+msgid "审阅社区贡献并持续改进代码"
+msgstr "Review community contributions and continuously improve the code."
+
+msgid "负责核心模块的代码质量和架构决策"
+msgstr "Responsible for code quality and architectural decisions of core modules."
+
+msgid "参与发布决策"
+msgstr "Participate in release decision-making"
+
+msgid "指导贡献者完成代码贡献"
+msgstr "Guide contributors through the code contribution process"
+
+msgid "参与社区技术会议，讨论和投票技术方向、重大提案及 `Release` 事项"
+msgstr "Participate in community technical meetings to discuss and vote on technical direction, major proposals, and `Release` matters."
+
+msgid "对 Triton 和 Triton-Ascend 代码库有深入理解"
+msgstr "Has a deep understanding of the Triton and Triton-Ascend codebases."
+
+msgid "承诺持续代码贡献，具备设计、开发及 PR 审阅流程的能力"
+msgstr "Commit to continuous code contributions with the ability to design, develop, and follow the PR review process."
+
+msgid "积极参与社区代码评审，至少交付一项重大功能，并保持持续高质量贡献"
+msgstr "Actively participate in community code reviews, deliver at least one major feature, and maintain consistently high-quality contributions."
+
+msgid "积极处理 `Issue`、回应咨询并参与讨论"
+msgstr "Actively handle `Issue`, respond to inquiries, and participate in discussions."
+
+msgid "对项目做出重大技术贡献（如核心功能开发、架构设计、性能优化等）"
+msgstr "Made significant technical contributions to the project (such as core feature development, architecture design, performance optimization, etc.)"
+
+msgid "展现良好的技术判断力和社区协作能力"
+msgstr "Demonstrate good technical judgment and community collaboration skills."
+
+msgid "**权限**：授予 GitHub 仓库写入权限，包括读取、克隆和推送代码权限，核心分支保护和合并权限，发布执行权限，以及管理 `Issue` 和 `Pull Request` 的权限。"
+msgstr "**Permissions**: Grant write access to the GitHub repository, including permissions to read, clone, and push code, core branch protection and merge permissions, release execution permissions, and permissions to manage `Issue` and `Pull Request`."
+
+msgid "晋升由现有 `Maintainer` 共同评审，综合考虑贡献质量、连续性和社区参与度。"
+msgstr "Promotion is jointly reviewed by existing `Maintainer`s, taking into account contribution quality, continuity, and community engagement."
+
+msgid "提名与移除"
+msgstr "Nomination and Removal"
+
+msgid "成员资格基于个人能力，通过贡献、评审和讨论体现"
+msgstr "Membership is based on individual ability, demonstrated through contributions, reviews, and discussions."
+
+msgid "候选人需认同 Triton-Ascend 的原则并保持行为一致性"
+msgstr "Candidates must identify with the principles of Triton-Ascend and maintain consistency in behavior."
+
+msgid "连续 **6 个月** 未对项目做出贡献的 `Maintainer` 可转为荣誉身份"
+msgstr "A `Maintainer` who has not contributed to the project for **6 consecutive months** may be converted to emeritus status."
+
+msgid "成员资格授予个人，不与雇主绑定"
+msgstr "Membership is granted to individuals and is not tied to their employer."
+
+msgid "提名流程"
+msgstr "Nomination Process"
+
+msgid "任何人均可发起提名，包括自提名，通过社区 `Issue` 进行"
+msgstr "Anyone can initiate a nomination, including self-nomination, through the community `Issue`."
+
+msgid "提名须包含候选人的贡献记录和技术能力说明"
+msgstr "The nomination must include the candidate's contribution record and a description of their technical capabilities."
+
+msgid "现有 `Maintainer` 审阅评估，需 **超过半数当前Maintainer同意且无反对意见**"
+msgstr "Existing `Maintainer` review and evaluation require **more than half of the current Maintainers to agree with no objections**."
+
+msgid "定期审查"
+msgstr "Regular Review"
+
+msgid "**每月** 在技术会议上审查所有 `Maintainer` 的活跃情况"
+msgstr "**Monthly** review the activity of all `Maintainer`s at the technical meeting."
+
+msgid "连续 **6 个月** 未对项目做出贡献的 `Maintainer` 可在讨论后转为荣誉身份"
+msgstr "A `Maintainer` who has not contributed to the project for **6 consecutive months** may be granted honorary status after discussion."
+
+msgid "`荣誉` `Maintainer` 可随时通过恢复活跃贡献申请恢复 `Maintainer` 身份"
+msgstr "`Honorary` `Maintainer` can apply to restore their `Maintainer` status at any time by resuming active contributions."
+
+msgid "Maintainers"
+msgstr "Maintainers"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Join Date"
+msgstr "Join Date"
+
+msgid "Chen Cheng"
+msgstr "Chen Cheng"
+
+msgid "ccdedreams"
+msgstr "ccdedreams"
+
+msgid "2025-09-27"
+msgstr "2025-09-27"
+
+msgid "Lijuan Hai"
+msgstr "Lijuan Hai"
+
+msgid "hailijuan"
+msgstr "hailijuan"
+
+msgid "Tao Wang"
+msgstr "Tao Wang"
+
+msgid "winter77-x"
+msgstr "winter77-x"
+
+msgid "Yingcong Liang"
+msgstr "Yingcong Liang"
+
+msgid "wcleungaj-70"
+msgstr "wcleungaj-70"
+
+msgid "Jingchang Shi"
+msgstr "Jingchang Shi"
+
+msgid "jingchangshi"
+msgstr "jingchangshi"
+
+msgid "Hao Zhou"
+msgstr "Hao Zhou"
+
+msgid "HaoVincentZhou"
+msgstr "HaoVincentZhou"
+
+msgid "Kaipeng Xing"
+msgstr "Kaipeng Xing"
+
+msgid "kpxing"
+msgstr "kpxing"
+
+msgid "Zhijie Zhao"
+msgstr "Zhijie Zhao"
+
+msgid "zhaozhijie"
+msgstr "zhaozhijie"
+
+msgid "Kaixin Yang"
+msgstr "Kaixin Yang"
+
+msgid "kaixin1976"
+msgstr "kaixin1976"
+
+msgid "Chunli Zhang"
+msgstr "Chunli Zhang"
+
+msgid "HEX1A0A"
+msgstr "HEX1A0A"
+
+msgid "Ce Zhu"
+msgstr "Ce Zhu"
+
+msgid "Cadenza4287"
+msgstr "Cadenza4287"
+
+msgid "Xuan Peng"
+msgstr "Xuan Peng"
+
+msgid "HinPeng"
+msgstr "HinPeng"
+
+msgid "Ziqi Hong"
+msgstr "Ziqi Hong"
+
+msgid "hongziqi"
+msgstr "hongziqi"
+
+msgid "Peiji Chen"
+msgstr "Peiji Chen"
+
+msgid "zackc6"
+msgstr "zackc6"
+
+msgid "2026-05-07"
+msgstr "2026-05-07"
+
+msgid "Ingu Kung"
+msgstr "Ingu Kung"
+
+msgid "kig9981"
+msgstr "kig9981"
+
+msgid "2026-05-08"
+msgstr "2026-05-08"
+
+msgid "Tianyao Wu"
+msgstr "Tianyao Wu"
+
+msgid "WuTYSFG"
+msgstr "WuTYSFG"
+
+msgid "2026-05-11"
+msgstr "2026-05-11"
+
+msgid "Yihan Zhou"
+msgstr "Yihan Zhou"
+
+msgid "KanuaK"
+msgstr "KanuaK"
+
+msgid "安全声明"
+msgstr "Security Statement"
+
+msgid "系统安全加固"
+msgstr "System Security Hardening"
+
+msgid "建议用户在系统中配置开启ASLR（**地址空间布局随机化**），推荐使用级别 2（完全随机化模式），可参考以下方式进行配置："
+msgstr "It is recommended that users enable ASLR (**Address Space Layout Randomization**) in the system, with level 2 (full randomization mode) preferred. Configuration can be performed as follows:"
+
+msgid "运行用户建议"
+msgstr "Run User Suggestions"
+
+msgid "出于安全性及权限最小化角度考虑，不建议通过root等管理员类型账户使用Triton-Ascend。"
+msgstr "From the perspective of security and minimal privilege, it is not recommended to use Triton-Ascend with administrator accounts such as root."
+
+msgid "文件权限控制"
+msgstr "File Permission Control"
+
+msgid "建议用户对个人的隐私数据、商业资产等敏感文件做好权限控制等安全措施，设定的权限建议参考[文件权限参考](#文件权限参考)进行设置。"
+msgstr "It is recommended that users implement security measures such as access control for sensitive files, including personal private data and business assets. For permission settings, refer to the [File Permission Reference](#文件权限参考)."
+
+msgid "用户安装和使用过程需要做好权限控制，建议参考[文件权限参考](#文件权限参考)进行设置。"
+msgstr "Users need to implement proper permission control during installation and usage. It is recommended to refer to the [File Permission Reference](#文件权限参考) for configuration."
+
+msgid "文件权限参考"
+msgstr "File Permission Reference"
+
+msgid "类型"
+msgstr "Type"
+
+msgid "Linux权限参考最大值"
+msgstr "Linux Permissions Reference Maximum Values"
+
+msgid "用户主目录"
+msgstr "User home directory"
+
+msgid "750（rwxr-x---）"
+msgstr "750 (rwxr-x---)"
+
+msgid "程序文件（含脚本文件、库文件等）"
+msgstr "Program files (including script files, library files, etc.)"
+
+msgid "550（r-xr-x---）"
+msgstr "550 (r-xr-x---)"
+
+msgid "程序文件目录"
+msgstr "Program File Directory"
+
+msgid "配置文件"
+msgstr "Configuration file"
+
+msgid "640（rw-r-----）"
+msgstr "640 (rw-r-----)"
+
+msgid "配置文件目录"
+msgstr "Configuration file directory"
+
+msgid "日志文件（记录完毕或者已经归档）"
+msgstr "Log file (completed recording or already archived)"
+
+msgid "440（r--r-----）"
+msgstr "440 (r--r-----)"
+
+msgid "日志文件（正在记录）"
+msgstr "Log file (recording)"
+
+msgid "日志文件目录"
+msgstr "Log file directory"
+
+msgid "Debug文件"
+msgstr "Debug file"
+
+msgid "Debug文件目录"
+msgstr "Debug file directory"
+
+msgid "临时文件目录"
+msgstr "Temporary file directory"
+
+msgid "维护升级文件目录"
+msgstr "Maintenance Upgrade File Directory"
+
+msgid "770（rwxrwx---）"
+msgstr "770 (rwxrwx---)"
+
+msgid "业务数据文件"
+msgstr "Business data file"
+
+msgid "业务数据文件目录"
+msgstr "Business Data File Directory"
+
+msgid "密钥组件、私钥、证书、密文文件目录"
+msgstr "Key components, private keys, certificates, ciphertext file directory"
+
+msgid "700（rwx------）"
+msgstr "700 (rwx------)"
+
+msgid "密钥组件、私钥、证书、加密密文"
+msgstr "Key component, private key, certificate, encrypted ciphertext"
+
+msgid "600（rw-------）"
+msgstr "600 (rw-------)"
+
+msgid "加解密接口、加解密脚本"
+msgstr "Encryption/Decryption Interface, Encryption/Decryption Script"
+
+msgid "500（r-x------）"
+msgstr "500 (r-x------)"
+
+msgid "构建安全声明"
+msgstr "Build Security Statement"
+
+msgid "Triton-Ascend支持源码编译安装，在编译时会下载依赖第三方库并执行构建shell脚本，在编译过程中会产生临时程序文件和编译目录。用户可根据需要自行对源代码目录内的文件进行权限管控降低安全风险。"
+msgstr "Triton-Ascend supports source code compilation and installation. During compilation, dependent third-party libraries will be downloaded and build shell scripts will be executed, generating temporary program files and compilation directories. Users can manage permissions on files within the source code directory as needed to reduce security risks."
+
+msgid "公网地址声明"
+msgstr "Public Network Address Declaration"
+
+msgid "在Triton-Ascend的配置文件和脚本中存在[公网地址](#公网地址)"
+msgstr "In the configuration files and scripts of Triton-Ascend, there are [public network addresses](#public-network-address)."
+
+msgid "公网地址"
+msgstr "Public network address"
+
+msgid "开源代码地址"
+msgstr "Open source code repository"
+
+msgid "文件名"
+msgstr "File name"
+
+msgid "公网IP地址/公网URL地址/域名/邮箱地址"
+msgstr "Public IP address / Public URL address / Domain name / Email address"
+
+msgid "用途说明"
+msgstr "Usage Description"
+
+msgid "开源引入"
+msgstr "Open source introduction"
+
+msgid "<https://github.com/triton-lang/triton.git>"
+msgstr "<https://github.com/triton-lang/triton.git>"
+
+msgid ".gitmodules"
+msgstr ".gitmodules"
+
+msgid "Triton源码仓地址"
+msgstr "Triton source code repository address"
+
+msgid "<https://gitcode.com/Ascend/AscendNPU-IR.git>"
+msgstr "<https://gitcode.com/Ascend/AscendNPU-IR.git>"
+
+msgid "AscendNPU IR源码仓地址"
+msgstr "AscendNPU IR source code repository address"
+
+msgid "自研"
+msgstr "Self-developed"
+
+msgid "不涉及"
+msgstr "Not applicable"
+
+msgid "docker/devdocker/setup_triton-ascend_dev.sh"
+msgstr "docker/devdocker/setup_triton-ascend_dev.sh"
+
+msgid "<https://gitcode.com/Ascend/triton-ascend.git>"
+msgstr "<https://gitcode.com/Ascend/triton-ascend.git>"
+
+msgid "Triton-Ascend源码仓地址"
+msgstr "Triton-Ascend source code repository address"
+
+msgid "ascend/examples/generalization_cases/run_daily.sh & scripts/prepare_build.sh"
+msgstr "ascend/examples/generalization_cases/run_daily.sh & scripts/prepare_build.sh"
+
+msgid "<https://gitee.com/shijingchang/triton.git>"
+msgstr "<https://gitee.com/shijingchang/triton.git>"
+
+msgid "构建依赖代码仓"
+msgstr "Build dependency code repository"
+
+msgid "setup.py"
+msgstr "setup.py"
+
+msgid "<https://gitcode.com/Ascend/triton-ascend/>"
+msgstr "<https://gitcode.com/Ascend/triton-ascend/>"
+
+msgid "<https://gitclone.com>"
+msgstr "<https://gitclone.com>"
+
+msgid "scripts/prepare_build.sh"
+msgstr "scripts/prepare_build.sh"
+
+msgid "<https://gitclone.com/github.com/llvm/llvm-project.git>"
+msgstr "<https://gitclone.com/github.com/llvm/llvm-project.git>"
+
+msgid "依赖的llvm源码仓"
+msgstr "Dependent llvm source repository"
+
+msgid "<https://repo.huaweicloud.com>"
+msgstr "<https://repo.huaweicloud.com>"
+
+msgid "<https://repo.huaweicloud.com/repository/pypi/simple>"
+msgstr "<https://repo.huaweicloud.com/repository/pypi/simple>"
+
+msgid "用于配置pybind11下载链接"
+msgstr "Used to configure the pybind11 download link"
+
+msgid "<https://pypi.tuna.tsinghua.edu.cn>"
+msgstr "<https://pypi.tuna.tsinghua.edu.cn>"
+
+msgid "docker/devdocker/triton-ascend_dev.dockerfile"
+msgstr "docker/devdocker/triton-ascend_dev.dockerfile"
+
+msgid "<https://pypi.tuna.tsinghua.edu.cn/simple>"
+msgstr "<https://pypi.tuna.tsinghua.edu.cn/simple>"
+
+msgid "python pip源配置"
+msgstr "Python pip source configuration"
+
+msgid "<https://triton-ascend-artifacts.obs.myhuaweicloud.com>"
+msgstr "<https://triton-ascend-artifacts.obs.myhuaweicloud.com>"
+
+msgid "`https://triton-ascend-artifacts.obs.myhuaweicloud.com/llvm-builds/{name}.tar.gz`"
+msgstr "`https://triton-ascend-artifacts.obs.myhuaweicloud.com/llvm-builds/{name}.tar.gz`"
+
+msgid "用于下载预编译的LLVM工具"
+msgstr "Used to download precompiled LLVM tools"
+
+msgid "<https://bootstrap.pypa.io/get-pip.py>"
+msgstr "<https://bootstrap.pypa.io/get-pip.py>"
+
+msgid "docker/develop_env.dockerfile"
+msgstr "docker/develop_env.dockerfile"
+
+msgid "用于自动化安装pip"
+msgstr "Used for automated installation of pip"
+
+msgid "<https://llvm.org/LICENSE.txt>"
+msgstr "<https://llvm.org/LICENSE.txt>"
+
+msgid "third_party/ascend/include/Dialect/TritonAscend/IR/& third_party/ascend/lib/Dialect/TritonAscend/IR/"
+msgstr "third_party/ascend/include/Dialect/TritonAscend/IR/ & third_party/ascend/lib/Dialect/TritonAscend/IR/"
+
+msgid "Apache许可证链接"
+msgstr "Apache License link"
+
+msgid "<https://netlib.org/cephes/>"
+msgstr "<https://netlib.org/cephes/>"
+
+msgid "third_party/ascend/language/cann/libdevice.py"
+msgstr "third_party/ascend/language/cann/libdevice.py"
+
+msgid "函数来源声明"
+msgstr "Function Source Declaration"
+
+msgid "技术例会"
+msgstr "Technical Regular Meeting"
+
+msgid "Triton-Ascend 定期召开社区技术会议，作为项目治理的核心决策机制。技术方向、重大提案评审和版本发布等重大事项在技术会议中讨论和决定，由全体 `Maintainer` 投票。会议对所有社区成员开放，任何人均可参与讨论，但决策和投票仅由 `Maintainer` 进行。"
+msgstr "Triton-Ascend regularly holds community technical meetings as the core decision-making mechanism for project governance. Major matters such as technical direction, major proposal reviews, and version releases are discussed and decided during the technical meetings, with voting conducted by all `Maintainer`s. The meetings are open to all community members, and anyone can participate in discussions, but decisions and voting are carried out only by `Maintainer`s."
+
+msgid "会议内容"
+msgstr "Meeting Content"
+
+msgid "技术方向讨论与决策"
+msgstr "Technical Direction Discussion and Decision"
+
+msgid "重大提案（RFC）评审与投票"
+msgstr "Major Proposal (RFC) Review and Voting"
+
+msgid "版本发布规划与时间线"
+msgstr "Version Release Planning and Timeline"
+
+msgid "社区 Issue 和 PR 优先级排序"
+msgstr "Community Issue and PR Priority Sorting"
+
+msgid "贡献者提名与移除讨论"
+msgstr "Contributor Nomination and Removal Discussion"
+
+msgid "会议安排"
+msgstr "Meeting Schedule"
+
+msgid "**会议频率**：每两周一次"
+msgstr "**Meeting Frequency**: Every two weeks"
+
+msgid "**会议时间**：周四 14:15（UTC+8）"
+msgstr "**Meeting Time**: Thursday 14:15 (UTC+8)"
+
+msgid "**会议起始日期**：2026 年 6 月 4 日"
+msgstr "**Meeting Start Date**: June 4, 2026"
+
+msgid "**会议链接**：[链接](https://us06web.zoom.us/j/86540192059?pwd=X2N3pl5bnZH5CgiuX1zjyZoELItmjP.1)"
+msgstr "**Meeting Link**: [Link](https://us06web.zoom.us/j/86540192059?pwd=X2N3pl5bnZH5CgiuX1zjyZoELItmjP.1)"
+
+msgid "**会议室号**：865 4019 2059"
+msgstr "**Meeting Room Number**: 865 4019 2059"
+
+msgid "**会议室密码**：123456"
+msgstr "**Meeting Room Password**: 123456"
+
+msgid "**会议议程与纪要**：[议程&纪要](https://docs.google.com/document/d/1qfat2wZtO2nfZb5FC2dWAcR6sTqgTNSvvh7MzTDoI4s/edit?pli=1&tab=t.0)"
+msgstr "**Meeting Agenda and Minutes**: [Agenda & Minutes](https://docs.google.com/document/d/1qfat2wZtO2nfZb5FC2dWAcR6sTqgTNSvvh7MzTDoI4s/edit?pli=1&tab=t.0)"
+
+msgid "**会议 iCalendar**：[iCalendar-ics](https://us06web.zoom.us/meeting/tZIoc-mppzkqH92hP7TBYHppsqZUxg9F8VPf/ics?icsToken=DObLUj7lyTNwJj6XJgAALAAAAOvNV2DJnuObI9tqQGt1c3aeqVgCdzMYHV0m_J0KHIX0i4QUrtvsJwMu_EMF5VKyBKdX4rPWh_raTxvF4jAwMDAwMQ&meetingMasterEventId=1PZVSVC8S8WIBZJ1e4wuZQ)"
+msgstr "**Meeting iCalendar**: [iCalendar-ics](https://us06web.zoom.us/meeting/tZIoc-mppzkqH92hP7TBYHppsqZUxg9F8VPf/ics?icsToken=DObLUj7lyTNwJj6XJgAALAAAAOvNV2DJnuObI9tqQGt1c3aeqVgCdzMYHV0m_J0KHIX0i4QUrtvsJwMu_EMF5VKyBKdX4rPWh_raTxvF4jAwMDAwMQ&meetingMasterEventId=1PZVSVC8S8WIBZJ1e4wuZQ)"
+
+msgid "投票规则"
+msgstr "Voting Rules"
+
+msgid "未出席会议的 `Maintainer` 须在会议后 3 个工作日内提交投票；逾期未投票视为弃权"
+msgstr "`Maintainer`s who are absent from the meeting must submit their votes within 3 working days after the meeting; failure to vote within this period will be considered abstention."
+
+msgid "投票通过条件为参与投票的 `Maintainer` 超过半数同意（弃权不计入投票总数）"
+msgstr "The condition for passing a vote is that more than half of the participating `Maintainer` agree (abstentions are not counted in the total votes)."
+
+msgid "投票结果记录于会议纪要中"
+msgstr "The voting results are recorded in the meeting minutes."
+
+msgid "决策流程"
+msgstr "Decision-making Process"
+
+msgid "常规决策"
+msgstr "Routine Decision-Making"
+
+msgid "日常开发中的常规决策（如 `Bug` 修复、小功能改进）由相关模块的 `Maintainer` 在 `Issue` 或 `PR` 中审阅决定，无需召开会议。"
+msgstr "Routine decisions in daily development (such as `Bug` fixes and minor feature improvements) are reviewed and decided by the `Maintainer` of the relevant module in the `Issue` or `PR`, without the need for a meeting."
+
+msgid "重大决策"
+msgstr "Major Decision"
+
+msgid "以下事项视为重大决策，需由 `Maintainer` 在社区技术会议中集体讨论："
+msgstr "The following matters are considered major decisions and require collective discussion by the `Maintainer` during community technical meetings."
+
+msgid "重大架构变更"
+msgstr "Major Architectural Changes"
+
+msgid "破坏性 `API` 变更"
+msgstr "Breaking `API` Changes"
+
+msgid "新增核心功能或移除现有功能"
+msgstr "Added core features or removed existing features"
+
+msgid "第三方依赖的重大升级"
+msgstr "Major Upgrade of Third-Party Dependencies"
+
+msgid "版本发布规划"
+msgstr "Version Release Planning"
+
+msgid "重大决策流程："
+msgstr "Major Decision-Making Process:"
+
+msgid "提交 `RFC`（征求意见稿），描述变更内容、影响范围和实施方案"
+msgstr "Submit an `RFC` (Request for Comments) describing the changes, scope of impact, and implementation plan."
+
+msgid "在技术会议中讨论"
+msgstr "Discussing in a technical meeting"
+
+msgid "`Maintainer` 共同决策"
+msgstr "`Maintainer` collective decision-making"
+
+msgid "Roadmap指导"
+msgstr "Roadmap guidance"
+
+msgid "使用 GitHub Issue 来跟踪和管理各组织的计划及中长期目标。本文档为社区项目编写路线图类 Issue 提供参考和规范，以帮助创建和维护高质量的路线图。"
+msgstr "Use GitHub Issues to track and manage the plans and medium-to-long-term goals of each organization. This document provides references and guidelines for creating roadmap-type Issues in community projects, helping to create and maintain high-quality roadmaps."
+
+msgid "下面是一个完整的路线图 Issue 示例，展示了所有推荐元素的实际应用。建议先查看此示例获得整体印象，再阅读后续的详细规范说明。"
+msgstr "Below is a complete roadmap Issue example, demonstrating the practical application of all recommended elements. It is recommended to first review this example for an overall impression, then read the subsequent detailed specification."
+
+msgid "1. 标题格式"
+msgstr "Title Format"
+
+msgid "**格式：** `[Roadmap] <Project Name> Roadmap <Time Range>`，季度发布使用 Q1/Q2/Q3/Q4 标记，半年度发布使用 H1/H2 标记"
+msgstr "**Format:** `[Roadmap] <Project Name> Roadmap <Time Range>`, quarterly releases use Q1/Q2/Q3/Q4 markers, semi-annual releases use H1/H2 markers."
+
+msgid "**示例：**"
+msgstr "**Example:**"
+
+msgid "`[Roadmap] Triton-Ascend Roadmap 2026 Q2`"
+msgstr "[Roadmap] Triton-Ascend Roadmap 2026 Q2"
+
+msgid "`[Roadmap] Triton-Ascend Roadmap 2026 H1`"
+msgstr "[Roadmap] Triton-Ascend Roadmap 2026 H1"
+
+msgid "2. 顶层内容"
+msgstr "2. Top-level Content"
+
+msgid "2.1 开篇描述（可选）"
+msgstr "2.1 Opening Description (Optional)"
+
+msgid "提供项目概述、愿景或整体方向的简要总结。例如，简要描述 Triton-Ascend 本季度在上游对齐、后端性能和算子覆盖方面的目标。"
+msgstr "Provide a brief summary of the project overview, vision, or overall direction. For example, briefly describe Triton-Ascend's goals for this quarter in terms of upstream alignment, backend performance, and operator coverage."
+
+msgid "2.2 重点方向章节"
+msgstr "2.2 Key Focus Areas Section"
+
+msgid "列出本周期最关键的 3-5 个重点方向，建议按项目的**功能领域**或**技术模块**分组，覆盖全局视角："
+msgstr "List the 3-5 most critical focus areas for this cycle, recommended to be grouped by the project's **functional domain** or **technical module**, covering a global perspective:"
+
+msgid "**特征：**"
+msgstr "**Features:**"
+
+msgid "高层次概括和描述当前周期项目的主要开发方向，无需详细展开"
+msgstr "High-level summary and description of the main development directions of the current cycle project, without detailed elaboration."
+
+msgid "3. 主要功能模块章节"
+msgstr "3. Main Functional Modules Section"
+
+msgid "3.1 章节划分原则"
+msgstr "3.1 Principles for Section Division"
+
+msgid "按项目的**功能领域**或**技术模块**分组，例如："
+msgstr "Group by the project's **functional areas** or **technical modules**, for example:"
+
+msgid "**Upstream Compatibility** - Upstream Triton frontend and IR alignment"
+msgstr "**Upstream Compatibility** - Upstream Triton frontend and IR alignment"
+
+msgid "**Backend Performance** - Ascend NPU backend kernel generation and memory optimization"
+msgstr "**Backend Performance** - Ascend NPU backend kernel generation and memory optimization"
+
+msgid "**Operator Coverage** - Triton built-in ops and dtype support on Ascend"
+msgstr "**Operator Coverage** - Triton built-in ops and dtype support on Ascend"
+
+msgid "**Usability** - Debugging tools and error reporting"
+msgstr "**Usability** - Debugging tools and error reporting"
+
+msgid "**Ecosystem Integration** - Integration with training/inference frameworks"
+msgstr "**Ecosystem Integration** - Integration with training/inference frameworks"
+
+msgid "3.2 各模块结构"
+msgstr "3.2 Structure of Each Module"
+
+msgid "每个模块包含多个**具体工作项**，格式如下："
+msgstr "Each module contains multiple **specific work items** in the following format:"
+
+msgid "4. 关键元数据字段"
+msgstr "4. Key Metadata Fields"
+
+msgid "每个工作项应包含以下关键信息："
+msgstr "Each work item should contain the following key information:"
+
+msgid "4.1 目标（Goal）"
+msgstr "4.1 Goal"
+
+msgid "**含义**：工作目标或简要描述"
+msgstr "**Meaning**: Work objective or brief description"
+
+msgid "**用法**：说明该工作项的目标"
+msgstr "**Usage**: Describes the objective of this work item"
+
+msgid "**示例**：`目标：在昇腾后端 tl.dot 中支持 FP8（E4M3/E5M2）数据类型`"
+msgstr "**Example**: `Goal: Support FP8 (E4M3/E5M2) data types in tl.dot on the Ascend backend`"
+
+msgid "4.2 负责人（Owner）"
+msgstr "4.2 Owner"
+
+msgid "**含义**：责任人"
+msgstr "**Meaning**: Responsible Person"
+
+msgid "**格式**：`负责人：@GitHubID`"
+msgstr "**Format**: `Lead: @GitHubID`"
+
+msgid "**用法**：明确谁负责或主导该工作项"
+msgstr "**Usage**: Clearly specify who is responsible or leads the work item."
+
+msgid "**示例**：`负责人：@contributor-a`"
+msgstr "**Example**: `Lead: @contributor-a`"
+
+msgid "4.3 Issue"
+msgstr "4.3 Issue"
+
+msgid "**含义**：关联的 GitHub Issue"
+msgstr "**Meaning**: Associated GitHub Issue"
+
+msgid "**格式**：`Issue：<Issue 链接>`"
+msgstr "**Format**: `Issue: <Issue link>`"
+
+msgid "**用法**：跟踪详细设计和讨论"
+msgstr "**Usage**: Track detailed design and discussion"
+
+msgid "**示例**：`Issue：https://github.com/triton-lang/triton-ascend/issues`"
+msgstr "**Example**: `Issue: https://github.com/triton-lang/triton-ascend/issues`"
+
+msgid "4.4 PR（Pull Request）"
+msgstr "4.4 PR (Pull Request)"
+
+msgid "**含义**：相关实现 PR"
+msgstr "**Meaning**: Related implementation PR"
+
+msgid "**格式**：`PR：<PR 链接>`"
+msgstr "**Format**: `PR: <PR link>`"
+
+msgid "**用法**：关联实现工作"
+msgstr "**Usage**: Association Implementation Work"
+
+msgid "**示例**：`PR：https://github.com/triton-lang/triton-ascend/pulls`"
+msgstr "**Example**: `PR: https://github.com/triton-lang/triton-ascend/pulls`"
+
+msgid "5. 可选补充内容"
+msgstr "5. Optional Supplementary Content"
+
+msgid "5.1 🙋 欢迎贡献标记"
+msgstr "5.1 🙋 Welcome Contribution Mark"
+
+msgid "对于特别欢迎社区开发者贡献的工作项，建议使用 **[🙋 欢迎贡献]** 标记来标识："
+msgstr "For work items that particularly welcome contributions from community developers, it is recommended to use the **[🙋 Welcome Contributions]** tag to identify them."
+
+msgid "5.2 子 Issue"
+msgstr "5.2 Sub Issue"
+
+msgid "在路线图 Issue 底部列出跨周期的相关路线图 Issue 或大工作项的分解 Issue。"
+msgstr "List cross-cycle related roadmap Issues or decomposition Issues of large work items at the bottom of the roadmap Issue."
+
+msgid "**与工作项中 Issue 字段的区别：**"
+msgstr "**Difference from the Issue field in work items:**"
+
+msgid "**工作项中的 Issue 字段**：链接到该工作项的具体设计、讨论或跟踪 Issue"
+msgstr "**Issue Fields in Work Items**: Links to the specific design, discussion, or tracking issue for the work item."
+
+msgid "**子 Issue 章节**：用于关联其他周期的路线图 Issue（如上季度未完成的工作），或将大工作项分解为多个独立跟踪的子 Issue"
+msgstr "**Sub-Issue Section**: Used to link roadmap issues from other cycles (such as unfinished work from the previous quarter), or to break down large work items into multiple independently tracked sub-issues."
