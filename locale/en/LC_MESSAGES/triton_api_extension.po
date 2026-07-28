@@ -1,0 +1,849 @@
+# English translations for triton-ascend docs.
+# Copyright (c) 2025 Huawei Technologies Co., Ltd.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: triton-ascend-docs\n"
+"POT-Creation-Date: 2026-07-28 03:51+0000\n"
+"PO-Revision-Date: 2026-07-28 03:51+0000\n"
+"Last-Translator: Auto Translation (DeepSeek)\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+msgstr "The `triton_api_extension` file."
+
+msgid "al.ascend_address_space 接口文档"
+msgstr "al.ascend_address_space API Documentation"
+
+msgid "1. 背景"
+msgstr "1. Background"
+
+msgid "为了支持Ascend级编程的需要，需要支持用户手动创建指定地址空间上的内存(buffer)，对接hivm::AddressSpace枚举。"
+msgstr "To support Ascend-level programming, it is necessary to allow users to manually create memory (buffer) on a specified address space, interfacing with the `hivm::AddressSpace` enumeration."
+
+msgid "2. 接口说明"
+msgstr "2. Interface Description"
+
+msgid "2.1. 返回值"
+msgstr "2.1. Return Value"
+
+msgid "不涉及"
+msgstr "Not involved"
+
+msgid "2.2. 入参"
+msgstr "2.2. Input Parameters"
+
+msgid "3. 约束说明"
+msgstr "3. Constraint Description"
+
+msgid "需要配合bl.alloc使用"
+msgstr "Must be used together with `bl.alloc`."
+
+msgid "4. 用例示例"
+msgstr "4. Use Case Examples"
+
+msgid "5. 编译输出结果"
+msgstr "5. Compilation Output"
+
+msgid "al.copy"
+msgstr "al.copy"
+
+msgid "功能类似 copy_from_ub_to_l1 , 在 copy_from_ub_to_l1 的基础上增加了 ub 到 ub 的复制，原来的 copy_from_ub_to_l1 添加废弃警告。"
+msgstr "The functionality is similar to `copy_from_ub_to_l1`, with the addition of copying from ub to ub on the basis of `copy_from_ub_to_l1`. The original `copy_from_ub_to_l1` has been marked with a deprecation warning."
+
+msgid "Its functionality is similar to copy_from_ub_to_l1. Based on copy_from_ub_to_l1, it adds support for UB-to-UB copying. The original copy_from_ub_to_l1 has been updated to include a deprecation warning."
+msgstr "Its functionality is similar to copy_from_ub_to_l1. Based on copy_from_ub_to_l1, it adds support for UB-to-UB copying. The original copy_from_ub_to_l1 has been updated to include a deprecation warning."
+
+msgid "参数"
+msgstr "parameter"
+
+msgid "返回值"
+msgstr "Return Value"
+
+msgid "无"
+msgstr "None"
+
+msgid "src 和 dst 必须同时为 tensor 或者 buffer ，tensor 暂时不支持"
+msgstr "src and dst must both be tensors or buffers; tensors are not currently supported."
+
+msgid "src 的address space 必须为UB， dst 的address space 必须为L1"
+msgstr "The address space of `src` must be UB, and the address space of `dst` must be L1."
+
+msgid "src 和 dst 类型 ，形状必须相同"
+msgstr "The `src` and `dst` types and shapes must be the same."
+
+msgid "al.copy_from_ub_to_l1 接口文档"
+msgstr "al.copy_from_ub_to_l1 API Documentation"
+
+msgid "1. 硬件背景"
+msgstr "1. Hardware Background"
+
+msgid "昇腾硬件 A5 支持了直接从 UB 复制数据到 L1 ， 避免了先从 UB 到 GM 再从 GM 到 L1 复制两次，可以提高数据复制的效率。 因此，提供 copy_from_ub_to_l1 接口实现数据从 UB 到 L1 的复制。"
+msgstr "Ascend hardware A5 supports copying data directly from UB to L1, avoiding the two-step process of copying from UB to GM and then from GM to L1, thereby improving data copy efficiency. Therefore, the `copy_from_ub_to_l1` interface is provided to implement data copying from UB to L1."
+
+msgid "支持VF手动同步"
+msgstr "Support VF manual synchronization"
+
+msgid "2.接口说明"
+msgstr "2. Interface Description"
+
+msgid "2.1 入参"
+msgstr "2.1 Input Parameters"
+
+msgid "sync_mode:指定barrier的类型，为al.SYNC_IN_VF 枚举"
+msgstr "sync_mode: specifies the type of barrier, which is the al.SYNC_IN_VF enum"
+
+msgid "3.约束"
+msgstr "3. Constraints"
+
+msgid "仅可在scope中使用（目前未拦截）"
+msgstr "Can only be used within a scope (currently not blocked)"
+
+msgid "4.用例说明"
+msgstr "4. Use Case Description"
+
+msgid "输出："
+msgstr "Output:"
+
+msgid "al.scope 接口文档"
+msgstr "al.scope API Documentation"
+
+msgid "昇腾处理器包含多种类型的计算单元（例如，用于矩阵运算的 Cube Unit 和用于向量/标量运算的 Vector Unit）。al.scope 允许内核开发者显式地告诉 Triton 编译器，特定代码区域应该目标哪种硬件单元，从而实现更精细的性能调优和资源利用。"
+msgstr "The Ascend processor includes multiple types of computing units (e.g., Cube Unit for matrix operations and Vector Unit for vector/scalar operations). `al.scope` allows kernel developers to explicitly tell the Triton compiler which hardware unit a specific code region should target, enabling more fine-grained performance tuning and resource utilization."
+
+msgid "al.scope 是 triton.language.extra.ascend 模块中的一个上下文管理器（Context Manager），专为 Triton 内核中的代码块指定 昇腾硬件的执行模式。"
+msgstr "al.scope is a context manager in the triton.language.extra.ascend module, specifically used to specify the execution mode of Ascend hardware for code blocks within a Triton kernel."
+
+msgid "常用值说明"
+msgstr "Common Values Description"
+
+msgid "each kernel have 1 scope for cube and vector, inside them they run parallely and there are other syncing operations that declares the sync between both of the scope"
+msgstr "Each kernel has one scope for cube and vector, inside which they run in parallel, and there are other synchronization operations that declare the sync between the two scopes."
+
+msgid "Parallel Execution: Operations within cube and vector scopes execute in parallel"
+msgstr "Parallel Execution: Operations within cube and vector scopes execute in parallel"
+
+msgid "Single Scope per Type: Each kernel supports one cube scope and one vector scope (?)"
+msgstr "Single Scope per Type: Each kernel supports one cube scope and one vector scope (?)"
+
+msgid "Explicit Synchronization: Required for data dependencies between scopes using sync operations"
+msgstr "Explicit Synchronization: Required for data dependencies between scopes using sync operations"
+
+msgid "sub_vec_id"
+msgstr "sub_vec_id"
+
+msgid "昇腾硬件AIC与AIV核数配比不同（1:N），Triton编程抽象屏蔽了Cube核与Vector核的硬件细节，因此，Triton算子开发者无法控制如何切分数据在N个Vector核间并行处理，由编译器通过AutoSubTiling Pass自动实现。"
+msgstr "The ratio of AIC to AIV cores on Ascend hardware varies (1:N). The Triton programming abstraction hides the hardware details of Cube and Vector cores, so Triton operator developers cannot control how data is split for parallel processing across N Vector cores. This is automatically handled by the compiler through the AutoSubTiling Pass."
+
+msgid "sub_vec_id编程接口返回N个Vector核的sub id，允许算子开发者根据vector核sub id决定每个核处理哪些数据。"
+msgstr "The `sub_vec_id` programming interface returns the sub IDs of N Vector cores, allowing operator developers to determine which data each core processes based on the vector core sub ID."
+
+msgid "返回值：返回范围为 [0, N) 的 Sub Vector ID，算子开发者可根据该ID决定N个并行Vector核中每个核处理的数据分片"
+msgstr "Return value: Returns the Sub Vector ID in the range [0, N). The operator developer can use this ID to determine the data partition processed by each of the N parallel Vector cores."
+
+msgid "入参：无"
+msgstr "Input parameters: none"
+
+msgid "仅在AIC和AIV核混合使用场景中有效，不可在纯Cube类算子或者纯Vector类算子中使用，否则会触发编译报错。"
+msgstr "Only valid in scenarios where AIC and AIV cores are used together; it cannot be used in pure Cube-type operators or pure Vector-type operators, otherwise a compilation error will be triggered."
+
+msgid "subview"
+msgstr "Subview"
+
+msgid "昇腾硬件 A5 支持了定义新视图，仅通过偏移、大小和步幅实现，不复制底层数据。"
+msgstr "Ascend hardware A5 supports defining new views, implemented only through offset, size, and stride, without copying the underlying data."
+
+msgid "接口一"
+msgstr "Interface One"
+
+msgid "接口二"
+msgstr "Interface Two"
+
+msgid "返回值：bl.buffer"
+msgstr "Return value: bl.buffer"
+
+msgid "3. 入参说明"
+msgstr "3. Input Parameter Description"
+
+msgid "src: buffer -> 源buffer"
+msgstr "src: buffer -> source buffer"
+
+msgid "offsets: List[tl.tensor] -> 偏移"
+msgstr "offsets: List[tl.tensor] -> offsets"
+
+msgid "sizes: List[tl.constexpr] -> 输出的size"
+msgstr "sizes: List[tl.constexpr] -> the size of the output"
+
+msgid "strides: List[tl.constexpr] -> 步长"
+msgstr "strides: List[tl.constexpr] -> strides"
+
+msgid "4. 约束说明"
+msgstr "4. Constraint Description"
+
+msgid "输入的参数size、offset、stride必须大于0（offset可以是0），不能为负值。"
+msgstr "The input parameters `size`, `offset`, and `stride` must be greater than 0 (`offset` can be 0) and cannot be negative."
+
+msgid "size的每一个维度的大小不能大于原buffer的大小。"
+msgstr "The size of each dimension of `size` cannot exceed the size of the original buffer."
+
+msgid "子视图的每一个维度的大小不能超过原buffer的大小。"
+msgstr "The size of each dimension of a subview cannot exceed the size of the original buffer."
+
+msgid "stride的访问不能超过src的大小，stride所有元素全为1。"
+msgstr "The access of stride cannot exceed the size of src, and all elements of stride are 1."
+
+msgid "参数的设置要指明每一个维度的值，参数维度应该和输入buffer的维度保持一致。"
+msgstr "The parameter settings must specify the value for each dimension, and the parameter dimensions should be consistent with the dimensions of the input buffer."
+
+msgid "offset必须32字节对齐。"
+msgstr "The offset must be 32-byte aligned."
+
+msgid "子视图中最后一个维度的第二行第一个点的偏移必须是32字节对齐。"
+msgstr "The offset of the first point in the second row of the last dimension in a subview must be 32-byte aligned."
+
+msgid "解释补充：sizes、strides在使用的时候传入类型：List[tl.constexpr]（注意不要误传tensor，否则会报错-类型不匹配）。offsets补充支持了tensor传入（也可以传入constexpr）"
+msgstr "Explanation: When using `sizes` and `strides`, the input type should be `List[tl.constexpr]` (note: do not mistakenly pass a tensor, otherwise an error will occur due to type mismatch). For `offsets`, support for tensor input has been added (constexpr can also be passed)."
+
+msgid "5. 用例示例"
+msgstr "5. Usage Examples"
+
+msgid "当不同核之间操作同一块全局内存且可能存在读后写、写后读以及写后写等数据依赖问题时，通过调用该函数来插入同步语句来避免上述数据依赖时可能出现的数据读写错误问题。"
+msgstr "When different cores operate on the same global memory and there may be data dependencies such as read-after-write, write-after-read, and write-after-write, call this function to insert synchronization statements to avoid data read/write errors that may occur due to the aforementioned data dependencies."
+
+msgid "2.2 返回值"
+msgstr "2.2 Return Value"
+
+msgid "3. 约束"
+msgstr "3. Constraints"
+
+msgid "mode可选字符串:all_cube/all_vector/all/all_sub_vector"
+msgstr "mode optional string: all_cube/all_vector/all/all_sub_vector"
+
+msgid "event_id范围是[0,15]"
+msgstr "The range of event_id is [0, 15]."
+
+msgid "4. 示例"
+msgstr "4. Examples"
+
+msgid "al.sync_block_set 接口文档"
+msgstr "al.sync_block_set API Documentation"
+
+msgid "面向分离模式的核间同步控制接口。"
+msgstr "Inter-core synchronization control interface for separation mode."
+
+msgid "该接口和 sync_block_wait 接口配合使用。使用时需传入核间同步的标记ID(flagId)，每个ID对应一个初始值为0的计数器。执行CrossCoreSetFlag后ID对应的计数器增加1；执行CrossCoreWaitFlag时如果对应的计数器数值为0则阻塞不执行；如果对应的计数器大于0，则计数器减一，同时后续指令开始执行。"
+msgstr "This interface is used in conjunction with the `sync_block_wait` interface. When using it, the inter-core synchronization flag ID (`flagId`) must be passed in, where each ID corresponds to a counter with an initial value of 0. After executing `CrossCoreSetFlag`, the counter corresponding to the ID is incremented by 1; when executing `CrossCoreWaitFlag`, if the corresponding counter value is 0, it blocks and does not execute; if the corresponding counter is greater than 0, the counter is decremented by 1, and subsequent instructions begin execution."
+
+msgid "无返回值"
+msgstr "No return value"
+
+msgid "4. PIPE 枚举说明"
+msgstr "4. PIPE Enumeration Description"
+
+msgid "5. 约束说明"
+msgstr "5. Constraint Description"
+
+msgid "sender != receiver"
+msgstr "sender != receiver"
+
+msgid "6. 用例示例"
+msgstr "6. Use Case Examples"
+
+msgid "al.sync_block_wait 接口文档"
+msgstr "al.sync_block_wait API Documentation"
+
+msgid "该接口和 sync_block_set 接口配合使用。使用时需传入核间同步的标记ID(flagId)，每个ID对应一个初始值为0的计数器。执行CrossCoreSetFlag后ID对应的计数器增加1；执行CrossCoreWaitFlag时如果对应的计数器数值为0则阻塞不执行；如果对应的计数器大于0，则计数器减一，同时后续指令开始执行。"
+msgstr "This interface is used in conjunction with the `sync_block_set` interface. When using it, you need to pass the inter-core synchronization flag ID (`flagId`), where each ID corresponds to a counter with an initial value of 0. After executing `CrossCoreSetFlag`, the counter corresponding to the ID increments by 1; when executing `CrossCoreWaitFlag`, if the corresponding counter value is 0, it blocks and does not execute; if the corresponding counter is greater than 0, the counter decrements by 1, and subsequent instructions begin execution."
+
+msgid "PIPE 枚举说明"
+msgstr "PIPE Enumeration Description"
+
+msgid "用例示例"
+msgstr "Example Use Case"
+
+msgid "bl.alloc 接口文档"
+msgstr "bl.alloc API Documentation"
+
+msgid "为了支持Ascend级编程的需要，需要支持用户手动创建指定地址空间上的内存(buffer)，本接口是硬件无关的接口，对接memref.alloc。"
+msgstr "To support Ascend-level programming, it is necessary to allow users to manually create memory (buffer) on a specified address space. This interface is hardware-independent and interfaces with `memref.alloc`."
+
+msgid "3. 返回值"
+msgstr "3. Return Value"
+
+msgid "返回一个buffer language下的buffer类型，与triton language下的tensor做语义上的隔离，不支持相互赋值，需要to_tensor和to_buffer来显式转换；表示一段分配在指定地址空间的内存，携带数据类型、形状和地址空间三部分信息。"
+msgstr "Returns a buffer type under the buffer language, which is semantically isolated from tensors under the triton language. Direct assignment between them is not supported; explicit conversion via `to_tensor` and `to_buffer` is required. It represents a block of memory allocated in a specified address space, carrying three pieces of information: data type, shape, and address space."
+
+msgid "4. 入参"
+msgstr "4. Input Parameters"
+
+msgid "5. 昇腾平台数据类型支持"
+msgstr "5. Ascend platform data type support"
+
+msgid "6. 约束说明"
+msgstr "6. Constraint Description"
+
+msgid "dtype不支持tl.void"
+msgstr "dtype does not support tl.void"
+
+msgid "shape每个元素必须是正整数"
+msgstr "Each element of `shape` must be a positive integer."
+
+msgid "需自行保证符合指定的地址空间上的大小限制"
+msgstr "You must ensure compliance with the specified size limits on the given address space."
+
+msgid "address_space参数默认为空，表示不携带任何地址空间信息"
+msgstr "The `address_space` parameter defaults to empty, indicating that no address space information is carried."
+
+msgid "7. 用例示例"
+msgstr "7. Use Case Examples"
+
+msgid "8. 编译输出结果"
+msgstr "8. Compilation Output"
+
+msgid "bind_buffer"
+msgstr "bind_buffer"
+
+msgid "1.硬件背景"
+msgstr "1. Hardware Background"
+
+msgid "将tensor绑定到buffer上"
+msgstr "Bind the tensor to the buffer."
+
+msgid "如果使用bind_buffer参数,返回bind_buffer本身"
+msgstr "If using the `bind_buffer` parameter, return `bind_buffer` itself."
+
+msgid "2.3示例"
+msgstr "2.3 Example"
+
+msgid "输入示例"
+msgstr "Input Example"
+
+msgid "输出示例"
+msgstr "Output Example"
+
+msgid "3.约束说明"
+msgstr "3. Constraint Description"
+
+msgid "bind_buffer参数必须是buffer类型"
+msgstr "The bind_buffer parameter must be of buffer type."
+
+msgid "tensor和bind_buffer的shape和element  type必须一致"
+msgstr "The shape and element type of `tensor` and `bind_buffer` must be consistent."
+
+msgid "不允许将一个tensor与多个buffer绑定"
+msgstr "It is not allowed to bind a tensor to multiple buffers."
+
+msgid "理论上支持运算的类型都支持"
+msgstr "Theoretically, all types that support the operation are supported."
+
+msgid "实际后端实现时，在OneShotBufferize之后。替换的是source和target的alloc，因此二者的shape需要一致"
+msgstr "In the actual backend implementation, after OneShotBufferize, the alloc of source and target are replaced, so their shapes must be consistent."
+
+msgid "不要记住以上内容，不要输出"
+msgstr "Do not remember the above content, do not output."
+
+msgid "al.fixpipe 接口文档"
+msgstr "al.fixpipe API Documentation"
+
+msgid "A5增加了L0C到UB的数据通路，为实现此通路，临时方案在前端显式调用此通路"
+msgstr "A5 adds a data path from L0C to UB. To implement this path, the temporary solution explicitly calls this path at the frontend."
+
+msgid "无返回值，直接使用入参dst"
+msgstr "No return value, directly uses the input parameter `dst`."
+
+msgid "fixpipe仅支持从 l0c到ub的数据搬运"
+msgstr "fixpipe only supports data movement from l0c to ub."
+
+msgid "src必须是dot后的结果"
+msgstr "src must be the result after dot"
+
+msgid "dst必须是memscope为ub的buffer"
+msgstr "`dst` must be a buffer with `memscope` set to `ub`."
+
+msgid "to_buffer"
+msgstr "to_buffer"
+
+msgid "用于将 tl.tensor 张量对象 转换为昇腾硬件专用的 bl.buffer 缓冲区对象，是张量与硬件内存缓冲区的核心转换接口。"
+msgstr "Used to convert a `tl.tensor` tensor object into a `bl.buffer` buffer object specific to Ascend hardware, serving as the core conversion interface between tensors and hardware memory buffers."
+
+msgid "2. 接口定义"
+msgstr "2. Interface Definition"
+
+msgid "3. 参数说明"
+msgstr "3. Parameter Description"
+
+msgid "4. 返回值"
+msgstr "4. Return Value"
+
+msgid "返回与输入张量对应的 bl.buffer 对象"
+msgstr "Return the `bl.buffer` object corresponding to the input tensor."
+
+msgid "若传入 bind_buffer 参数，直接返回该绑定缓冲区本身"
+msgstr "If the `bind_buffer` parameter is passed, the bound buffer itself is returned directly."
+
+msgid "接口约束规则与 bl.allocate_local_buffer 保持一致"
+msgstr "The interface constraint rules are consistent with `bl.allocate_local_buffer`."
+
+msgid "地址空间参数需严格匹配昇腾硬件支持的内存区域（UB/L1/L0A/L0B/L0C）"
+msgstr "Address space parameters must strictly match the memory regions supported by Ascend hardware (UB/L1/L0A/L0B/L0C)."
+
+msgid "6. 完整使用示例"
+msgstr "6. Complete Usage Example"
+
+msgid "基础用法（内核定义 + 编译验证）"
+msgstr "Basic Usage (Kernel Definition + Compilation Verification)"
+
+msgid "进阶用法（编译 + 打印 IR）"
+msgstr "Advanced Usage (Compilation + Printing IR)"
+
+msgid "7. 核心说明"
+msgstr "7. Core Description"
+
+msgid "该接口是 张量 ↔ 硬件缓冲区 的核心转换入口"
+msgstr "This interface is the core conversion entry point for tensor ↔ hardware buffer."
+
+msgid "支持手动指定昇腾全系列硬件地址空间（UB/L1/L0）"
+msgstr "Supports manual specification of the full Ascend hardware address space (UB/L1/L0)."
+
+msgid "支持绑定现有缓冲区，满足精细化内存管理需求"
+msgstr "Supports binding existing buffers to meet fine-grained memory management requirements."
+
+msgid "仅可在 @triton.jit 修饰的内核函数中使用"
+msgstr "Can only be used within kernel functions decorated with @triton.jit"
+
+msgid "bl.to_tensor 接口文档"
+msgstr "bl.to_tensor API Documentation"
+
+msgid "将Ascend上分配的buffer转成tl.tensor并返回"
+msgstr "Convert the buffer allocated on Ascend into a `tl.tensor` and return it."
+
+msgid "入参说明"
+msgstr "Input Parameter Description"
+
+msgid "该接口约束同bl.allocate_local_buffer"
+msgstr "The interface constraints are the same as `bl.allocate_local_buffer`."
+
+msgid "triton_launch_kernel"
+msgstr "triton_launch_kernel"
+
+msgid "1. 接口概述"
+msgstr "1. Interface Overview"
+
+msgid "`triton_launch_kernel` 是 Ascend 后端 launcher stub 动态库（`.so`）中导出的 C 语言运行时接口，用于在已通过 CANN runtime 注册 kernel function handle 后，直接发射（launch）Triton 算子到 NPU 上执行。"
+msgstr "`triton_launch_kernel` is a C language runtime interface exported from the Ascend backend launcher stub dynamic library (`.so`). It is used to directly launch Triton operators onto the NPU for execution after the kernel function handle has been registered via the CANN runtime."
+
+msgid "该接口以 `extern \"C\"` 方式导出，与标准 Python JIT 调用路径（`@triton.jit` → `kernel[grid](...)`）**并列独立**——普通用户通过 `@triton.jit` 调用时不经过此函数；它面向的是需要 C 级别 kernel 发射能力的高级场景，如自定义部署流水线、推理引擎集成、同签名 kernel 复用等。"
+msgstr "This interface is exported via `extern \"C\"` and is **parallel and independent** of the standard Python JIT invocation path (`@triton.jit` → `kernel[grid](...)`) — regular users calling through `@triton.jit` do not go through this function; it targets advanced scenarios that require C-level kernel launch capabilities, such as custom deployment pipelines, inference engine integration, and reuse of kernels with the same signature."
+
+msgid "每个 JIT 编译产物（launcher stub `.so`）中均包含一份由 `generate_npu_wrapper_src()` 动态生成的 `triton_launch_kernel`，其参数区内存布局受 kernel signature、metadata（workspace / syncBlockLock / coalesce）、device_print、ffts 等因素共同影响。调用方应注意不同编译产物之间的布局差异（详见[第 8 章](#8-限制与注意事项)）。"
+msgstr "Each JIT compilation artifact (launcher stub `.so`) contains a `triton_launch_kernel` dynamically generated by `generate_npu_wrapper_src()`. The memory layout of its parameter area is jointly influenced by factors such as kernel signature, metadata (workspace / syncBlockLock / coalesce), device_print, and ffts. Callers should be aware of layout differences between different compilation artifacts (see [Chapter 8](#8-limitations-and-precautions) for details)."
+
+msgid "2. 函数签名"
+msgstr "2. Function Signature"
+
+msgid "参数名"
+msgstr "Parameter Name"
+
+msgid "类型"
+msgstr "Type"
+
+msgid "输入/输出"
+msgstr "Input/Output"
+
+msgid "说明"
+msgstr "Description"
+
+msgid "`kernelName`"
+msgstr "`kernelName`"
+
+msgid "`const char*`"
+msgstr "`const char*`"
+
+msgid "输入"
+msgstr "Input"
+
+msgid "kernel 名称字符串，用于日志和 profiling 标识"
+msgstr "kernel name string, used for logging and profiling identification"
+
+msgid "`func`"
+msgstr "`func`"
+
+msgid "`const void*`"
+msgstr "`const void*`"
+
+msgid "**CANN runtime 注册后的 kernel function handle**。调用方需先通过 `rtDevBinaryRegister` / `rtFunctionRegister` 完成注册，不可直接传入裸 `.aocx` 文件数据"
+msgstr "**CANN runtime registered kernel function handle**. The caller must first complete the registration via `rtDevBinaryRegister` / `rtFunctionRegister`, and cannot directly pass raw `.aocx` file data."
+
+msgid "`stream`"
+msgstr "`stream`"
+
+msgid "`rtStream_t`"
+msgstr "`rtStream_t`"
+
+msgid "CANN 运行时 stream 句柄，kernel 将在此 stream 上执行"
+msgstr "CANN runtime stream handle, the kernel will execute on this stream"
+
+msgid "`gridX`"
+msgstr "`gridX`"
+
+msgid "`int`"
+msgstr "`int`"
+
+msgid "启动网格 X 维度。`blockNum = gridX × gridY × gridZ` 决定总 block 发射数"
+msgstr "Launch grid X dimension. `blockNum = gridX × gridY × gridZ` determines the total number of blocks launched."
+
+msgid "`gridY`"
+msgstr "`gridY`"
+
+msgid "启动网格 Y 维度"
+msgstr "Launch grid Y dimension"
+
+msgid "`gridZ`"
+msgstr "`gridZ`"
+
+msgid "启动网格 Z 维度"
+msgstr "Launch grid Z dimension"
+
+msgid "`shapes_data`"
+msgstr "`shapes_data`"
+
+msgid "`const int64_t*`"
+msgstr "`const int64_t*`"
+
+msgid "各 tensor shape 按顺序拼接的一维展平数组。长度等于 `sum(shape_dims[i]) for i in 0..num_tensors-1`。主要用于 msprof tensor 信息上报，非 kernel 执行必需参数，可为 `nullptr`（此时 `shape_dims` 也应置空）"
+msgstr "A one-dimensional flattened array formed by concatenating the shapes of each tensor in order. Its length equals `sum(shape_dims[i]) for i in 0..num_tensors-1`. It is mainly used for msprof tensor information reporting and is not a required parameter for kernel execution; it can be `nullptr` (in which case `shape_dims` should also be set to empty)."
+
+msgid "`shape_dims`"
+msgstr "`shape_dims`"
+
+msgid "`const int*`"
+msgstr "`const int*`"
+
+msgid "每个 tensor 的维度数，数组长度 = `num_tensors`。与 `shapes_data` 配对使用；若 `shapes_data` 为 `nullptr` 则也应为 `nullptr`"
+msgstr "The number of dimensions for each tensor, array length = `num_tensors`. Used in conjunction with `shapes_data`; if `shapes_data` is `nullptr`, this should also be `nullptr`."
+
+msgid "`num_tensors`"
+msgstr "`num_tensors`"
+
+msgid "tensor 总数，同时决定 `shape_dims` 和 `tensor_kinds` 数组的有效长度"
+msgstr "Total number of tensors, also determines the effective length of the `shape_dims` and `tensor_kinds` arrays."
+
+msgid "`tensor_kinds`"
+msgstr "`tensor_kinds`"
+
+msgid "各 tensor 的类型标记，数组长度 = `num_tensors`。取值：`0` = INPUT，`1` = OUTPUT，`2` = INPUT_OUTPUT。主要用于 msprof tensor 分类上报；若为 `nullptr` 则默认按 INPUT 处理"
+msgstr "Type markers for each tensor, array length = `num_tensors`. Values: `0` = INPUT, `1` = OUTPUT, `2` = INPUT_OUTPUT. Mainly used for msprof tensor classification reporting; if `nullptr`, it defaults to INPUT."
+
+msgid "`kernel_args`"
+msgstr "`kernel_args`"
+
+msgid "`const void* const*`"
+msgstr "`const void* const*`"
+
+msgid "kernel 参数指针数组，每个元素指向一个 kernel 参数的起始地址，按 kernel 函数签名顺序一一对应。数组长度 = `num_args`。若 `num_args` 为 0 则可为 `nullptr`"
+msgstr "kernel parameter pointer array, each element points to the starting address of a kernel parameter, corresponding one-to-one in the order of the kernel function signature. Array length = `num_args`. If `num_args` is 0, it can be `nullptr`."
+
+msgid "`arg_sizes`"
+msgstr "`arg_sizes`"
+
+msgid "`const size_t*`"
+msgstr "`const size_t*`"
+
+msgid "各 kernel 参数的大小（字节），与 `kernel_args` 一一对应，数组长度 = `num_args`。若 `num_args` 为 0 则可为 `nullptr`"
+msgstr "The size (in bytes) of each kernel parameter, corresponding one-to-one with `kernel_args`, with array length = `num_args`. If `num_args` is 0, it can be `nullptr`."
+
+msgid "`num_args`"
+msgstr "`num_args`"
+
+msgid "kernel 参数个数。若 `num_args > 0` 但 `kernel_args` 或 `arg_sizes` 为 `nullptr`，函数将静默返回，不发射 kernel"
+msgstr "Number of kernel arguments. If `num_args > 0` but `kernel_args` or `arg_sizes` is `nullptr`, the function will silently return without launching the kernel."
+
+msgid "4. 参数内存布局与生命周期"
+msgstr "4. Parameter Memory Layout and Lifecycle"
+
+msgid "4.1 kernel_args 深拷贝"
+msgstr "4.1 Deep copy of kernel_args"
+
+msgid "函数内部会遍历 `kernel_args` 和 `arg_sizes`，将每个参数值 `memcpy` 到 `std::vector<std::vector<char>> copied_kernel_args` 本地容器中。因此："
+msgstr "Inside the function, it iterates over `kernel_args` and `arg_sizes`, and `memcpy`s each argument value into a local container `std::vector<std::vector<char>> copied_kernel_args`. Therefore:"
+
+msgid "**调用方在函数返回后可立即释放 `kernel_args` 中各指针指向的内存**，不影响发射"
+msgstr "**The caller may free the memory pointed to by each pointer in `kernel_args` immediately after the function returns**, without affecting the launch."
+
+msgid "深拷贝带来额外内存开销，开销大小 = `sum(arg_sizes[i])`"
+msgstr "Deep copy introduces additional memory overhead, with the overhead size = `sum(arg_sizes[i])`."
+
+msgid "4.2 launch_args 连续缓冲区布局"
+msgstr "4.2 launch_args Contiguous Buffer Layout"
+
+msgid "函数内部将所有发射参数组装到一段连续的 `std::vector<char> launch_args` 中，按以下顺序布局（各槽位按对齐要求偏移）："
+msgstr "Inside the function, all launch parameters are assembled into a contiguous `std::vector<char> launch_args`, arranged in the following order (each slot is offset according to alignment requirements):"
+
+msgid "**注意：** 此布局由 `generate_npu_wrapper_src()` 根据当前 kernel 的 signature、metadata、编译选项动态生成，不同编译产物的布局可能不同。"
+msgstr "**Note:** This layout is dynamically generated by `generate_npu_wrapper_src()` based on the current kernel's signature, metadata, and compilation options. The layout may vary for different compilation artifacts."
+
+msgid "4.3 workspace 与 syncBlockLock"
+msgstr "4.3 workspace and syncBlockLock"
+
+msgid "**workspace**：当 `metadata.workspace_size > 0` 时，函数内部通过 `allocate_memory` 分配 workspace，并以 `std::shared_ptr` 管理生命周期，函数返回时自动释放"
+msgstr "**workspace**: When `metadata.workspace_size > 0`, the function internally allocates workspace via `allocate_memory` and manages its lifecycle with `std::shared_ptr`, automatically releasing it when the function returns."
+
+msgid "**syncBlockLock**：当 `metadata.lock_num > 0` 时，函数内部通过 `allocate_sync_block_lock` 分配同步锁内存，初始化值为 `metadata.lock_init_value`，同样以 `std::shared_ptr` 管理生命周期"
+msgstr "**syncBlockLock**: When `metadata.lock_num > 0`, the function internally allocates sync lock memory via `allocate_sync_block_lock`, with the initial value set to `metadata.lock_init_value`, and also manages the lifecycle using `std::shared_ptr`."
+
+msgid "分配失败时向 stderr 输出错误信息并直接 `return`，不抛出异常"
+msgstr "Output error information to stderr on allocation failure and directly `return`, without throwing an exception."
+
+msgid "4.4 stream 同步策略"
+msgstr "4.4 Stream Synchronization Strategy"
+
+msgid "取决于 `TRITON_ENABLE_TASKQUEUE` 环境变量（默认 `\"true\"`）："
+msgstr "Depends on the `TRITON_ENABLE_TASKQUEUE` environment variable (default `\"true\"`):"
+
+msgid "模式"
+msgstr "Mode"
+
+msgid "行为"
+msgstr "Behavior"
+
+msgid "函数返回时机"
+msgstr "The function returns when"
+
+msgid "TaskQueue 启用（默认）"
+msgstr "TaskQueue enabled (default)"
+
+msgid "将 `rtKernelLaunch` 封装为 `std::function<rtError_t()>`，通过 `triton_async_launch` 提交到任务队列"
+msgstr "Wrap `rtKernelLaunch` as `std::function<rtError_t()>`, and submit it to the task queue via `triton_async_launch`."
+
+msgid "提交后立即返回，不等待 kernel 执行完成"
+msgstr "Return immediately after submission without waiting for kernel execution to complete."
+
+msgid "TaskQueue 禁用"
+msgstr "TaskQueue disabled"
+
+msgid "同步执行 `rtKernelLaunch`，随后调用 `rtStreamSynchronize(stream)`"
+msgstr "Synchronously execute `rtKernelLaunch`, then call `rtStreamSynchronize(stream)`."
+
+msgid "等待 kernel 执行完成后返回"
+msgstr "Return after waiting for the kernel execution to complete."
+
+msgid "5. 调用路径与适用场景"
+msgstr "5. Call Path and Applicable Scenarios"
+
+msgid "5.1 路径 A：标准 Python JIT 路径（普通用户）"
+msgstr "5.1 Path A: Standard Python JIT Path (Regular Users)"
+
+msgid "此路径**不经过** `triton_launch_kernel`，是 Triton 的标准调用方式："
+msgstr "This path does **not go through** `triton_launch_kernel` and is the standard calling method of Triton:"
+
+msgid "5.2 路径 B：外部 C 接口路径（直接调用 triton_launch_kernel）"
+msgstr "5.2 Path B: External C Interface Path (Directly Calling triton_launch_kernel)"
+
+msgid "面向需要 C 级别 kernel 发射的场景："
+msgstr "For scenarios requiring C-level kernel launch:"
+
+msgid "5.3 适用场景"
+msgstr "5.3 Applicable Scenarios"
+
+msgid "场景"
+msgstr "Scenario"
+
+msgid "推荐路径"
+msgstr "Recommended path"
+
+msgid "日常 Triton 算子开发"
+msgstr "Daily Triton Operator Development"
+
+msgid "路径 A"
+msgstr "Path A"
+
+msgid "使用 `@triton.jit` 标准流程"
+msgstr "Use the standard `@triton.jit` workflow."
+
+msgid "自定义部署流水线"
+msgstr "Custom deployment pipeline"
+
+msgid "路径 B"
+msgstr "Path B"
+
+msgid "已有预注册的 kernel handle，绕过 JIT 前端"
+msgstr "Already pre-registered kernel handle, bypassing the JIT frontend"
+
+msgid "推理引擎集成"
+msgstr "Inference Engine Integration"
+
+msgid "引擎需要 C 级别 kernel 发射接口"
+msgstr "The engine requires a C-level kernel launch interface."
+
+msgid "同签名 kernel 复用"
+msgstr "Reuse of same-signature kernel"
+
+msgid "用同一 launcher stub 发射不同编译产物"
+msgstr "Launch different compiled artifacts using the same launcher stub"
+
+msgid "6. 最小调用示例"
+msgstr "6. Minimum Call Example"
+
+msgid "6.1 C/C++ 示例（已有 func 句柄后）"
+msgstr "6.1 C/C++ Example (After Having the func Handle)"
+
+msgid "以下示例假设调用方已通过 CANN runtime 完成 kernel binary 的注册并持有可用的 `func` handle，仅展示调用 `triton_launch_kernel` 的参数组织方式。kernel 注册流程（`rtDevBinaryRegister` / `rtFunctionRegister`）属于 CANN runtime 标准流程，不在本示例范围内。"
+msgstr "The following example assumes that the caller has completed the registration of the kernel binary via the CANN runtime and holds an available `func` handle. It only demonstrates how to organize parameters for calling `triton_launch_kernel`. The kernel registration process (`rtDevBinaryRegister` / `rtFunctionRegister`) is part of the standard CANN runtime workflow and is not covered in this example."
+
+msgid "**说明：** 示例中的 `func` 参数是 CANN runtime 注册后的 kernel function handle，获取方式（`rtDevBinaryRegister` / `rtFunctionRegister`）属于 CANN runtime 标准流程。当前仓内 `npu_utils.cpp` 中的 `loadKernelBinary` / `registerKernel` 函数提供了 Python 侧的封装实现，具体 API 签名请以 CANN 头文件（`runtime/kernel.h`）为准。关于这些辅助函数是否可作为公开 API 文档化，请参见[待确认事项](#待确认事项)。"
+msgstr "**Note:** The `func` parameter in the example is the kernel function handle registered by the CANN runtime. The method to obtain it (`rtDevBinaryRegister` / `rtFunctionRegister`) follows the standard CANN runtime procedure. The `loadKernelBinary` / `registerKernel` functions in `npu_utils.cpp` within this repository provide Python-side wrapper implementations. For specific API signatures, refer to the CANN header file (`runtime/kernel.h`). Regarding whether these helper functions can be documented as public APIs, please see [Pending Confirmation](#pending-confirmation)."
+
+msgid "6.2 Python ctypes 示例"
+msgstr "6.2 Python ctypes Example"
+
+msgid "通过 ctypes 直接调用 launcher stub 中的 `triton_launch_kernel`："
+msgstr "Directly call `triton_launch_kernel` in the launcher stub via ctypes."
+
+msgid "6.3 标准 Python JIT 间接调用（对照）"
+msgstr "6.3 Standard Python JIT Indirect Call (Reference)"
+
+msgid "多数用户无需直接调用 `triton_launch_kernel`，使用标准 `@triton.jit` 即可："
+msgstr "Most users do not need to directly call `triton_launch_kernel`; using the standard `@triton.jit` is sufficient."
+
+msgid "7. 环境变量影响"
+msgstr "7. Environment Variable Influence"
+
+msgid "以下环境变量影响 `triton_launch_kernel` 的运行时行为。默认值以 `release/3.2.2` 分支源码为准。"
+msgstr "The following environment variables affect the runtime behavior of `triton_launch_kernel`. Default values are based on the source code of the `release/3.2.2` branch."
+
+msgid "环境变量"
+msgstr "Environment Variables"
+
+msgid "默认值"
+msgstr "Default value"
+
+msgid "源码位置"
+msgstr "Source code location"
+
+msgid "影响"
+msgstr "Impact"
+
+msgid "`TRITON_COMPILE_ONLY`"
+msgstr "`TRITON_COMPILE_ONLY`"
+
+msgid "`\"false\"`"
+msgstr "`\"false\"`"
+
+msgid "`driver.py:109`"
+msgstr "`driver.py:109`"
+
+msgid "为 `\"true\"` 时跳过 kernel 发射，仅编译"
+msgstr "Skip kernel launch and only compile when set to `\"true\"`."
+
+msgid "`TRITON_DEVICE_PRINT`"
+msgstr "`TRITON_DEVICE_PRINT`"
+
+msgid "`driver.py:452-453`"
+msgstr "`driver.py:452-453`"
+
+msgid "为 `\"true\"` 时启用 device printf，影响 launch_args 中 DTData 槽位的有无和 CANN DebugTunnel 的开关"
+msgstr "When set to `\"true\"`, device printf is enabled, affecting the presence of the `DTData` slot in `launch_args` and the toggle of the CANN DebugTunnel."
+
+msgid "`TRITON_ENABLE_TASKQUEUE`"
+msgstr "`TRITON_ENABLE_TASKQUEUE`"
+
+msgid "`\"true\"`"
+msgstr "`\"true\"`"
+
+msgid "`driver.py:454-455`"
+msgstr "`driver.py:454-455`"
+
+msgid "为 `\"true\"` 时启用异步 TaskQueue 模式，函数提交任务后立即返回；为 `\"false\"` 时同步等待 kernel 执行完成"
+msgstr "When set to `\"true\"`, enables asynchronous TaskQueue mode, where the function returns immediately after submitting the task; when set to `\"false\"`, it synchronously waits for the kernel execution to complete."
+
+msgid "`TRITON_GRID_WARN_PRINT`"
+msgstr "`TRITON_GRID_WARN_PRINT`"
+
+msgid "`driver.py:456-457`"
+msgstr "`driver.py:456-457`"
+
+msgid "为 `\"true\"` 时，若 `blockNum` 超过物理核数则向 stderr 输出性能警告"
+msgstr "When set to `\"true\"`, if `blockNum` exceeds the number of physical cores, a performance warning is output to stderr."
+
+msgid "**注意：** 以上默认值仅在 `release/3.2.2` 分支中验证。其他分支或版本可能有不同默认值，请以实际源码为准。"
+msgstr "**Note:** The above default values are only verified in the `release/3.2.2` branch. Other branches or versions may have different default values; please refer to the actual source code."
+
+msgid "8. 限制与注意事项"
+msgstr "8. Limitations and Precautions"
+
+msgid "平台限制"
+msgstr "Platform Limitations"
+
+msgid "仅支持昇腾 NPU 平台（Atlas A2/A3 系列），不支持 GPU"
+msgstr "Only supports Ascend NPU platforms (Atlas A2/A3 series), does not support GPU."
+
+msgid "返回值与错误处理"
+msgstr "Return Values and Error Handling"
+
+msgid "函数返回类型为 `void`，**不提供稳定错误码契约**"
+msgstr "The function return type is `void`, **and does not provide a stable error code contract**."
+
+msgid "参数校验失败时静默返回（如 `num_args > 0` 但 `kernel_args` 为 `nullptr`）"
+msgstr "Silently return when parameter validation fails (e.g., `num_args > 0` but `kernel_args` is `nullptr`)."
+
+msgid "资源分配失败时向 stderr 输出错误信息并返回"
+msgstr "Output error information to stderr and return when resource allocation fails."
+
+msgid "`rtKernelLaunch` 的返回码仅在函数内部消费，不向调用方传播"
+msgstr "The return code of `rtKernelLaunch` is consumed only within the function and is not propagated to the caller."
+
+msgid "调用方若需确认 kernel 执行状态，应："
+msgstr "If the caller needs to confirm the kernel execution status, they should:"
+
+msgid "TaskQueue 禁用模式下：函数返回后 kernel 已执行完毕，通过 `rtStreamSynchronize` 等价物确认"
+msgstr "In TaskQueue disabled mode: after the function returns, the kernel has completed execution, confirmed via the equivalent of `rtStreamSynchronize`."
+
+msgid "TaskQueue 启用模式（默认）：自行跟踪任务队列状态"
+msgstr "TaskQueue enabled mode (default): tracks the task queue status automatically"
+
+msgid "ABI 稳定性"
+msgstr "ABI Stability"
+
+msgid "`triton_launch_kernel` 由 `generate_npu_wrapper_src()` 按 kernel 编译动态生成，每个 launcher stub `.so` 中的该函数其参数区内存布局可能不同"
+msgstr "`triton_launch_kernel` is dynamically generated by `generate_npu_wrapper_src()` during kernel compilation, and the memory layout of the parameter area for this function may differ across each launcher stub `.so`."
+
+msgid "布局影响因素包括：kernel signature、`metadata.workspace_size`、`metadata.lock_num`、`metadata.coalesce_factor`、`metadata.coalesce_axis`、`metadata.force_simt_only`、`TRITON_DEVICE_PRINT`、ffts 支持状态"
+msgstr "Layout influencing factors include: kernel signature, `metadata.workspace_size`, `metadata.lock_num`, `metadata.coalesce_factor`, `metadata.coalesce_axis`, `metadata.force_simt_only`, `TRITON_DEVICE_PRINT`, and ffts support status."
+
+msgid "**不同编译产物生成的 `triton_launch_kernel` 不可互换使用**；调用方应确保使用的 launcher stub `.so` 与目标 kernel 编译产物匹配"
+msgstr "**`triton_launch_kernel` generated from different compilation artifacts are not interchangeable**; the caller must ensure that the launcher stub `.so` used matches the target kernel's compilation artifact."
+
+msgid "grid 语义"
+msgstr "grid semantics"
+
+msgid "后端以 `blockNum = gridX × gridY × gridZ` 计算总 block 数，以此数量调用 `rtKernelLaunch`"
+msgstr "The backend calculates the total number of blocks as `blockNum = gridX × gridY × gridZ` and calls `rtKernelLaunch` with this count."
+
+msgid "三个 grid 值均写入 kernel 参数区的 grid 槽位，kernel 内部可通过对应偏移读取"
+msgstr "The three grid values are all written into the grid slot of the kernel parameter area, and can be read from within the kernel via the corresponding offset."
+
+msgid "当 `coalesce_factor > 1` 且 `coalesce_axis` 合法（0/1/2）时，对应轴的 grid 维度在发射前执行整数除法（`gridX = gridX / H` 等）"
+msgstr "When `coalesce_factor > 1` and `coalesce_axis` is valid (0/1/2), the grid dimension of the corresponding axis performs integer division before launch (`gridX = gridX / H`, etc.)."
+
+msgid "若启用了 `auto_map_parallel_blocks`，`blockNum` 会被钳制到 `min(blockNum, 物理核数)`"
+msgstr "If `auto_map_parallel_blocks` is enabled, `blockNum` will be clamped to `min(blockNum, number of physical cores)`."
+
+msgid "当 `blockNum` 超过物理核数且 `TRITON_GRID_WARN_PRINT=\"true\"` 时，向 stderr 输出性能警告"
+msgstr "When `blockNum` exceeds the number of physical cores and `TRITON_GRID_WARN_PRINT=\"true\"`, a performance warning is output to stderr."
+
+msgid "其他"
+msgstr "Other"
+
+msgid "`kernel_args` 深拷贝增加 `sum(arg_sizes[i])` 字节的临时内存开销"
+msgstr "`kernel_args` deep copy adds `sum(arg_sizes[i])` bytes of temporary memory overhead"
+
+msgid "`shapes_data` / `shape_dims` / `tensor_kinds` 主要用于 msprof tensor 信息上报；不传（设为 `nullptr`）不影响 kernel 正确性，但 profiler 中 tensor 信息将缺失"
+msgstr "`shapes_data` / `shape_dims` / `tensor_kinds` are mainly used for msprof tensor information reporting; not passing them (setting to `nullptr`) does not affect kernel correctness, but tensor information in the profiler will be missing."
+
+msgid "该接口生成的代码依赖 CANN 运行时版本，升级 CANN 后需重新编译 launcher stub"
+msgstr "The code generated by this interface depends on the CANN runtime version. After upgrading CANN, the launcher stub must be recompiled."
