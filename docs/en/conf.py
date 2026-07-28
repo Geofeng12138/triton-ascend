@@ -44,6 +44,8 @@ else:
 _is_zh = _build_lang in ('zh-cn', 'zh') or _build_lang.startswith('zh-')
 language = 'zh_CN' if _is_zh else 'en'
 
+gettext_compact = False
+
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 if _is_zh:
     exclude_patterns.extend(['../en'])
