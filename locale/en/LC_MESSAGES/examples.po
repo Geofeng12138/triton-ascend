@@ -1,0 +1,426 @@
+# English translations for triton-ascend docs.
+# Copyright (c) 2025 Huawei Technologies Co., Ltd.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: triton-ascend-docs\n"
+"POT-Creation-Date: 2026-07-28 06:48+0000\n"
+"PO-Revision-Date: 2026-07-28 06:48+0000\n"
+"Last-Translator: Auto Translation (DeepSeek)\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+msgstr "Okay, I will translate the Chinese text into English according to the rules. Please provide the Chinese text you want me to translate."
+
+msgid "向量相加 （Vector Addition）"
+msgstr "Vector Addition"
+
+msgid "在本节中，我们将使用 Triton 编写一个简单的向量相加的程序。 在此过程中，你会学习到："
+msgstr "In this section, we will write a simple vector addition program using Triton. Through this process, you will learn:"
+
+msgid "Triton 的基本编程模式。"
+msgstr "Basic programming model of Triton."
+
+msgid "用于定义Triton内核的`triton.jit`装饰器（decorator）。"
+msgstr "The `triton.jit` decorator used to define Triton kernels."
+
+msgid "计算内核:"
+msgstr "Compute kernel:"
+
+msgid "创建一个辅助函数用于："
+msgstr "Create a helper function to:"
+
+msgid "生成 z 张量；"
+msgstr "Generate the z tensor."
+
+msgid "用适当的 grid/block sizes 将上述内核加入队列。"
+msgstr "Use appropriate grid/block sizes to enqueue the above kernel."
+
+msgid "使用上述函数计算两个 `torch.tensor` 对象的 element-wise sum，并测试其正确性："
+msgstr "Use the above function to compute the element-wise sum of two `torch.tensor` objects and test its correctness."
+
+msgid "Out:"
+msgstr "Out:"
+
+msgid "\"The maximum difference between torch and triton is 0.0\" 表示Triton和PyTorch的输出结果一致。"
+msgstr "\"The maximum difference between torch and triton is 0.0\" indicates that the output results of Triton and PyTorch are consistent."
+
+msgid "融合 Softmax （Fused Softmax）"
+msgstr "Fused Softmax"
+
+msgid "在本节中，我们将使用 Triton 编写一个融合的 softmax 操作的程序。 在此过程中，你会学习到："
+msgstr "In this section, we will write a fused softmax operation program using Triton. Along the way, you will learn:"
+
+msgid "内核融合对于带宽受限操作的优势。"
+msgstr "Advantages of kernel fusion for bandwidth-limited operations."
+
+msgid "Triton 中缩减操作。"
+msgstr "Reduction Operations in Triton"
+
+msgid "使用原生 PyTorch 对 X 逐行进行 Softmax 计算"
+msgstr "Compute Softmax row-wise on X using native PyTorch."
+
+msgid "内核融合的目的"
+msgstr "The purpose of kernel fusion"
+
+msgid "当在 PyTorch 中以原生方式实现时，计算`y=naive_softmax(x)`需要从 DRAM 中读取 5MN+2M 个元素，并写回 3MN+2M 个元素。显然这是非常低效的；我们更希望使用一个自定义的“融合”内核，它只需读取一次 x，并在芯片上完成所有必要的计算。 这样一来只需读取和写回 2MN 个字节，因此我们可以期望理论上的加速比大约为 4 倍（即 (8MN+4M)/2MN）。"
+msgstr "When implemented natively in PyTorch, computing `y=naive_softmax(x)` requires reading 5MN+2M elements from DRAM and writing back 3MN+2M elements. This is clearly very inefficient; we would prefer to use a custom \"fused\" kernel that reads x only once and performs all necessary computations on-chip. This way, only 2MN bytes need to be read and written back, so we can expect a theoretical speedup of approximately 4x (i.e., (8MN+4M)/2MN)."
+
+msgid "`torch.jit.script`旨在自动执行这种“内核融合”，但它仍然远未达到理想状态。"
+msgstr "`torch.jit.script` is designed to automatically perform this kind of \"kernel fusion,\" but it is still far from ideal."
+
+msgid "计算内核"
+msgstr "Compute kernel"
+
+msgid "softmax 内核工作原理如下：每个计算单元（program）以程序数量为步长加载输入矩阵X的一组行数据，执行归一化处理后，将结果写入输出矩阵Y。 注意：Triton 的一个重要限制是每个块必须具有 2 的幂次数的元素，因此，如果我们要处理任意可能的输入形状，需要在内部「填充」每一行，并确保内存操作正确性。"
+msgstr "The softmax kernel works as follows: each compute unit (program) loads a set of rows from the input matrix X with a stride equal to the number of programs, performs normalization, and writes the result to the output matrix Y. Note: An important limitation of Triton is that each block must have a power-of-two number of elements, so if we need to handle arbitrary input shapes, we must internally \"pad\" each row and ensure memory operation correctness."
+
+msgid "我们可以创建一个辅助函数，该函数能够将核函数及其元参数加入执行队列，以处理任意给定的输入张量。"
+msgstr "We can create a helper function that adds the kernel function and its metaparameters to the execution queue to process any given input tensor."
+
+msgid "单元测试"
+msgstr "Unit test"
+
+msgid "需要在一个具有不规则行和列数的矩阵上测试处理好的内核，此举可以验证Padding机制是否起作用"
+msgstr "Need to test the processed kernel on a matrix with irregular numbers of rows and columns, which can verify whether the padding mechanism is effective."
+
+msgid "\"The maximum difference between torch and triton is 1.4901161193847656e-08\" 表示Triton和PyTorch的输出结果非常接近，肉眼不可区分。"
+msgstr "\"The maximum difference between torch and triton is 1.4901161193847656e-08\" indicates that the output results of Triton and PyTorch are very close and indistinguishable to the naked eye."
+
+msgid "层标准化 （Layer Normalization）"
+msgstr "Layer Normalization"
+
+msgid "在本节中，我们将使用 Triton 编写一个比 PyTorch 实现运行更快的高性能层标准化 (Layer Normalization) 内核。"
+msgstr "In this section, we will use Triton to write a high-performance Layer Normalization kernel that runs faster than the PyTorch implementation."
+
+msgid "使用 Triton 自定义的 LayerNorm 实现方式"
+msgstr "Using Triton's custom LayerNorm implementation"
+
+msgid "结果"
+msgstr "Result"
+
+msgid "“Layer Normalization 128,128 torch.float16 PASSED!”、 “Layer Normalization 128,128 torch.bfloat16 PASSED!”、 “Layer Normalization 128,128 torch.float32 PASSED!” 表明Triton和PyTorch上float16、bfloat16、float32数据类型的输出结果完全一致。"
+msgstr "\"Layer Normalization 128,128 torch.float16 PASSED!\", \"Layer Normalization 128,128 torch.bfloat16 PASSED!\", \"Layer Normalization 128,128 torch.float32 PASSED!\" indicate that the output results of float16, bfloat16, and float32 data types on Triton and PyTorch are completely consistent."
+
+msgid "融合注意力（Fused Attention）"
+msgstr "Fused Attention"
+
+msgid "本节实现了一个基于 **Triton** 的 **Flash Attention v2 风格的融合注意力前向传播内核**，适用于昇腾（Ascend）NPU 平台。该实现支持："
+msgstr "This section implements a **Flash Attention v2-style fused attention forward kernel** based on **Triton**, suitable for the Ascend NPU platform. The implementation supports:"
+
+msgid "**因果（causal）与非因果注意力**"
+msgstr "**Causal and Non-Causal Attention**"
+
+msgid "**分块计算（tiling）以处理长序列**"
+msgstr "**Tiling for Processing Long Sequences**"
+
+msgid "**数值稳定性优化（max-shifted softmax）**"
+msgstr "**Numerical Stability Optimization (max-shifted softmax)**"
+
+msgid "整体结构包含两个核心 Triton 内核："
+msgstr "The overall structure consists of two core Triton kernels:"
+
+msgid "`_attn_fwd_inner`：执行单个 query block 与 key/value blocks 的 attention 计算（分阶段处理 causal mask）"
+msgstr "`_attn_fwd_inner`: Performs attention computation between a single query block and key/value blocks (processes causal mask in stages)."
+
+msgid "`_attn_fwd`：调度所有 query blocks，并管理 block 指针、accumulator 和归一化"
+msgstr "`_attn_fwd`: schedules all query blocks and manages block pointers, accumulators, and normalization."
+
+msgid "并通过 PyTorch `autograd.Function` 封装为可调用的 `attention` 函数，与 `torch_npu.npu_fusion_attention` 进行精度对齐验证。"
+msgstr "And encapsulate it into a callable `attention` function via PyTorch `autograd.Function`, and perform accuracy alignment verification with `torch_npu.npu_fusion_attention`."
+
+msgid "上面输出日志表明Triton和PyTorch上的输出结果完全一致。"
+msgstr "The output log above indicates that the results on Triton and PyTorch are completely consistent."
+
+msgid "矩阵乘法 （Matrix Multiplication）"
+msgstr "Matrix Multiplication"
+
+msgid "在本节中，我们展示了使用 Triton 进行矩阵乘法的内核实现。"
+msgstr "In this section, we demonstrate a kernel implementation of matrix multiplication using Triton."
+
+msgid "以下 Triton 内核实现了一个带偏置项的批量矩阵乘法（Batched Matrix Multiplication with Bias）： 计算公式为： $$ \\text{output}[b, i, j] = \\sum_k \\text{x}[b, i, k] \\cdot \\text{y}[k, j] + \\text{z}[b, i, j] $$ 其中："
+msgstr "The following Triton kernel implements a Batched Matrix Multiplication with Bias: The computation formula is: $$ \\text{output}[b, i, j] = \\sum_k \\text{x}[b, i, k] \\cdot \\text{y}[k, j] + \\text{z}[b, i, j] $$ where:"
+
+msgid "`x` 的形状为 `(A, B)`"
+msgstr "The shape of `x` is `(A, B)`."
+
+msgid "`y` 的形状为 `(B, C)`"
+msgstr "The shape of `y` is `(B, C)`."
+
+msgid "`z`（偏置）的形状为 `(A, C)`"
+msgstr "The shape of `z` (offset) is `(A, C)`."
+
+msgid "输出 `output` 的形状为 `(A, C)`"
+msgstr "The shape of the output `output` is `(A, C)`."
+
+msgid "该内核假设单个 block 负责整个输出矩阵的计算，适用于小规模矩阵（A、B、C 较小且能被当前程序块完全覆盖）。"
+msgstr "This kernel assumes that a single block is responsible for computing the entire output matrix, making it suitable for small-scale matrices (A, B, C are small and can be fully covered by the current block)."
+
+msgid "工具方法"
+msgstr "Utility Method"
+
+msgid "以下辅助函数用于支持 Triton 内核的测试与验证，包括 PyTorch 参考实现、数据类型映射、随机张量生成及结果校验。"
+msgstr "The following helper functions are used to support the testing and verification of Triton kernels, including PyTorch reference implementation, data type mapping, random tensor generation, and result validation."
+
+msgid "参数化测试"
+msgstr "Parameterized Testing"
+
+msgid "使用 `pytest` 对 `triton_dot_2_Bias` 内核进行参数化功能验证，覆盖不同矩阵维度和数据类型组合。"
+msgstr "Use `pytest` to perform parameterized functional verification of the `triton_dot_2_Bias` kernel, covering different matrix dimensions and data type combinations."
+
+msgid "**输出示例：**"
+msgstr "**Output Example:**"
+
+msgid "上面输出日志表明Triton和Pytorch上的输出结果完全一致。"
+msgstr "The output log above indicates that the results on Triton and PyTorch are completely consistent."
+
+msgid "自动调优 （Autotune）"
+msgstr "Autotune"
+
+msgid "如果你希望先了解 Triton-Ascend autotune 的推荐用法、`configs=[]` 的含义，以及自动 Tiling 的适用边界，建议先阅读 [Triton-Ascend autotune 使用指南](../autotune_guide.md)。"
+msgstr "If you want to first understand the recommended usage of Triton-Ascend autotune, the meaning of `configs=[]`, and the applicable boundaries of automatic Tiling, it is recommended to read the [Triton-Ascend autotune usage guide](../autotune_guide.md)."
+
+msgid "在本节中，我们将展示使用 Triton 的 autotune 方法自动选择最优的 kernel 配置参数。当前 Triton-Ascend autotune 完全兼容社区 autotune 的使用方法（参考[社区文档](https://triton-lang.org/main/python-api/generated/triton.autotune.html)），即需要用户手动传入一些定义好的 triton.Config，然后 autotune 会通过 benchmark 的方式选择其中的最优 kernel 配置；此外 Triton-Ascend 提供了**进阶的 autotune** 用法，用户无需提供triton kernel 的切分轴、tiling 轴等信息，autotune 会根据triton kernel语义自动解析切分轴、tiling轴等信息，并自动生成一些可能最优的 kernel 配置，然后通过 benchmark 或者 profiling 的方式选择其中的最优配置。"
+msgstr "In this section, we will demonstrate how to use Triton's autotune method to automatically select the optimal kernel configuration parameters. The current Triton-Ascend autotune is fully compatible with the community autotune usage (refer to the [community documentation](https://triton-lang.org/main/python-api/generated/triton.autotune.html)), meaning users need to manually pass in some predefined `triton.Config`, and then autotune will select the optimal kernel configuration among them through benchmarking. Additionally, Triton-Ascend provides an **advanced autotune** usage, where users do not need to provide information such as the kernel's split axes or tiling axes. The autotune will automatically parse the split axes, tiling axes, and other information based on the Triton kernel semantics, automatically generate some potentially optimal kernel configurations, and then select the optimal configuration through benchmarking or profiling."
+
+msgid "说明： 当前Triton-Ascend autotune支持block size、multibuffer（编译器的优化），因为硬件架构差异不支持num_warps、num_stages参数，未来还会持续增加autotune可调项。"
+msgstr "Note: Currently, Triton-Ascend autotune supports block size and multibuffer (compiler optimization). Due to hardware architecture differences, it does not support the num_warps and num_stages parameters. More tunable items for autotune will be continuously added in the future."
+
+msgid "社区 autotune 使用示例"
+msgstr "Community autotune usage example"
+
+msgid "进阶 autotune 使用示例"
+msgstr "Advanced autotune usage example"
+
+msgid "说明："
+msgstr "Description:"
+
+msgid "Triton-Ascend默认采取benchmark的方式取片上计算时间，当设置环境变量`export TRITON_BENCH_METHOD=\"npu\"`后，会通过`torch_npu.profiler.profile`的方式获取每个kernel配置下的片上计算时间，对于一些triton kernel计算快速的情况，例如小shape算子，相较于默认方式能够获取更准确的计算时间，但是会显著增加整体autotune的时间，请谨慎开启"
+msgstr "Triton-Ascend defaults to using the benchmark method to obtain on-chip computation time. When the environment variable `export TRITON_BENCH_METHOD=\"npu\"` is set, it will use `torch_npu.profiler.profile` to obtain the on-chip computation time for each kernel configuration. For some triton kernels with fast computation, such as small shape operators, this can provide more accurate computation time compared to the default method, but it will significantly increase the overall autotune time. Please enable it with caution."
+
+msgid "目前该进阶用法针对的是 Vector 类算子，不支持 Cube 类算子。更多进阶使用示例可以参考[autotune进阶使用示例](https://gitcode.com/Ascend/triton-ascend/tree/main/third_party/ascend/unittest/autotune_ut/)。"
+msgstr "Currently, this advanced usage is targeted at Vector class operators and does not support Cube class operators. For more advanced usage examples, please refer to [autotune advanced usage examples](https://gitcode.com/Ascend/triton-ascend/tree/main/third_party/ascend/unittest/autotune_ut/)."
+
+msgid "参数自动解析"
+msgstr "Automatic parameter resolution"
+
+msgid "执行参数自动解析前首先会获取`kernel`函数调用时未传入的参数，**将未传入的参数作为切分轴和分块轴参数的候选项**。"
+msgstr "Before performing automatic parameter parsing, it first retrieves the parameters not passed in the `kernel` function call, **using the unpassed parameters as candidates for the split axis and block axis parameters**."
+
+msgid "切分轴参数解析"
+msgstr "Segmentation axis parameter parsing"
+
+msgid "切分轴参数解析依据 `tl.program_id()`分核语句来确定 ，系统通过分析程序中 `tl.program_id()` 变量的使用情况及其与其他变量的乘法运算识别潜在的切分轴参数（当前支持直接相乘或通过中间变量间接相乘的场景），并根据候选参数列表（用户未提供的参数）进行过滤。"
+msgstr "The segmentation axis parameter parsing is determined based on the `tl.program_id()` kernel distribution statement. The system identifies potential segmentation axis parameters by analyzing the usage of the `tl.program_id()` variable in the program and its multiplication operations with other variables (currently supporting scenarios of direct multiplication or indirect multiplication through intermediate variables), and filters them according to the candidate parameter list (parameters not provided by the user)."
+
+msgid "最后通过掩码比较和 `autotune` 中传入的 `key` 确认当前参数对应的切分轴。"
+msgstr "Finally, confirm the split axis corresponding to the current parameter through mask comparison and the `key` passed in `autotune`."
+
+msgid "注意：1. 分割轴参数必须要与 `tl.program_id()` 相乘。 2. 必须要进行掩码比较，且该轴对应的key需要直接作为右值或以key为参数的min函数作为右值，才能对应到具体的切分轴，否则会导致参数解析失败。3. 识别出的分割轴参数仅限于候选参数列表，确保只有那些可以通过自动调优动态调整的参数才会被考虑。"
+msgstr "Note: 1. The split axis parameter must be multiplied by `tl.program_id()`. 2. A mask comparison must be performed, and the key corresponding to this axis must be directly used as the right-hand value or as the right-hand value of a min function with the key as its parameter, in order to correspond to the specific split axis; otherwise, parameter parsing will fail. 3. The identified split axis parameters are limited to the candidate parameter list, ensuring that only those parameters that can be dynamically adjusted through auto-tuning are considered."
+
+msgid "分块轴参数解析"
+msgstr "Block Axis Parameter Parsing"
+
+msgid "分块轴参数依据 `tl.arange()` ，`tl.range()`，`range()` 分块语句来确定。通过分析程序中`for` 循环里的 `tl.range()`，`tl.arange()`以及`range()` 的使用情况及其计算得到的变量来识别潜在的分块轴参数，提取 `tl.range()` 或 `range()` 中和 `tl.arange()` 的共同参数，并根据候选参数列表（用户未提供的参数）进行过滤。"
+msgstr "Block axis parameters are determined based on `tl.arange()`, `tl.range()`, and `range()` block statements. By analyzing the usage of `tl.range()`, `tl.arange()`, and `range()` in the `for` loop of the program, along with the variables computed from them, potential block axis parameters are identified. Common parameters between `tl.range()` or `range()` and `tl.arange()` are extracted and filtered according to the candidate parameter list (parameters not provided by the user)."
+
+msgid "最后通过掩码比较和 `autotune` 中传入的 `key` 确认当前参数对应的分块轴。"
+msgstr "Finally, confirm the chunking axis corresponding to the current parameters through mask comparison and the `key` passed in `autotune`."
+
+msgid "注意：1. 分块轴参数必须出现在 `tl.arange()` 的调用中，并且需在 `for` 循环中通过 `tl.range()`、`range()` 或整除运算（`//`）参与循环范围的计算。 2. 必须要进行掩码比较，且该轴对应的key需要直接作为右值或以key为参数的min函数作为右值，才能对应到具体的分块轴，否则会导致参数解析失败。3. 识别出的分块轴参数仅限于候选参数列表，确保只有那些可以通过自动调优动态调整的参数才会被考虑。"
+msgstr "Note: 1. The block axis parameter must appear in the call to `tl.arange()` and must be used in the calculation of the loop range within a `for` loop via `tl.range()`, `range()`, or integer division (`//`). 2. A mask comparison must be performed, and the key corresponding to that axis must be directly used as the right-hand value, or a min function with the key as a parameter must be used as the right-hand value, in order to correspond to the specific block axis; otherwise, parameter parsing will fail. 3. The identified block axis parameters are limited to the candidate parameter list, ensuring that only those parameters that can be dynamically adjusted through auto-tuning are considered."
+
+msgid "低维轴参数解析"
+msgstr "Low-dimensional axis parameter analysis"
+
+msgid "低维轴参数解析依据 `tl.arange()` 分块语句来确定，通过分析程序中 `tl.arange()` 的使用情况及其计算得到的变量来识别潜在的低维轴参数，提取 `tl.arange()` 本身以及它参与计算的变量，通过是否进行切片操作来进行增维，以及通过判断增维维度来进行过滤。"
+msgstr "Low-dimensional axis parameter parsing is determined based on the block statement of `tl.arange()`. By analyzing the usage of `tl.arange()` in the program and the variables it computes, potential low-dimensional axis parameters are identified. The `tl.arange()` itself and the variables it participates in computing are extracted. Dimensionality is increased based on whether slicing operations are performed, and filtering is carried out by determining the dimension of the increase."
+
+msgid "最后通过掩码比较和 `autotune` 中传入的 `key` 确认当前kernel的低维轴。"
+msgstr "Finally, confirm the low-dimensional axis of the current kernel through mask comparison and the `key` passed in `autotune`."
+
+msgid "注意：1. 低维轴必须要通过`tl.arange()`进行计算，并进行切片。并在非最低维进行维度扩充或不参与切片，才会被识别。 2. 若不进行掩码比较则无法对应到具体的低维轴，会导致参数解析失败。"
+msgstr "Note: 1. Low-dimensional axes must be computed using `tl.arange()` and sliced. They will only be recognized if dimension expansion is performed on non-lowest dimensions or if they do not participate in slicing. 2. Without mask comparison, it is impossible to map to specific low-dimensional axes, which will cause parameter parsing to fail."
+
+msgid "参数指针解析"
+msgstr "Parameter Pointer Resolution"
+
+msgid "指针类型的参数解析依据该参数是否参与 `tl.load()` 和 `tl.store()` 的访存类语句来确定。"
+msgstr "Pointer-type parameter parsing is determined based on whether the parameter participates in memory access statements such as `tl.load()` and `tl.store()`."
+
+msgid "首先解析出kernel函数中的所有参数，之后递归寻找每一个参数参与计算的所有变量。"
+msgstr "First, parse all parameters in the kernel function, then recursively find all variables that each parameter participates in computing."
+
+msgid "如果该参数直接参与或该参数计算得到的中间变量间接参与 `tl.load()` 和 `tl.store()` 的第一个参数计算，则认为该参数是一个指针类型参数。"
+msgstr "If the parameter directly participates in, or an intermediate variable computed from the parameter indirectly participates in, the calculation of the first argument of `tl.load()` and `tl.store()`, then the parameter is considered a pointer type parameter."
+
+msgid "注意：1. 使用 `tl.constexpr` 修饰的变量不会是指针类型的变量，不进行后续解析 2. 只计算参数直接参与或参数经过一次计算得到的中间变量间接参与的访存类语句，若参数进行两次以上计算得到的中间变量不进行统计。"
+msgstr "Note: 1. Variables decorated with `tl.constexpr` will not be pointer-type variables and will not be further parsed. 2. Only memory access statements where parameters directly participate or indirectly participate through intermediate variables obtained from a single computation of the parameters are counted. Intermediate variables obtained from two or more computations of the parameters are not included in the statistics."
+
+msgid "更多功能"
+msgstr "More features"
+
+msgid "自动生成最优配置的 Profiling 结果"
+msgstr "Profiling results for automatically generating optimal configuration"
+
+msgid "精度比对 （Accuracy Comparison）"
+msgstr "Accuracy Comparison"
+
+msgid "在本节中，我们将使用 Triton 编写一个简单的精度比对的程序。 在此过程中，用户会学习到："
+msgstr "In this section, we will use Triton to write a simple precision comparison program. Through this process, users will learn:"
+
+msgid "Triton 每种数据类型的精度比对方法。"
+msgstr "Precision comparison method for each data type in Triton."
+
+msgid "参考示例代码：triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py"
+msgstr "Reference example code: triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py"
+
+msgid "创建一个精度比对函数，适应每一种dtype，采用对应的精度比对方法。"
+msgstr "Create a precision comparison function that adapts to each dtype and uses the corresponding precision comparison method."
+
+msgid "可以使用下面指令，运行参考示例代码：tutorials/14-accuracy-comparison.py"
+msgstr "You can use the following command to run the reference example code: tutorials/14-accuracy-comparison.py"
+
+msgid "max_autotune 使用示例"
+msgstr "max_autotune usage example"
+
+msgid "`max_autotune` 是 Triton-Ascend 提供的增强自动调优装饰器，旨在简化多参数调优的代码编写。与社区版 `autotune` 要求用户手动枚举所有 `triton.Config` 不同，`max_autotune` 允许用户仅提供少量基础配置（如分块大小），并自动将相关的编译器选项（如 `num_stages`、`enable_hivm_auto_cv_balance` 等）纳入最优组合的搜索空间。用户也可以通过参数列表显式控制搜索范围。"
+msgstr "`max_autotune` is an enhanced auto-tuning decorator provided by Triton-Ascend, designed to simplify the coding of multi-parameter tuning. Unlike the community version `autotune`, which requires users to manually enumerate all `triton.Config` instances, `max_autotune` allows users to provide only a few basic configurations (such as block sizes) and automatically incorporates related compiler options (e.g., `num_stages`, `enable_hivm_auto_cv_balance`, etc.) into the search space for optimal combinations. Users can also explicitly control the search scope through parameter lists."
+
+msgid "**适用场景**：Ascend NPU 上的 `cube`、`mix`、`vector` 算子，尤其适合需要同时调整多个硬件相关参数的场景。"
+msgstr "**Applicable Scenarios**: The `cube`, `mix`, and `vector` operators on Ascend NPU are especially suitable for scenarios where multiple hardware-related parameters need to be adjusted simultaneously."
+
+msgid "基本使用示例"
+msgstr "Basic Usage Example"
+
+msgid "以下示例演示了使用 `max_autotune` 对一个简单的向量加法 kernel 进行自动调优。与社区版 `autotune` 相比，`max_autotune` 还会自动将不同的编译器选项纳入调优空间，无需用户手动指定。"
+msgstr "The following example demonstrates the use of `max_autotune` for automatic tuning of a simple vector addition kernel. Compared to the community version `autotune`, `max_autotune` also automatically incorporates different compiler options into the tuning space without requiring manual specification by the user."
+
+msgid "进阶使用：精确控制调优参数"
+msgstr "Advanced Usage: Precise Control of Tuning Parameters"
+
+msgid "用户可以通过 **tuning_params 显式指定需要调优的编译器选项及其取值列表；未指定的参数会使用内置默认值。以下示例展示了如何对多个参数进行组合搜索。"
+msgstr "Users can explicitly specify the compiler options to be tuned and their value lists via **tuning_params**; unspecified parameters will use built-in default values. The following example demonstrates how to perform a combined search for multiple parameters."
+
+msgid "Costmodel 端到端示例"
+msgstr "Costmodel End-to-End Example"
+
+msgid "本示例展示 costmodel 后端的基本调用流程："
+msgstr "This example demonstrates the basic calling process of the costmodel backend."
+
+msgid "使用 Triton 前端算子生成 TTIR；"
+msgstr "Use Triton frontend operators to generate TTIR."
+
+msgid "为多个候选 config 构造 `costmodel_bench` 输入；"
+msgstr "Construct `costmodel_bench` input for multiple candidate configs;"
+
+msgid "调用 `costmodel_bench` 得到每个 config 的预测耗时。"
+msgstr "Call `costmodel_bench` to obtain the predicted time consumption for each config."
+
+msgid "这个流程适合在 autotune 前快速筛掉预计性能较差的 config。示例只使用向量加法 kernel，便于聚焦 costmodel 的输入和返回值。"
+msgstr "This process is suitable for quickly filtering out configs with poor expected performance before autotune. The example only uses a vector addition kernel to focus on the input and return values of the cost model."
+
+msgid "完整示例"
+msgstr "Complete Example"
+
+msgid "将下面的代码保存为 `costmodel_example.py` 后运行："
+msgstr "Save the following code as `costmodel_example.py` and run it:"
+
+msgid "示例输出"
+msgstr "Example Output"
+
+msgid "不同版本的 costmodel 参数可能会使具体数值略有不同，但输出结构类似："
+msgstr "Different versions of the costmodel parameters may result in slightly different specific values, but the output structure is similar."
+
+msgid "`costmodel_bench` 的返回值是一个字典，key 为传入的 `config`，value 为预测耗时，单位是微秒。上层 autotune 逻辑可以按 value 排序，优先保留预测更快的 config。"
+msgstr "The return value of `costmodel_bench` is a dictionary, where the key is the input `config` and the value is the predicted latency in microseconds. The upper-level autotune logic can sort by value and prioritize retaining configs with faster predictions."
+
+msgid "关键点说明"
+msgstr "Key Points Explanation"
+
+msgid "`ASTSource + ast_to_ttir` 只生成 TTIR，不会真实编译或启动 kernel。"
+msgstr "`ASTSource + ast_to_ttir` only generates TTIR and does not actually compile or launch the kernel."
+
+msgid "`config` 会影响 `tl.constexpr`，例如 `BLOCK_SIZE`，因此每个候选 config 都需要生成各自的 TTIR。"
+msgstr "`config` affects `tl.constexpr`, such as `BLOCK_SIZE`, so each candidate config needs to generate its own TTIR."
+
+msgid "`costmodel_bench` 接收的每个元素至少包含 `config` 和 `ttir`，也可以附带 `arg_bindings`。"
+msgstr "`costmodel_bench` receives each element containing at least `config` and `ttir`, and may also include `arg_bindings`."
+
+msgid "`arg_bindings` 用于把运行时整数参数绑定到 TTIR 中的 `%argN`。例如本例中 `n_elements=98432` 对应 `arg3=98432`。"
+msgstr "`arg_bindings` is used to bind runtime integer parameters to `%argN` in TTIR. For example, in this case, `n_elements=98432` corresponds to `arg3=98432`."
+
+msgid "如果 kernel 中使用 `tl.program_id(0)`，通常需要传入 `pid_x=0`。如果还使用 `tl.num_programs(0)`，可额外传入 `num_programs_x=...`。"
+msgstr "If `tl.program_id(0)` is used in the kernel, `pid_x=0` usually needs to be passed. If `tl.num_programs(0)` is also used, `num_programs_x=...` can be additionally passed."
+
+msgid "Tutorials"
+msgstr "Tutorials"
+
+msgid "Triton 示例列表"
+msgstr "Triton Examples List"
+
+msgid "示例"
+msgstr "Examples"
+
+msgid "简要说明"
+msgstr "Brief Description"
+
+msgid "[01_vector_add_example](./01_vector_add_example.md)"
+msgstr "[01_vector_add_example](./01_vector_add_example.md)"
+
+msgid "简单加法示例"
+msgstr "Simple Addition Example"
+
+msgid "[02_fused_softmax_example](./02_fused_softmax_example.md)"
+msgstr "[02_fused_softmax_example](./02_fused_softmax_example.md)"
+
+msgid "Softmax 融合算子示例"
+msgstr "Softmax Fusion Operator Example"
+
+msgid "[03_layer_norm_example](./03_layer_norm_example.md)"
+msgstr "[03_layer_norm_example](./03_layer_norm_example.md)"
+
+msgid "Layer Normalization 示例"
+msgstr "Layer Normalization Example"
+
+msgid "[04_fused_attention_example](./04_fused_attention_example.md)"
+msgstr "[04_fused_attention_example](./04_fused_attention_example.md)"
+
+msgid "Flash Attention v2 融合注意力算法示例"
+msgstr "Flash Attention v2 Fused Attention Algorithm Example"
+
+msgid "[05_matrix_multiplication_example](./05_matrix_multiplication_example.md)"
+msgstr "[05_matrix_multiplication_example](./05_matrix_multiplication_example.md)"
+
+msgid "矩阵乘法高效实现示例"
+msgstr "Example of Efficient Matrix Multiplication Implementation"
+
+msgid "[06_autotune_example](./06_autotune_example.md)"
+msgstr "[06_autotune_example](./06_autotune_example.md)"
+
+msgid "使用 Autotune 进行内核自动调优示例"
+msgstr "Example of Automatic Kernel Tuning Using Autotune"
+
+msgid "[07_accuracy_comparison_example](./07_accuracy_comparison_example.md)"
+msgstr "[07_accuracy_comparison_example](./07_accuracy_comparison_example.md)"
+
+msgid "精度比对示例"
+msgstr "Precision Comparison Example"
+
+msgid "[08_max_autotune_example](./08_max_autotune_example.md)"
+msgstr "[08_max_autotune_example](./08_max_autotune_example.md)"
+
+msgid "使用 max_autotune 进行内核自动调优示例"
+msgstr "Example of Kernel Auto-tuning Using max_autotune"
+
+msgid "[09_costmodel_example](./09_costmodel_example.md)"
+msgstr "[09_costmodel_example](./09_costmodel_example.md)"
+
+msgid "Costmodel 端到端预测示例"
+msgstr "Costmodel End-to-End Prediction Example"

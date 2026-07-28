@@ -1,0 +1,111 @@
+# English translations for triton-ascend docs.
+# Copyright (c) 2025 Huawei Technologies Co., Ltd.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: triton-ascend-docs\n"
+"POT-Creation-Date: 2026-07-28 07:11+0000\n"
+"PO-Revision-Date: 2026-07-28 07:11+0000\n"
+"Last-Translator: Auto Translation (DeepSeek)\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+msgstr "The `python-api` file."
+
+msgid "triton"
+msgstr "triton"
+
+msgid "triton.extension.buffer.language"
+msgstr "triton.extension.buffer.language"
+
+msgid "Core Types"
+msgstr "Core Types"
+
+msgid "Memory Management"
+msgstr "Memory Management"
+
+msgid "triton.language"
+msgstr "triton.language"
+
+msgid "Programming Model"
+msgstr "Programming Model"
+
+msgid "Creation Ops"
+msgstr "Creation Ops"
+
+msgid "Shape Manipulation Ops"
+msgstr "Shape Manipulation Ops"
+
+msgid "Linear Algebra Ops"
+msgstr "Linear Algebra Ops"
+
+msgid "Memory/Pointer Ops"
+msgstr "Memory/Pointer Ops"
+
+msgid "Indexing Ops"
+msgstr "Indexing Ops"
+
+msgid "Math Ops"
+msgstr "Math Ops"
+
+msgid "Reduction Ops"
+msgstr "Reduction Ops"
+
+msgid "Scan/Sort Ops"
+msgstr "Scan/Sort Ops"
+
+msgid "Atomic Ops"
+msgstr "Atomic Ops"
+
+msgid "Random Number Generation"
+msgstr "Random Number Generation"
+
+msgid "Iterators"
+msgstr "Iterators"
+
+msgid "Compiler Hint Ops"
+msgstr "Compiler Hint Ops"
+
+msgid "Debug Ops"
+msgstr "Debug Ops"
+
+msgid "Inline Assembly"
+msgstr "Inline Assembly"
+
+msgid "triton.language.extra.cann.extension"
+msgstr "triton.language.extra.cann.extension"
+
+msgid "Data Movement"
+msgstr "Data Movement"
+
+msgid "Synchronization"
+msgstr "Synchronization"
+
+msgid "Vector Operations"
+msgstr "Vector Operations"
+
+msgid "Enums"
+msgstr "Enums"
+
+msgid "Vector/Memory Extension Ops"
+msgstr "Vector/Memory Extension Ops"
+
+msgid "Custom Ops"
+msgstr "Custom Ops"
+
+msgid "IR Affine Types"
+msgstr "IR Affine Types"
+
+msgid "triton.language.extra.cann.libdevice"
+msgstr "triton.language.extra.cann.libdevice"
+
+msgid "Libdevice Ops"
+msgstr "Libdevice Ops"
+
+msgid "triton.testing"
+msgstr "triton.testing"
