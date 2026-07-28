@@ -375,6 +375,29 @@ def find_changed_pot_files() -> list[Path]:
     return changed
 
 
+def _is_pot_in_excluded_dir(pot_file: Path) -> bool:
+    """Check if a .pot file (directly under locale/) comes from an excluded dir or filename.
+
+    The sphinx-build -b gettext output preserves the source subdirectory
+    structure. So a source file docs/zh/triton_api/index.md produces
+    locale/triton_api/index.pot. We check the relative path's first
+    component against EXCLUDED_DIRS and the stem (filename) against
+    EXCLUDED_FILES.
+    """
+    try:
+        rel = pot_file.relative_to(LOCALE_DIR)
+    except ValueError:
+        return False
+    # First component of the relative path
+    parts = rel.parts
+    if parts and parts[0] in EXCLUDED_DIRS:
+        return True
+    # Check filename stem
+    if pot_file.stem in EXCLUDED_FILES:
+        return True
+    return False
+
+
 def _organize_pot_files():
     """Move .pot files from locale/ to locale/zh/LC_MESSAGES/.
 
@@ -385,20 +408,30 @@ def _organize_pot_files():
 
     This function finds all .pot files under locale/, determines their
     source-relative path, and relocates them to locale/zh/LC_MESSAGES/.
+    Files from excluded directories or with excluded filenames are
+    discarded (not moved), so they never enter the translation pipeline.
     """
     count = 0
+    discarded = 0
     for pot_file in sorted(LOCALE_DIR.rglob("*.pot")):
         try:
             rel = pot_file.relative_to(LOCALE_DIR)
         except ValueError:
             continue
-        # Skip files already under LC_MESSAGES/
+        # Skip files already under LC_MESSAGES/ (e.g. from a previous run)
         if "LC_MESSAGES" in rel.parts:
+            continue
+        # Discard .pot files from excluded directories or filenames
+        if _is_pot_in_excluded_dir(pot_file):
+            pot_file.unlink()
+            discarded += 1
             continue
         target = POT_DIR / rel
         target.parent.mkdir(parents=True, exist_ok=True)
         pot_file.replace(target)
         count += 1
+    if discarded > 0:
+        print(f"  Discarded {discarded} .pot file(s) from excluded dirs/files", flush=True)
     return count
 
 
