@@ -64,7 +64,7 @@ jobs:
           pip install openai sphinx myst-parser sphinx_rtd_theme
 
       - name: Clean stale locale files for full translation
-        if: inputs.full_translate == 'true'
+        if: inputs.full_translate
         run: |
           echo "Cleaning old locale files to force full retranslation..."
           rm -rf docs/locale/
