@@ -35,6 +35,17 @@ extensions = [
     'myst_parser',
 ]
 
+# Prefix autosectionlabel with document path to avoid duplicate label warnings
+autosectionlabel_prefix_document = True
+
+# Mock imports for modules that aren't available in the build environment
+autodoc_mock_imports = [
+    'triton',
+    'triton_ascend',
+    'torch',
+    'buffer',
+]
+
 # -- I18n: detect language and root doc ---------------------------------------
 _readthedocs_lang = os.environ.get('READTHEDOCS_LANGUAGE')
 
