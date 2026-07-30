@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 11:58+0000\n"
-"PO-Revision-Date: 2026-07-30 11:58+0000\n"
+"POT-Creation-Date: 2026-07-30 13:55+0000\n"
+"PO-Revision-Date: 2026-07-30 13:55+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "The accuracy comparison example demonstrates the performance differences between different models or algorithms on a specific task."
+msgstr "In the field of machine learning, the accuracy of a model is a crucial metric for evaluating its performance. The accuracy comparison example demonstrates how to compare the accuracy of different models on the same dataset."
 
 msgid "精度比对 （Accuracy Comparison）"
 msgstr "Accuracy Comparison"
@@ -24,16 +24,16 @@ msgid "在本节中，我们将使用 Triton 编写一个简单的精度比对�
 msgstr "In this section, we will use Triton to write a simple accuracy comparison program. Through this process, users will learn:"
 
 msgid "Triton 每种数据类型的精度比对方法。"
-msgstr "Triton's accuracy comparison method for each data type."
+msgstr "Accuracy comparison method for each data type in Triton."
 
 msgid "参考示例代码：triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py"
 msgstr "Reference example code: triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py"
 
 msgid "计算内核:"
-msgstr "Compute kernel:"
+msgstr "Compute Kernel:"
 
 msgid "创建一个精度比对函数，适应每一种dtype，采用对应的精度比对方法。"
-msgstr "Create an accuracy comparison function that adapts to each dtype and uses the corresponding accuracy comparison method."
+msgstr "Create a precision comparison function that adapts to each dtype and uses the corresponding precision comparison method."
 
 msgid "可以使用下面指令，运行参考示例代码：tutorials/14-accuracy-comparison.py"
 msgstr "You can use the following command to run the reference example code: tutorials/14-accuracy-comparison.py"

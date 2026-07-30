@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 11:58+0000\n"
-"PO-Revision-Date: 2026-07-30 11:58+0000\n"
+"POT-Creation-Date: 2026-07-30 13:40+0000\n"
+"PO-Revision-Date: 2026-07-30 13:40+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -21,7 +21,7 @@ msgid "技术例会"
 msgstr "Technical Regular Meeting"
 
 msgid "Triton-Ascend 定期召开社区技术会议，作为项目治理的核心决策机制。技术方向、重大提案评审和版本发布等重大事项在技术会议中讨论和决定，由全体 `Maintainer` 投票。会议对所有社区成员开放，任何人均可参与讨论，但决策和投票仅由 `Maintainer` 进行。"
-msgstr "Triton-Ascend holds regular community technical meetings as the core decision-making mechanism for project governance. Major matters such as technical direction, major proposal reviews, and version releases are discussed and decided during the technical meetings, with voting conducted by all `Maintainer`s. The meetings are open to all community members, and anyone can participate in discussions, but decision-making and voting are carried out only by `Maintainer`s."
+msgstr "Triton-Ascend holds regular community technical meetings as the core decision-making mechanism for project governance. Major matters such as technical direction, major proposal reviews, and version releases are discussed and decided during the technical meetings, with voting conducted by all `Maintainer`s. The meetings are open to all community members, and anyone can participate in the discussions, but decisions and voting are carried out only by `Maintainer`s."
 
 msgid "会议内容"
 msgstr "Meeting Content"
@@ -33,7 +33,7 @@ msgid "重大提案（RFC）评审与投票"
 msgstr "Major Proposal (RFC) Review and Voting"
 
 msgid "版本发布规划与时间线"
-msgstr "Version Release Plan and Timeline"
+msgstr "Version Release Planning and Timeline"
 
 msgid "社区 Issue 和 PR 优先级排序"
 msgstr "Community Issue and PR Priority Sorting"
@@ -72,7 +72,7 @@ msgid "投票规则"
 msgstr "Voting Rules"
 
 msgid "未出席会议的 `Maintainer` 须在会议后 3 个工作日内提交投票；逾期未投票视为弃权"
-msgstr "`Maintainers` who did not attend the meeting must submit their votes within 3 working days after the meeting; failure to vote within the time limit will be considered abstention."
+msgstr "`Maintainers` who are absent from the meeting must submit their votes within 3 working days after the meeting; failure to vote within this period will be considered abstention."
 
 msgid "投票通过条件为参与投票的 `Maintainer` 超过半数同意（弃权不计入投票总数）"
 msgstr "The condition for passing a vote is that more than half of the participating `Maintainer` agree (abstentions are not counted in the total votes)."
@@ -81,7 +81,7 @@ msgid "投票结果记录于会议纪要中"
 msgstr "The voting results are recorded in the meeting minutes."
 
 msgid "决策流程"
-msgstr "Decision Process"
+msgstr "Decision-making Process"
 
 msgid "常规决策"
 msgstr "Routine Decision"
@@ -96,7 +96,7 @@ msgid "以下事项视为重大决策，需由 `Maintainer` 在社区技术会�
 msgstr "The following matters are considered major decisions and require collective discussion by the `Maintainer` in the community technical meeting:"
 
 msgid "重大架构变更"
-msgstr "Major Architectural Changes"
+msgstr "Major Architectural Change"
 
 msgid "破坏性 `API` 变更"
 msgstr "Breaking `API` Changes"
@@ -105,19 +105,19 @@ msgid "新增核心功能或移除现有功能"
 msgstr "Added core features or removed existing features"
 
 msgid "第三方依赖的重大升级"
-msgstr "Major Upgrades of Third-Party Dependencies"
+msgstr "Major upgrade of third-party dependencies"
 
 msgid "版本发布规划"
-msgstr "Version Release Plan"
+msgstr "Version Release Planning"
 
 msgid "重大决策流程："
 msgstr "Major Decision-Making Process:"
 
 msgid "提交 `RFC`（征求意见稿），描述变更内容、影响范围和实施方案"
-msgstr "Submit the `RFC` (Request for Comments), describing the changes, scope of impact, and implementation plan."
+msgstr "Submit the `RFC` (Request for Comments) describing the change content, impact scope, and implementation plan."
 
 msgid "在技术会议中讨论"
 msgstr "Discussing in a technical meeting"
 
 msgid "`Maintainer` 共同决策"
-msgstr "`Maintainer` collaborative decision-making"
+msgstr "`Maintainer` joint decision-making"

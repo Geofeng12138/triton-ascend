@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 11:58+0000\n"
-"PO-Revision-Date: 2026-07-30 11:58+0000\n"
+"POT-Creation-Date: 2026-07-30 13:36+0000\n"
+"PO-Revision-Date: 2026-07-30 13:36+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Thank you for your interest in contributing to this project! We welcome contributions in any form, including but not limited to code submissions, documentation improvements, issue reporting, and feature suggestions."
+msgstr "We welcome contributions from the community! If you'd like to contribute code, please first read our code of conduct and ensure your behavior aligns with it."
 
 msgid "Contributors"
 msgstr "Contributors"
@@ -1632,7 +1632,7 @@ msgid "[#9](https://gitee.com/ascend/triton-ascend/pulls/9)"
 msgstr "[#9](https://gitee.com/ascend/triton-ascend/pulls/9)"
 
 msgid "1"
-msgstr "1"
+msgstr "I am a professional technical documentation translation expert, proficient in Chinese-to-English technical document translation. (File: CONTRIBUTOR)"
 
 msgid "[zhang-chunli01](https://gitee.com/zhang-chunli01)"
 msgstr "[zhang-chunli01](https://gitee.com/zhang-chunli01)"
