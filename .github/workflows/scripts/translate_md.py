@@ -115,7 +115,7 @@ Rules:
 1. Return ONLY the translated text, no explanations, no markdown fences.
 2. Use standard English technical terminology.
 3. For proper nouns (person names, company names, product names), keep them as-is.
-4. If the text contains inline code (`code`), leave the inline code content unchanged.
+4. If the text contains code blocks or inline code (`code`), translate ONLY the Chinese comments and string literals inside the code; leave all code syntax, variable names, and keywords unchanged.
 5. If any sentence is too difficult to translate, keep the original Chinese as-is.
 
 Text to translate:
