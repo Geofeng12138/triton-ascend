@@ -63,6 +63,14 @@ jobs:
         run: |
           pip install openai sphinx myst-parser sphinx_rtd_theme
 
+      - name: Clean stale locale files for full translation
+        if: inputs.full_translate == 'true'
+        run: |
+          echo "Cleaning old locale files to force full retranslation..."
+          rm -rf docs/locale/
+          rm -rf locale/
+          echo "Cleaned."
+
       - name: Detect whether to translate
         id: detect
         run: |
@@ -71,7 +79,8 @@ jobs:
             echo "Full translation mode"
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "full_translate=true" >> $GITHUB_OUTPUT
-          elif [ -d "locale/en/LC_MESSAGES" ] && [ "$(find locale/en/LC_MESSAGES/ -name '*.po' 2>/dev/null | wc -l)" -gt 0 ]; then
+          elif { [ -d "docs/locale/en/LC_MESSAGES" ] && [ "$(find docs/locale/en/LC_MESSAGES/ -name '*.po' 2>/dev/null | wc -l)" -gt 0 ]; } || \
+               { [ -d "locale/en/LC_MESSAGES" ] && [ "$(find locale/en/LC_MESSAGES/ -name '*.po' 2>/dev/null | wc -l)" -gt 0 ]; }; then
             echo "Incremental mode: will detect changes via sphinx-build -b gettext"
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "full_translate=false" >> $GITHUB_OUTPUT
