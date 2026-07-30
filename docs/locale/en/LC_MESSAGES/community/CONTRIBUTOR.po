@@ -1,0 +1,1647 @@
+# English translations for triton-ascend docs.
+# Copyright (c) 2025 Huawei Technologies Co., Ltd.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: triton-ascend-docs\n"
+"POT-Creation-Date: 2026-07-30 09:53+0000\n"
+"PO-Revision-Date: 2026-07-30 09:53+0000\n"
+"Last-Translator: Auto Translation (DeepSeek)\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+msgstr "If any sentence is too difficult to translate, keep the original Chinese as-is."
+
+msgid "Contributors"
+msgstr "Contributors"
+
+msgid "Every release of Triton-Ascend would not have been possible without the following contributors:"
+msgstr "Every release of Triton-Ascend would not have been possible without the following contributors:"
+
+msgid "Updated on 2026-05-06:"
+msgstr "Updated on 2026-05-06:"
+
+msgid "No."
+msgstr "No."
+
+msgid "Contributor"
+msgstr "Contributor"
+
+msgid "First Contribution Date"
+msgstr "First Contribution Date"
+
+msgid "PR"
+msgstr "PR"
+
+msgid "149"
+msgstr "149"
+
+msgid "[ggppff24](https://gitcode.com/ggppff24)"
+msgstr "[ggppff24](https://gitcode.com/ggppff24)"
+
+msgid "2026-05-06"
+msgstr "2026-05-06"
+
+msgid "[#1769](https://gitcode.com/Ascend/triton-ascend/merge_requests/1769)"
+msgstr "[#1769](https://gitcode.com/Ascend/triton-ascend/merge_requests/1769)"
+
+msgid "148"
+msgstr "148"
+
+msgid "[wxlong_ustc](https://gitcode.com/wxlong_ustc)"
+msgstr "[wxlong_ustc](https://gitcode.com/wxlong_ustc)"
+
+msgid "2026-04-29"
+msgstr "2026-04-29"
+
+msgid "[#1733](https://gitcode.com/Ascend/triton-ascend/merge_requests/1733)"
+msgstr "[#1733](https://gitcode.com/Ascend/triton-ascend/merge_requests/1733)"
+
+msgid "147"
+msgstr "147"
+
+msgid "[liwei571](https://gitcode.com/liwei571)"
+msgstr "[liwei571](https://gitcode.com/liwei571)"
+
+msgid "[#1740](https://gitcode.com/Ascend/triton-ascend/merge_requests/1740)"
+msgstr "[#1740](https://gitcode.com/Ascend/triton-ascend/merge_requests/1740)"
+
+msgid "146"
+msgstr "146"
+
+msgid "[WangYiMou](https://gitcode.com/WangYiMou)"
+msgstr "[WangYiMou](https://gitcode.com/WangYiMou)"
+
+msgid "2026-04-28"
+msgstr "2026-04-28"
+
+msgid "[#1697](https://gitcode.com/Ascend/triton-ascend/merge_requests/1697)"
+msgstr "[#1697](https://gitcode.com/Ascend/triton-ascend/merge_requests/1697)"
+
+msgid "145"
+msgstr "145"
+
+msgid "[Four1er](https://gitcode.com/Four1er)"
+msgstr "[Four1er](https://gitcode.com/Four1er)"
+
+msgid "[#1742](https://gitcode.com/Ascend/triton-ascend/merge_requests/1742)"
+msgstr "[#1742](https://gitcode.com/Ascend/triton-ascend/merge_requests/1742)"
+
+msgid "144"
+msgstr "144"
+
+msgid "[gcw_LcYTzRJy](https://gitcode.com/gcw_LcYTzRJy)"
+msgstr "[gcw_LcYTzRJy](https://gitcode.com/gcw_LcYTzRJy)"
+
+msgid "2026-04-27"
+msgstr "2026-04-27"
+
+msgid "[#1690](https://gitcode.com/Ascend/triton-ascend/merge_requests/1690)"
+msgstr "[#1690](https://gitcode.com/Ascend/triton-ascend/merge_requests/1690)"
+
+msgid "143"
+msgstr "143"
+
+msgid "[zhaojiqiao](https://gitcode.com/zhaojiqiao)"
+msgstr "[zhaojiqiao](https://gitcode.com/zhaojiqiao)"
+
+msgid "[#1722](https://gitcode.com/Ascend/triton-ascend/merge_requests/1722)"
+msgstr "[#1722](https://gitcode.com/Ascend/triton-ascend/merge_requests/1722)"
+
+msgid "142"
+msgstr "142"
+
+msgid "[andreybokhanko](https://gitcode.com/andreybokhanko)"
+msgstr "[andreybokhanko](https://gitcode.com/andreybokhanko)"
+
+msgid "[#1675](https://gitcode.com/Ascend/triton-ascend/merge_requests/1675)"
+msgstr "[#1675](https://gitcode.com/Ascend/triton-ascend/merge_requests/1675)"
+
+msgid "141"
+msgstr "141"
+
+msgid "[weizhan4](https://gitcode.com/weizhan4)"
+msgstr "[weizhan4](https://gitcode.com/weizhan4)"
+
+msgid "2026-04-25"
+msgstr "2026-04-25"
+
+msgid "[#1702](https://gitcode.com/Ascend/triton-ascend/merge_requests/1702)"
+msgstr "[#1702](https://gitcode.com/Ascend/triton-ascend/merge_requests/1702)"
+
+msgid "140"
+msgstr "140"
+
+msgid "[Sky_miner](https://gitcode.com/Sky_miner)"
+msgstr "[Sky_miner](https://gitcode.com/Sky_miner)"
+
+msgid "2026-04-24"
+msgstr "2026-04-24"
+
+msgid "[#1680](https://gitcode.com/Ascend/triton-ascend/merge_requests/1680)"
+msgstr "[#1680](https://gitcode.com/Ascend/triton-ascend/merge_requests/1680)"
+
+msgid "139"
+msgstr "139"
+
+msgid "[zhangchaofan](https://gitcode.com/zhangchaofan)"
+msgstr "[zhangchaofan](https://gitcode.com/zhangchaofan)"
+
+msgid "2026-04-22"
+msgstr "2026-04-22"
+
+msgid "[#1265](https://gitcode.com/Ascend/triton-ascend/merge_requests/1265)"
+msgstr "[#1265](https://gitcode.com/Ascend/triton-ascend/merge_requests/1265)"
+
+msgid "138"
+msgstr "138"
+
+msgid "[yuanjingya](https://gitcode.com/yuanjingya)"
+msgstr "[yuanjingya](https://gitcode.com/yuanjingya)"
+
+msgid "[#1638](https://gitcode.com/Ascend/triton-ascend/merge_requests/1638)"
+msgstr "[#1638](https://gitcode.com/Ascend/triton-ascend/merge_requests/1638)"
+
+msgid "137"
+msgstr "137"
+
+msgid "[shi-yufeng99](https://gitcode.com/shi-yufeng99)"
+msgstr "[shi-yufeng99](https://gitcode.com/shi-yufeng99)"
+
+msgid "2026-04-13"
+msgstr "2026-04-13"
+
+msgid "[#1570](https://gitcode.com/Ascend/triton-ascend/merge_requests/1570)"
+msgstr "[#1570](https://gitcode.com/Ascend/triton-ascend/merge_requests/1570)"
+
+msgid "136"
+msgstr "136"
+
+msgid "[zaq15csdn](https://gitcode.com/zaq15csdn)"
+msgstr "[zaq15csdn](https://gitcode.com/zaq15csdn)"
+
+msgid "2026-04-11"
+msgstr "2026-04-11"
+
+msgid "[#1593](https://gitcode.com/Ascend/triton-ascend/merge_requests/1593)"
+msgstr "[#1593](https://gitcode.com/Ascend/triton-ascend/merge_requests/1593)"
+
+msgid "135"
+msgstr "135"
+
+msgid "[wuyao51511](https://gitcode.com/wuyao51511)"
+msgstr "[wuyao51511](https://gitcode.com/wuyao51511)"
+
+msgid "2026-04-10"
+msgstr "2026-04-10"
+
+msgid "[#1592](https://gitcode.com/Ascend/triton-ascend/merge_requests/1592)"
+msgstr "[#1592](https://gitcode.com/Ascend/triton-ascend/merge_requests/1592)"
+
+msgid "134"
+msgstr "134"
+
+msgid "[jtaizhang](https://gitcode.com/jtaizhang)"
+msgstr "[jtaizhang](https://gitcode.com/jtaizhang)"
+
+msgid "2026-04-08"
+msgstr "2026-04-08"
+
+msgid "[#1575](https://gitcode.com/Ascend/triton-ascend/merge_requests/1575)"
+msgstr "[#1575](https://gitcode.com/Ascend/triton-ascend/merge_requests/1575)"
+
+msgid "133"
+msgstr "133"
+
+msgid "[jjin_750629](https://gitcode.com/jjin_750629)"
+msgstr "[jjin_750629](https://gitcode.com/jjin_750629)"
+
+msgid "2026-04-07"
+msgstr "2026-04-07"
+
+msgid "[#1498](https://gitcode.com/Ascend/triton-ascend/merge_requests/1498)"
+msgstr "[#1498](https://gitcode.com/Ascend/triton-ascend/merge_requests/1498)"
+
+msgid "132"
+msgstr "132"
+
+msgid "[lbqg](https://gitcode.com/lbqg)"
+msgstr "[lbqg](https://gitcode.com/lbqg)"
+
+msgid "2026-04-02"
+msgstr "2026-04-02"
+
+msgid "[#1506](https://gitcode.com/Ascend/triton-ascend/merge_requests/1506)"
+msgstr "[#1506](https://gitcode.com/Ascend/triton-ascend/merge_requests/1506)"
+
+msgid "131"
+msgstr "131"
+
+msgid "[huangyujun123](https://gitcode.com/huangyujun123)"
+msgstr "[huangyujun123](https://gitcode.com/huangyujun123)"
+
+msgid "2026-03-31"
+msgstr "2026-03-31"
+
+msgid "[#1505](https://gitcode.com/Ascend/triton-ascend/merge_requests/1505)"
+msgstr "[#1505](https://gitcode.com/Ascend/triton-ascend/merge_requests/1505)"
+
+msgid "130"
+msgstr "130"
+
+msgid "[danielcm585](https://gitcode.com/danielcm585)"
+msgstr "[danielcm585](https://gitcode.com/danielcm585)"
+
+msgid "2026-03-26"
+msgstr "2026-03-26"
+
+msgid "[#1444](https://gitcode.com/Ascend/triton-ascend/merge_requests/1444)"
+msgstr "[#1444](https://gitcode.com/Ascend/triton-ascend/merge_requests/1444)"
+
+msgid "129"
+msgstr "129"
+
+msgid "[OliverCWY](https://gitcode.com/OliverCWY)"
+msgstr "[OliverCWY](https://gitcode.com/OliverCWY)"
+
+msgid "[#1441](https://gitcode.com/Ascend/triton-ascend/merge_requests/1441)"
+msgstr "[#1441](https://gitcode.com/Ascend/triton-ascend/merge_requests/1441)"
+
+msgid "128"
+msgstr "128"
+
+msgid "[cxtverygood123](https://gitcode.com/cxtverygood123)"
+msgstr "[cxtverygood123](https://gitcode.com/cxtverygood123)"
+
+msgid "[#1459](https://gitcode.com/Ascend/triton-ascend/merge_requests/1459)"
+msgstr "[#1459](https://gitcode.com/Ascend/triton-ascend/merge_requests/1459)"
+
+msgid "127"
+msgstr "127"
+
+msgid "[shaoyiyang](https://gitcode.com/shaoyiyang)"
+msgstr "[shaoyiyang](https://gitcode.com/shaoyiyang)"
+
+msgid "2026-03-21"
+msgstr "2026-03-21"
+
+msgid "[#1429](https://gitcode.com/Ascend/triton-ascend/merge_requests/1429)"
+msgstr "[#1429](https://gitcode.com/Ascend/triton-ascend/merge_requests/1429)"
+
+msgid "126"
+msgstr "126"
+
+msgid "[xiechenye](https://gitcode.com/xiechenye)"
+msgstr "[xiechenye](https://gitcode.com/xiechenye)"
+
+msgid "2026-03-20"
+msgstr "2026-03-20"
+
+msgid "[#1407](https://gitcode.com/Ascend/triton-ascend/merge_requests/1407)"
+msgstr "[#1407](https://gitcode.com/Ascend/triton-ascend/merge_requests/1407)"
+
+msgid "125"
+msgstr "125"
+
+msgid "[wuzw_05](https://gitcode.com/wuzw_05)"
+msgstr "[wuzw_05](https://gitcode.com/wuzw_05)"
+
+msgid "[#1418](https://gitcode.com/Ascend/triton-ascend/merge_requests/1418)"
+msgstr "[#1418](https://gitcode.com/Ascend/triton-ascend/merge_requests/1418)"
+
+msgid "124"
+msgstr "124"
+
+msgid "[Zackc](https://gitcode.com/Zackc)"
+msgstr "[Zackc](https://gitcode.com/Zackc)"
+
+msgid "[#1394](https://gitcode.com/Ascend/triton-ascend/merge_requests/1394)"
+msgstr "[#1394](https://gitcode.com/Ascend/triton-ascend/merge_requests/1394)"
+
+msgid "123"
+msgstr "123"
+
+msgid "[Wangxiaoshuai2](https://gitcode.com/Wangxiaoshuai2)"
+msgstr "[Wangxiaoshuai2](https://gitcode.com/Wangxiaoshuai2)"
+
+msgid "2026-03-18"
+msgstr "2026-03-18"
+
+msgid "[#1402](https://gitcode.com/Ascend/triton-ascend/merge_requests/1402)"
+msgstr "[#1402](https://gitcode.com/Ascend/triton-ascend/merge_requests/1402)"
+
+msgid "122"
+msgstr "122"
+
+msgid "[Levein](https://gitcode.com/Levein)"
+msgstr "[Levein](https://gitcode.com/Levein)"
+
+msgid "2026-03-16"
+msgstr "2026-03-16"
+
+msgid "[#1389](https://gitcode.com/Ascend/triton-ascend/merge_requests/1389)"
+msgstr "[#1389](https://gitcode.com/Ascend/triton-ascend/merge_requests/1389)"
+
+msgid "121"
+msgstr "121"
+
+msgid "[ciggaco](https://gitcode.com/ciggaco)"
+msgstr "[ciggaco](https://gitcode.com/ciggaco)"
+
+msgid "2026-03-13"
+msgstr "2026-03-13"
+
+msgid "[#1375](https://gitcode.com/Ascend/triton-ascend/merge_requests/1375)"
+msgstr "[#1375](https://gitcode.com/Ascend/triton-ascend/merge_requests/1375)"
+
+msgid "120"
+msgstr "120"
+
+msgid "[ZhaoWentengZWT](https://gitcode.com/ZhaoWentengZWT)"
+msgstr "[ZhaoWentengZWT](https://gitcode.com/ZhaoWentengZWT)"
+
+msgid "2026-03-10"
+msgstr "2026-03-10"
+
+msgid "[#1367](https://gitcode.com/Ascend/triton-ascend/merge_requests/1367)"
+msgstr "[#1367](https://gitcode.com/Ascend/triton-ascend/merge_requests/1367)"
+
+msgid "119"
+msgstr "119"
+
+msgid "[qq_43310834](https://gitcode.com/qq_43310834)"
+msgstr "[qq_43310834](https://gitcode.com/qq_43310834)"
+
+msgid "2026-03-09"
+msgstr "2026-03-09"
+
+msgid "[#1362](https://gitcode.com/Ascend/triton-ascend/merge_requests/1362)"
+msgstr "[#1362](https://gitcode.com/Ascend/triton-ascend/merge_requests/1362)"
+
+msgid "118"
+msgstr "118"
+
+msgid "[xlinn](https://gitcode.com/xlinn)"
+msgstr "[xlinn](https://gitcode.com/xlinn)"
+
+msgid "2026-02-26"
+msgstr "2026-02-26"
+
+msgid "[#1300](https://gitcode.com/Ascend/triton-ascend/merge_requests/1300)"
+msgstr "[#1300](https://gitcode.com/Ascend/triton-ascend/merge_requests/1300)"
+
+msgid "117"
+msgstr "117"
+
+msgid "[MaxYy](https://gitcode.com/MaxYy)"
+msgstr "[MaxYy](https://gitcode.com/MaxYy)"
+
+msgid "[#1292](https://gitcode.com/Ascend/triton-ascend/merge_requests/1292)"
+msgstr "[#1292](https://gitcode.com/Ascend/triton-ascend/merge_requests/1292)"
+
+msgid "116"
+msgstr "116"
+
+msgid "[jeanniely](https://gitcode.com/jeanniely)"
+msgstr "[jeanniely](https://gitcode.com/jeanniely)"
+
+msgid "[#1276](https://gitcode.com/Ascend/triton-ascend/merge_requests/1276)"
+msgstr "[#1276](https://gitcode.com/Ascend/triton-ascend/merge_requests/1276)"
+
+msgid "115"
+msgstr "115"
+
+msgid "[elizavetaV](https://gitcode.com/elizavetaV)"
+msgstr "[elizavetaV](https://gitcode.com/elizavetaV)"
+
+msgid "2026-02-25"
+msgstr "2026-02-25"
+
+msgid "[#1255](https://gitcode.com/Ascend/triton-ascend/merge_requests/1255)"
+msgstr "[#1255](https://gitcode.com/Ascend/triton-ascend/merge_requests/1255)"
+
+msgid "114"
+msgstr "114"
+
+msgid "[wuzhenqing](https://gitcode.com/wuzhenqing)"
+msgstr "[wuzhenqing](https://gitcode.com/wuzhenqing)"
+
+msgid "[#1291](https://gitcode.com/Ascend/triton-ascend/merge_requests/1291)"
+msgstr "[#1291](https://gitcode.com/Ascend/triton-ascend/merge_requests/1291)"
+
+msgid "113"
+msgstr "113"
+
+msgid "[tsczajkowski_2025](https://gitcode.com/tsczajkowski_2025)"
+msgstr "[tsczajkowski_2025](https://gitcode.com/tsczajkowski_2025)"
+
+msgid "2026-02-05"
+msgstr "2026-02-05"
+
+msgid "[#1246](https://gitcode.com/Ascend/triton-ascend/merge_requests/1246)"
+msgstr "[#1246](https://gitcode.com/Ascend/triton-ascend/merge_requests/1246)"
+
+msgid "112"
+msgstr "112"
+
+msgid "[xuweixin_](https://gitcode.com/xuweixin_)"
+msgstr "[xuweixin_](https://gitcode.com/xuweixin_)"
+
+msgid "2026-01-27"
+msgstr "2026-01-27"
+
+msgid "[#1160](https://gitcode.com/Ascend/triton-ascend/merge_requests/1160)"
+msgstr "[#1160](https://gitcode.com/Ascend/triton-ascend/merge_requests/1160)"
+
+msgid "111"
+msgstr "111"
+
+msgid "[Zz_zl](https://gitcode.com/Zz_zl)"
+msgstr "[Zz_zl](https://gitcode.com/Zz_zl)"
+
+msgid "[#1189](https://gitcode.com/Ascend/triton-ascend/merge_requests/1189)"
+msgstr "[#1189](https://gitcode.com/Ascend/triton-ascend/merge_requests/1189)"
+
+msgid "110"
+msgstr "110"
+
+msgid "[Ritsuka314](https://gitcode.com/Ritsuka314)"
+msgstr "[Ritsuka314](https://gitcode.com/Ritsuka314)"
+
+msgid "2026-01-21"
+msgstr "2026-01-21"
+
+msgid "[#720](https://gitcode.com/Ascend/triton-ascend/merge_requests/720)"
+msgstr "[#720](https://gitcode.com/Ascend/triton-ascend/merge_requests/720)"
+
+msgid "109"
+msgstr "109"
+
+msgid "[wrq_0425](https://gitcode.com/wrq_0425)"
+msgstr "[wrq_0425](https://gitcode.com/wrq_0425)"
+
+msgid "[#1129](https://gitcode.com/Ascend/triton-ascend/merge_requests/1129)"
+msgstr "[#1129](https://gitcode.com/Ascend/triton-ascend/merge_requests/1129)"
+
+msgid "108"
+msgstr "108"
+
+msgid "[hua_yc](https://gitcode.com/hua_yc)"
+msgstr "[hua_yc](https://gitcode.com/hua_yc)"
+
+msgid "[#1127](https://gitcode.com/Ascend/triton-ascend/merge_requests/1127)"
+msgstr "[#1127](https://gitcode.com/Ascend/triton-ascend/merge_requests/1127)"
+
+msgid "107"
+msgstr "107"
+
+msgid "[stonexxx](https://gitcode.com/stonexxx)"
+msgstr "[stonexxx](https://gitcode.com/stonexxx)"
+
+msgid "[#1151](https://gitcode.com/Ascend/triton-ascend/merge_requests/1151)"
+msgstr "[#1151](https://gitcode.com/Ascend/triton-ascend/merge_requests/1151)"
+
+msgid "106"
+msgstr "106"
+
+msgid "[wen_xiang_zou_admin](https://gitcode.com/wen_xiang_zou_admin)"
+msgstr "[wen_xiang_zou_admin](https://gitcode.com/wen_xiang_zou_admin)"
+
+msgid "2026-01-20"
+msgstr "2026-01-20"
+
+msgid "[#1095](https://gitcode.com/Ascend/triton-ascend/merge_requests/1095)"
+msgstr "[#1095](https://gitcode.com/Ascend/triton-ascend/merge_requests/1095)"
+
+msgid "105"
+msgstr "105"
+
+msgid "[HinPeng](https://gitcode.com/HinPeng)"
+msgstr "[HinPeng](https://gitcode.com/HinPeng)"
+
+msgid "[#1132](https://gitcode.com/Ascend/triton-ascend/merge_requests/1132)"
+msgstr "[#1132](https://gitcode.com/Ascend/triton-ascend/merge_requests/1132)"
+
+msgid "104"
+msgstr "104"
+
+msgid "[high-cloud](https://gitcode.com/high-cloud)"
+msgstr "[high-cloud](https://gitcode.com/high-cloud)"
+
+msgid "2026-01-19"
+msgstr "2026-01-19"
+
+msgid "[#1058](https://gitcode.com/Ascend/triton-ascend/merge_requests/1058)"
+msgstr "[#1058](https://gitcode.com/Ascend/triton-ascend/merge_requests/1058)"
+
+msgid "103"
+msgstr "103"
+
+msgid "[szhewei](https://gitcode.com/szhewei)"
+msgstr "[szhewei](https://gitcode.com/szhewei)"
+
+msgid "2026-01-16"
+msgstr "2026-01-16"
+
+msgid "[#1084](https://gitcode.com/Ascend/triton-ascend/merge_requests/1084)"
+msgstr "[#1084](https://gitcode.com/Ascend/triton-ascend/merge_requests/1084)"
+
+msgid "102"
+msgstr "102"
+
+msgid "[Alae-eddine](https://gitcode.com/Alae-eddine)"
+msgstr "[Alae-eddine](https://gitcode.com/Alae-eddine)"
+
+msgid "2026-01-14"
+msgstr "2026-01-14"
+
+msgid "[#1097](https://gitcode.com/Ascend/triton-ascend/merge_requests/1097)"
+msgstr "[#1097](https://gitcode.com/Ascend/triton-ascend/merge_requests/1097)"
+
+msgid "101"
+msgstr "101"
+
+msgid "[jqran](https://gitcode.com/jqran)"
+msgstr "[jqran](https://gitcode.com/jqran)"
+
+msgid "2026-01-13"
+msgstr "2026-01-13"
+
+msgid "[#1073](https://gitcode.com/Ascend/triton-ascend/merge_requests/1073)"
+msgstr "[#1073](https://gitcode.com/Ascend/triton-ascend/merge_requests/1073)"
+
+msgid "100"
+msgstr "100"
+
+msgid "[f42e278](https://gitcode.com/f42e278)"
+msgstr "[f42e278](https://gitcode.com/f42e278)"
+
+msgid "[#1054](https://gitcode.com/Ascend/triton-ascend/merge_requests/1054)"
+msgstr "[#1054](https://gitcode.com/Ascend/triton-ascend/merge_requests/1054)"
+
+msgid "99"
+msgstr "99"
+
+msgid "[zhengqishui1](https://gitcode.com/zhengqishui1)"
+msgstr "[zhengqishui1](https://gitcode.com/zhengqishui1)"
+
+msgid "[#1081](https://gitcode.com/Ascend/triton-ascend/merge_requests/1081)"
+msgstr "[#1081](https://gitcode.com/Ascend/triton-ascend/merge_requests/1081)"
+
+msgid "98"
+msgstr "98"
+
+msgid "[zircon_wang](https://gitcode.com/zircon_wang)"
+msgstr "[zircon_wang](https://gitcode.com/zircon_wang)"
+
+msgid "[#1079](https://gitcode.com/Ascend/triton-ascend/merge_requests/1079)"
+msgstr "[#1079](https://gitcode.com/Ascend/triton-ascend/merge_requests/1079)"
+
+msgid "97"
+msgstr "97"
+
+msgid "[Jemtaly](https://gitcode.com/Jemtaly)"
+msgstr "[Jemtaly](https://gitcode.com/Jemtaly)"
+
+msgid "2026-01-12"
+msgstr "2026-01-12"
+
+msgid "[#1076](https://gitcode.com/Ascend/triton-ascend/merge_requests/1076)"
+msgstr "[#1076](https://gitcode.com/Ascend/triton-ascend/merge_requests/1076)"
+
+msgid "96"
+msgstr "96"
+
+msgid "[nanalin](https://gitcode.com/nanalin)"
+msgstr "[nanalin](https://gitcode.com/nanalin)"
+
+msgid "[#1059](https://gitcode.com/Ascend/triton-ascend/merge_requests/1059)"
+msgstr "[#1059](https://gitcode.com/Ascend/triton-ascend/merge_requests/1059)"
+
+msgid "95"
+msgstr "95"
+
+msgid "[noodleslx](https://gitcode.com/noodleslx)"
+msgstr "[noodleslx](https://gitcode.com/noodleslx)"
+
+msgid "2026-01-10"
+msgstr "2026-01-10"
+
+msgid "[#1075](https://gitcode.com/Ascend/triton-ascend/merge_requests/1075)"
+msgstr "[#1075](https://gitcode.com/Ascend/triton-ascend/merge_requests/1075)"
+
+msgid "94"
+msgstr "94"
+
+msgid "[liheng1234](https://gitcode.com/liheng1234)"
+msgstr "[liheng1234](https://gitcode.com/liheng1234)"
+
+msgid "2026-01-09"
+msgstr "2026-01-09"
+
+msgid "[#1049](https://gitcode.com/Ascend/triton-ascend/merge_requests/1049)"
+msgstr "[#1049](https://gitcode.com/Ascend/triton-ascend/merge_requests/1049)"
+
+msgid "93"
+msgstr "93"
+
+msgid "[hocky](https://gitcode.com/hocky)"
+msgstr "[hocky](https://gitcode.com/hocky)"
+
+msgid "2026-01-07"
+msgstr "2026-01-07"
+
+msgid "[#1021](https://gitcode.com/Ascend/triton-ascend/merge_requests/1021)"
+msgstr "[#1021](https://gitcode.com/Ascend/triton-ascend/merge_requests/1021)"
+
+msgid "92"
+msgstr "92"
+
+msgid "[zhudada](https://gitcode.com/zhudada)"
+msgstr "[zhudada](https://gitcode.com/zhudada)"
+
+msgid "[#1053](https://gitcode.com/Ascend/triton-ascend/merge_requests/1053)"
+msgstr "[#1053](https://gitcode.com/Ascend/triton-ascend/merge_requests/1053)"
+
+msgid "91"
+msgstr "91"
+
+msgid "[lipschitz_von](https://gitcode.com/lipschitz_von)"
+msgstr "[lipschitz_von](https://gitcode.com/lipschitz_von)"
+
+msgid "2026-01-06"
+msgstr "2026-01-06"
+
+msgid "[#1041](https://gitcode.com/Ascend/triton-ascend/merge_requests/1041)"
+msgstr "[#1041](https://gitcode.com/Ascend/triton-ascend/merge_requests/1041)"
+
+msgid "90"
+msgstr "90"
+
+msgid "[hbhu_bin](https://gitcode.com/hbhu_bin)"
+msgstr "[hbhu_bin](https://gitcode.com/hbhu_bin)"
+
+msgid "2026-01-04"
+msgstr "2026-01-04"
+
+msgid "[#1009](https://gitcode.com/Ascend/triton-ascend/merge_requests/1009)"
+msgstr "[#1009](https://gitcode.com/Ascend/triton-ascend/merge_requests/1009)"
+
+msgid "89"
+msgstr "89"
+
+msgid "[uladz](https://gitcode.com/uladz)"
+msgstr "[uladz](https://gitcode.com/uladz)"
+
+msgid "2025-12-23"
+msgstr "2025-12-23"
+
+msgid "[#938](https://gitcode.com/Ascend/triton-ascend/merge_requests/938)"
+msgstr "[#938](https://gitcode.com/Ascend/triton-ascend/merge_requests/938)"
+
+msgid "88"
+msgstr "88"
+
+msgid "[zhaojingkai](https://gitcode.com/zhaojingkai)"
+msgstr "[zhaojingkai](https://gitcode.com/zhaojingkai)"
+
+msgid "2025-12-22"
+msgstr "2025-12-22"
+
+msgid "[#918](https://gitcode.com/Ascend/triton-ascend/merge_requests/918)"
+msgstr "[#918](https://gitcode.com/Ascend/triton-ascend/merge_requests/918)"
+
+msgid "87"
+msgstr "87"
+
+msgid "[ardazishvili](https://gitcode.com/ardazishvili)"
+msgstr "[ardazishvili](https://gitcode.com/ardazishvili)"
+
+msgid "2025-12-19"
+msgstr "2025-12-19"
+
+msgid "[#934](https://gitcode.com/Ascend/triton-ascend/merge_requests/934)"
+msgstr "[#934](https://gitcode.com/Ascend/triton-ascend/merge_requests/934)"
+
+msgid "86"
+msgstr "86"
+
+msgid "[jeshd](https://gitcode.com/jeshd)"
+msgstr "[jeshd](https://gitcode.com/jeshd)"
+
+msgid "2025-12-03"
+msgstr "2025-12-03"
+
+msgid "[#823](https://gitcode.com/Ascend/triton-ascend/merge_requests/823)"
+msgstr "[#823](https://gitcode.com/Ascend/triton-ascend/merge_requests/823)"
+
+msgid "85"
+msgstr "85"
+
+msgid "[chongweizhi](https://gitcode.com/chongweizhi)"
+msgstr "[chongweizhi](https://gitcode.com/chongweizhi)"
+
+msgid "2025-11-27"
+msgstr "2025-11-27"
+
+msgid "[#807](https://gitcode.com/Ascend/triton-ascend/merge_requests/807)"
+msgstr "[#807](https://gitcode.com/Ascend/triton-ascend/merge_requests/807)"
+
+msgid "84"
+msgstr "84"
+
+msgid "[BaiSifan](https://gitcode.com/BaiSifan)"
+msgstr "[BaiSifan](https://gitcode.com/BaiSifan)"
+
+msgid "2025-11-25"
+msgstr "2025-11-25"
+
+msgid "[#797](https://gitcode.com/Ascend/triton-ascend/merge_requests/797)"
+msgstr "[#797](https://gitcode.com/Ascend/triton-ascend/merge_requests/797)"
+
+msgid "83"
+msgstr "83"
+
+msgid "[weilinquan](https://gitcode.com/weilinquan)"
+msgstr "[weilinquan](https://gitcode.com/weilinquan)"
+
+msgid "2025-11-18"
+msgstr "2025-11-18"
+
+msgid "[#739](https://gitcode.com/Ascend/triton-ascend/merge_requests/739)"
+msgstr "[#739](https://gitcode.com/Ascend/triton-ascend/merge_requests/739)"
+
+msgid "82"
+msgstr "82"
+
+msgid "[vgaskov](https://gitcode.com/vgaskov)"
+msgstr "[vgaskov](https://gitcode.com/vgaskov)"
+
+msgid "2025-11-17"
+msgstr "2025-11-17"
+
+msgid "[#748](https://gitcode.com/Ascend/triton-ascend/merge_requests/748)"
+msgstr "[#748](https://gitcode.com/Ascend/triton-ascend/merge_requests/748)"
+
+msgid "81"
+msgstr "81"
+
+msgid "[LH_123L](https://gitcode.com/LH_123L)"
+msgstr "[LH_123L](https://gitcode.com/LH_123L)"
+
+msgid "[#747](https://gitcode.com/Ascend/triton-ascend/merge_requests/747)"
+msgstr "[#747](https://gitcode.com/Ascend/triton-ascend/merge_requests/747)"
+
+msgid "80"
+msgstr "80"
+
+msgid "[hongshiyi](https://gitcode.com/hongshiyi)"
+msgstr "[hongshiyi](https://gitcode.com/hongshiyi)"
+
+msgid "2025-11-11"
+msgstr "2025-11-11"
+
+msgid "[#715](https://gitcode.com/Ascend/triton-ascend/merge_requests/715)"
+msgstr "[#715](https://gitcode.com/Ascend/triton-ascend/merge_requests/715)"
+
+msgid "79"
+msgstr "79"
+
+msgid "[wutianyao](https://gitcode.com/wutianyao)"
+msgstr "[wutianyao](https://gitcode.com/wutianyao)"
+
+msgid "2025-11-08"
+msgstr "2025-11-08"
+
+msgid "[#691](https://gitcode.com/Ascend/triton-ascend/merge_requests/691)"
+msgstr "[#691](https://gitcode.com/Ascend/triton-ascend/merge_requests/691)"
+
+msgid "78"
+msgstr "78"
+
+msgid "[luobaiqing](https://gitcode.com/luobaiqing)"
+msgstr "[luobaiqing](https://gitcode.com/luobaiqing)"
+
+msgid "2025-11-03"
+msgstr "2025-11-03"
+
+msgid "[#655](https://gitcode.com/Ascend/triton-ascend/merge_requests/655)"
+msgstr "[#655](https://gitcode.com/Ascend/triton-ascend/merge_requests/655)"
+
+msgid "77"
+msgstr "77"
+
+msgid "[jy834507063](https://gitcode.com/jy834507063)"
+msgstr "[jy834507063](https://gitcode.com/jy834507063)"
+
+msgid "2025-10-30"
+msgstr "2025-10-30"
+
+msgid "[#647](https://gitcode.com/Ascend/triton-ascend/merge_requests/647)"
+msgstr "[#647](https://gitcode.com/Ascend/triton-ascend/merge_requests/647)"
+
+msgid "76"
+msgstr "76"
+
+msgid "[AhmedYaser](https://gitcode.com/AhmedYaser)"
+msgstr "[AhmedYaser](https://gitcode.com/AhmedYaser)"
+
+msgid "[#619](https://gitcode.com/Ascend/triton-ascend/merge_requests/619)"
+msgstr "[#619](https://gitcode.com/Ascend/triton-ascend/merge_requests/619)"
+
+msgid "75"
+msgstr "75"
+
+msgid "[AmmarDab3an](https://gitcode.com/AmmarDab3an)"
+msgstr "[AmmarDab3an](https://gitcode.com/AmmarDab3an)"
+
+msgid "2025-10-29"
+msgstr "2025-10-29"
+
+msgid "[#646](https://gitcode.com/Ascend/triton-ascend/merge_requests/646)"
+msgstr "[#646](https://gitcode.com/Ascend/triton-ascend/merge_requests/646)"
+
+msgid "74"
+msgstr "74"
+
+msgid "[gymgit1](https://gitcode.com/gymgit1)"
+msgstr "[gymgit1](https://gitcode.com/gymgit1)"
+
+msgid "2025-10-25"
+msgstr "2025-10-25"
+
+msgid "[#620](https://gitcode.com/Ascend/triton-ascend/merge_requests/620)"
+msgstr "[#620](https://gitcode.com/Ascend/triton-ascend/merge_requests/620)"
+
+msgid "73"
+msgstr "73"
+
+msgid "[alankadiev](https://gitcode.com/alankadiev)"
+msgstr "[alankadiev](https://gitcode.com/alankadiev)"
+
+msgid "2025-10-23"
+msgstr "2025-10-23"
+
+msgid "[#583](https://gitcode.com/Ascend/triton-ascend/merge_requests/583)"
+msgstr "[#583](https://gitcode.com/Ascend/triton-ascend/merge_requests/583)"
+
+msgid "72"
+msgstr "72"
+
+msgid "[zhaojieshan](https://gitcode.com/zhaojieshan)"
+msgstr "[zhaojieshan](https://gitcode.com/zhaojieshan)"
+
+msgid "2025-10-21"
+msgstr "2025-10-21"
+
+msgid "[#595](https://gitcode.com/Ascend/triton-ascend/merge_requests/595)"
+msgstr "[#595](https://gitcode.com/Ascend/triton-ascend/merge_requests/595)"
+
+msgid "71"
+msgstr "71"
+
+msgid "[dainbow](https://gitcode.com/dainbow)"
+msgstr "[dainbow](https://gitcode.com/dainbow)"
+
+msgid "2025-10-14"
+msgstr "2025-10-14"
+
+msgid "[#541](https://gitcode.com/Ascend/triton-ascend/merge_requests/541)"
+msgstr "[#541](https://gitcode.com/Ascend/triton-ascend/merge_requests/541)"
+
+msgid "70"
+msgstr "70"
+
+msgid "[lichengfeng497](https://gitcode.com/lichengfeng497)"
+msgstr "[lichengfeng497](https://gitcode.com/lichengfeng497)"
+
+msgid "[#555](https://gitcode.com/Ascend/triton-ascend/merge_requests/555)"
+msgstr "[#555](https://gitcode.com/Ascend/triton-ascend/merge_requests/555)"
+
+msgid "69"
+msgstr "69"
+
+msgid "[shenzhaofeng](https://gitcode.com/shenzhaofeng)"
+msgstr "[shenzhaofeng](https://gitcode.com/shenzhaofeng)"
+
+msgid "2025-10-13"
+msgstr "2025-10-13"
+
+msgid "[#554](https://gitcode.com/Ascend/triton-ascend/merge_requests/554)"
+msgstr "[#554](https://gitcode.com/Ascend/triton-ascend/merge_requests/554)"
+
+msgid "68"
+msgstr "68"
+
+msgid "[ccbin1](https://gitcode.com/ccbin1)"
+msgstr "[ccbin1](https://gitcode.com/ccbin1)"
+
+msgid "2025-10-09"
+msgstr "2025-10-09"
+
+msgid "[#514](https://gitcode.com/Ascend/triton-ascend/merge_requests/514)"
+msgstr "[#514](https://gitcode.com/Ascend/triton-ascend/merge_requests/514)"
+
+msgid "67"
+msgstr "67"
+
+msgid "[fishofnanqi](https://gitcode.com/fishofnanqi)"
+msgstr "[fishofnanqi](https://gitcode.com/fishofnanqi)"
+
+msgid "[#518](https://gitcode.com/Ascend/triton-ascend/merge_requests/518)"
+msgstr "[#518](https://gitcode.com/Ascend/triton-ascend/merge_requests/518)"
+
+msgid "66"
+msgstr "66"
+
+msgid "[lu2038](https://gitcode.com/lu2038)"
+msgstr "[lu2038](https://gitcode.com/lu2038)"
+
+msgid "[#507](https://gitcode.com/Ascend/triton-ascend/merge_requests/507)"
+msgstr "[#507](https://gitcode.com/Ascend/triton-ascend/merge_requests/507)"
+
+msgid "65"
+msgstr "65"
+
+msgid "[wdy45](https://gitcode.com/wdy45)"
+msgstr "[wdy45](https://gitcode.com/wdy45)"
+
+msgid "[#513](https://gitcode.com/Ascend/triton-ascend/merge_requests/513)"
+msgstr "[#513](https://gitcode.com/Ascend/triton-ascend/merge_requests/513)"
+
+msgid "64"
+msgstr "64"
+
+msgid "[Zzyiiii](https://gitcode.com/Zzyiiii)"
+msgstr "[Zzyiiii](https://gitcode.com/Zzyiiii)"
+
+msgid "[#510](https://gitcode.com/Ascend/triton-ascend/merge_requests/510)"
+msgstr "[#510](https://gitcode.com/Ascend/triton-ascend/merge_requests/510)"
+
+msgid "63"
+msgstr "63"
+
+msgid "[dang_yiwei](https://gitcode.com/dang_yiwei)"
+msgstr "[dang_yiwei](https://gitcode.com/dang_yiwei)"
+
+msgid "[#516](https://gitcode.com/Ascend/triton-ascend/merge_requests/516)"
+msgstr "[#516](https://gitcode.com/Ascend/triton-ascend/merge_requests/516)"
+
+msgid "62"
+msgstr "62"
+
+msgid "[maxiaohui2732300406](https://gitcode.com/maxiaohui2732300406)"
+msgstr "[maxiaohui2732300406](https://gitcode.com/maxiaohui2732300406)"
+
+msgid "[#509](https://gitcode.com/Ascend/triton-ascend/merge_requests/509)"
+msgstr "[#509](https://gitcode.com/Ascend/triton-ascend/merge_requests/509)"
+
+msgid "61"
+msgstr "61"
+
+msgid "[dinosaurking](https://gitcode.com/dinosaurking)"
+msgstr "[dinosaurking](https://gitcode.com/dinosaurking)"
+
+msgid "[#522](https://gitcode.com/Ascend/triton-ascend/merge_requests/522)"
+msgstr "[#522](https://gitcode.com/Ascend/triton-ascend/merge_requests/522)"
+
+msgid "60"
+msgstr "60"
+
+msgid "[wodelt](https://gitcode.com/wodelt)"
+msgstr "[wodelt](https://gitcode.com/wodelt)"
+
+msgid "[#511](https://gitcode.com/Ascend/triton-ascend/merge_requests/511)"
+msgstr "[#511](https://gitcode.com/Ascend/triton-ascend/merge_requests/511)"
+
+msgid "59"
+msgstr "59"
+
+msgid "[liurufeng25](https://gitcode.com/liurufeng25)"
+msgstr "[liurufeng25](https://gitcode.com/liurufeng25)"
+
+msgid "[#517](https://gitcode.com/Ascend/triton-ascend/merge_requests/517)"
+msgstr "[#517](https://gitcode.com/Ascend/triton-ascend/merge_requests/517)"
+
+msgid "58"
+msgstr "58"
+
+msgid "[ma_journey](https://gitcode.com/ma_journey)"
+msgstr "[ma_journey](https://gitcode.com/ma_journey)"
+
+msgid "[#508](https://gitcode.com/Ascend/triton-ascend/merge_requests/508)"
+msgstr "[#508](https://gitcode.com/Ascend/triton-ascend/merge_requests/508)"
+
+msgid "57"
+msgstr "57"
+
+msgid "[jintang_wang](https://gitcode.com/jintang_wang)"
+msgstr "[jintang_wang](https://gitcode.com/jintang_wang)"
+
+msgid "[#530](https://gitcode.com/Ascend/triton-ascend/merge_requests/530)"
+msgstr "[#530](https://gitcode.com/Ascend/triton-ascend/merge_requests/530)"
+
+msgid "56"
+msgstr "56"
+
+msgid "[huchengbei](https://gitcode.com/huchengbei)"
+msgstr "[huchengbei](https://gitcode.com/huchengbei)"
+
+msgid "[#545](https://gitcode.com/Ascend/triton-ascend/merge_requests/545)"
+msgstr "[#545](https://gitcode.com/Ascend/triton-ascend/merge_requests/545)"
+
+msgid "55"
+msgstr "55"
+
+msgid "[HallCin](https://gitcode.com/HallCin)"
+msgstr "[HallCin](https://gitcode.com/HallCin)"
+
+msgid "2025-09-29"
+msgstr "2025-09-29"
+
+msgid "[#523](https://gitcode.com/Ascend/triton-ascend/merge_requests/523)"
+msgstr "[#523](https://gitcode.com/Ascend/triton-ascend/merge_requests/523)"
+
+msgid "54"
+msgstr "54"
+
+msgid "[junelotus](https://gitcode.com/junelotus)"
+msgstr "[junelotus](https://gitcode.com/junelotus)"
+
+msgid "[#531](https://gitcode.com/Ascend/triton-ascend/merge_requests/531)"
+msgstr "[#531](https://gitcode.com/Ascend/triton-ascend/merge_requests/531)"
+
+msgid "53"
+msgstr "53"
+
+msgid "[cc137999](https://gitee.com/cc137999)"
+msgstr "[cc137999](https://gitee.com/cc137999)"
+
+msgid "2025-09-26"
+msgstr "2025-09-26"
+
+msgid "[#442](https://gitee.com/ascend/triton-ascend/pulls/442)"
+msgstr "[#442](https://gitee.com/ascend/triton-ascend/pulls/442)"
+
+msgid "52"
+msgstr "52"
+
+msgid "[kingdinosaur](https://gitee.com/kingdinosaur)"
+msgstr "[kingdinosaur](https://gitee.com/kingdinosaur)"
+
+msgid "[#418](https://gitee.com/ascend/triton-ascend/pulls/418)"
+msgstr "[#418](https://gitee.com/ascend/triton-ascend/pulls/418)"
+
+msgid "51"
+msgstr "51"
+
+msgid "[zhaojies](https://gitee.com/zhaojies)"
+msgstr "[zhaojies](https://gitee.com/zhaojies)"
+
+msgid "2025-09-25"
+msgstr "2025-09-25"
+
+msgid "[#414](https://gitee.com/ascend/triton-ascend/pulls/414)"
+msgstr "[#414](https://gitee.com/ascend/triton-ascend/pulls/414)"
+
+msgid "50"
+msgstr "50"
+
+msgid "[lu2048](https://gitee.com/lu2048)"
+msgstr "[lu2048](https://gitee.com/lu2048)"
+
+msgid "[#421](https://gitee.com/ascend/triton-ascend/pulls/421)"
+msgstr "[#421](https://gitee.com/ascend/triton-ascend/pulls/421)"
+
+msgid "49"
+msgstr "49"
+
+msgid "[kig_35c7](https://gitee.com/kig_35c7)"
+msgstr "[kig_35c7](https://gitee.com/kig_35c7)"
+
+msgid "2025-09-19"
+msgstr "2025-09-19"
+
+msgid "[#384](https://gitee.com/ascend/triton-ascend/pulls/384)"
+msgstr "[#384](https://gitee.com/ascend/triton-ascend/pulls/384)"
+
+msgid "48"
+msgstr "48"
+
+msgid "[jiangzheng1123](https://gitee.com/jiangzheng1123)"
+msgstr "[jiangzheng1123](https://gitee.com/jiangzheng1123)"
+
+msgid "2025-09-18"
+msgstr "2025-09-18"
+
+msgid "[#379](https://gitee.com/ascend/triton-ascend/pulls/379)"
+msgstr "[#379](https://gitee.com/ascend/triton-ascend/pulls/379)"
+
+msgid "47"
+msgstr "47"
+
+msgid "[chnjz233](https://gitcode.com/chnjz233)"
+msgstr "[chnjz233](https://gitcode.com/chnjz233)"
+
+msgid "[#379](https://gitcode.com/Ascend/triton-ascend/merge_requests/379)"
+msgstr "[#379](https://gitcode.com/Ascend/triton-ascend/merge_requests/379)"
+
+msgid "46"
+msgstr "46"
+
+msgid "[KanuaK](https://gitee.com/KanuaK)"
+msgstr "[KanuaK](https://gitee.com/KanuaK)"
+
+msgid "[#380](https://gitee.com/ascend/triton-ascend/pulls/380)"
+msgstr "[#380](https://gitee.com/ascend/triton-ascend/pulls/380)"
+
+msgid "45"
+msgstr "45"
+
+msgid "[elstainniles](https://gitee.com/elstainniles)"
+msgstr "[elstainniles](https://gitee.com/elstainniles)"
+
+msgid "[#331](https://gitee.com/ascend/triton-ascend/pulls/331)"
+msgstr "[#331](https://gitee.com/ascend/triton-ascend/pulls/331)"
+
+msgid "44"
+msgstr "44"
+
+msgid "[s00504327](https://gitee.com/s00504327)"
+msgstr "[s00504327](https://gitee.com/s00504327)"
+
+msgid "2025-09-15"
+msgstr "2025-09-15"
+
+msgid "[#366](https://gitee.com/ascend/triton-ascend/pulls/366)"
+msgstr "[#366](https://gitee.com/ascend/triton-ascend/pulls/366)"
+
+msgid "43"
+msgstr "43"
+
+msgid "[SL25](https://gitcode.com/SL25)"
+msgstr "[SL25](https://gitcode.com/SL25)"
+
+msgid "[#366](https://gitcode.com/Ascend/triton-ascend/merge_requests/366)"
+msgstr "[#366](https://gitcode.com/Ascend/triton-ascend/merge_requests/366)"
+
+msgid "42"
+msgstr "42"
+
+msgid "[kang-ingu](https://gitee.com/kang-ingu)"
+msgstr "[kang-ingu](https://gitee.com/kang-ingu)"
+
+msgid "2025-09-10"
+msgstr "2025-09-10"
+
+msgid "[#355](https://gitee.com/ascend/triton-ascend/pulls/355)"
+msgstr "[#355](https://gitee.com/ascend/triton-ascend/pulls/355)"
+
+msgid "41"
+msgstr "41"
+
+msgid "[zhuxuejie](https://gitee.com/zhuxuejie)"
+msgstr "[zhuxuejie](https://gitee.com/zhuxuejie)"
+
+msgid "2025-08-22"
+msgstr "2025-08-22"
+
+msgid "[#284](https://gitee.com/ascend/triton-ascend/pulls/284)"
+msgstr "[#284](https://gitee.com/ascend/triton-ascend/pulls/284)"
+
+msgid "40"
+msgstr "40"
+
+msgid "[lord_of_ironhill](https://gitee.com/lord_of_ironhill)"
+msgstr "[lord_of_ironhill](https://gitee.com/lord_of_ironhill)"
+
+msgid "2025-08-21"
+msgstr "2025-08-21"
+
+msgid "[#278](https://gitee.com/ascend/triton-ascend/pulls/278)"
+msgstr "[#278](https://gitee.com/ascend/triton-ascend/pulls/278)"
+
+msgid "39"
+msgstr "39"
+
+msgid "[wcleungaj](https://gitee.com/wcleungaj)"
+msgstr "[wcleungaj](https://gitee.com/wcleungaj)"
+
+msgid "2025-08-14"
+msgstr "2025-08-14"
+
+msgid "[#250](https://gitee.com/ascend/triton-ascend/pulls/250)"
+msgstr "[#250](https://gitee.com/ascend/triton-ascend/pulls/250)"
+
+msgid "38"
+msgstr "38"
+
+msgid "[huawei-zhangjunbo](https://gitee.com/huawei-zhangjunbo)"
+msgstr "[huawei-zhangjunbo](https://gitee.com/huawei-zhangjunbo)"
+
+msgid "[#244](https://gitee.com/ascend/triton-ascend/pulls/244)"
+msgstr "[#244](https://gitee.com/ascend/triton-ascend/pulls/244)"
+
+msgid "37"
+msgstr "37"
+
+msgid "[AiBoGe](https://gitcode.com/AiBoGe)"
+msgstr "[AiBoGe](https://gitcode.com/AiBoGe)"
+
+msgid "[#244](https://gitcode.com/Ascend/triton-ascend/merge_requests/244)"
+msgstr "[#244](https://gitcode.com/Ascend/triton-ascend/merge_requests/244)"
+
+msgid "36"
+msgstr "36"
+
+msgid "[wangtao489](https://gitee.com/wangtao489)"
+msgstr "[wangtao489](https://gitee.com/wangtao489)"
+
+msgid "2025-08-13"
+msgstr "2025-08-13"
+
+msgid "[#247](https://gitee.com/ascend/triton-ascend/pulls/247)"
+msgstr "[#247](https://gitee.com/ascend/triton-ascend/pulls/247)"
+
+msgid "35"
+msgstr "35"
+
+msgid "[mengxuancai](https://gitee.com/mengxuancai)"
+msgstr "[mengxuancai](https://gitee.com/mengxuancai)"
+
+msgid "2025-08-04"
+msgstr "2025-08-04"
+
+msgid "[#213](https://gitee.com/ascend/triton-ascend/pulls/213)"
+msgstr "[#213](https://gitee.com/ascend/triton-ascend/pulls/213)"
+
+msgid "34"
+msgstr "34"
+
+msgid "[zhangshuolei](https://gitee.com/zhangshuolei)"
+msgstr "[zhangshuolei](https://gitee.com/zhangshuolei)"
+
+msgid "2025-07-28"
+msgstr "2025-07-28"
+
+msgid "[#208](https://gitee.com/ascend/triton-ascend/pulls/208)"
+msgstr "[#208](https://gitee.com/ascend/triton-ascend/pulls/208)"
+
+msgid "33"
+msgstr "33"
+
+msgid "[zhangshuoleiokok](https://gitcode.com/zhangshuoleiokok)"
+msgstr "[zhangshuoleiokok](https://gitcode.com/zhangshuoleiokok)"
+
+msgid "[#208](https://gitcode.com/Ascend/triton-ascend/merge_requests/208)"
+msgstr "[#208](https://gitcode.com/Ascend/triton-ascend/merge_requests/208)"
+
+msgid "32"
+msgstr "32"
+
+msgid "[cxtjjcz](https://gitee.com/cxtjjcz)"
+msgstr "[cxtjjcz](https://gitee.com/cxtjjcz)"
+
+msgid "2025-07-26"
+msgstr "2025-07-26"
+
+msgid "[#201](https://gitee.com/ascend/triton-ascend/pulls/201)"
+msgstr "[#201](https://gitee.com/ascend/triton-ascend/pulls/201)"
+
+msgid "31"
+msgstr "31"
+
+msgid "[candyhong](https://gitee.com/candyhong)"
+msgstr "[candyhong](https://gitee.com/candyhong)"
+
+msgid "[#200](https://gitee.com/ascend/triton-ascend/pulls/200)"
+msgstr "[#200](https://gitee.com/ascend/triton-ascend/pulls/200)"
+
+msgid "30"
+msgstr "30"
+
+msgid "[dingshuooffice](https://gitee.com/dingshuooffice)"
+msgstr "[dingshuooffice](https://gitee.com/dingshuooffice)"
+
+msgid "[#207](https://gitee.com/ascend/triton-ascend/pulls/207)"
+msgstr "[#207](https://gitee.com/ascend/triton-ascend/pulls/207)"
+
+msgid "29"
+msgstr "29"
+
+msgid "[fengrui886](https://gitee.com/fengrui886)"
+msgstr "[fengrui886](https://gitee.com/fengrui886)"
+
+msgid "[#192](https://gitee.com/ascend/triton-ascend/pulls/192)"
+msgstr "[#192](https://gitee.com/ascend/triton-ascend/pulls/192)"
+
+msgid "28"
+msgstr "28"
+
+msgid "[vince8866](https://gitee.com/vince8866)"
+msgstr "[vince8866](https://gitee.com/vince8866)"
+
+msgid "2025-07-19"
+msgstr "2025-07-19"
+
+msgid "[#183](https://gitee.com/ascend/triton-ascend/pulls/183)"
+msgstr "[#183](https://gitee.com/ascend/triton-ascend/pulls/183)"
+
+msgid "27"
+msgstr "27"
+
+msgid "[saruagithub](https://gitee.com/saruagithub)"
+msgstr "[saruagithub](https://gitee.com/saruagithub)"
+
+msgid "2025-07-11"
+msgstr "2025-07-11"
+
+msgid "[#166](https://gitee.com/ascend/triton-ascend/pulls/166)"
+msgstr "[#166](https://gitee.com/ascend/triton-ascend/pulls/166)"
+
+msgid "26"
+msgstr "26"
+
+msgid "[junelutus](https://gitee.com/junelutus)"
+msgstr "[junelutus](https://gitee.com/junelutus)"
+
+msgid "2025-07-09"
+msgstr "2025-07-09"
+
+msgid "[#156](https://gitee.com/ascend/triton-ascend/pulls/156)"
+msgstr "[#156](https://gitee.com/ascend/triton-ascend/pulls/156)"
+
+msgid "25"
+msgstr "25"
+
+msgid "[hipudding](https://gitee.com/hipudding)"
+msgstr "[hipudding](https://gitee.com/hipudding)"
+
+msgid "2025-06-28"
+msgstr "2025-06-28"
+
+msgid "[#76](https://gitee.com/ascend/triton-ascend/pulls/76)"
+msgstr "[#76](https://gitee.com/ascend/triton-ascend/pulls/76)"
+
+msgid "24"
+msgstr "24"
+
+msgid "[huafengchun](https://gitcode.com/huafengchun)"
+msgstr "[huafengchun](https://gitcode.com/huafengchun)"
+
+msgid "[#76](https://gitcode.com/Ascend/triton-ascend/merge_requests/76)"
+msgstr "[#76](https://gitcode.com/Ascend/triton-ascend/merge_requests/76)"
+
+msgid "23"
+msgstr "23"
+
+msgid "[waiting_4u](https://gitee.com/waiting_4u)"
+msgstr "[waiting_4u](https://gitee.com/waiting_4u)"
+
+msgid "2025-06-26"
+msgstr "2025-06-26"
+
+msgid "[#113](https://gitee.com/ascend/triton-ascend/pulls/113)"
+msgstr "[#113](https://gitee.com/ascend/triton-ascend/pulls/113)"
+
+msgid "22"
+msgstr "22"
+
+msgid "[george_zhanglei](https://gitee.com/george_zhanglei)"
+msgstr "[george_zhanglei](https://gitee.com/george_zhanglei)"
+
+msgid "2025-06-24"
+msgstr "2025-06-24"
+
+msgid "[#92](https://gitee.com/ascend/triton-ascend/pulls/92)"
+msgstr "[#92](https://gitee.com/ascend/triton-ascend/pulls/92)"
+
+msgid "21"
+msgstr "21"
+
+msgid "[zhiliangtang](https://gitee.com/zhiliangtang)"
+msgstr "[zhiliangtang](https://gitee.com/zhiliangtang)"
+
+msgid "[#97](https://gitee.com/ascend/triton-ascend/pulls/97)"
+msgstr "[#97](https://gitee.com/ascend/triton-ascend/pulls/97)"
+
+msgid "20"
+msgstr "20"
+
+msgid "[zhiliangtang0727](https://gitcode.com/zhiliangtang0727)"
+msgstr "[zhiliangtang0727](https://gitcode.com/zhiliangtang0727)"
+
+msgid "[#97](https://gitcode.com/Ascend/triton-ascend/merge_requests/97)"
+msgstr "[#97](https://gitcode.com/Ascend/triton-ascend/merge_requests/97)"
+
+msgid "19"
+msgstr "19"
+
+msgid "[adamasW](https://gitee.com/adamasW)"
+msgstr "[adamasW](https://gitee.com/adamasW)"
+
+msgid "[#101](https://gitee.com/ascend/triton-ascend/pulls/101)"
+msgstr "[#101](https://gitee.com/ascend/triton-ascend/pulls/101)"
+
+msgid "18"
+msgstr "18"
+
+msgid "[kpxing](https://gitee.com/kpxing)"
+msgstr "[kpxing](https://gitee.com/kpxing)"
+
+msgid "2025-06-21"
+msgstr "2025-06-21"
+
+msgid "[#85](https://gitee.com/ascend/triton-ascend/pulls/85)"
+msgstr "[#85](https://gitee.com/ascend/triton-ascend/pulls/85)"
+
+msgid "17"
+msgstr "17"
+
+msgid "[wszh-01](https://gitee.com/wszh-01)"
+msgstr "[wszh-01](https://gitee.com/wszh-01)"
+
+msgid "2025-06-17"
+msgstr "2025-06-17"
+
+msgid "[#62](https://gitee.com/ascend/triton-ascend/pulls/62)"
+msgstr "[#62](https://gitee.com/ascend/triton-ascend/pulls/62)"
+
+msgid "16"
+msgstr "16"
+
+msgid "[zhucehw](https://gitee.com/zhucehw)"
+msgstr "[zhucehw](https://gitee.com/zhucehw)"
+
+msgid "2025-06-16"
+msgstr "2025-06-16"
+
+msgid "[#45](https://gitee.com/ascend/triton-ascend/pulls/45)"
+msgstr "[#45](https://gitee.com/ascend/triton-ascend/pulls/45)"
+
+msgid "15"
+msgstr "15"
+
+msgid "[w00504335](https://gitee.com/w00504335)"
+msgstr "[w00504335](https://gitee.com/w00504335)"
+
+msgid "2025-06-11"
+msgstr "2025-06-11"
+
+msgid "[#55](https://gitee.com/ascend/triton-ascend/pulls/55)"
+msgstr "[#55](https://gitee.com/ascend/triton-ascend/pulls/55)"
+
+msgid "14"
+msgstr "14"
+
+msgid "[hin-peng](https://gitee.com/hin-peng)"
+msgstr "[hin-peng](https://gitee.com/hin-peng)"
+
+msgid "[#48](https://gitee.com/ascend/triton-ascend/pulls/48)"
+msgstr "[#48](https://gitee.com/ascend/triton-ascend/pulls/48)"
+
+msgid "13"
+msgstr "13"
+
+msgid "[meloliu12327](https://gitee.com/meloliu12327)"
+msgstr "[meloliu12327](https://gitee.com/meloliu12327)"
+
+msgid "2025-06-04"
+msgstr "2025-06-04"
+
+msgid "[#30](https://gitee.com/ascend/triton-ascend/pulls/30)"
+msgstr "[#30](https://gitee.com/ascend/triton-ascend/pulls/30)"
+
+msgid "12"
+msgstr "12"
+
+msgid "[qhrusty](https://gitee.com/qhrusty)"
+msgstr "[qhrusty](https://gitee.com/qhrusty)"
+
+msgid "2025-06-03"
+msgstr "2025-06-03"
+
+msgid "[#27](https://gitee.com/ascend/triton-ascend/pulls/27)"
+msgstr "[#27](https://gitee.com/ascend/triton-ascend/pulls/27)"
+
+msgid "11"
+msgstr "11"
+
+msgid "[leopold0801](https://gitee.com/leopold0801)"
+msgstr "[leopold0801](https://gitee.com/leopold0801)"
+
+msgid "2025-05-29"
+msgstr "2025-05-29"
+
+msgid "[#26](https://gitee.com/ascend/triton-ascend/pulls/26)"
+msgstr "[#26](https://gitee.com/ascend/triton-ascend/pulls/26)"
+
+msgid "10"
+msgstr "10"
+
+msgid "[shen-zhaofeng](https://gitee.com/shen-zhaofeng)"
+msgstr "[shen-zhaofeng](https://gitee.com/shen-zhaofeng)"
+
+msgid "2025-05-28"
+msgstr "2025-05-28"
+
+msgid "[#23](https://gitee.com/ascend/triton-ascend/pulls/23)"
+msgstr "[#23](https://gitee.com/ascend/triton-ascend/pulls/23)"
+
+msgid "9"
+msgstr "9"
+
+msgid "[ffrog](https://gitee.com/ffrog)"
+msgstr "[ffrog](https://gitee.com/ffrog)"
+
+msgid "[#12](https://gitee.com/ascend/triton-ascend/pulls/12)"
+msgstr "[#12](https://gitee.com/ascend/triton-ascend/pulls/12)"
+
+msgid "8"
+msgstr "8"
+
+msgid "[qiuqianjin](https://gitee.com/qiuqianjin)"
+msgstr "[qiuqianjin](https://gitee.com/qiuqianjin)"
+
+msgid "2025-05-27"
+msgstr "2025-05-27"
+
+msgid "[#17](https://gitee.com/ascend/triton-ascend/pulls/17)"
+msgstr "[#17](https://gitee.com/ascend/triton-ascend/pulls/17)"
+
+msgid "7"
+msgstr "7"
+
+msgid "[qiuqianjin233](https://gitcode.com/qiuqianjin233)"
+msgstr "[qiuqianjin233](https://gitcode.com/qiuqianjin233)"
+
+msgid "[#17](https://gitcode.com/Ascend/triton-ascend/merge_requests/17)"
+msgstr "[#17](https://gitcode.com/Ascend/triton-ascend/merge_requests/17)"
+
+msgid "6"
+msgstr "6"
+
+msgid "[wangzhanpeng5](https://gitee.com/wangzhanpeng5)"
+msgstr "[wangzhanpeng5](https://gitee.com/wangzhanpeng5)"
+
+msgid "2025-05-26"
+msgstr "2025-05-26"
+
+msgid "[#5](https://gitee.com/ascend/triton-ascend/pulls/5)"
+msgstr "[#5](https://gitee.com/ascend/triton-ascend/pulls/5)"
+
+msgid "5"
+msgstr "5"
+
+msgid "[yang-bochu](https://gitee.com/yang-bochu)"
+msgstr "[yang-bochu](https://gitee.com/yang-bochu)"
+
+msgid "[#7](https://gitee.com/ascend/triton-ascend/pulls/7)"
+msgstr "[#7](https://gitee.com/ascend/triton-ascend/pulls/7)"
+
+msgid "4"
+msgstr "4"
+
+msgid "[handsome20](https://gitcode.com/handsome20)"
+msgstr "[handsome20](https://gitcode.com/handsome20)"
+
+msgid "[#7](https://gitcode.com/Ascend/triton-ascend/merge_requests/7)"
+msgstr "[#7](https://gitcode.com/Ascend/triton-ascend/merge_requests/7)"
+
+msgid "3"
+msgstr "3"
+
+msgid "[zhangyong102](https://gitee.com/zhangyong102)"
+msgstr "[zhangyong102](https://gitee.com/zhangyong102)"
+
+msgid "[#8](https://gitee.com/ascend/triton-ascend/pulls/8)"
+msgstr "[#8](https://gitee.com/ascend/triton-ascend/pulls/8)"
+
+msgid "2"
+msgstr "2"
+
+msgid "[shijingchang](https://gitee.com/shijingchang)"
+msgstr "[shijingchang](https://gitee.com/shijingchang)"
+
+msgid "[#9](https://gitee.com/ascend/triton-ascend/pulls/9)"
+msgstr "[#9](https://gitee.com/ascend/triton-ascend/pulls/9)"
+
+msgid "1"
+msgstr "1"
+
+msgid "[zhang-chunli01](https://gitee.com/zhang-chunli01)"
+msgstr "[zhang-chunli01](https://gitee.com/zhang-chunli01)"
+
+msgid "2025-05-23"
+msgstr "2025-05-23"
+
+msgid "[#1](https://gitee.com/ascend/triton-ascend/pulls/1)"
+msgstr "[#1](https://gitee.com/ascend/triton-ascend/pulls/1)"
+
+msgid "*Due to repository migration, contributors listed above are counted by contributor ID (IDs from different platforms are treated as separate contributors).*"
+msgstr "*Due to repository migration, contributors listed above are counted by contributor ID (IDs from different platforms are treated as separate contributors).*"
