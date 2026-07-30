@@ -79,7 +79,7 @@ from openai import AsyncOpenAI
 #                                                         (mirrors docs/zh/ structure)
 
 ZH_DIR = Path("docs/zh")
-LOCALE_DIR = Path("locale")
+LOCALE_DIR = Path("docs/locale")
 POT_DIR = LOCALE_DIR / "zh" / "LC_MESSAGES"
 PO_DIR = LOCALE_DIR / "en" / "LC_MESSAGES"
 
@@ -520,7 +520,7 @@ def run_sphinx_gettext() -> bool:
     locale/zh/LC_MESSAGES/ for the rest of the workflow. Excluded
     directories/files are discarded during reorganization.
     """
-    print("Running: sphinx-build -b gettext docs/zh locale/", flush=True)
+    print(f"Running: sphinx-build -b gettext docs/zh {LOCALE_DIR}/", flush=True)
     result = subprocess.run(
         [
             sys.executable, "-m", "sphinx", "-b", "gettext", "-q", "-D", "locale_dirs=['.']",
