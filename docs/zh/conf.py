@@ -28,6 +28,7 @@ author = 'Huawei'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.autosummary',
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.autosectionlabel',
