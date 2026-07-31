@@ -37,7 +37,7 @@
 | **MLIR 编译与代码生成** | `ttadapter.mlir` | `.o` (可执行对象文件) | 毕昇编译器 (`bishengir-compile`) | 将适配器IR进一步编译并优化，生成可在NPU上执行的二进制代码。 |
 
 ```bash
-# Triton-Ascend 编译流程示意
+# Triton-Ascend compilation flow
 [Python Kernel]
      ↓ (triton.compile)
 [ttir.mlir]
@@ -108,11 +108,11 @@ export TRITON_ALWAYS_COMPILE=1
 即使启用缓存，只要设置了 TRITON_DEBUG=1，系统仍会在每次运行时重新生成转储文件（覆盖同名目录中的文件）。但若缓存命中且跳过编译，则可能不会触发 IR 转换，导致无新 dump 生成。因此调试时建议同时设置：
 
 ```bash
-# 在运行 Triton 程序前设置环境变量
+# Set environment variables before running the Triton program
 export TRITON_DEBUG=1
 export TRITON_ALWAYS_COMPILE=1
 
-# 运行 Triton kernel
+# Run the Triton kernel
 python your_triton_program.py
 ```
 
@@ -149,7 +149,7 @@ TRITON_DEBUG=1 TRITON_ALWAYS_COMPILE=1 python 01-vector-add.py
 
 ```text
 Dumping intermediate results to ~/.triton/dump/xxx
-# xxx是一串hash的唯一标识符
+# xxx is a unique hash identifier string
 ```
 
 进入该dump路径，查看 kernel.ttir.mlir 和 kernel.ttadapter.mlir
@@ -265,22 +265,22 @@ TTAdapter IR 已完成从 Triton 抽象到适配昇腾 NPU 的格式。
 2. 在Triton kernel源码中需要检查的位置插入Python断点：
 
     ```python
-    breakpoint()  # Python 内置断点函数
+    breakpoint()  # Python built-in breakpoint function
     ```
 
 3. 程序执行到此处会暂停并进入Python调试器 (`Pdb`)。可以打印和检查任意中间变量的值：
 
     ```python
-    (Pdb) p tmp0  # 打印变量 tmp0 的值
+    (Pdb) p tmp0  # Print the value of variable tmp0
     ```
 
 - 注：解释器模式会在 CPU 上执行所有计算，显著降低运行效率。因此，在完成调试或验证后，务必取消设置环境变量 TRITON_INTERPRET，或显式将其设为 0，确保系统性能不受影响：
 
 ```bash
-# 取消该环境变量
+# Unset the environment variable
 unset TRITON_INTERPRET
 
-# 显式将其设为 0
+# Explicitly set it to 0
 export TRITON_INTERPRET=0
 ```
 
@@ -314,10 +314,10 @@ def triton_kernel(
     out_ptr0,
     in_ptr0,
     in_ptr1,
-    XBLOCK: tl.constexpr,  # 编译时常量参数
-    USE_FP16: tl.constexpr  # 编译时常量参数
+    XBLOCK: tl.constexpr,  # Compile-time constant parameter
+    USE_FP16: tl.constexpr  # Compile-time constant parameter
 ):
-    # 打印编译时常量参数
+    # Print compile-time constant parameters
     tl.static_print("XBLOCK = ", XBLOCK)
     tl.static_print("USE_FP16 = ", USE_FP16)
 
@@ -325,7 +325,7 @@ def triton_kernel(
     tmp0 = tl.load(in_ptr0 + idx)
     tmp1 = tl.load(in_ptr1 + idx)
 
-    # 打印常量计算结果
+    # Print the constant calculation result
     elements_per_thread = XBLOCK // 32
     tl.static_print("Elements per thread = ", elements_per_thread)
 
@@ -336,10 +336,10 @@ def triton_kernel(
 2.设置环境变量并运行程序进行编译
 
 ```bash
-# 启用 Triton 调试输出（包含 static_print）
+# Enable Triton debug output (includes static_print)
 export TRITON_DEVICE_PRINT=1
 
-# 运行 Python 程序，会在编译阶段看到打印输出
+# Run the Python program; print output will appear during compilation
 python your_program.py
 ```
 
@@ -360,17 +360,17 @@ def triton_kernel(out_ptr0, in_ptr0, in_ptr1, XBLOCK: tl.constexpr):
     tmp0 = tl.load(in_ptr0 + idx)
     tmp1 = tl.load(in_ptr1 + idx)
     tmp2 = tmp0 + tmp1
-    tl.device_print("tmp2 after addition = ", tmp2)  # 打印中间结果
+    tl.device_print("tmp2 after addition = ", tmp2)  # Print intermediate result
     tl.store(out_ptr0 + idx, tmp2)
 ```
 
 2.设置环境变量`TRITON_DEVICE_PRINT=1`并运行程序，窗口将打印出该变量的值。
 
 ```bash
-# 启用 Triton 调试输出（包含 device_print）
+# Enable Triton debug output (includes device_print)
 export TRITON_DEVICE_PRINT=1
 
-# 运行 Python 程序，会在编译阶段看到打印输出
+# Run the Python program; print output will appear during compilation
 python your_program.py
 ```
 
@@ -428,7 +428,7 @@ File "/path/to/triton/ascend/compiler.py", line 123, in compile_fn
 
 ```python
 def compile_fn(ttir):
-    import pdb; pdb.set_trace()  # 兼容所有Python版本
+    import pdb; pdb.set_trace()  # Compatible with all Python versions
 ```
 
 **示例:**
@@ -436,16 +436,16 @@ def compile_fn(ttir):
 
 ```text
 python
-(Pdb) l  # 查看当前代码上下文
+(Pdb) l  # View the current code context
 118     def compile_fn(ttir):
 120         import pdb; pdb.set_trace()
-121         # 检查输入参数
+121         # Check input parameters
 122         print(f"ttir type: {type(ttir)}")
-123         result = lower_function(ttir)  # <-- 当前暂停位置
+123         result = lower_function(ttir)  # <-- Current pause position
 
-(Pdb) p ttir  # 检查输入参数
-(Pdb) n  # 单步执行到下一行
-(Pdb) p result  # 查看结果
+(Pdb) p ttir  # Check input parameters
+(Pdb) n  # Step to the next line
+(Pdb) p result  # View the result
 ```
 
 ### 5.2.2 环境变量调试方法

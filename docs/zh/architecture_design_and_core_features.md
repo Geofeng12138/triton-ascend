@@ -222,13 +222,13 @@ TritonToLinalg converts ttir to linalg ir.
 用法示例：
 
 ```python
-# 纯 SIMD
+# Pure SIMD
 kernel[grid](..., compile_mode="simd")
 
-# 混合（默认；950 上离散访存优先走 SIMT）
+# Mixed (default; discrete memory access on 950 prioritizes SIMT)
 kernel[grid](..., compile_mode="unstructured_in_simt")
 
-# 纯 SIMT
+# Pure SIMT
 kernel[grid](..., compile_mode="simt_only", num_warps=32)
 ```
 
