@@ -67,7 +67,7 @@ pip install -e .
 2. **构建LLVM**：路径`{PATH_TO}`为用户第一步检出LLVM源码的路径。
 
     ```bash
-    # /path/to/llvm-install 路径为用户规划的llvm安装路径,需根据实际调整
+    # /path/to/llvm-install represents the LLVM installation path designated by the user，please adjust it according to your actual setup
     export LLVM_INSTALL_PREFIX=/path/to/llvm-install
     cd {PATH_TO}/llvm-project
     mkdir build
@@ -176,7 +176,7 @@ pip install -e .
 ### 镜像使用
 
 ```bash
-# 这里以 9.0.0-a3-ubuntu22.04-py3.11 为例
+# Taking 9.0.0-a3-ubuntu22.04-py3.11 as an example
 docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 --security-opt seccomp=unconfined \
 --device=/dev/davinci0 \
@@ -199,7 +199,7 @@ docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 quay.io/ascend/cann:9.0.0-a3-ubuntu22.04-py3.11 \
 /bin/bash
 
-# 进入容器，可在前面的快速安装和源码安装中任选一种方式安装Triton-Ascend
+# Once inside the container, you can install Triton-Ascend using either the quick installation method or the source-based installation method described earlier
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
@@ -210,11 +210,11 @@ docker exec -u root -it triton-ascend_container /bin/bash
 向量加法实例：<a href="https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/01-vector-add.py" style="text-decoration: none; color: #0066cc;">01-vector-add.py </a>
 
 ```bash
-# 设置CANN环境变量（以root用户默认安装路径`/usr/local/Ascend`为例）
+# Set the CANN environment variables (using the default root installation path `/usr/local/Ascend` as an example)
 source /usr/local/Ascend/ascend-toolkit/set_env.sh
-# 拉取triton-ascend源码仓及用例（使用源码安装Triton-Ascend的无需重复拉取）
+# Clone the Triton-Ascend source code repository and test cases (users installing Triton-Ascend from source do not need to clone them again)
 git clone https://github.com/triton-lang/triton-ascend.git
-# 运行tutorials实例
+# Run the tutorial examples
 python3 ./third_party/ascend/tutorials/01-vector-add.py
 ```
 

@@ -19,6 +19,13 @@
 # THE SOFTWARE.
 import os
 import sys
+# Make the translation helper extension (sphinx_raw_html_translate) importable.
+sys.path.insert(
+    0,
+    os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".github", "workflows",
+                 "scripts"),
+)
+
 # General information about the project.
 
 project = 'Triton Ascend'
@@ -33,6 +40,9 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.autosectionlabel',
     'myst_parser',
+    # Translate text inside HTML raw nodes (table headers, HTML headings)
+    # while preserving the exact markup/structure.
+    'sphinx_raw_html_translate',
 ]
 
 # Prefix autosectionlabel with document path to avoid duplicate label warnings
@@ -60,7 +70,10 @@ language = 'zh_CN' if _is_zh else 'en'
 gettext_compact = False
 # Extract code blocks (literal blocks) as translatable units so that Chinese
 # comments inside code blocks are also translated (not skipped).
-gettext_additional_targets = ['literal-block', 'raw', 'image']
+# Note: 'raw' is intentionally NOT listed here - the dedicated
+# sphinx_raw_html_translate extension extracts per-element text (e.g. <th>,
+# <h2>) instead of importing whole HTML blocks as single messages.
+gettext_additional_targets = ['literal-block', 'image']
 if not _is_zh:
     locale_dirs = ['../locale/']
     # English build uses gettext .po translations from locale/en/LC_MESSAGES/
