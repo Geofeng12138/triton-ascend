@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 13:15+0000\n"
-"PO-Revision-Date: 2026-07-30 13:15+0000\n"
+"POT-Creation-Date: 2026-07-31 02:53+0000\n"
+"PO-Revision-Date: 2026-07-31 02:53+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "How to set up a proxy for Git?"
+msgstr "I'm sorry, but you didn't provide any Chinese text to translate. Please provide the text you'd like me to translate."
 
 msgid "Triton-Ascend FAQ"
 msgstr "Triton-Ascend FAQ"
@@ -29,14 +29,23 @@ msgstr "**Q: How to correctly install Triton-Ascend? Does it support direct pip 
 msgid "A: 可以直接使用pip 安装"
 msgstr "A: You can directly install it using pip."
 
+msgid "pip install triton-ascend\\n"
+msgstr "pip install triton-ascend"
+
 msgid "**Q: 社区 Triton 和 Triton-Ascend 能否同时存在？**"
 msgstr "**Q: Can Community Triton and Triton-Ascend coexist?**"
 
 msgid "A: triton-ascend 3.2.0 及以下不可以。需要先卸载社区 Triton，再安装 Triton-Ascend。<br> triton-ascend 3.2.1 及以上，Triton-Ascend 通过将 Triton 声明为安装依赖来缓解安装覆盖问题。 安装 Triton-Ascend 时会先安装社区 Triton，再由 Triton-Ascend 覆盖同名目录，从而避免后续安装其他依赖 Triton 的软件包时再次安装 Triton 而覆盖 Triton-Ascend。 x86 与 arm 使用不同版本的社区 Triton 安装包的原因是社区从 3.5 版本开始才提供 arm 版本安装包：x86 依赖 triton==3.2.0，arm 依赖 triton==3.5.0。"
 msgstr "A: triton-ascend 3.2.0 and below are not supported. You need to uninstall the community Triton first, then install Triton-Ascend.<br> For triton-ascend 3.2.1 and above, Triton-Ascend mitigates the installation overwrite issue by declaring Triton as an installation dependency. When installing Triton-Ascend, the community Triton is installed first, and then Triton-Ascend overwrites the directory with the same name, thereby preventing subsequent installations of other packages that depend on Triton from reinstalling Triton and overwriting Triton-Ascend. The reason x86 and arm use different versions of the community Triton installation package is that the community only started providing arm version packages from version 3.5 onwards: x86 depends on triton==3.2.0, while arm depends on triton==3.5.0."
 
+msgid "<br>"
+msgstr "<br>"
+
 msgid "注：若安装triton-ascend后，在安装依赖triton的三方件或者triton本身，将覆盖掉已安装的 Triton-Ascend 目录。 此时需要先卸载社区 Triton 和 Triton-Ascend，再安装 Triton-Ascend。"
 msgstr "Note: If you install triton-ascend and then install a third-party package that depends on triton, or triton itself, it will overwrite the already installed Triton-Ascend directory. In this case, you need to uninstall the community Triton and Triton-Ascend first, and then install Triton-Ascend."
+
+msgid "pip uninstall triton\\n"
+msgstr "pip uninstall triton"
 
 msgid "**Q: 能否在非 Ascend 硬件（如 CUDA AMD）上使用 Triton-Ascend？**"
 msgstr "**Q: Can Triton-Ascend be used on non-Ascend hardware (such as CUDA AMD)?**"
@@ -119,6 +128,9 @@ msgstr "**Q: What are the usage restrictions for pointer parameters in Triton Ke
 msgid "A: Triton-Ascend 编译期假设所有外部输入的指针参数本质上指向不同的内存区域，无法识别指针别名（Pointer Alias）场景。当多个指针参数在运行时实际指向同一块内存，但编译期无法获知这一事实时，可能导致优化失效或运行结果异常。例如："
 msgstr "A: Triton-Ascend assumes during compilation that all externally input pointer parameters essentially point to different memory regions, and it cannot recognize pointer alias scenarios. When multiple pointer parameters actually point to the same memory region at runtime, but the compiler cannot be aware of this fact, it may lead to optimization failures or abnormal runtime results. For example:"
 
+msgid "@triton.jit\\n"
+msgstr "@triton.jit"
+
 msgid "上述代码中 `ptr0` 和 `ptr1` 实际指向同一块内存（即同一个 `in_out_tensor`），但编译期无法识别这种指针别名关系，因此这种同一个张量同时作为多个指针参数传入的写法是不受支持的，对应的 Kernel 将无法使能相关优化。"
 msgstr "In the above code, `ptr0` and `ptr1` actually point to the same memory (i.e., the same `in_out_tensor`), but the compiler cannot recognize this pointer aliasing relationship. Therefore, passing the same tensor as multiple pointer arguments is not supported, and the corresponding Kernel will not be able to enable related optimizations."
 
@@ -133,6 +145,9 @@ msgstr "The current version does not fully support scenarios where `if` / `for` 
 
 msgid "不推荐让不同基地址的 pointer，或在不同分支中分别构造的 block pointer，在分支后合并再访存："
 msgstr "It is not recommended to merge pointers with different base addresses, or block pointers constructed in different branches, after branching and then perform memory access."
+
+msgid "if cond:\\n"
+msgstr "if cond:"
 
 msgid "推荐把访存放在各自分支中，让分支合并 loaded value，而不是 pointer 或 block pointer："
 msgstr "It is recommended to store visits in their respective branches, allowing branches to merge loaded values instead of pointers or block pointers."

@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 13:45+0000\n"
-"PO-Revision-Date: 2026-07-30 13:45+0000\n"
+"POT-Creation-Date: 2026-07-31 02:55+0000\n"
+"PO-Revision-Date: 2026-07-31 02:55+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Debugging"
+msgstr "I need the Chinese text to translate. Please provide it."
 
 msgid "Triton-Ascend 调试指南"
 msgstr "Triton-Ascend Debugging Guide"
@@ -64,6 +64,9 @@ msgstr "**5. Debugging Methods**"
 
 msgid "提供多种实用调试手段：<br>• 静态/运行时打印<br>• 编译错误调试方法<br>"
 msgstr "Provides multiple practical debugging methods:<br>• Static/runtime printing<br>• Compile-time error debugging methods"
+
+msgid "<br>"
+msgstr "<br>"
 
 msgid "**附录 A**"
 msgstr "**Appendix A**"
@@ -170,6 +173,9 @@ msgstr "Bisheng Compiler (`bishengir-compile`)"
 msgid "将适配器IR进一步编译并优化，生成可在NPU上执行的二进制代码。"
 msgstr "Compile and optimize the adapter IR further to generate binary code executable on the NPU."
 
+msgid "# Triton-Ascend 编译流程示意\\n"
+msgstr "# Triton-Ascend Compilation Flow Diagram"
+
 msgid "**本指南的调试重点**集中在第二阶段：`ttir.mlir` → `ttadapter.mlir` 的转换过程，此阶段是 Triton-Ascend 的主要功能。"
 msgstr "**Debugging Focus of This Guide** is concentrated on the second stage: the conversion process from `ttir.mlir` to `ttadapter.mlir`, which is the main functionality of Triton-Ascend."
 
@@ -212,8 +218,14 @@ msgstr "**Cache Management Recommendations:**"
 msgid "定期清理: 缓存可能占用较多磁盘空间，可定期清理："
 msgstr "Periodic Cleanup: Cache may occupy significant disk space; it can be cleaned periodically."
 
+msgid "rm -rf ~/.triton/cache\\n"
+msgstr "rm -rf ~/.triton/cache"
+
 msgid "调试时禁用缓存: 在调试编译问题时，建议临时禁用缓存以确保每次都重新编译："
 msgstr "Disable cache during debugging: When debugging compilation issues, it is recommended to temporarily disable the cache to ensure recompilation every time."
+
+msgid "export TRITON_ALWAYS_COMPILE=1\\n"
+msgstr "export TRITON_ALWAYS_COMPILE=1"
 
 msgid "缓存验证: 当怀疑缓存导致问题时，可删除相关缓存文件后重新测试。"
 msgstr "Cache Verification: When suspecting that the cache is causing issues, delete the relevant cache files and retest."
@@ -244,6 +256,9 @@ msgstr "kernel.ttadapter.mlir: Adapter IR file (conversion output)"
 
 msgid "启用调试转储： 即使启用缓存，只要设置了 TRITON_DEBUG=1，系统仍会在每次运行时重新生成转储文件（覆盖同名目录中的文件）。但若缓存命中且跳过编译，则可能不会触发 IR 转换，导致无新 dump 生成。因此调试时建议同时设置："
 msgstr "Enable debug dump: Even if caching is enabled, as long as TRITON_DEBUG=1 is set, the system will regenerate dump files on each run (overwriting files in directories with the same name). However, if the cache hits and compilation is skipped, IR conversion may not be triggered, resulting in no new dump being generated. Therefore, it is recommended to also set the following during debugging:"
+
+msgid "# 在运行 Triton 程序前设置环境变量\\n"
+msgstr "# Set environment variables before running Triton programs"
 
 msgid "3.3 文件生命周期管理"
 msgstr "3.3 File Lifecycle Management"
@@ -308,8 +323,14 @@ msgstr "Using the demonstration test case [01-vector-add.py](../../../third_part
 msgid "运行用例"
 msgstr "Run test case"
 
+msgid "TRITON_DEBUG=1 TRITON_ALWAYS_COMPILE=1 python 01-vector-add.py\\n"
+msgstr "TRITON_DEBUG=1 TRITON_ALWAYS_COMPILE=1 python 01-vector-add.py"
+
 msgid "运行用例后会打印dump文件路径，默认是 ~/.triton/dump，显示如下："
 msgstr "After running the test case, the dump file path will be printed, which defaults to ~/.triton/dump, as shown below:"
+
+msgid "Dumping intermediate results to ~/.triton/dump/xxx\\n"
+msgstr "Dumping intermediate results to ~/.triton/dump/xxx"
 
 msgid "进入该dump路径，查看 kernel.ttir.mlir 和 kernel.ttadapter.mlir"
 msgstr "Enter the dump path and check kernel.ttir.mlir and kernel.ttadapter.mlir"
@@ -319,6 +340,9 @@ msgstr "3.4.1 TTIR (Triton Intermediate Representation)"
 
 msgid "TTIR 样例 查看 kernel.ttir.mlir 如下："
 msgstr "TTIR Example View kernel.ttir.mlir as follows:"
+
+msgid "module {\\n"
+msgstr "module {"
 
 msgid "TTIR 解析"
 msgstr "TTIR Parsing"
@@ -389,11 +413,20 @@ msgstr "Set the environment variable `TRITON_INTERPRET=1` and run the program to
 msgid "在Triton kernel源码中需要检查的位置插入Python断点："
 msgstr "Insert Python breakpoints at the positions that need to be checked in the Triton kernel source code."
 
+msgid "breakpoint()  # Python 内置断点函数\\n"
+msgstr "breakpoint()  # Python built-in breakpoint function"
+
 msgid "程序执行到此处会暂停并进入Python调试器 (`Pdb`)。可以打印和检查任意中间变量的值："
 msgstr "The program will pause here and enter the Python debugger (`Pdb`). You can print and inspect the values of any intermediate variables."
 
+msgid "(Pdb) p tmp0  # 打印变量 tmp0 的值\\n"
+msgstr "(Pdb) p tmp0  # Print the value of variable tmp0"
+
 msgid "注：解释器模式会在 CPU 上执行所有计算，显著降低运行效率。因此，在完成调试或验证后，务必取消设置环境变量 TRITON_INTERPRET，或显式将其设为 0，确保系统性能不受影响："
 msgstr "Note: The interpreter mode executes all computations on the CPU, significantly reducing runtime efficiency. Therefore, after completing debugging or verification, be sure to unset the environment variable TRITON_INTERPRET, or explicitly set it to 0, to ensure system performance is not affected."
+
+msgid "# 取消该环境变量\\n"
+msgstr "# Unset the environment variable"
 
 msgid "5 调试方法"
 msgstr "5 Debugging Methods"
@@ -428,8 +461,14 @@ msgstr "Usage:"
 msgid "1.在 Triton kernel 中，为需要调试的常量参数添加 tl.static_print 语句"
 msgstr "In the Triton kernel, add a `tl.static_print` statement for the constant parameters that need debugging."
 
+msgid "import triton.language as tl\\n"
+msgstr "import triton.language as tl"
+
 msgid "2.设置环境变量并运行程序进行编译"
 msgstr "2. Set environment variables and run the program to compile."
+
+msgid "# 启用 Triton 调试输出（包含 static_print）\\n"
+msgstr "# Enable Triton debug output (including static_print)"
 
 msgid "5.1.2 运行时调试方法"
 msgstr "5.1.2 Runtime Debugging Methods"
@@ -443,8 +482,14 @@ msgstr "In the Triton kernel, add a `tl.device_print` statement for the variable
 msgid "2.设置环境变量`TRITON_DEVICE_PRINT=1`并运行程序，窗口将打印出该变量的值。"
 msgstr "2. Set the environment variable `TRITON_DEVICE_PRINT=1` and run the program; the window will print the value of this variable."
 
+msgid "# 启用 Triton 调试输出（包含 device_print）\\n"
+msgstr "# Enable Triton debug output (including device_print)"
+
 msgid "运行后，`tl.device_print` 打印的变量内容会显示在 `HiIPU Print` 区块内，示例如下："
 msgstr "After running, the variable content printed by `tl.device_print` will be displayed in the `HiIPU Print` block, as shown below:"
+
+msgid "-----------------------------------------------------------------------------\\n"
+msgstr "Debugging"
 
 msgid "注：打印长度限制： tl.device_print 在张量打印有长度限制，具体表现为：当张量长度超过一定阈值时，输出会被截断"
 msgstr "Note: Print length limit: tl.device_print has a length limit when printing tensors. Specifically, when the tensor length exceeds a certain threshold, the output will be truncated."
@@ -527,11 +572,20 @@ msgstr "Usage Steps:"
 msgid "定位问题入口 在报错日志中找到最接近用户代码的 Python 调用栈信息，通常位于栈顶附近，例如："
 msgstr "Locate the problem entry point. In the error log, find the Python call stack information closest to the user code, usually near the top of the stack, for example:"
 
+msgid "File \"/path/to/triton/ascend/compiler.py\", line 123, in compile_fn\\n"
+msgstr "File \"/path/to/triton/ascend/compiler.py\", line 123, in compile_fn"
+
 msgid "插入调试断点 在怀疑出错的 Python 源文件中插入 pdb 断点。"
 msgstr "Insert debug breakpoint: Insert a pdb breakpoint in the Python source file suspected of having errors."
 
+msgid "def compile_fn(ttir):\\n"
+msgstr "def compile_fn(ttir):"
+
 msgid "**示例:** 假设在 `compiler.py` 的第 123 行设置了断点，程序暂停后："
 msgstr "**Example:** Assume a breakpoint is set at line 123 of `compiler.py`. After the program pauses:"
+
+msgid "python\\n"
+msgstr "python"
 
 msgid "5.2.2 环境变量调试方法"
 msgstr "5.2.2 Environment Variable Debugging Method"
@@ -554,6 +608,9 @@ msgstr "**Usage Recommendations** Daily debugging first choice: 90% of Triton op
 msgid "**启用方式**"
 msgstr "**Enable Method**"
 
+msgid "export MLIR_ENABLE_DUMP=1\\n"
+msgstr "export MLIR_ENABLE_DUMP=1"
+
 msgid "5.2.2.2 `TRITON_ENABLE_LLVM_DEBUG=1`"
 msgstr "5.2.2.2 `TRITON_ENABLE_LLVM_DEBUG=1`"
 
@@ -569,8 +626,14 @@ msgstr "**Usage Recommendation** Enable only when suspecting an LLVM backend bug
 msgid "在启用 `TRITON_ENABLE_LLVM_DEBUG=1` 时，可通过 `TRITON_LLVM_DEBUG_ONLY` 环境变量指定仅输出特定模块的调试日志。以下是常用 `DEBUG_TYPE` 的简要解释："
 msgstr "When `TRITON_ENABLE_LLVM_DEBUG=1` is enabled, the `TRITON_LLVM_DEBUG_ONLY` environment variable can be used to specify that only debug logs from specific modules are output. Below is a brief explanation of commonly used `DEBUG_TYPE`:"
 
+msgid "## `isel`（Instruction Selection）\\n"
+msgstr "## `isel` (Instruction Selection)"
+
 msgid "**启用方式** 以指定仅输出`isel`为例"
 msgstr "**Enable Method** Taking specifying only output `isel` as an example"
+
+msgid "export TRITON_ENABLE_LLVM_DEBUG=1\\n"
+msgstr "export TRITON_ENABLE_LLVM_DEBUG=1"
 
 msgid "**调试流程推荐** 先启用 `MLIR_ENABLE_DUMP=1` → 验证 MLIR 层转换是否正确（如 ReduceOp → scf.for） 若 MLIR 正常但结果错误 → 怀疑 LLVM 问题，再启用 `TRITON_ENABLE_LLVM_DEBUG=1 + TRITON_LLVM_DEBUG_ONLY` 避免直接开启 `TRITON_ENABLE_LLVM_DEBUG=1` → 日志过大易掩盖关键信息，且严重影响运行速度"
 msgstr "**Recommended Debugging Workflow** First enable `MLIR_ENABLE_DUMP=1` → Verify whether the MLIR layer conversion is correct (e.g., ReduceOp → scf.for). If MLIR is correct but the result is wrong → suspect an LLVM issue, then enable `TRITON_ENABLE_LLVM_DEBUG=1 + TRITON_LLVM_DEBUG_ONLY` to avoid directly enabling `TRITON_ENABLE_LLVM_DEBUG=1` → excessive logs may obscure critical information and severely impact runtime performance."

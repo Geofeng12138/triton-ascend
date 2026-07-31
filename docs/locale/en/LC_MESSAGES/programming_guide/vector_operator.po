@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 14:09+0000\n"
-"PO-Revision-Date: 2026-07-30 14:09+0000\n"
+"POT-Creation-Date: 2026-07-31 03:00+0000\n"
+"PO-Revision-Date: 2026-07-31 03:00+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "vector operator"
+msgstr "Vector operators are mathematical tools used to describe and manipulate vector quantities in space. They include operations such as dot product, cross product, and vector addition, which are widely applied in fields like physics, engineering, and computer graphics."
 
 msgid "Vector 算子开发"
 msgstr "Vector Operator Development"
@@ -43,6 +43,9 @@ msgstr "When the number of grids is much larger than the number of physical core
 
 msgid "基础 kernel 结构如下："
 msgstr "The basic kernel structure is as follows:"
+
+msgid "@triton.jit\\n"
+msgstr "@triton.jit"
 
 msgid "开发时优先检查三类问题："
 msgstr "Prioritize checking three types of issues during development:"
@@ -91,6 +94,9 @@ msgstr "**Reserve a unified mask for the tail block**: In complex gather/scatter
 
 msgid "典型的 UB 预算思路如下："
 msgstr "A typical UB budgeting approach is as follows:"
+
+msgid "num_core = get_npu_properties()[\"num_vectorcore\"]\\n"
+msgstr "num_core = get_npu_properties()[\"num_vectorcore\"]"
 
 msgid "当复杂 Vector 算子性能不达预期时，优先从以下方向排查："
 msgstr "When the performance of a complex Vector operator does not meet expectations, prioritize troubleshooting from the following directions:"
