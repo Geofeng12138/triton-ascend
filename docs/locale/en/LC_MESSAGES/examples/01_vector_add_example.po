@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 02:56+0000\n"
-"PO-Revision-Date: 2026-07-31 02:56+0000\n"
+"POT-Creation-Date: 2026-07-31 04:38+0000\n"
+"PO-Revision-Date: 2026-07-31 04:38+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,22 +15,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "This example demonstrates how to use the Vector Add API to perform vector addition operations."
+msgstr "本示例演示了如何使用自定义算子实现向量加法。"
 
 msgid "向量相加 （Vector Addition）"
 msgstr "Vector Addition"
 
 msgid "在本节中，我们将使用 Triton 编写一个简单的向量相加的程序。 在此过程中，你会学习到："
-msgstr "In this section, we will write a simple vector addition program using Triton. Through this process, you will learn:"
+msgstr "In this section, we will use Triton to write a simple vector addition program. Along the way, you will learn:"
 
 msgid "Triton 的基本编程模式。"
-msgstr "Basic programming model of Triton."
+msgstr "Triton's basic programming model."
 
 msgid "用于定义Triton内核的`triton.jit`装饰器（decorator）。"
-msgstr "The `triton.jit` decorator used to define a Triton kernel."
+msgstr "The `triton.jit` decorator used to define Triton kernels."
 
 msgid "计算内核:"
-msgstr "Compute Kernel:"
+msgstr "Compute kernel:"
 
 msgid "import torch\\n"
 msgstr "import torch"
@@ -48,7 +48,7 @@ msgid "def add(x: torch.Tensor, y: torch.Tensor):\\n"
 msgstr "def add(x: torch.Tensor, y: torch.Tensor):"
 
 msgid "使用上述函数计算两个 `torch.tensor` 对象的 element-wise sum，并测试其正确性："
-msgstr "Use the above function to compute the element-wise sum of two `torch.tensor` objects and test its correctness:"
+msgstr "Use the above function to compute the element-wise sum of two `torch.tensor` objects, and test its correctness:"
 
 msgid "torch.manual_seed(0)\\n"
 msgstr "torch.manual_seed(0)"
@@ -60,4 +60,4 @@ msgid "tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='np
 msgstr "tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')"
 
 msgid "\"The maximum difference between torch and triton is 0.0\" 表示Triton和PyTorch的输出结果一致。"
-msgstr "\"The maximum difference between torch and triton is 0.0\" indicates that the output results of Triton and PyTorch are consistent."
+msgstr "\"The maximum difference between torch and triton is 0.0\" indicates that the outputs of Triton and PyTorch are identical."

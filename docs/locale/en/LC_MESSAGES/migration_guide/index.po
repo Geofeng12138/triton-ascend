@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 02:58+0000\n"
-"PO-Revision-Date: 2026-07-31 02:58+0000\n"
+"POT-Creation-Date: 2026-07-31 04:49+0000\n"
+"PO-Revision-Date: 2026-07-31 04:49+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,16 +15,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English following your rules. However, I notice that you've provided the instruction \"Text to translate:\" but haven't actually included any Chinese text to translate. Could you please provide the Chinese text you'd like me to translate?"
+msgstr "I notice you've provided the translation rules but haven't included the actual Chinese text to translate. Please provide the Chinese content you'd like me to translate into English."
 
 msgid "Triton-Ascend算子迁移"
-msgstr "Triton-Ascend Operator Migration"
+msgstr "Triton-Ascend operator migration"
 
 msgid "概述：本文档介绍将 GPU Triton 算子迁移到昇腾 NPU 平台的相关内容，包括架构差异分析和具体迁移步骤。"
 msgstr "Overview: This document introduces the migration of GPU Triton operators to the Ascend NPU platform, including architecture difference analysis and specific migration steps."
 
 msgid "文档组织"
-msgstr "Document Organization"
+msgstr "Documentation Organization"
 
 msgid "[架构差异分析](./architecture_difference.md) — GPU与NPU平台的架构差异"
 msgstr "[Architecture Difference Analysis](./architecture_difference.md) — Architecture Differences Between GPU and NPU Platforms"
