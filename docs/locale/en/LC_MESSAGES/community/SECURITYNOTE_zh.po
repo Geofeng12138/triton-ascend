@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 13:39+0000\n"
-"PO-Revision-Date: 2026-07-30 13:39+0000\n"
+"POT-Creation-Date: 2026-07-31 02:54+0000\n"
+"PO-Revision-Date: 2026-07-31 02:54+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Security Note"
+msgstr "安全说明"
 
 msgid "安全声明"
 msgstr "Security Notice"
@@ -25,6 +25,9 @@ msgstr "System Security Hardening"
 
 msgid "建议用户在系统中配置开启ASLR（**地址空间布局随机化**），推荐使用级别 2（完全随机化模式），可参考以下方式进行配置："
 msgstr "It is recommended that users enable ASLR (**Address Space Layout Randomization**) in the system, with level 2 (full randomization mode) being the preferred option. Configuration can be performed as follows:"
+
+msgid "echo 2 > /proc/sys/kernel/randomize_va_space\\n"
+msgstr "echo 2 > /proc/sys/kernel/randomize_va_space"
 
 msgid "运行用户建议"
 msgstr "Run User Suggestions"

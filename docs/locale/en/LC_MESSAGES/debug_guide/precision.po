@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 13:46+0000\n"
-"PO-Revision-Date: 2026-07-30 13:46+0000\n"
+"POT-Creation-Date: 2026-07-31 02:55+0000\n"
+"PO-Revision-Date: 2026-07-31 02:55+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Precision"
+msgstr "You have not provided any Chinese text to translate. Please provide the text you would like me to translate."
 
 msgid "精度对比与误差分析"
 msgstr "Precision Comparison and Error Analysis"
@@ -41,8 +41,14 @@ msgstr "**Comparison Judgment**: Use `torch.testing.assert_close` to determine w
 msgid "示例：向量加法（Vector Add）"
 msgstr "Example: Vector Add"
 
+msgid "import torch\\n"
+msgstr "import torch"
+
 msgid "2. 精度对比函数"
 msgstr "2. Precision Comparison Function"
+
+msgid "def compare_precision(cal, ref):\\n"
+msgstr "def compare_precision(cal, ref):"
 
 msgid "3. 精度判定标准"
 msgstr "3. Precision Judgment Criteria"
@@ -61,6 +67,9 @@ msgstr "`torch.equal`: Returns True only if the two tensors have exactly the sam
 
 msgid "`torch.testing.assert_close` 的内部逻辑："
 msgstr "Internal logic of `torch.testing.assert_close`:"
+
+msgid "|cal - ref| <= atol + rtol * |ref|\\n"
+msgstr "|cal - ref| <= atol + rtol * |ref|"
 
 msgid "即：绝对误差 `|cal - ref|` 需要满足相对误差容限和绝对误差容限相加共同构成一个动态的误差边界。"
 msgstr "That is: the absolute error `|cal - ref|` must satisfy the dynamic error boundary formed by the sum of the relative error tolerance and the absolute error tolerance."

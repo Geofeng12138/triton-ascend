@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 14:06+0000\n"
-"PO-Revision-Date: 2026-07-30 14:06+0000\n"
+"POT-Creation-Date: 2026-07-31 02:59+0000\n"
+"PO-Revision-Date: 2026-07-31 02:59+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Cube operator"
+msgstr "I notice that you've provided the rules for translation but haven't included the actual Chinese text to translate. The text appears to be missing from your message. Please provide the Chinese content you'd like me to translate, and I'll be happy to help."
 
 msgid "Cube 算子开发"
 msgstr "Cube Operator Development"
@@ -46,6 +46,9 @@ msgstr "Convert the accumulator to the output dtype and write back to C using th
 
 msgid "核心结构如下："
 msgstr "The core structure is as follows:"
+
+msgid "@triton.jit\\n"
+msgstr "@triton.jit"
 
 msgid "简单 Cube 算子调参时优先关注："
 msgstr "When tuning parameters for a simple Cube operator, prioritize:"
