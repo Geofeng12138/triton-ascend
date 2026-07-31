@@ -58,6 +58,9 @@ _is_zh = _build_lang in ('zh-cn', 'zh') or _build_lang.startswith('zh-')
 language = 'zh_CN' if _is_zh else 'en'
 
 gettext_compact = False
+# Extract code blocks (literal blocks) as translatable units so that Chinese
+# comments inside code blocks are also translated (not skipped).
+gettext_additional_targets = ['literal-block', 'raw', 'image']
 if not _is_zh:
     locale_dirs = ['../locale/']
     # English build uses gettext .po translations from locale/en/LC_MESSAGES/
