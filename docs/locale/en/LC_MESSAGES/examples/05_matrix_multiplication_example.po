@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 11:58+0000\n"
-"PO-Revision-Date: 2026-07-30 11:58+0000\n"
+"POT-Creation-Date: 2026-07-30 13:54+0000\n"
+"PO-Revision-Date: 2026-07-30 13:54+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -21,7 +21,7 @@ msgid "矩阵乘法 （Matrix Multiplication）"
 msgstr "Matrix Multiplication"
 
 msgid "在本节中，我们展示了使用 Triton 进行矩阵乘法的内核实现。"
-msgstr "In this section, we demonstrate a kernel implementation of matrix multiplication using Triton."
+msgstr "In this section, we demonstrate the kernel implementation of matrix multiplication using Triton."
 
 msgid "计算内核"
 msgstr "Compute kernel"
@@ -42,13 +42,13 @@ msgid "输出 `output` 的形状为 `(A, C)`"
 msgstr "The shape of the output `output` is `(A, C)`."
 
 msgid "该内核假设单个 block 负责整个输出矩阵的计算，适用于小规模矩阵（A、B、C 较小且能被当前程序块完全覆盖）。"
-msgstr "This kernel assumes that a single block is responsible for computing the entire output matrix, making it suitable for small-scale matrices (where A, B, and C are small enough to be fully covered by the current block)."
+msgstr "This kernel assumes that a single block is responsible for computing the entire output matrix, making it suitable for small-scale matrices (A, B, C are small and can be fully covered by the current block)."
 
 msgid "工具方法"
 msgstr "Utility method"
 
 msgid "以下辅助函数用于支持 Triton 内核的测试与验证，包括 PyTorch 参考实现、数据类型映射、随机张量生成及结果校验。"
-msgstr "The following helper functions are used to support the testing and validation of Triton kernels, including PyTorch reference implementations, data type mapping, random tensor generation, and result verification."
+msgstr "The following helper functions are used to support the testing and verification of Triton kernels, including PyTorch reference implementation, data type mapping, random tensor generation, and result validation."
 
 msgid "参数化测试"
 msgstr "Parameterized Test"
@@ -60,4 +60,4 @@ msgid "**输出示例：**"
 msgstr "**Output Example:**"
 
 msgid "上面输出日志表明Triton和Pytorch上的输出结果完全一致。"
-msgstr "The output log above indicates that the results from Triton and PyTorch are exactly the same."
+msgstr "The output log above indicates that the results on Triton and PyTorch are exactly the same."

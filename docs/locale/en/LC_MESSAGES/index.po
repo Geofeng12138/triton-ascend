@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 11:58+0000\n"
-"PO-Revision-Date: 2026-07-30 11:58+0000\n"
+"POT-Creation-Date: 2026-07-30 13:57+0000\n"
+"PO-Revision-Date: 2026-07-30 13:57+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -27,7 +27,7 @@ msgid "安装指南"
 msgstr "Installation Guide"
 
 msgid "从这里开始"
-msgstr "Start here"
+msgstr "Start from here"
 
 msgid "Vector算子开发"
 msgstr "Vector Operator Development"
@@ -42,7 +42,7 @@ msgid "Triton-Ascend autotune"
 msgstr "Triton-Ascend autotune"
 
 msgid "典型算子样例"
-msgstr "Typical Operator Example"
+msgstr "Typical Operator Examples"
 
 msgid "教程与样例"
 msgstr "Tutorials and Examples"
@@ -114,13 +114,13 @@ msgid "Triton Ascend"
 msgstr "Triton Ascend"
 
 msgid "**Triton-Ascend** 是适配华为Ascend处理器的Triton优化版本,主要用于提供高效的核函数自动调优、算子编译及部署能力,支持Ascend Atlas A2/A3/950系列产品,兼容Triton核心语法的同时,针对昇腾NPU特性进行了深度优化,包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
-msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors, primarily designed to provide efficient kernel auto-tuning, operator compilation, and deployment capabilities. It supports Ascend Atlas A2/A3/950 series products and is compatible with core Triton syntax while undergoing deep optimization for Ascend NPU features, including automatic parsing of kernel parameters, optimization of memory access logic, and enhancement of secure deployment mechanisms."
+msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors, primarily designed to provide efficient kernel function auto-tuning, operator compilation, and deployment capabilities. It supports the Ascend Atlas A2/A3/950 series products, is compatible with Triton core syntax, and has been deeply optimized for Ascend NPU features, including automatic parsing of kernel function parameters, optimization of memory access logic, and enhancement of secure deployment mechanisms."
 
 msgid "文档目录"
 msgstr "Document Directory"
 
 msgid "**从这里开始**"
-msgstr "**Getting Started**"
+msgstr "**Start Here**"
 
 msgid ":doc:`版本说明 <release_note>`"
 msgstr ":doc:`Release Notes <release_note>`"
