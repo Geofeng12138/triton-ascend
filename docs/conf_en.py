@@ -29,9 +29,6 @@ import sys as _sys
 
 _HERE = _os.path.dirname(__file__)
 
-# Make the translation helper extension (sphinx_raw_html_translate) importable.
-_sys.path.insert(0, _os.path.join(_HERE, "..", ".github", "workflows", "scripts"))
-
 # ── Project info ──
 project = 'Triton Ascend'
 copyright = '2025, Huawei'
@@ -48,9 +45,6 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.autosectionlabel',
     'myst_parser',
-    # Translate text inside HTML raw nodes (table headers, HTML headings)
-    # while preserving the exact markup/structure.
-    'sphinx_raw_html_translate',
 ]
 
 autosummary_generate = True
@@ -72,10 +66,7 @@ locale_dirs = ['../locale/']
 gettext_compact = False
 # Extract code blocks (literal blocks) as translatable units so that Chinese
 # comments inside code blocks are also translated (not skipped).
-# Note: 'raw' is intentionally NOT listed here — the dedicated
-# sphinx_raw_html_translate extension extracts per-element text (e.g. <th>,
-# <h2>) instead of importing whole HTML blocks as single messages.
-gettext_additional_targets = ['literal-block', 'image']
+gettext_additional_targets = ['literal-block', 'raw', 'image']
 
 # ── Theme ──
 pygments_style = 'sphinx'
