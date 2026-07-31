@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 02:57+0000\n"
-"PO-Revision-Date: 2026-07-31 02:57+0000\n"
+"POT-Creation-Date: 2026-07-31 04:43+0000\n"
+"PO-Revision-Date: 2026-07-31 04:43+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I need the Chinese text to translate. Please provide it."
+msgstr "I need the Chinese text you'd like me to translate. Please provide it."
 
 msgid "版本说明"
 msgstr "Release Notes"
@@ -27,34 +27,34 @@ msgid "安装指南"
 msgstr "Installation Guide"
 
 msgid "从这里开始"
-msgstr "Start from here"
+msgstr "Get started here."
 
 msgid "Vector算子开发"
 msgstr "Vector Operator Development"
 
 msgid "Cube算子开发"
-msgstr "Cube Operator Development"
+msgstr "Cube operator development"
 
 msgid "融合算子开发"
-msgstr "Fusion Operator Development"
+msgstr "Fusion operator development"
 
 msgid "Triton-Ascend autotune"
 msgstr "Triton-Ascend autotune"
 
 msgid "典型算子样例"
-msgstr "Typical Operator Examples"
+msgstr "Typical operator examples"
 
 msgid "教程与样例"
 msgstr "Tutorials and Examples"
 
 msgid "Triton-Ascend算子开发"
-msgstr "Triton-Ascend Operator Development"
+msgstr "Triton-Ascend operator development"
 
 msgid "Triton-Ascend算子迁移"
-msgstr "Triton-Ascend Operator Migration"
+msgstr "Triton-Ascend operator migration"
 
 msgid "Triton-Ascend算子调试与调优"
-msgstr "Triton-Ascend Operator Debugging and Optimization"
+msgstr "Triton-Ascend Operator Debugging and Tuning"
 
 msgid "环境变量与编译选项"
 msgstr "Environment Variables and Compilation Options"
@@ -78,7 +78,7 @@ msgid "架构设计与核心特性"
 msgstr "Architecture Design and Core Features"
 
 msgid "特性说明"
-msgstr "Feature Description"
+msgstr "Feature description"
 
 msgid "Triton-Ascend FAQ"
 msgstr "Triton-Ascend FAQ"
@@ -93,10 +93,10 @@ msgid "贡献者公约"
 msgstr "Contributor Covenant"
 
 msgid "治理机制"
-msgstr "Governance Mechanism"
+msgstr "Governance mechanism"
 
 msgid "技术例会"
-msgstr "Technical Regular Meeting"
+msgstr "Technical meeting"
 
 msgid "Maintainers"
 msgstr "Maintainers"
@@ -117,28 +117,28 @@ msgid "<p align=\"center\">\\n"
 msgstr "<p align=\"center\">"
 
 msgid "**Triton-Ascend** 是适配华为Ascend处理器的Triton优化版本,主要用于提供高效的核函数自动调优、算子编译及部署能力,支持Ascend Atlas A2/A3/950系列产品,兼容Triton核心语法的同时,针对昇腾NPU特性进行了深度优化,包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
-msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors, primarily designed to provide efficient kernel function auto-tuning, operator compilation, and deployment capabilities. It supports the Ascend Atlas A2/A3/950 series products, is compatible with Triton core syntax, and has been deeply optimized for Ascend NPU features, including automatic parsing of kernel function parameters, optimization of memory access logic, and enhancement of secure deployment mechanisms."
+msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors, primarily designed to provide efficient kernel auto-tuning, operator compilation, and deployment capabilities. It supports the Ascend Atlas A2/A3/950 series products and, while maintaining compatibility with Triton's core syntax, has been deeply optimized for Ascend NPU features, including automatic parsing of kernel function parameters, optimization of memory access logic, and enhancement of secure deployment mechanisms."
 
 msgid "文档目录"
-msgstr "Document Directory"
+msgstr "Table of Contents"
 
 msgid "**从这里开始**"
-msgstr "**Start Here**"
+msgstr "**Getting Started**"
 
 msgid ":doc:`版本说明 <release_note>`"
 msgstr ":doc:`Release Notes <release_note>`"
 
 msgid ":doc:`快速入门 <quick_start>`"
-msgstr ":doc:`Quick Start <quick_start>`"
+msgstr ":Quick Start"
 
 msgid ":doc:`安装指南 <installation_guide>`"
-msgstr ":doc:`Installation Guide <installation_guide>`"
+msgstr ":Installation Guide"
 
 msgid "**教程与样例**"
 msgstr "**Tutorials and Examples**"
 
 msgid ":doc:`Vector算子开发 <programming_guide/vector_operator>`"
-msgstr ":doc:`Vector Operator Development <programming_guide/vector_operator>`"
+msgstr ": :doc:`Vector Operator Development <programming_guide/vector_operator>`"
 
 msgid ":doc:`Cube算子开发 <programming_guide/cube_operator>`"
 msgstr ":doc:`Cube Operator Development <programming_guide/cube_operator>`"
@@ -162,7 +162,7 @@ msgid ":doc:`Triton-Ascend算子迁移 <migration_guide/index>`"
 msgstr ":doc:`Triton-Ascend Operator Migration <migration_guide/index>`"
 
 msgid ":doc:`Triton-Ascend算子调试与调优 <debug_guide/index>`"
-msgstr ":doc:`Triton-Ascend Operator Debugging and Optimization <debug_guide/index>`"
+msgstr ":doc:`Triton-Ascend Operator Debugging and Tuning <debug_guide/index>`"
 
 msgid ":doc:`环境变量与编译选项 <environment_variable_and_compiler_options_reference>`"
 msgstr ":doc:`Environment Variables and Compiler Options <environment_variable_and_compiler_options_reference>`"
@@ -171,13 +171,13 @@ msgid "**API参考**"
 msgstr "**API Reference**"
 
 msgid ":doc:`triton.language API <triton_api/index>`"
-msgstr ":doc:`triton.language API <triton_api/index>`"
+msgstr ": :doc:`triton.language API <triton_api/index>`"
 
 msgid ":doc:`triton <triton_api/triton/index>`"
 msgstr ":doc:`triton <triton_api/triton/index>`"
 
 msgid ":doc:`libdevice开发者手册 <libdevice/libdevice_developer_guide>`"
-msgstr ":doc:`libdevice Developer Guide <libdevice/libdevice_developer_guide>`"
+msgstr ":libdevice Developer Guide"
 
 msgid "**特性说明**"
 msgstr "**Feature Description**"
@@ -192,7 +192,7 @@ msgid ":doc:`Triton-Ascend FAQ <FAQ>`"
 msgstr ":doc:`Triton-Ascend FAQ <FAQ>`"
 
 msgid "**社区**"
-msgstr "**Community**"
+msgstr "Community"
 
 msgid ":doc:`贡献指南 <community/CONTRIBUTING_zh>`"
 msgstr ":doc:`Contribution Guide <community/CONTRIBUTING_zh>`"
@@ -204,7 +204,7 @@ msgid ":doc:`治理机制 <community/GOVERNANCE_zh>`"
 msgstr ":doc:`Governance Mechanism <community/GOVERNANCE_zh>`"
 
 msgid ":doc:`技术例会 <community/community_technical_meeting>`"
-msgstr ":doc:`Technical Meeting <community/community_technical_meeting>`"
+msgstr ":doc:`Technical Meetings <community/community_technical_meeting>`"
 
 msgid ":doc:`Maintainers <community/MAINTAINERS>`"
 msgstr ":doc:`Maintainers <community/MAINTAINERS>`"
