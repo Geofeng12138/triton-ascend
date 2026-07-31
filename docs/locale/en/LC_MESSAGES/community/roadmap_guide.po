@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 13:41+0000\n"
-"PO-Revision-Date: 2026-07-30 13:41+0000\n"
+"POT-Creation-Date: 2026-07-31 02:54+0000\n"
+"PO-Revision-Date: 2026-07-31 02:54+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "The following is the roadmap guide."
+msgstr "I notice you haven't provided the Chinese text to translate. Please share the content you'd like me to translate, and I'll translate it according to your rules."
 
 msgid "Roadmap指导"
 msgstr "Roadmap Guide"
@@ -25,6 +25,9 @@ msgstr "Use GitHub Issues to track and manage the plans and medium-to-long-term 
 
 msgid "下面是一个完整的路线图 Issue 示例，展示了所有推荐元素的实际应用。建议先查看此示例获得整体印象，再阅读后续的详细规范说明。"
 msgstr "Below is a complete roadmap issue example that demonstrates the practical application of all recommended elements. It is advisable to first review this example to gain an overall impression, and then read the subsequent detailed specification explanations."
+
+msgid "创建 Issue 标题：[Roadmap] Triton-Ascend Roadmap 2026 Q2\\n"
+msgstr "Create Issue title: [Roadmap] Triton-Ascend Roadmap 2026 Q2"
 
 msgid "1. 标题格式"
 msgstr "1. Title Format"
@@ -55,6 +58,9 @@ msgstr "2.2 Key Direction Section"
 
 msgid "列出本周期最关键的 3-5 个重点方向，建议按项目的**功能领域**或**技术模块**分组，覆盖全局视角："
 msgstr "List the 3-5 most critical focus areas for this cycle, recommended to be grouped by the project's **functional domains** or **technical modules**, covering a global perspective:"
+
+msgid "## Focus\\n"
+msgstr "## Focus"
 
 msgid "**特征：**"
 msgstr "**Features:**"
@@ -91,6 +97,9 @@ msgstr "3.2 Module Structures"
 
 msgid "每个模块包含多个**具体工作项**，格式如下："
 msgstr "Each module contains multiple **specific work items**, formatted as follows:"
+
+msgid "## [Module Name]\\n"
+msgstr "## [Module Name]"
 
 msgid "4. 关键元数据字段"
 msgstr "4. Key Metadata Fields"
@@ -164,6 +173,9 @@ msgstr "5.1 🙋 Welcome Contribution Mark"
 msgid "对于特别欢迎社区开发者贡献的工作项，建议使用 **[🙋 欢迎贡献]** 标记来标识："
 msgstr "For work items that particularly welcome contributions from community developers, it is recommended to use the **[🙋 Welcome Contributions]** tag to identify them."
 
+msgid "- [ ] **FP8 dtype and mixed-precision ops support [🙋 Help Wanted]**\\n"
+msgstr "- [ ] **FP8 dtype and mixed-precision ops support [🙋 Help Wanted]**"
+
 msgid "5.2 子 Issue"
 msgstr "5.2 Sub Issue"
 
@@ -178,3 +190,6 @@ msgstr "**Issue Fields in Work Items**: Links to the specific design, discussion
 
 msgid "**子 Issue 章节**：用于关联其他周期的路线图 Issue（如上季度未完成的工作），或将大工作项分解为多个独立跟踪的子 Issue"
 msgstr "**Sub-Issue Section**: Used to link roadmap issues from other cycles (such as unfinished work from the previous quarter) or to break down large work items into multiple independently tracked sub-issues."
+
+msgid "## Sub-issues\\n"
+msgstr "## Sub-issues"

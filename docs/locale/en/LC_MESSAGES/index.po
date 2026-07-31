@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 13:57+0000\n"
-"PO-Revision-Date: 2026-07-30 13:57+0000\n"
+"POT-Creation-Date: 2026-07-31 02:57+0000\n"
+"PO-Revision-Date: 2026-07-31 02:57+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "You are a professional technical documentation translation expert, proficient in Chinese-to-English technical document translation. (File: index)"
+msgstr "I need the Chinese text to translate. Please provide it."
 
 msgid "版本说明"
 msgstr "Release Notes"
@@ -112,6 +112,9 @@ msgstr "Community"
 
 msgid "Triton Ascend"
 msgstr "Triton Ascend"
+
+msgid "<p align=\"center\">\\n"
+msgstr "<p align=\"center\">"
 
 msgid "**Triton-Ascend** 是适配华为Ascend处理器的Triton优化版本,主要用于提供高效的核函数自动调优、算子编译及部署能力,支持Ascend Atlas A2/A3/950系列产品,兼容Triton核心语法的同时,针对昇腾NPU特性进行了深度优化,包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
 msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors, primarily designed to provide efficient kernel function auto-tuning, operator compilation, and deployment capabilities. It supports the Ascend Atlas A2/A3/950 series products, is compatible with Triton core syntax, and has been deeply optimized for Ascend NPU features, including automatic parsing of kernel function parameters, optimization of memory access logic, and enhancement of secure deployment mechanisms."
