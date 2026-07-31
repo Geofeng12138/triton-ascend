@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 03:55+0000\n"
-"PO-Revision-Date: 2026-07-31 03:55+0000\n"
+"POT-Creation-Date: 2026-07-31 07:21+0000\n"
+"PO-Revision-Date: 2026-07-31 07:21+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'm sorry, but you didn't provide any Chinese text to translate. Please provide the text you'd like me to translate into English."
+msgstr "I'm sorry, but you didn't provide any Chinese text to translate. Please provide the text you'd like me to translate."
 
 msgid "Triton-Ascend FAQ"
 msgstr "Triton-Ascend FAQ"
@@ -37,9 +37,6 @@ msgstr "**Q: Can Community Triton and Triton-Ascend coexist?**"
 
 msgid "A: triton-ascend 3.2.0 及以下不可以。需要先卸载社区 Triton，再安装 Triton-Ascend。<br> triton-ascend 3.2.1 及以上，Triton-Ascend 通过将 Triton 声明为安装依赖来缓解安装覆盖问题。 安装 Triton-Ascend 时会先安装社区 Triton，再由 Triton-Ascend 覆盖同名目录，从而避免后续安装其他依赖 Triton 的软件包时再次安装 Triton 而覆盖 Triton-Ascend。 x86 与 arm 使用不同版本的社区 Triton 安装包的原因是社区从 3.5 版本开始才提供 arm 版本安装包：x86 依赖 triton==3.2.0，arm 依赖 triton==3.5.0。"
 msgstr "A: triton-ascend 3.2.0 and below do not support this. You need to uninstall the community Triton first, then install Triton-Ascend.<br> For triton-ascend 3.2.1 and above, Triton-Ascend mitigates the installation overwrite issue by declaring Triton as an installation dependency. When installing Triton-Ascend, the community Triton is installed first, and then Triton-Ascend overwrites the directory with the same name, thereby preventing other packages that depend on Triton from reinstalling Triton and overwriting Triton-Ascend during subsequent installations. The reason x86 and arm use different versions of the community Triton installation packages is that the community only started providing arm version packages from version 3.5 onward: x86 depends on triton==3.2.0, while arm depends on triton==3.5.0."
-
-msgid "<br>"
-msgstr "<br>"
 
 msgid "注：若安装triton-ascend后，在安装依赖triton的三方件或者triton本身，将覆盖掉已安装的 Triton-Ascend 目录。 此时需要先卸载社区 Triton 和 Triton-Ascend，再安装 Triton-Ascend。"
 msgstr "Note: If you install triton-ascend and then install third-party components that depend on triton or triton itself, it will overwrite the installed Triton-Ascend directory. In this case, you need to uninstall the community Triton and Triton-Ascend first, and then install Triton-Ascend."

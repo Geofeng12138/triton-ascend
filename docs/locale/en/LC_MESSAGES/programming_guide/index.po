@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 04:55+0000\n"
-"PO-Revision-Date: 2026-07-31 04:55+0000\n"
+"POT-Creation-Date: 2026-07-31 07:24+0000\n"
+"PO-Revision-Date: 2026-07-31 07:24+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I notice you haven't provided the Chinese text to translate. Please include the text you'd like me to translate, and I'll be happy to help."
+msgstr "I need the Chinese text you'd like me to translate. Please provide it."
 
 msgid "Triton算子开发指南"
 msgstr "Triton Operator Development Guide"
@@ -52,12 +52,6 @@ msgstr "Set the maximum number of hardware cores."
 
 msgid "在一个Triton算子中，通常使用grid进行分核操作。对于GPU而言，其计算核心SM通常是几十到几百量级。但是对于昇腾 NPU 平台而言，其计算核心AI Core的数量在几十个的量级。 虽然运行时接口允许下发并发任务数最大为65535，但超过物理核数的部分是通过新一轮的下发来完成的。如果直接将GPU上的Triton算子拿到昇腾平台上运行，这些大量的任务会引入可观的核启动和核初始化时的额外开销，影响到算子性能表现。 因此，需要针对昇腾平台特性修改分核逻辑。最推荐的做法是**将分核的数量直接固定为硬件的物理核数**，在核内做更为细致的数据分块："
 msgstr "In a Triton operator, a grid is typically used for kernel partitioning. For GPUs, the number of compute cores (SMs) is usually on the order of tens to hundreds. However, for the Ascend NPU platform, the number of compute cores (AI Cores) is on the order of tens. Although the runtime interface allows a maximum of 65,535 concurrent tasks to be dispatched, the portion exceeding the physical core count is completed through additional dispatch rounds. If Triton operators designed for GPUs are directly run on the Ascend platform, these numerous tasks will introduce considerable overhead from kernel launch and kernel initialization, impacting operator performance. Therefore, the kernel partitioning logic needs to be adjusted for the Ascend platform's characteristics. The most recommended approach is to **fix the number of kernels directly to the hardware's physical core count** and perform finer-grained data partitioning within each kernel."
-
-msgid "<br />\\n"
-msgstr "<br />"
-
-msgid "\\\\\\n"
-msgstr "\\\\"
 
 msgid "对于纯Vector算子，分核数等于**Vector核数量**"
 msgstr "For pure Vector operators, the number of sub-cores is equal to the **number of Vector cores**."
