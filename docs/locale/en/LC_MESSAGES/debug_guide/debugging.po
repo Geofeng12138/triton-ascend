@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 07:22+0000\n"
-"PO-Revision-Date: 2026-07-31 07:22+0000\n"
+"POT-Creation-Date: 2026-07-31 09:23+0000\n"
+"PO-Revision-Date: 2026-07-31 09:23+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I need the Chinese text you'd like me to translate. Please provide it."
+msgstr "I need you to provide the Chinese text you'd like me to translate. Please paste the content you want translated into English."
 
 msgid "Triton-Ascend 调试指南"
 msgstr "Triton-Ascend Debugging Guide"
@@ -64,6 +64,9 @@ msgstr "**5. Debugging Methods**"
 
 msgid "提供多种实用调试手段：<br>• 静态/运行时打印<br>• 编译错误调试方法<br>"
 msgstr "Provides multiple practical debugging methods:<br>• Static/runtime printing<br>• Compile error debugging methods"
+
+msgid "<br>"
+msgstr "<br>"
 
 msgid "**附录 A**"
 msgstr "**Appendix A**"
@@ -170,8 +173,8 @@ msgstr "Bisheng Compiler (`bishengir-compile`)"
 msgid "将适配器IR进一步编译并优化，生成可在NPU上执行的二进制代码。"
 msgstr "Compile and optimize the adapter IR further to generate binary code executable on the NPU."
 
-msgid "# Triton-Ascend 编译流程示意\\n"
-msgstr "# Triton-Ascend Compilation Flow Diagram"
+msgid "# Triton-Ascend compilation flow\\n"
+msgstr "# Triton-Ascend compilation flow"
 
 msgid "**本指南的调试重点**集中在第二阶段：`ttir.mlir` → `ttadapter.mlir` 的转换过程，此阶段是 Triton-Ascend 的主要功能。"
 msgstr "**Debugging focus of this guide** is on the second stage: the conversion process from `ttir.mlir` to `ttadapter.mlir`, which is the primary functionality of Triton-Ascend."
@@ -254,8 +257,8 @@ msgstr "kernel.ttadapter.mlir: Adapter IR file (conversion output)"
 msgid "启用调试转储： 即使启用缓存，只要设置了 TRITON_DEBUG=1，系统仍会在每次运行时重新生成转储文件（覆盖同名目录中的文件）。但若缓存命中且跳过编译，则可能不会触发 IR 转换，导致无新 dump 生成。因此调试时建议同时设置："
 msgstr "Enable debug dump: Even if caching is enabled, as long as TRITON_DEBUG=1 is set, the system will regenerate dump files on every run (overwriting files in directories with the same name). However, if the cache is hit and compilation is skipped, the IR conversion may not be triggered, resulting in no new dump being generated. Therefore, when debugging, it is recommended to set both:"
 
-msgid "# 在运行 Triton 程序前设置环境变量\\n"
-msgstr "# Set environment variables before running Triton programs"
+msgid "# Set environment variables before running the Triton program\\n"
+msgstr "# Set environment variables before running the Triton program"
 
 msgid "3.3 文件生命周期管理"
 msgstr "3.3 File Lifecycle Management"
@@ -410,20 +413,20 @@ msgstr "Set the environment variable `TRITON_INTERPRET=1` and run the program to
 msgid "在Triton kernel源码中需要检查的位置插入Python断点："
 msgstr "Insert Python breakpoints at the locations in the Triton kernel source code that need to be checked."
 
-msgid "breakpoint()  # Python 内置断点函数\\n"
+msgid "breakpoint()  # Python built-in breakpoint function\\n"
 msgstr "breakpoint()  # Python built-in breakpoint function"
 
 msgid "程序执行到此处会暂停并进入Python调试器 (`Pdb`)。可以打印和检查任意中间变量的值："
 msgstr "When the program execution reaches this point, it will pause and enter the Python debugger (`Pdb`). You can print and inspect the values of any intermediate variables."
 
-msgid "(Pdb) p tmp0  # 打印变量 tmp0 的值\\n"
+msgid "(Pdb) p tmp0  # Print the value of variable tmp0\\n"
 msgstr "(Pdb) p tmp0  # Print the value of variable tmp0"
 
 msgid "注：解释器模式会在 CPU 上执行所有计算，显著降低运行效率。因此，在完成调试或验证后，务必取消设置环境变量 TRITON_INTERPRET，或显式将其设为 0，确保系统性能不受影响："
 msgstr "Note: The interpreter mode executes all computations on the CPU, significantly reducing runtime efficiency. Therefore, after completing debugging or verification, be sure to unset the environment variable TRITON_INTERPRET, or explicitly set it to 0, to ensure system performance is not affected:"
 
-msgid "# 取消该环境变量\\n"
-msgstr "# Unset this environment variable"
+msgid "# Unset the environment variable\\n"
+msgstr "# Unset the environment variable"
 
 msgid "5 调试方法"
 msgstr "Debugging Methods"
@@ -464,8 +467,8 @@ msgstr "import triton.language as tl"
 msgid "2.设置环境变量并运行程序进行编译"
 msgstr "2\\. Set the environment variables and run the program to compile."
 
-msgid "# 启用 Triton 调试输出（包含 static_print）\\n"
-msgstr "# Enable Triton debug output (including static_print)"
+msgid "# Enable Triton debug output (includes static_print)\\n"
+msgstr "# Enable Triton debug output (includes static_print)"
 
 msgid "5.1.2 运行时调试方法"
 msgstr "5.1.2 Runtime Debugging Methods"
@@ -479,8 +482,8 @@ msgstr "In the Triton kernel, add a `tl.device_print` statement for the variable
 msgid "2.设置环境变量`TRITON_DEVICE_PRINT=1`并运行程序，窗口将打印出该变量的值。"
 msgstr "2\\. Set the environment variable `TRITON_DEVICE_PRINT=1` and run the program; the window will print out the value of this variable."
 
-msgid "# 启用 Triton 调试输出（包含 device_print）\\n"
-msgstr "# Enable Triton debug output (including device_print)"
+msgid "# Enable Triton debug output (includes device_print)\\n"
+msgstr "# Enable Triton debug output (includes device_print)"
 
 msgid "运行后，`tl.device_print` 打印的变量内容会显示在 `HiIPU Print` 区块内，示例如下："
 msgstr "After running, the variable content printed by `tl.device_print` will be displayed in the `HiIPU Print` section, as shown in the example below:"
