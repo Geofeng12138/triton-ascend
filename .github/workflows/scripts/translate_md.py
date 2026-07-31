@@ -295,6 +295,7 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = ""):
         else:
             lines.append(f'msgid "{_escape_po(msgid)}"')
 
+        msgstr = _escape_enumeration_prefix(msgstr)
         if '\n' in msgstr:
             lines.append('msgstr ""')
             for part in msgstr.split('\n'):
@@ -312,6 +313,32 @@ def _escape_po(s: str) -> str:
     s = s.replace('\\', '\\\\')
     s = s.replace('"', '\\"')
     return s
+
+
+def _escape_enumeration_prefix(s: str) -> str:
+    """Escape a leading 'N. ' enumeration prefix in a translated message.
+
+    Sphinx's Locale transform re-parses every msgstr via _publish_msgstr().
+    When the translated text starts with a digit followed by '. ' (e.g.
+    "2. Support parallel compilation of multiple configs"), the parser
+    produces an enumerated_list (ordered list) node instead of a paragraph.
+    Locale.apply() only accepts paragraph/title/literal nodes, so the
+    translation is silently skipped and the original Chinese heading remains
+    in the output.
+
+    Escaping the dot ("2\\. Support ...") makes the parser emit a paragraph
+    whose asText() is still "2. Support ...", so headings render correctly.
+
+    Only the first line is considered; later lines are left untouched.
+    """
+    if not s:
+        return s
+    lines = s.split('\n')
+    first = lines[0]
+    m = re.match(r'^(\s*\d+)\.(\s)', first)
+    if m:
+        lines[0] = f"{m.group(1)}\\.{m.group(2)}{first[m.end():]}"
+    return '\n'.join(lines)
 
 
 # ---------------------------------------------------------------------------

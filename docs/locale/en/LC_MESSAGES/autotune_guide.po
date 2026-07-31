@@ -60,7 +60,7 @@ msgid "如果没有这一步，使用的仍然是社区版 `triton.autotune`，`
 msgstr "Without this step, the community version of `triton.autotune` is still used, and `configs=[]` will not trigger Ascend's automatic Tiling generation."
 
 msgid "2. `@triton.autotune` 必须直接包在 `@triton.jit` 外层"
-msgstr "2. `@triton.autotune` must be directly wrapped around `@triton.jit`."
+msgstr "2\. `@triton.autotune` must be directly wrapped around `@triton.jit`."
 
 msgid "必须写成下面这种顺序："
 msgstr "Must be written in the following order:"
@@ -69,7 +69,7 @@ msgid "`@triton.autotune` 必须直接包在 `@triton.jit` 外层，不能在两
 msgstr "`@triton.autotune` must be directly wrapped around `@triton.jit`; no other decorators should be inserted between them. Otherwise, the kernel DSL cannot be parsed, making it impossible to enter the automatic tiling generation and optimization pipeline of Triton-Ascend."
 
 msgid "3. `key` 的含义与社区一致"
-msgstr "3. The meaning of `key` is consistent with the community."
+msgstr "3\. The meaning of `key` is consistent with the community."
 
 msgid "`key` 的本质是 autotune 的 cache key。凡是填入 `key` 的参数，只要取值发生变化，就会触发重新 autotune。"
 msgstr "The essence of `key` is the cache key for autotune. Any parameter filled into `key` will trigger a re-autotune whenever its value changes."
@@ -78,7 +78,7 @@ msgid "大多数情况下，`key` 里放的是 `M/N/K`、`seq_len`、`hidden_siz
 msgstr "In most cases, the `key` contains shape parameters such as `M/N/K`, `seq_len`, `hidden_size`, as they often significantly affect the optimal Tiling; however, the `key` is not limited to shape parameters—any parameter whose change affects configuration selection can also be placed in the `key`."
 
 msgid "4. 希望参与自动调优的参数不要被提前固定"
-msgstr "4. Parameters intended for automatic tuning should not be fixed in advance."
+msgstr "4\. Parameters intended for automatic tuning should not be fixed in advance."
 
 msgid "如果希望某个 `tl.constexpr` 参与自动 Tiling 生成，需要同时满足下面三点："
 msgstr "If you want a `tl.constexpr` to participate in automatic Tiling generation, the following three conditions must be met simultaneously:"
@@ -108,7 +108,7 @@ msgid "那么这个参数也不会参与自动调优。对于希望交给框架�
 msgstr "Then this parameter will not participate in automatic tuning. For parameters that are intended to be automatically generated and optimized by the framework, they should be kept as `tl.constexpr` that are \"not explicitly assigned a value at launch and have no default value in the kernel definition.\""
 
 msgid "5. 如果 Tiling 参数会影响 grid，grid 必须写成 lambda 形式"
-msgstr "5. If the Tiling parameter affects the grid, the grid must be written in lambda form."
+msgstr "5\. If the Tiling parameter affects the grid, the grid must be written in lambda form."
 
 msgid "如果某个 Tiling 参数会影响 grid 大小，那么 grid 不能提前写成固定值或只依赖运行时参数的静态表达式，而必须写成依赖 meta 参数的 `lambda` 形式。这一点与社区 autotune 的要求一致。"
 msgstr "If a Tiling parameter affects the grid size, the grid cannot be written as a fixed value or a static expression that only depends on runtime parameters. Instead, it must be written as a `lambda` form that depends on the meta parameter. This requirement is consistent with the community autotune specification."
@@ -138,7 +138,7 @@ msgid "这是最核心的扩展。用户不必先手写一组 `triton.Config`，
 msgstr "This is the most core extension. Users do not need to manually write a set of `triton.Config` first; instead, they can leave `configs` empty and let the Ascend backend automatically generate candidate configurations based on the kernel DSL semantics and runtime shapes."
 
 msgid "2. 支持多个 config 的并行编译"
-msgstr "2. Support parallel compilation of multiple configs"
+msgstr "2\. Support parallel compilation of multiple configs"
 
 msgid "当 autotune 需要评估多个候选配置时，Triton-Ascend 默认会并行编译这些候选配置，以缩短首次调优时延。"
 msgstr "When autotune needs to evaluate multiple candidate configurations, Triton-Ascend will compile these candidate configurations in parallel by default to reduce the first-time tuning latency."
@@ -147,7 +147,7 @@ msgid "这一能力默认开启，可通过环境变量 `TRITON_AUTOTUNE_PARALLE
 msgstr "This capability is enabled by default and can be disabled via the environment variable `TRITON_AUTOTUNE_PARALLEL_COMPILE=0`."
 
 msgid "3. 支持使用 profiler 采集 kernel 性能"
-msgstr "3. Supports using profiler to collect kernel performance"
+msgstr "3\. Supports using profiler to collect kernel performance"
 
 msgid "Triton-Ascend 支持在 autotune 做 benchmark 时切换性能采集方式：除了默认 benchmark 模式外，还可以使用 profiler 来采集每个候选 config 的 kernel 性能数据，它只关注 kernel 的片上计算时间，对于执行时间较短的 kernel 比默认性能采集方式更加精确，但会增加一些耗时。这项能力可通过环境变量 `TRITON_BENCH_METHOD='npu'` 开启。"
 msgstr "Triton-Ascend supports switching performance collection methods during autotune benchmarking: in addition to the default benchmark mode, a profiler can be used to collect kernel performance data for each candidate config. It focuses only on the on-chip computation time of the kernel, providing greater accuracy than the default performance collection method for kernels with short execution times, though it adds some overhead. This capability can be enabled via the environment variable `TRITON_BENCH_METHOD='npu'`."
@@ -168,13 +168,13 @@ msgid "这套能力不等价于“自动帮你调所有参数”。像 `num_warp
 msgstr "This capability is not equivalent to \"automatically tuning all parameters for you.\" Compilation parameters such as `num_warps` and `num_stages`, as well as non-tiling parameters of the kernel, are not within the current scope of automatic generation."
 
 msgid "2. 候选配置会带上 Ascend 硬件约束"
-msgstr "2. Candidate configurations will carry Ascend hardware constraints."
+msgstr "2\. Candidate configurations will carry Ascend hardware constraints."
 
 msgid "Ascend backend 在生成候选时，会结合 NPU 的片上存储容量、对齐约束、核数利用等边界做筛选，而不是单纯枚举一批配置再盲目 benchmark。"
 msgstr "When generating candidates, the Ascend backend filters based on constraints such as NPU on-chip memory capacity, alignment requirements, and core utilization, rather than simply enumerating a set of configurations and blindly benchmarking them."
 
 msgid "3. 自动 Tiling 模式的目标是方便给出“性能不错”的配置"
-msgstr "3. The goal of the automatic tiling mode is to conveniently provide a configuration with \"decent performance.\""
+msgstr "3\. The goal of the automatic tiling mode is to conveniently provide a configuration with \"decent performance.\""
 
 msgid "为了权衡寻优时间和寻优效果，当前自动 Tiling 会对生成配置数量做大量剪枝，因此并不保证自动生成结果一定能达到手工极致调优的性能上限。"
 msgstr "To balance optimization time and optimization effectiveness, the current automatic Tiling performs extensive pruning on the number of generated configurations, so it does not guarantee that the automatically generated results will necessarily reach the performance upper bound of manual extreme tuning."
@@ -183,7 +183,7 @@ msgid "这项能力的目标，是在尽量降低用户使用门槛和寻优成�
 msgstr "The goal of this capability is to conveniently provide users with a Tiling configuration that offers decent performance, while minimizing the user's entry barrier and optimization cost."
 
 msgid "4. 自动 Tiling 生成失败时需要用户手写 `triton.Config`"
-msgstr "4. When automatic tiling generation fails, users need to manually write `triton.Config`."
+msgstr "4\. When automatic tiling generation fails, users need to manually write `triton.Config`."
 
 msgid "如果自动 Tiling 模式无法生成任何可用候选配置，这时需要用户改为手写 `triton.Config`。同时也建议对这类场景提 issue，帮助 Triton-Ascend 后续补齐解析和自动生成能力。"
 msgstr "If the automatic Tiling mode fails to generate any usable candidate configurations, users need to switch to manually writing `triton.Config`. It is also recommended to file an issue for such scenarios to help Triton-Ascend improve its parsing and automatic generation capabilities in the future."
@@ -219,13 +219,13 @@ msgid "社区标准写法是由用户手工枚举所有候选配置："
 msgstr "The community standard approach is for users to manually enumerate all candidate configurations."
 
 msgid "2. Triton-Ascend：手工枚举 Tiling 参数和 Ascend 编译参数"
-msgstr "2. Triton-Ascend: Manual Enumeration of Tiling Parameters and Ascend Compilation Parameters"
+msgstr "2\. Triton-Ascend: Manual Enumeration of Tiling Parameters and Ascend Compilation Parameters"
 
 msgid "在 Triton-Ascend 中，如果希望继续走手工枚举模式，也可以把 Ascend 侧参数一起放进手工配置空间："
 msgstr "In Triton-Ascend, if you wish to continue using the manual enumeration mode, you can also include the Ascend-side parameters together in the manual configuration space."
 
 msgid "3. Triton-Ascend：自动生成 Tiling，同时联合调优其他参数"
-msgstr "3. Triton-Ascend: Automatically generates Tiling while jointly tuning other parameters."
+msgstr "3\. Triton-Ascend: Automatically generates Tiling while jointly tuning other parameters."
 
 msgid "如果希望 Tiling 参数继续由 `configs=[]` 自动生成，但又希望同时调优其他非 Tiling 参数或编译参数，可以把这些额外搜索维度通过 `hints` 传入："
 msgstr "If you want the Tiling parameters to continue being automatically generated by `configs=[]`, but also wish to tune other non-Tiling parameters or compilation parameters at the same time, you can pass these additional search dimensions through `hints`:"
