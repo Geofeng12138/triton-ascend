@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 02:57+0000\n"
-"PO-Revision-Date: 2026-07-31 02:57+0000\n"
+"POT-Creation-Date: 2026-07-31 04:42+0000\n"
+"PO-Revision-Date: 2026-07-31 04:42+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I need the Chinese text to translate. Please provide it."
+msgstr "I need the Chinese text you'd like me to translate. Please provide it."
 
 msgid "Tutorials"
 msgstr "Tutorials"
@@ -27,13 +27,13 @@ msgid "示例"
 msgstr "Example"
 
 msgid "简要说明"
-msgstr "Brief Description"
+msgstr "Brief description"
 
 msgid "[01_vector_add_example](./01_vector_add_example.md)"
 msgstr "[01_vector_add_example](./01_vector_add_example.md)"
 
 msgid "简单加法示例"
-msgstr "Simple Addition Example"
+msgstr "Simple addition example"
 
 msgid "[02_fused_softmax_example](./02_fused_softmax_example.md)"
 msgstr "[02_fused_softmax_example](./02_fused_softmax_example.md)"
@@ -51,34 +51,34 @@ msgid "[04_fused_attention_example](./04_fused_attention_example.md)"
 msgstr "[04_fused_attention_example](./04_fused_attention_example.md)"
 
 msgid "Flash Attention v2 融合注意力算法示例"
-msgstr "Flash Attention v2 Fused Attention Algorithm Example"
+msgstr "Flash Attention v2 fused attention algorithm example"
 
 msgid "[05_matrix_multiplication_example](./05_matrix_multiplication_example.md)"
 msgstr "[05_matrix_multiplication_example](./05_matrix_multiplication_example.md)"
 
 msgid "矩阵乘法高效实现示例"
-msgstr "Matrix Multiplication Efficient Implementation Example"
+msgstr "Efficient Matrix Multiplication Implementation Example"
 
 msgid "[06_autotune_example](./06_autotune_example.md)"
 msgstr "[06_autotune_example](./06_autotune_example.md)"
 
 msgid "使用 Autotune 进行内核自动调优示例"
-msgstr "Example of Automatic Kernel Tuning Using Autotune"
+msgstr "Example of automatic kernel tuning using Autotune"
 
 msgid "[07_accuracy_comparison_example](./07_accuracy_comparison_example.md)"
 msgstr "[07_accuracy_comparison_example](./07_accuracy_comparison_example.md)"
 
 msgid "精度比对示例"
-msgstr "Precision Comparison Example"
+msgstr "Precision comparison example"
 
 msgid "[08_max_autotune_example](./08_max_autotune_example.md)"
 msgstr "[08_max_autotune_example](./08_max_autotune_example.md)"
 
 msgid "使用 max_autotune 进行内核自动调优示例"
-msgstr "Example of Kernel Auto-tuning Using max_autotune"
+msgstr "Example of kernel auto-tuning using max_autotune"
 
 msgid "[09_costmodel_example](./09_costmodel_example.md)"
 msgstr "[09_costmodel_example](./09_costmodel_example.md)"
 
 msgid "Costmodel 端到端预测示例"
-msgstr "Costmodel End-to-End Prediction Example"
+msgstr "End-to-End Prediction Example for Costmodel"

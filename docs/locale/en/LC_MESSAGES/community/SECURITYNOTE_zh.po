@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 02:54+0000\n"
-"PO-Revision-Date: 2026-07-31 02:54+0000\n"
+"POT-Creation-Date: 2026-07-31 04:23+0000\n"
+"PO-Revision-Date: 2026-07-31 04:23+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -24,34 +24,34 @@ msgid "系统安全加固"
 msgstr "System Security Hardening"
 
 msgid "建议用户在系统中配置开启ASLR（**地址空间布局随机化**），推荐使用级别 2（完全随机化模式），可参考以下方式进行配置："
-msgstr "It is recommended that users enable ASLR (**Address Space Layout Randomization**) in the system, with level 2 (full randomization mode) being the preferred option. Configuration can be performed as follows:"
+msgstr "It is recommended that users enable ASLR (**Address Space Layout Randomization**) in the system, with level 2 (full randomization mode) suggested. Configuration can be performed as follows:"
 
 msgid "echo 2 > /proc/sys/kernel/randomize_va_space\\n"
 msgstr "echo 2 > /proc/sys/kernel/randomize_va_space"
 
 msgid "运行用户建议"
-msgstr "Run User Suggestions"
+msgstr "Recommended running user"
 
 msgid "出于安全性及权限最小化角度考虑，不建议通过root等管理员类型账户使用Triton-Ascend。"
-msgstr "For security and least privilege considerations, it is not recommended to use Triton-Ascend through administrator accounts such as root."
+msgstr "For security and least-privilege considerations, it is not recommended to use Triton-Ascend with administrator-type accounts such as root."
 
 msgid "文件权限控制"
-msgstr "File Permission Control"
+msgstr "File permission control"
 
 msgid "建议用户对个人的隐私数据、商业资产等敏感文件做好权限控制等安全措施，设定的权限建议参考[文件权限参考](#文件权限参考)进行设置。"
-msgstr "Users are advised to implement security measures such as access control for sensitive files, including personal privacy data and commercial assets. It is recommended to refer to [File Permission Reference](#file-permission-reference) when setting permissions."
+msgstr "Users are advised to implement security measures such as access control for sensitive files like personal private data and commercial assets. For permission settings, it is recommended to refer to [File Permission Reference](#file-permission-reference)."
 
 msgid "用户安装和使用过程需要做好权限控制，建议参考[文件权限参考](#文件权限参考)进行设置。"
-msgstr "During the user installation and usage process, proper permission control should be implemented. It is recommended to refer to the [File Permission Reference](#file-permission-reference) for configuration."
+msgstr "Users need to implement proper permission control during installation and usage. It is recommended to refer to the [File Permission Reference](#文件权限参考) for configuration."
 
 msgid "文件权限参考"
 msgstr "File Permission Reference"
 
 msgid "类型"
-msgstr "Type"
+msgstr "type"
 
 msgid "Linux权限参考最大值"
-msgstr "Linux Permission Reference Maximum Values"
+msgstr "Linux permission reference maximum value"
 
 msgid "用户主目录"
 msgstr "User home directory"
@@ -78,7 +78,7 @@ msgid "配置文件目录"
 msgstr "Configuration file directory"
 
 msgid "日志文件（记录完毕或者已经归档）"
-msgstr "Log files (completed or archived)"
+msgstr "Log files (recorded completely or already archived)"
 
 msgid "440（r--r-----）"
 msgstr "440 (r--r-----)"
@@ -99,7 +99,7 @@ msgid "临时文件目录"
 msgstr "Temporary file directory"
 
 msgid "维护升级文件目录"
-msgstr "Maintenance and upgrade file directory"
+msgstr "Maintenance upgrade file directory"
 
 msgid "770（rwxrwx---）"
 msgstr "770 (rwxrwx---)"
@@ -108,7 +108,7 @@ msgid "业务数据文件"
 msgstr "Business data files"
 
 msgid "业务数据文件目录"
-msgstr "Business Data File Directory"
+msgstr "Business data file directory"
 
 msgid "密钥组件、私钥、证书、密文文件目录"
 msgstr "Key components, private keys, certificates, and ciphertext file directories"
@@ -123,7 +123,7 @@ msgid "600（rw-------）"
 msgstr "600 (rw-------)"
 
 msgid "加解密接口、加解密脚本"
-msgstr "Encryption/Decryption Interface, Encryption/Decryption Script"
+msgstr "Encryption/decryption interface, encryption/decryption script."
 
 msgid "500（r-x------）"
 msgstr "500 (r-x------)"
@@ -132,31 +132,31 @@ msgid "构建安全声明"
 msgstr "Security Note"
 
 msgid "Triton-Ascend支持源码编译安装，在编译时会下载依赖第三方库并执行构建shell脚本，在编译过程中会产生临时程序文件和编译目录。用户可根据需要自行对源代码目录内的文件进行权限管控降低安全风险。"
-msgstr "Triton-Ascend supports source code compilation and installation. During compilation, it will download dependent third-party libraries and execute build shell scripts, generating temporary program files and compilation directories. Users can manage permissions on files within the source code directory as needed to reduce security risks."
+msgstr "Triton-Ascend supports source code compilation and installation. During compilation, third-party dependency libraries are downloaded and build shell scripts are executed, which generates temporary program files and compilation directories during the build process. Users can manage permissions on files within the source code directory as needed to reduce security risks."
 
 msgid "公网地址声明"
-msgstr "Public Network Address Declaration"
+msgstr "Public network address declaration"
 
 msgid "在Triton-Ascend的配置文件和脚本中存在[公网地址](#公网地址)"
-msgstr "In the configuration files and scripts of Triton-Ascend, there are [public network addresses](#public-network-address)."
+msgstr "In the Triton-Ascend configuration files and scripts, there are [public network addresses](#public-network-addresses)."
 
 msgid "公网地址"
 msgstr "Public network address"
 
 msgid "开源代码地址"
-msgstr "Open source code repository address"
+msgstr "Open-source code repository URL."
 
 msgid "文件名"
 msgstr "File name"
 
 msgid "公网IP地址/公网URL地址/域名/邮箱地址"
-msgstr "Public IP address / Public URL address / Domain name / Email address"
+msgstr "Public IP address/Public URL address/Domain name/Email address"
 
 msgid "用途说明"
-msgstr "Usage Description"
+msgstr "Purpose Description"
 
 msgid "开源引入"
-msgstr "Open source introduction"
+msgstr "Open-source introduction"
 
 msgid "<https://github.com/triton-lang/triton.git>"
 msgstr "<https://github.com/triton-lang/triton.git>"
@@ -177,7 +177,7 @@ msgid "自研"
 msgstr "Self-developed"
 
 msgid "不涉及"
-msgstr "No security concerns involved."
+msgstr "Not applicable."
 
 msgid "docker/devdocker/setup_triton-ascend_dev.sh"
 msgstr "docker/devdocker/setup_triton-ascend_dev.sh"
@@ -213,7 +213,7 @@ msgid "<https://gitclone.com/github.com/llvm/llvm-project.git>"
 msgstr "<https://gitclone.com/github.com/llvm/llvm-project.git>"
 
 msgid "依赖的llvm源码仓"
-msgstr "Dependent llvm source repository"
+msgstr "Dependent LLVM source repository"
 
 msgid "<https://repo.huaweicloud.com>"
 msgstr "<https://repo.huaweicloud.com>"
@@ -222,7 +222,7 @@ msgid "<https://repo.huaweicloud.com/repository/pypi/simple>"
 msgstr "<https://repo.huaweicloud.com/repository/pypi/simple>"
 
 msgid "用于配置pybind11下载链接"
-msgstr "Used to configure the pybind11 download link."
+msgstr "For configuring the pybind11 download link."
 
 msgid "<https://pypi.tuna.tsinghua.edu.cn>"
 msgstr "<https://pypi.tuna.tsinghua.edu.cn>"
@@ -234,7 +234,7 @@ msgid "<https://pypi.tuna.tsinghua.edu.cn/simple>"
 msgstr "<https://pypi.tuna.tsinghua.edu.cn/simple>"
 
 msgid "python pip源配置"
-msgstr "Python pip Source Configuration"
+msgstr "Python pip source configuration"
 
 msgid "<https://triton-ascend-artifacts.obs.myhuaweicloud.com>"
 msgstr "<https://triton-ascend-artifacts.obs.myhuaweicloud.com>"
@@ -243,7 +243,7 @@ msgid "`https://triton-ascend-artifacts.obs.myhuaweicloud.com/llvm-builds/{name}
 msgstr "`https://triton-ascend-artifacts.obs.myhuaweicloud.com/llvm-builds/{name}.tar.gz`"
 
 msgid "用于下载预编译的LLVM工具"
-msgstr "Used to download precompiled LLVM tools"
+msgstr "Used to download precompiled LLVM tools."
 
 msgid "<https://bootstrap.pypa.io/get-pip.py>"
 msgstr "<https://bootstrap.pypa.io/get-pip.py>"
@@ -261,7 +261,7 @@ msgid "third_party/ascend/include/Dialect/TritonAscend/IR/& third_party/ascend/l
 msgstr "third_party/ascend/include/Dialect/TritonAscend/IR/ & third_party/ascend/lib/Dialect/TritonAscend/IR/"
 
 msgid "Apache许可证链接"
-msgstr "Apache License Link"
+msgstr "Apache License link"
 
 msgid "<https://netlib.org/cephes/>"
 msgstr "<https://netlib.org/cephes/>"
