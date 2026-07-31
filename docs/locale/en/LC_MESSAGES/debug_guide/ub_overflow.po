@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 11:58+0000\n"
-"PO-Revision-Date: 2026-07-30 11:58+0000\n"
+"POT-Creation-Date: 2026-07-30 13:49+0000\n"
+"PO-Revision-Date: 2026-07-30 13:49+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "When the unsigned integer operation overflows, the result is wrapped modulo 2^n, where n is the number of bits of the unsigned integer."
+msgstr "unsigned char overflow detection"
 
 msgid "UB Overflow 问题排查指南"
 msgstr "UB Overflow Troubleshooting Guide"
@@ -39,7 +39,7 @@ msgid "`tl.maximum`、`tl.minimum`、`tl.clamp` 接口的 `propagate_nan` 参数
 msgstr "The `propagate_nan` parameter of the `tl.maximum`, `tl.minimum`, and `tl.clamp` interfaces"
 
 msgid "**问题描述：** 当设置 `propagate_nan=tl.PropagateNAN.NONE` 时，系统会自动添加 NaN 值检测和处理逻辑。"
-msgstr "**Problem Description:** When setting `propagate_nan=tl.PropagateNAN.NONE`, the system automatically adds NaN value detection and handling logic."
+msgstr "**Problem Description:** When `propagate_nan=tl.PropagateNAN.NONE` is set, the system automatically adds NaN value detection and handling logic."
 
 msgid "**影响：**"
 msgstr "**Impact:**"
@@ -54,10 +54,10 @@ msgid "**解决方案：**"
 msgstr "**Solution:**"
 
 msgid "如果输入数据不包含 NaN 值或不需要严格的 NaN 处理语义，考虑调整 `propagate_nan` 参数值"
-msgstr "If the input data does not contain NaN values or strict NaN handling semantics are not required, consider adjusting the `propagate_nan` parameter value."
+msgstr "If the input data does not contain NaN values or does not require strict NaN handling semantics, consider adjusting the `propagate_nan` parameter value."
 
 msgid "在 UB 空间紧张的场景下，优先选择不会触发额外 NaN 处理的参数配置"
-msgstr "In scenarios where UB space is limited, prioritize parameter configurations that do not trigger additional NaN handling."
+msgstr "In scenarios where UB space is constrained, prioritize parameter configurations that do not trigger additional NaN handling."
 
 msgid "2. 中间变量过多"
 msgstr "2. Too many intermediate variables"
@@ -69,10 +69,10 @@ msgid "减少不必要的中间变量"
 msgstr "Reduce unnecessary intermediate variables"
 
 msgid "复用已分配的缓冲区"
-msgstr "Reuse the allocated buffer"
+msgstr "Reuse allocated buffers"
 
 msgid "将大计算拆分为多个小 kernel"
-msgstr "Split large computations into multiple small kernels"
+msgstr "Split the large computation into multiple small kernels"
 
 msgid "3. shape 过大"
 msgstr "3. shape is too large"
@@ -96,7 +96,7 @@ msgid "使用 `TRITON_DEBUG=1` 查看详细的编译信息"
 msgstr "Use `TRITON_DEBUG=1` to view detailed compilation information."
 
 msgid "定位具体哪个算子导致 UB 溢出"
-msgstr "Identify which specific operator caused the UB overflow."
+msgstr "Locate which specific operator caused the UB overflow"
 
 msgid "**逐步排查**"
 msgstr "**Step-by-step troubleshooting**"
@@ -108,7 +108,7 @@ msgid "**参考文档**"
 msgstr "**Reference Documentation**"
 
 msgid "查看各接口文档中的\"特殊限制说明\"部分"
-msgstr "Refer to the \"Special Restrictions\" section in the documentation for each interface."
+msgstr "Refer to the \"Special Restrictions\" section in each interface document."
 
 msgid "了解可能增加 UB 开销的参数配置"
 msgstr "Understanding parameter configurations that may increase UB overhead"
@@ -117,7 +117,7 @@ msgid "**优化策略**"
 msgstr "**Optimization Strategy**"
 
 msgid "优先处理占用 UB 空间较大的算子"
-msgstr "Prioritize operators that occupy a larger UB space."
+msgstr "Prioritize operators that occupy larger UB space."
 
 msgid "考虑重新设计算法以减少中间变量"
 msgstr "Consider redesigning the algorithm to reduce intermediate variables."

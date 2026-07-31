@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-30 11:58+0000\n"
-"PO-Revision-Date: 2026-07-30 11:58+0000\n"
+"POT-Creation-Date: 2026-07-30 13:53+0000\n"
+"PO-Revision-Date: 2026-07-30 13:53+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -24,7 +24,7 @@ msgid "在本节中，我们将使用 Triton 编写一个比 PyTorch 实现运�
 msgstr "In this section, we will use Triton to write a high-performance Layer Normalization kernel that runs faster than the PyTorch implementation."
 
 msgid "计算内核"
-msgstr "Compute kernel"
+msgstr "Compute Kernel"
 
 msgid "使用 Triton 自定义的 LayerNorm 实现方式"
 msgstr "LayerNorm implementation customized with Triton"
