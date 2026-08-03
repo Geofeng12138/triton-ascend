@@ -69,16 +69,16 @@ msgid "[代码风格](#代码风格)"
 msgstr "[Code Style](#id5)"
 
 msgid "[Fork-Pull开发模式](#Fork-Pull开发模式)"
-msgstr "[Fork-Pull Development Model](#id6)"
+msgstr "[Fork-Pull Development Model](#fork-pull)"
 
 msgid "[代码门禁异常处理](#代码门禁异常处理)"
-msgstr "[Code Gate Exception Handling](#id7)"
+msgstr "[Code Gate Exception Handling](#id6)"
 
 msgid "[ISSUE规范](#ISSUE规范)"
-msgstr "[ISSUE Guidelines](#id8)"
+msgstr "[ISSUE Guidelines](#issue)"
 
 msgid "[提出PR](#提出PR)"
-msgstr "[Submit a PR](#id9)"
+msgstr "[Submit a PR](#pr)"
 
 msgid "入门"
 msgstr "Getting Started"
@@ -105,19 +105,19 @@ msgid "开发指导"
 msgstr "Development Guidelines"
 
 msgid "**[代码风格](#代码风格)**"
-msgstr "**[Code Style](#Code Style)**"
+msgstr "**[Code Style](#id5)**"
 
 msgid "**[Fork-Pull开发模式](#Fork-Pull开发模式)**"
-msgstr "**[Fork-Pull Development Model](#Fork-Pull Development Model)**"
+msgstr "**[Fork-Pull Development Model](#fork-pull)**"
 
 msgid "**[代码门禁异常处理](#代码门禁异常处理)**"
-msgstr "**[Code Gate Exception Handling](#Code Gate Exception Handling)**"
+msgstr "**[Code Gate Exception Handling](#id6)**"
 
 msgid "**[ISSUE规范](#ISSUE规范)**"
-msgstr "**[ISSUE Guidelines](#ISSUE Guidelines)**"
+msgstr "**[ISSUE Guidelines](#issue)**"
 
 msgid "**[提出PR](#提出PR)**"
-msgstr "**[Submit a PR](#Submit a PR)**"
+msgstr "**[Submit a PR](#pr)**"
 
 msgid "代码风格"
 msgstr "Code style"
