@@ -56,28 +56,28 @@ msgstr ""
 msgid "贡献指南"
 msgstr "Contribution Guide"
 
-msgid "[入门](#id2)"
+msgid "[入门](#入门)"
 msgstr "[Getting Started](#id2)"
 
-msgid "[开发者来源认证](#id3)"
+msgid "[开发者来源认证](#开发者来源认证)"
 msgstr "[Developer Source Certification](#id3)"
 
-msgid "[开发指导](#id4)"
+msgid "[开发指导](#开发指导)"
 msgstr "[Development Guidelines](#id4)"
 
-msgid "[代码风格](#id5)"
+msgid "[代码风格](#代码风格)"
 msgstr "[Code Style](#id5)"
 
-msgid "[Fork-Pull开发模式](#id6)"
+msgid "[Fork-Pull开发模式](#Fork-Pull开发模式)"
 msgstr "[Fork-Pull Development Model](#id6)"
 
-msgid "[代码门禁异常处理](#id7)"
+msgid "[代码门禁异常处理](#代码门禁异常处理)"
 msgstr "[Code Gate Exception Handling](#id7)"
 
-msgid "[ISSUE规范](#id8)"
+msgid "[ISSUE规范](#ISSUE规范)"
 msgstr "[ISSUE Guidelines](#id8)"
 
-msgid "[提出PR](#id9)"
+msgid "[提出PR](#提出PR)"
 msgstr "[Submit a PR](#id9)"
 
 msgid "入门"
