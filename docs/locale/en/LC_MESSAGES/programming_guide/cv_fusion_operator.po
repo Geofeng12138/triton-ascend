@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-07-31 07:24+0000\n"
-"PO-Revision-Date: 2026-07-31 07:24+0000\n"
+"POT-Creation-Date: 2026-07-31 09:26+0000\n"
+"PO-Revision-Date: 2026-07-31 09:26+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -44,8 +44,8 @@ msgstr "`extension.parallel(..., bind_sub_block=True)` belongs to a stronger exp
 msgid "示例结构："
 msgstr "Example structure:"
 
-msgid "# 在 matmul kernel 内部，K 循环完成后得到 fp32 accumulator。\\n"
-msgstr "# Inside the matmul kernel, after the K loop completes, an fp32 accumulator is obtained."
+msgid "# Inside the matmul kernel, the fp32 accumulator is obtained after the K loop completes.\\n"
+msgstr "Inside the matmul kernel, the fp32 accumulator is obtained after the K loop completes."
 
 msgid "简单 CV 融合开发时要保持边界清晰：Cube 负责产生较大的二维 accumulator，Vector 负责同一 tile 内的逐元素或小规模归约。若 Vector 部分需要跨多个 Cube tile 共享状态，就需要引入同步、workspace 或拆分 kernel。"
 msgstr "Keep boundaries clear during simple CV fusion development: Cube is responsible for producing larger 2D accumulators, while Vector handles element-wise or small-scale reductions within the same tile. If the Vector portion needs to share state across multiple Cube tiles, synchronization, workspace, or kernel splitting must be introduced."
