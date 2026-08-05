@@ -172,8 +172,43 @@ if not _is_zh:
 
         The Chinese site (zh) is unaffected — it still renders the original
         Chinese Markdown.
+
+        Markdown documents can contain multiple H1 headings (e.g.
+        CONTRIBUTING.md has both "# Governance Structure" and
+        "# Decision Making"). Sphinx renders each H1 as a top-level section,
+        which splits one toctree entry into several sidebar entries. Here we
+        downgrade every H1 after the first (and its following H2/H3...) so the
+        document has exactly one doc title and the sidebar keeps a single entry.
         """
+        import re
+
         _repo_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
+
+        def _downgrade_trailing_h1(content: str) -> str:
+            """Downgrade every H1 after the first (plus its sub-headings) by one level.
+
+            The first H1 stays the document title. Every heading line at/after the
+            second H1 gets one '#' prepended, so '# X' becomes '## X', '## Y'
+            becomes '### Y', etc. This keeps the document with exactly one H1 so
+            Sphinx renders a single sidebar entry for the doc.
+            """
+            h1_idx = [m.start() for m in re.finditer(r'^#\s+(?!#)', content, re.MULTILINE)]
+            if len(h1_idx) < 2:
+                return content
+
+            out = content[:h1_idx[1]]
+            pos = h1_idx[1]
+            for end in h1_idx[2:] + [len(content)]:
+                block = content[pos:end]
+                lines = []
+                for line in block.split('\n'):
+                    if re.match(r'^#+ ', line):
+                        lines.append('#' + line)
+                    else:
+                        lines.append(line)
+                out += '\n'.join(lines)
+                pos = end
+            return out
 
         def _on_source_read(app, docname, source):
             src_rel = _COMMUNITY_ROOT_DOCS.get(docname)
@@ -182,7 +217,8 @@ if not _is_zh:
             root_doc = os.path.join(_repo_root, src_rel)
             try:
                 with open(root_doc, encoding="utf-8") as f:
-                    source[0] = f.read()
+                    content = f.read()
+                source[0] = _downgrade_trailing_h1(content)
             except OSError as exc:
                 print(f"Warning: cannot read {root_doc}: {exc}")
 
