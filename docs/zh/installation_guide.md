@@ -66,11 +66,10 @@ pip install -e .
     git apply llvm_patch_f6ded0b.patch
     ```
 
-2. **构建LLVM**：路径`{PATH_TO}`为用户第一步检出LLVM源码的路径。
+2. **构建LLVM**：路径`{PATH_TO}`为用户第一步检出LLVM源码的路径。路径 `/path/llvm-install` 为用户规划的llvm安装路径,需根据实际调整。
 
     ```bash
-    # /path/to/llvm-install 路径为用户规划的llvm安装路径,需根据实际调整
-    export LLVM_INSTALL_PREFIX=/path/to/llvm-install
+    export LLVM_INSTALL_PREFIX=/path/llvm-install
     cd {PATH_TO}/llvm-project
     mkdir build
     cd build
@@ -86,6 +85,8 @@ pip install -e .
         -DLLVM_ENABLE_LLD=ON \
         -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX}
     ninja install
+
+    cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
     ```
 
 3. **编译Triton-Ascend**
