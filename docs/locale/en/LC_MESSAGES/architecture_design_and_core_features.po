@@ -243,7 +243,7 @@ msgid "描述"
 msgstr "Description"
 
 msgid "1"
-msgstr "I notice you've provided the instruction but haven't included the actual Chinese text to translate. The text to translate appears to be missing from your message. Please provide the Chinese content you'd like me to translate into English."
+msgstr "1"
 
 msgid "`tl.insert_slice(full, src, offsets, sizes, strides)`"
 msgstr "`tl.insert_slice(full, src, offsets, sizes, strides)`"
@@ -318,7 +318,7 @@ msgid "Autotune option (CV-fused kernels only): Enable or disable the synchroniz
 msgstr "Autotune option (CV-fused kernels only): Enable or disable the synchronization solver."
 
 msgid "5"
-msgstr "I'm sorry, but the text you provided for translation is incomplete. It only contains \"5\", which doesn't appear to be the full Chinese text you intended to translate. Please provide the complete Chinese text from the file \"architecture_design_and_core_features\" that you'd like me to translate into English."
+msgstr "5"
 
 msgid "unit_flag"
 msgstr "unit_flag"
@@ -345,7 +345,7 @@ msgid "Autotune option: Enable or disable automatic injection of blocks for all 
 msgstr "Autotune option: Enable or disable automatic injection of blocks for all operations."
 
 msgid "8"
-msgstr "I'm sorry, but the text you provided for translation is incomplete. The content after \"Text to translate:\" appears to be just \"8\", which doesn't contain any Chinese text to translate. Could you please provide the full Chinese text you'd like me to translate?"
+msgstr "8"
 
 msgid "limit_auto_multi_buffer_only_for_local_buffer"
 msgstr "limit_auto_multi_buffer_only_for_local_buffer"

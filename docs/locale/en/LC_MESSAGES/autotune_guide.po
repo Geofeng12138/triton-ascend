@@ -501,7 +501,7 @@ msgid "Ascend backend 在生成候选时，会结合 NPU 的片上存储容量�
 msgstr "When generating candidates, the Ascend backend filters them based on constraints such as the NPU's on-chip storage capacity, alignment requirements, and core utilization, rather than simply enumerating a batch of configurations and then blindly benchmarking them."
 
 msgid "3. 自动 Tiling 模式的目标是方便给出“性能不错”的配置"
-msgstr "The goal of the automatic tiling mode is to conveniently provide a configuration with \"decent performance.\""
+msgstr "3\\. The goal of the automatic tiling mode is to conveniently provide a configuration with \"decent performance.\""
 
 msgid "为了权衡寻优时间和寻优效果，当前自动 Tiling 会对生成配置数量做大量剪枝，因此并不保证自动生成结果一定能达到手工极致调优的性能上限。"
 msgstr "To balance optimization time and optimization effectiveness, the current automatic Tiling performs extensive pruning on the number of generated configurations, so it does not guarantee that the automatically generated results will necessarily reach the performance upper limit of manual extreme tuning."

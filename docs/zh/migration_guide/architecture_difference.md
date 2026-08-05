@@ -48,11 +48,11 @@ triton_gelu[n, 1, 1](...)  # The first parameter indicates the number of cores t
 
 常见的切分参数包括：
 
-```text
-ncore：使用的核数（跨核切分）
-xblock：核间数据块大小（核间切分）
-xblock_sub：核内切分粒度（核内细粒度划分）
-```
+| 参数 | 说明 |
+| ---- | ---- |
+| ncore | 启用的计算核数量，用于跨核任务切分 |
+| xblock | 核间数据分块尺寸，控制跨核切分粒度 |
+| xblock_sub | 核内细分粒度，用于单个计算核内部的数据精细划分 |
 
 开发者可根据实际场景手动选择最优的切分配置，使得每次计算尽可能充分利用片上内存（On-chip Memory），避免频繁访问全局内存（Global Memory）造成的
 性能瓶颈。

@@ -489,32 +489,13 @@ python your_triton_script.py
 
 在启用 `TRITON_ENABLE_LLVM_DEBUG=1` 时，可通过 `TRITON_LLVM_DEBUG_ONLY` 环境变量指定仅输出特定模块的调试日志。以下是常用 `DEBUG_TYPE` 的简要解释：
 
-```bash
-## `isel`（Instruction Selection）
-- **作用**：将 LLVM IR 指令转换为目标架构的机器指令（MachineInstr）。
-- **调试内容**：显示 IR → 机器指令的映射过程、模式匹配结果。
-- **适用场景**：怀疑指令选择错误（如生成了非法指令或低效指令序列）。
-
-## `regalloc`（Register Allocation）
-- **作用**：为虚拟寄存器分配物理寄存器，并处理溢出（spilling）。
-- **调试内容**：寄存器分配前后状态、冲突图、活跃区间分析。
-- **适用场景**：寄存器压力大、性能下降、或出现意外的内存访问。
-
-## `spiller`（Spiller）
-- **作用**：当寄存器不足时，将部分值“溢出”到栈内存。
-- **调试内容**：哪些虚拟寄存器被 spill、插入的 load/store 指令位置。
-- **适用场景**：性能因频繁访存下降，需优化寄存器使用。
-
-## `peephole`（Peephole Optimizer）
-- **作用**：在机器码层面进行局部优化（如常量折叠、冗余指令消除）。
-- **调试内容**：优化前后的指令对比。
-- **适用场景**：生成代码存在明显冗余，但高层优化未覆盖。
-
-## `asm-printer`（Assembly Printer）
-- **作用**：将 MachineInstr 转换为最终汇编文本（如 PTX、AMDGCN、CCE）。
-- **调试内容**：生成的汇编代码、符号引用、指令编码。
-- **适用场景**：汇编语法错误、标签不匹配、或需要查看最终输出。
-```
+| 阶段名称 | 全称 | 作用 | 调试内容 | 适用场景 |
+| ---- | ---- | ---- | ---- | ---- |
+| `isel` | Instruction Selection | 将 LLVM IR 指令转换为目标架构的机器指令（MachineInstr） | 显示 IR → 机器指令的映射过程、模式匹配结果 | 怀疑指令选择错误（如生成了非法指令或低效指令序列） |
+| `regalloc` | Register Allocation | 为虚拟寄存器分配物理寄存器，并处理溢出（spilling） | 寄存器分配前后状态、冲突图、活跃区间分析 | 寄存器压力大、性能下降、或出现意外的内存访问 |
+| `spiller` | Spiller | 当寄存器不足时，将部分值“溢出”到栈内存 | 哪些虚拟寄存器被 spill、插入的 load/store 指令位置 | 性能因频繁访存下降，需优化寄存器使用 |
+| `peephole` | Peephole Optimizer | 在机器码层面进行局部优化（如常量折叠、冗余指令消除） | 优化前后的指令对比 | 生成代码存在明显冗余，但高层优化未覆盖 |
+| `asm-printer` | Assembly Printer | 将 MachineInstr 转换为最终汇编文本（如 PTX、AMDGCN、CCE） | 生成的汇编代码、符号引用、指令编码 | 汇编语法错误、标签不匹配、或需要查看最终输出 |
 
 **启用方式**
 以指定仅输出`isel`为例

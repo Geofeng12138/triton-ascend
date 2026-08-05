@@ -939,7 +939,7 @@ msgid "配置 local buffer 自动 multi-buffer 的 scope。"
 msgstr "Configure the scope for local buffer automatic multi-buffer."
 
 msgid "**Workspace**"
-msgstr "**工作区**"
+msgstr "**Workspace**"
 
 msgid "`set_workspace_multibuffer`"
 msgstr "set_workspace_multibuffer"
