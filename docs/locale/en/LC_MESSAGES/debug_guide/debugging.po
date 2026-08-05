@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-03 02:07+0000\n"
-"PO-Revision-Date: 2026-08-03 02:07+0000\n"
+"POT-Creation-Date: 2026-08-05 09:53+0000\n"
+"PO-Revision-Date: 2026-08-05 09:53+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I notice you haven't provided the Chinese text to translate. Please share the text you'd like me to translate into English, and I'll follow the rules you've specified."
+msgstr "I notice you've provided the rules for translation but haven't included the actual Chinese text to translate. Please provide the Chinese text you'd like me to translate into English."
 
 msgid "Triton-Ascend 调试指南"
 msgstr "Triton-Ascend Debugging Guide"
@@ -626,8 +626,95 @@ msgstr "**Usage Recommendations** Enable only when suspecting an LLVM backend bu
 msgid "在启用 `TRITON_ENABLE_LLVM_DEBUG=1` 时，可通过 `TRITON_LLVM_DEBUG_ONLY` 环境变量指定仅输出特定模块的调试日志。以下是常用 `DEBUG_TYPE` 的简要解释："
 msgstr "When `TRITON_ENABLE_LLVM_DEBUG=1` is enabled, the `TRITON_LLVM_DEBUG_ONLY` environment variable can be used to specify that only debug logs from specific modules are output. Below is a brief explanation of commonly used `DEBUG_TYPE` values:"
 
-msgid "## `isel`（Instruction Selection）\\n"
-msgstr "## `isel` (Instruction Selection)"
+msgid "阶段名称"
+msgstr "Stage Name"
+
+msgid "全称"
+msgstr "Fully qualified name"
+
+msgid "作用"
+msgstr "Function"
+
+msgid "调试内容"
+msgstr "Debugging content"
+
+msgid "适用场景"
+msgstr "Applicable scenarios"
+
+msgid "`isel`"
+msgstr "isel"
+
+msgid "Instruction Selection"
+msgstr "指令选择"
+
+msgid "将 LLVM IR 指令转换为目标架构的机器指令（MachineInstr）"
+msgstr "Translate LLVM IR instructions into target architecture machine instructions (MachineInstr)."
+
+msgid "显示 IR → 机器指令的映射过程、模式匹配结果"
+msgstr "Display IR → mapping process of machine instructions, pattern matching results"
+
+msgid "怀疑指令选择错误（如生成了非法指令或低效指令序列）"
+msgstr "Suspect incorrect instruction selection (e.g., generated illegal instructions or inefficient instruction sequences)."
+
+msgid "`regalloc`"
+msgstr "`regalloc`"
+
+msgid "Register Allocation"
+msgstr "Register Allocation"
+
+msgid "为虚拟寄存器分配物理寄存器，并处理溢出（spilling）"
+msgstr "Allocate physical registers for virtual registers and handle spilling."
+
+msgid "寄存器分配前后状态、冲突图、活跃区间分析"
+msgstr "Register allocation before and after states, conflict graph, live range analysis"
+
+msgid "寄存器压力大、性能下降、或出现意外的内存访问"
+msgstr "High register pressure, performance degradation, or unexpected memory access."
+
+msgid "`spiller`"
+msgstr "spiller"
+
+msgid "Spiller"
+msgstr "Spiller"
+
+msgid "当寄存器不足时，将部分值“溢出”到栈内存"
+msgstr "When registers are insufficient, \"spill\" some values to the stack memory."
+
+msgid "哪些虚拟寄存器被 spill、插入的 load/store 指令位置"
+msgstr "Which virtual registers are spilled, and the positions of the inserted load/store instructions."
+
+msgid "性能因频繁访存下降，需优化寄存器使用"
+msgstr "Performance degrades due to frequent memory access; register usage needs to be optimized."
+
+msgid "`peephole`"
+msgstr "`peephole`"
+
+msgid "Peephole Optimizer"
+msgstr "Peephole Optimizer"
+
+msgid "在机器码层面进行局部优化（如常量折叠、冗余指令消除）"
+msgstr "Perform local optimizations at the machine code level (such as constant folding and redundant instruction elimination)."
+
+msgid "优化前后的指令对比"
+msgstr "Comparison of instructions before and after optimization"
+
+msgid "生成代码存在明显冗余，但高层优化未覆盖"
+msgstr "The generated code has obvious redundancy, but high-level optimization does not cover it."
+
+msgid "`asm-printer`"
+msgstr "`asm-printer`"
+
+msgid "Assembly Printer"
+msgstr "Assembly Printer"
+
+msgid "将 MachineInstr 转换为最终汇编文本（如 PTX、AMDGCN、CCE）"
+msgstr "Convert MachineInstr to final assembly text (e.g., PTX, AMDGCN, CCE)."
+
+msgid "生成的汇编代码、符号引用、指令编码"
+msgstr "Generated assembly code, symbol references, instruction encoding"
+
+msgid "汇编语法错误、标签不匹配、或需要查看最终输出"
+msgstr "Assembly syntax errors, label mismatches, or the need to view the final output."
 
 msgid "**启用方式** 以指定仅输出`isel`为例"
 msgstr "**Enabling Method** Taking the specified output of only `isel` as an example"
@@ -643,9 +730,6 @@ msgstr "Appendix A: Quick Reference Table for Common Environment Variables"
 
 msgid "变量"
 msgstr "variable"
-
-msgid "作用"
-msgstr "Function"
 
 msgid "`TRITON_DEBUG=1`"
 msgstr "`TRITON_DEBUG=1`"
