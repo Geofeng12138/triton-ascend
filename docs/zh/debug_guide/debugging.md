@@ -44,7 +44,7 @@
      ↓        │ (TRITON_DEBUG=1 → ~/.triton/dump/)
 [ttadapter.mlir]
      ↓ (bishengir-compile)
-[NPU 可执行文件 .o]
+[NPU executable object file(.o)]
 ```
 
 **本指南的调试重点**集中在第二阶段：`ttir.mlir` → `ttadapter.mlir` 的转换过程，此阶段是 Triton-Ascend 的主要功能。
