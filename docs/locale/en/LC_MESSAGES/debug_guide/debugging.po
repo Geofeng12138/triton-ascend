@@ -645,7 +645,7 @@ msgid "`isel`"
 msgstr "isel"
 
 msgid "Instruction Selection"
-msgstr "指令选择"
+msgstr "Instruction Selection"
 
 msgid "将 LLVM IR 指令转换为目标架构的机器指令（MachineInstr）"
 msgstr "Translate LLVM IR instructions into target architecture machine instructions (MachineInstr)."
