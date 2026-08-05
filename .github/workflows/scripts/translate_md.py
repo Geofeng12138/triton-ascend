@@ -48,6 +48,12 @@ Excluded directories (not translated):
 
 Excluded files (not translated):
     community/CODE_OF_CONDUCT_zh.md
+    community/CONTRIBUTING_zh.md
+    community/GOVERNANCE_zh.md
+    community/SECURITYNOTE_zh.md
+    (The English site renders the canonical English docs from the
+    repository root (CODE_OF_CONDUCT.md, CONTRIBUTING.md, GOVERNANCE.md,
+    SECURITYNOTE.md) directly via a source-read hook in docs/zh/conf.py.)
 
 Usage:
     # First-time: generate .pot files and translate ALL
@@ -98,8 +104,15 @@ EXCLUDED_DIRS: List[str] = [
 
 # Individual source files (by stem, without extension) to exclude.
 # The stem is the filename WITHOUT extension, e.g. "CODE_OF_CONDUCT_zh".
+# These four community documents are NOT translated because the English
+# site renders the canonical English docs from the repository root
+# (CODE_OF_CONDUCT.md, CONTRIBUTING.md, GOVERNANCE.md, SECURITYNOTE.md)
+# directly (see the source-read hook in docs/zh/conf.py).
 EXCLUDED_FILE_STEMS: List[str] = [
     "CODE_OF_CONDUCT_zh",
+    "CONTRIBUTING_zh",
+    "GOVERNANCE_zh",
+    "SECURITYNOTE_zh",
 ]
 
 # ---------------------------------------------------------------------------

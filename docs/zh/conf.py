@@ -46,6 +46,18 @@ autodoc_mock_imports = [
     'buffer',
 ]
 
+# Community documents whose English build renders the canonical English
+# documents from the repository root (not the machine-translated output).
+# Mapping: docname (relative to docs/zh/, without extension) -> repo-root file.
+# CODE_OF_CONDUCT_zh.md / CONTRIBUTING_zh.md / GOVERNANCE_zh.md /
+# SECURITYNOTE_zh.md are intentionally NOT translated by translate_md.py.
+_COMMUNITY_ROOT_DOCS = {
+    "community/CODE_OF_CONDUCT_zh": "CODE_OF_CONDUCT.md",
+    "community/CONTRIBUTING_zh": "CONTRIBUTING.md",
+    "community/GOVERNANCE_zh": "GOVERNANCE.md",
+    "community/SECURITYNOTE_zh": "SECURITYNOTE.md",
+}
+
 # -- I18n: detect language and root doc ---------------------------------------
 _readthedocs_lang = os.environ.get('READTHEDOCS_LANGUAGE')
 
@@ -151,6 +163,31 @@ html_last_updated_fmt = "%b %d, %Y"
 
 if not _is_zh:
 
+    def _setup_community_root_docs(app):
+        """source-read hook: replace the four Chinese community documents
+        (CODE_OF_CONDUCT_zh.md, CONTRIBUTING_zh.md, GOVERNANCE_zh.md,
+        SECURITYNOTE_zh.md) with the canonical English documents from the
+        repository root (CODE_OF_CONDUCT.md, CONTRIBUTING.md, GOVERNANCE.md,
+        SECURITYNOTE.md) during the English build.
+
+        The Chinese site (zh) is unaffected — it still renders the original
+        Chinese Markdown.
+        """
+        _repo_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
+
+        def _on_source_read(app, docname, source):
+            src_rel = _COMMUNITY_ROOT_DOCS.get(docname)
+            if src_rel is None:
+                return
+            root_doc = os.path.join(_repo_root, src_rel)
+            try:
+                with open(root_doc, encoding="utf-8") as f:
+                    source[0] = f.read()
+            except OSError as exc:
+                print(f"Warning: cannot read {root_doc}: {exc}")
+
+        app.connect('source-read', _on_source_read)
+
     def setup(app):
         """English build setup."""
         from sphinx.highlighting import lexers
@@ -160,6 +197,7 @@ if not _is_zh:
         lexers['plaintext'] = get_lexer_by_name('text')
         app.add_css_file('custom.css')
         _setup_en(app)
+        _setup_community_root_docs(app)
         return {'version': '0.1', 'parallel_read_safe': True}
 else:
 
