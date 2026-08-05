@@ -429,7 +429,7 @@ msgid "# Unset the environment variable\\n"
 msgstr "# Unset the environment variable"
 
 msgid "5 调试方法"
-msgstr "Debugging Methods"
+msgstr "5 Debugging Methods"
 
 msgid "5.1 打印调试方法"
 msgstr "5.1 Print Debugging Methods"
