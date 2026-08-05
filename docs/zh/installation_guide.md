@@ -66,7 +66,7 @@ pip install -e .
     git apply llvm_patch_f6ded0b.patch
     ```
 
-2. **构建LLVM**：路径`{PATH_TO}`为用户第一步检出LLVM源码的路径。路径 `/path/llvm-install` 为用户规划的llvm安装路径,需根据实际调整。
+2. **构建LLVM**：路径`{PATH_TO}`为用户第一步检出LLVM源码的路径;路径 `/path/llvm-install` 为用户规划的llvm安装路径，需根据实际调整。
 
     ```bash
     export LLVM_INSTALL_PREFIX=/path/llvm-install
