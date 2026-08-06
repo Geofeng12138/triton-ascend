@@ -1993,13 +1993,14 @@ void AddMultiBufferInnerScopePass::runOnOperation() {
         // fallback attribute. Mirrors the AnalyzeName pass pattern:
         // setFallbackAttr(module) + signalPassFailure() + return.
         LDBG("i1 tensor dep found, setting fallback attribute");
-        CVPipeline::setFallbackAttr(module, CVPipeline::ERRCODE_IGNORED);
+        CVPipeline::setFallbackAttr(module, CVPipeline::ERRCODE_FAILED);
+        signalPassFailure();
         return WalkResult::interrupt();
       }
       if (ret != 0) {
         LDBG(
             "addInnerMultiBuffer failed for main_loop; signaling pass failure");
-        CVPipeline::setFallbackAttr(module, CVPipeline::ERRCODE_FAILED);
+        signalPassFailure();
         return WalkResult::interrupt();
       }
     }
