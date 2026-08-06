@@ -16,9 +16,9 @@
 
 Determine the CANN, Python, and TorchNPU software versions and install them. For this, you can refer to the "[CANN Quick Installation](https://www.hiascend.com/cann/download)" guide on the Ascend community official website to complete the driver and firmware installation.
 
-- CANN version: 9.0.0
+- CANN version: 9.1.0
 - Python version: python3.11
-- TorchNPU version: 2.7.1.post4
+- TorchNPU version: 2.7.1.post8
 
 ## Quick Installation
 
