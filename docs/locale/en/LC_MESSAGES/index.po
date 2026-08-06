@@ -129,16 +129,16 @@ msgid ":doc:`版本说明 <release_note>`"
 msgstr ":doc:`Release Notes <release_note>`"
 
 msgid ":doc:`快速入门 <quick_start>`"
-msgstr ":Quick Start"
+msgstr ":doc:`Quick Start <quick_start>`"
 
 msgid ":doc:`安装指南 <installation_guide>`"
-msgstr ":Installation Guide"
+msgstr ":doc:`Installation Guide <installation_guide>`"
 
 msgid "**教程与样例**"
 msgstr "**Tutorials and Examples**"
 
 msgid ":doc:`Vector算子开发 <programming_guide/vector_operator>`"
-msgstr ": :doc:`Vector Operator Development <programming_guide/vector_operator>`"
+msgstr ":doc:`Vector Operator Development <programming_guide/vector_operator>`"
 
 msgid ":doc:`Cube算子开发 <programming_guide/cube_operator>`"
 msgstr ":doc:`Cube Operator Development <programming_guide/cube_operator>`"
@@ -171,13 +171,13 @@ msgid "**API参考**"
 msgstr "**API Reference**"
 
 msgid ":doc:`triton.language API <triton_api/index>`"
-msgstr ": :doc:`triton.language API <triton_api/index>`"
+msgstr ":doc:`triton.language API <triton_api/index>`"
 
 msgid ":doc:`triton <triton_api/triton/index>`"
 msgstr ":doc:`triton <triton_api/triton/index>`"
 
 msgid ":doc:`libdevice开发者手册 <libdevice/libdevice_developer_guide>`"
-msgstr ":libdevice Developer Guide"
+msgstr ":doc:`libdevice Developer Guide <libdevice/libdevice_developer_guide>`"
 
 msgid "**特性说明**"
 msgstr "**Feature Description**"
