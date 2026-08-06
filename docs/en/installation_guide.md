@@ -20,8 +20,6 @@ Determine the CANN, Python, and TorchNPU software versions and install them. For
 - Python version: python3.11
 - TorchNPU version: 2.7.1.post4
 
-Note: For more compatibility relationships, please refer to the [Version Release Notes](./release_note.md#version-compatibility-matrix).
-
 ## Quick Installation
 
 ```bash
@@ -308,4 +306,4 @@ root@localhost:/# npu-smi  info
 +---------------------------+---------------+----------------------------------------------------------------------+
 | NPU     Chip              | Process id    | Process name       | Process memory(MB)    | Process id in container |
 +===========================+===============+======================================================================+
-| No running processes found in NPU 0                                                                              |
+| No running processes found in NPU 0
