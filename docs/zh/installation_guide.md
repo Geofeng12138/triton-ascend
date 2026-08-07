@@ -271,7 +271,7 @@ pip install triton-ascend==3.2.1 --extra-index-url=https://mirrors.huaweicloud.c
 
 **问题四：Triton-Ascend 3.2.1版本为何新增依赖triton？**
 
-答复：Triton-Ascend是基于Triton进行的二次开发，与Triton安装目录同名。若用户安装Triton-Ascend之后，再此安装Triton或依赖Triton的三方件，会覆盖Triton目录，导致Triton-Ascend功能受损。
+答复：Triton-Ascend是基于Triton进行的二次开发，与Triton安装目录同名。若用户安装Triton-Ascend之后，再次安装Triton或依赖Triton的三方件，会覆盖Triton目录，导致Triton-Ascend功能受损。
 因此通过增加Triton依赖，当Triton被覆盖安装时会有如下提醒。
 
 ```text
