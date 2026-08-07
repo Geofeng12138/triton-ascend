@@ -103,7 +103,7 @@ If you need to customize the LLVM build process, follow the steps below to compi
 
 ### Check Image Versions
 
-**Table 2** Mapping of CANN versions to image tags.
+**Table 1** Mapping of CANN versions to image tags.
 <table style="table-layout: fixed; width: 100%; border-collapse: collapse;">
   <tr style="height: 50px;">
     <th style="width: 20%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">CANN Version</th>
