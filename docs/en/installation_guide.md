@@ -6,19 +6,21 @@
 
 **Hardware Requirements**
 
-- Ascend products: Support Atlas A2/A3/950 series.
+- Ascend products: Atlas A2/A3/950 series are supported.
 
-- NPU configuration: At least single-card 32GB memory is recommended.
+- NPU configuration: at least 32 GB of memory per card is recommended.
 
-- Operating system: Linux system is required. For details, please refer to the <a href="https://www.hiascend.com/hardware/compatibility" style="text-decoration: none; color: #0066cc;">Compatibility Query Assistant</a>. All subsequent operations in this article are demonstrated in the **Ubuntu** environment.
+- Operating system: A Linux system is required. For details, refer to the <a href="https://www.hiascend.com/hardware/compatibility" style="text-decoration: none; color: #0066cc;">Compatibility Query Assistant</a>. All operations in the rest of this document are demonstrated in an **Ubuntu** environment.
 
 **Software Dependencies**
 
-Determine the CANN, Python, and TorchNPU software versions and install them. For this, you can refer to the "[CANN Quick Installation](https://www.hiascend.com/cann/download)" guide on the Ascend community official website to complete the driver and firmware installation.
+Determine the CANN, Python, and TorchNPU software versions and install them. For the driver and firmware installation, refer to [CANN Quick Installation](https://www.hiascend.com/cann/download) on the official Ascend community website.
 
 - CANN version: 9.1.0
 - Python version: python3.11
 - TorchNPU version: 2.7.1.post8
+
+Note: For more compatibility relationships, refer to the [Release Notes](./release_note.md#version-compatibility-matrix).
 
 ## Quick Installation
 
@@ -306,4 +308,5 @@ root@localhost:/# npu-smi  info
 +---------------------------+---------------+----------------------------------------------------------------------+
 | NPU     Chip              | Process id    | Process name       | Process memory(MB)    | Process id in container |
 +===========================+===============+======================================================================+
-| No running processes found in NPU 0
+| No running processes found in NPU 0                                                                              |
+```
