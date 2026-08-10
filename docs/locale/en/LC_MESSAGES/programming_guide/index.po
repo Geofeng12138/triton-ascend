@@ -260,14 +260,14 @@ msgstr "torch.manual_seed(0)"
 msgid "3.单核运算的关键点"
 msgstr "3\\. Key points of single-core computing"
 
-msgid "-块级数据处理：每个计算块负责一小段数据，保证并行性。"
+msgid "块级数据处理：每个计算块负责一小段数据，保证并行性。"
 msgstr "Block-level data processing: each computation block is responsible for a small segment of data, ensuring parallelism."
 
-msgid "-边界检查：使用 mask 或 if (tid < N) 避免越界。"
-msgstr "- Boundary check: Use mask or if (tid < N) to avoid out-of-bounds access."
+msgid "边界检查：使用 mask 或 if (tid < N) 避免越界。"
+msgstr "Boundary check: Use mask or if (tid < N) to avoid out-of-bounds access."
 
-msgid "-块大小选择：合理设置 block 和 grid"
-msgstr "- Block size selection: reasonably set block and grid"
+msgid "块大小选择：合理设置 block 和 grid"
+msgstr "Block size selection: reasonably set block and grid"
 
 msgid "4.性能要点： (1)访存优化 -保证连续访问。 -使用对齐的 stride，避免跨行/跨列跳跃式访问。 -尽量让数据块大小对齐到 32 字节边界。 输入输出 buffer 在分配时保证对齐，避免访存性能下降。 例:"
 msgstr "4\\. Performance Key Points: (1) Memory Access Optimization - Ensure contiguous access. - Use aligned strides to avoid row/column jumping access. - Try to align data block sizes to 32-byte boundaries. Ensure input/output buffers are aligned during allocation to avoid memory access performance degradation. Example:"

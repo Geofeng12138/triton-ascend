@@ -354,6 +354,46 @@ def _escape_enumeration_prefix(s: str) -> str:
     return '\n'.join(lines)
 
 
+def _restore_enumeration_prefix(msgid: str, msgstr: str) -> str:
+    """Ensure the translated text keeps the 'N. ' enumeration prefix of its msgid.
+
+    The DeepSeek model sometimes drops the list-number prefix when translating
+    Chinese headings, e.g.
+
+        msgid  "1. 安装与环境配置"
+        msgstr "Installation and Environment Configuration"
+
+    loses the leading "1. ". Since the msgid prefix is structural (list
+    numbering), we re-attach it before the text is written to the .po file
+    (later _escape_enumeration_prefix turns it into "1\\. " for Sphinx).
+
+    Only the first non-blank line is considered; sub-sequences (e.g.
+    "1.1 ") or other leading numbers already present in the translation are
+    left untouched.
+    """
+    if not msgid or not msgstr:
+        return msgstr
+
+    # List-number prefixes come in two shapes: "1. " (top-level item) and
+    # "4.1 " / "1.1.2 " (nested item, no trailing dot). Match either, and
+    # reuse the source's exact prefix form (dot included only when present).
+    m = re.match(r'^\s*(\d+(?:\.\d+)*\.?)\s+', msgid)
+    if not m:
+        return msgstr
+
+    prefix = m.group(1) + " "
+
+    stripped = msgstr.lstrip('\n')
+    leading_ws = msgstr[:len(msgstr) - len(stripped)]
+
+    # Already has the (possibly escaped) prefix -> leave it as-is.
+    if re.match(r'^\s*\d+(?:\.\d+)*\.?\s+', stripped) or \
+            re.match(r'^\s*\d+(?:\.\d+)*\\.\s+', stripped):
+        return msgstr
+
+    return leading_ws + prefix + stripped
+
+
 # ---------------------------------------------------------------------------
 # Translation engine
 # ---------------------------------------------------------------------------
@@ -395,7 +435,15 @@ class PoTranslator:
         for msgid, entry in pot_entries.items():
             existing = po_entries.get(msgid)
             if existing and existing.get("translated"):
-                new_entries[msgid] = existing
+                # Self-heal: DeepSeek may have dropped the "N. " enumeration
+                # prefix from a Chinese list heading. Re-attach it here so the
+                # repaired translation is persisted (find_changed_pot_files
+                # detects such files and routes them through this function).
+                new_entries[msgid] = {
+                    "msgid": msgid,
+                    "msgstr": _restore_enumeration_prefix(msgid, existing.get("msgstr", "")),
+                    "translated": True,
+                }
                 kept += 1
             else:
                 new_entries[msgid] = {
@@ -412,7 +460,9 @@ class PoTranslator:
             for idx, msgid in enumerate(untranslated):
                 translation = await self._translate_single(msgid, name)
                 if translation:
-                    new_entries[msgid]["msgstr"] = translation
+                    # Defensive: ensure the model returned every leading "N. "
+                    # list-number prefix that exists on the Chinese source.
+                    new_entries[msgid]["msgstr"] = _restore_enumeration_prefix(msgid, translation)
                     new_entries[msgid]["translated"] = True
                 if idx < len(untranslated) - 1:
                     await asyncio.sleep(0.3)
@@ -542,6 +592,13 @@ def find_changed_pot_files() -> list[Path]:
         for msgid, entry in pot_entries.items():
             existing = po_entries.get(msgid)
             if not existing or not existing.get("translated"):
+                changed.append(pot_file)
+                break
+            # Self-heal: DeepSeek sometimes drops the "N. " prefix when
+            # translating Chinese list headings. If the stored translation
+            # lost the msgid's enumeration prefix, re-process this file so
+            # _restore_enumeration_prefix can repair it without re-translating.
+            if _restore_enumeration_prefix(msgid, existing.get("msgstr", "")) != existing.get("msgstr", ""):
                 changed.append(pot_file)
                 break
 

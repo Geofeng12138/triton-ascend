@@ -21,7 +21,7 @@ msgid "Triton-Ascend FAQ"
 msgstr "Triton-Ascend FAQ"
 
 msgid "1. 安装与环境配置"
-msgstr "Installation and Environment Configuration"
+msgstr "1\\. Installation and Environment Configuration"
 
 msgid "**Q: 如何正确安装 Triton-Ascend？是否支持 pip 直接安装？**"
 msgstr "**Q: How to correctly install Triton-Ascend? Does it support direct installation via pip?**"

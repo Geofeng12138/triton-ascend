@@ -387,11 +387,11 @@ f'{torch.max(torch.abs(output_torch - output_triton))}')
 
 3.单核运算的关键点
 
--块级数据处理：每个计算块负责一小段数据，保证并行性。
+- 块级数据处理：每个计算块负责一小段数据，保证并行性。
 
--边界检查：使用 mask 或 if (tid < N) 避免越界。
+- 边界检查：使用 mask 或 if (tid < N) 避免越界。
 
--块大小选择：合理设置 block 和 grid
+- 块大小选择：合理设置 block 和 grid
 
 4.性能要点：
 (1)访存优化

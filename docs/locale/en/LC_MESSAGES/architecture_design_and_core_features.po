@@ -107,7 +107,7 @@ msgid "架构设计与核心特性"
 msgstr "Architecture Design and Core Features"
 
 msgid "1.逻辑架构"
-msgstr "Logical Architecture"
+msgstr "1\\. Logical Architecture"
 
 msgid "![图像](./figures/architectural_diagram.png) **Triton-Ascend 架构说明**"
 msgstr "![Image](./figures/architectural_diagram.png) **Triton-Ascend Architecture Overview**"

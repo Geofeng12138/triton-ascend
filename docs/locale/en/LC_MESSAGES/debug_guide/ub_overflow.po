@@ -145,7 +145,7 @@ msgid "常见原因及解决方案"
 msgstr "Common Causes and Solutions"
 
 msgid "1. 使用了会增加 UB 开销的接口参数"
-msgstr "Used interface parameters that increase UB overhead."
+msgstr "1\\. Used interface parameters that increase UB overhead."
 
 msgid "某些接口在特定参数配置下会自动添加额外的处理逻辑，导致 UB 空间使用增加："
 msgstr "Certain interfaces automatically add extra processing logic under specific parameter configurations, leading to increased UB space usage."
