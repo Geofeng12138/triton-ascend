@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-05 12:13+0000\n"
-"PO-Revision-Date: 2026-08-05 12:13+0000\n"
+"POT-Creation-Date: 2026-08-10 08:58+0000\n"
+"PO-Revision-Date: 2026-08-10 08:58+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "调试"
+msgstr "I'll translate the Chinese text into English once you provide it. Please share the text you'd like translated."
 
 msgid "Triton-Ascend 调试指南"
 msgstr "Triton-Ascend Debugging Guide"
@@ -230,6 +230,15 @@ msgstr "export TRITON_ALWAYS_COMPILE=1"
 msgid "缓存验证: 当怀疑缓存导致问题时，可删除相关缓存文件后重新测试。"
 msgstr "Cache validation: When suspecting that the cache is causing issues, delete the relevant cache files and retest."
 
+msgid "<a id=\"debug-dump-files\"></a>"
+msgstr "<a id=\"debug-dump-files\"></a>"
+
+msgid "<a id=\"debug-dump-files\">"
+msgstr "<a id=\"debug-dump-files\">"
+
+msgid "</a>"
+msgstr "</a>"
+
 msgid "3.2 调试转储文件（Dump Files）"
 msgstr "3.2 Debugging Dump Files"
 
@@ -398,6 +407,12 @@ msgstr "The addition operation is performed on the tensor by `arith.addf`, and t
 msgid "TTAdapter IR 已完成从 Triton 抽象到适配昇腾 NPU 的格式。"
 msgstr "TTAdapter IR has completed the transition from the Triton abstraction to a format adapted for Ascend NPU."
 
+msgid "<a id=\"debug-interpreter-mode\"></a>"
+msgstr "<a id=\"debug-interpreter-mode\"></a>"
+
+msgid "<a id=\"debug-interpreter-mode\">"
+msgstr "<a id=\"debug-interpreter-mode\">"
+
 msgid "4 解释器模式"
 msgstr "4 Interpreter Pattern"
 
@@ -430,6 +445,12 @@ msgstr "# Unset the environment variable"
 
 msgid "5 调试方法"
 msgstr "5 Debugging Methods"
+
+msgid "<a id=\"debug-printing\"></a>"
+msgstr "<a id=\"debug-printing\"></a>"
+
+msgid "<a id=\"debug-printing\">"
+msgstr "<a id=\"debug-printing\">"
 
 msgid "5.1 打印调试方法"
 msgstr "5.1 Print Debugging Methods"
@@ -473,8 +494,8 @@ msgstr "# Enable Triton debug output (includes static_print)"
 msgid "5.1.2 运行时调试方法"
 msgstr "5.1.2 Runtime Debugging Methods"
 
-msgid "此方法的使用 `tl.device_print` 可以灵活打印需要观察的变量的值。 设置环境变量 `TRITON_DEVICE_PRINT=1` 可启用 `tl.device_print` 功能。此函数允许在kernel内部打印张量值，是分阶段验证计算精度的高效方法。 **使用方法：**"
-msgstr "To use this method, `tl.device_print` can flexibly print the values of variables that need to be observed. Setting the environment variable `TRITON_DEVICE_PRINT=1` enables the `tl.device_print` functionality. This function allows printing tensor values inside the kernel and is an efficient way to verify computational accuracy in stages. **Usage:**"
+msgid "此方法使用 `tl.device_print` 可以灵活打印需要观察的变量的值。 设置环境变量 `TRITON_DEVICE_PRINT=1` 可启用 `tl.device_print` 功能。此函数允许在kernel内部打印张量值，是分阶段验证计算精度的高效方法。 **使用方法：**"
+msgstr "This method uses `tl.device_print` to flexibly print the values of variables that need to be observed. Setting the environment variable `TRITON_DEVICE_PRINT=1` enables the `tl.device_print` functionality. This function allows printing tensor values inside the kernel, making it an efficient way to verify computational accuracy in stages. **Usage:**"
 
 msgid "在Triton kernel中，为需要打印的变量增加 `tl.device_print` 的语句。"
 msgstr "In the Triton kernel, add a `tl.device_print` statement for the variables that need to be printed."
@@ -556,6 +577,12 @@ msgstr "TRITON_DEVICE_PRINT=1: Enables runtime printing, and also enables compil
 
 msgid "TRITON_DEBUG=1：启用所有调试输出（包括编译时和运行时打印）"
 msgstr "TRITON_DEBUG=1: Enable all debug output (including compile-time and runtime printing)"
+
+msgid "<a id=\"debug-compilation-error\"></a>"
+msgstr "<a id=\"debug-compilation-error\"></a>"
+
+msgid "<a id=\"debug-compilation-error\">"
+msgstr "<a id=\"debug-compilation-error\">"
 
 msgid "当 `ttir.mlir` → `ttadapter.mlir` 的转换过程失败，无法生成`ttadapter.mlir`，报错`MLIRCompileError`. 需要进入 Triton-Ascend 代码层面定位问题。Triton-Ascend 包含 Python 和 C++ 代码层，需根据报错日志中的调用栈信息，定位到具体的报错代码片段，并采用相应的调试方法。"
 msgstr "When the conversion process from `ttir.mlir` to `ttadapter.mlir` fails, and `ttadapter.mlir` cannot be generated, an `MLIRCompileError` is reported. It is necessary to go into the Triton-Ascend code level to locate the issue. Triton-Ascend includes both Python and C++ code layers. Based on the call stack information in the error log, you need to pinpoint the specific error code snippet and apply the corresponding debugging method."

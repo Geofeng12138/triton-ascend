@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-05 12:14+0000\n"
-"PO-Revision-Date: 2026-08-05 12:14+0000\n"
+"POT-Creation-Date: 2026-08-10 08:59+0000\n"
+"PO-Revision-Date: 2026-08-10 08:59+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -26,8 +26,14 @@ msgstr "In this section, we demonstrate a kernel implementation for matrix multi
 msgid "计算内核"
 msgstr "Compute kernel."
 
-msgid "以下 Triton 内核实现了一个带偏置项的批量矩阵乘法（Batched Matrix Multiplication with Bias）： 计算公式为： $$ \\text{output}[b, i, j] = \\sum_k \\text{x}[b, i, k] \\cdot \\text{y}[k, j] + \\text{z}[b, i, j] $$ 其中："
-msgstr "The following Triton kernel implements a batched matrix multiplication with bias: The computation formula is: $$ \\text{output}[b, i, j] = \\sum_k \\text{x}[b, i, k] \\cdot \\text{y}[k, j] + \\text{z}[b, i, j] $$ where:"
+msgid "以下 Triton 内核实现了一个带偏置项的批量矩阵乘法（Batched Matrix Multiplication with Bias）： 计算公式为："
+msgstr "The following Triton kernel implements a batched matrix multiplication with bias: the computation formula is:"
+
+msgid "$$ \\mathrm{output}[b, i, j] = \\sum_{k} x[b, i, k] \\cdot y[k, j] + z[b, i, j] $$"
+msgstr "$$ \\mathrm{output}[b, i, j] = \\sum_{k} x[b, i, k] \\cdot y[k, j] + z[b, i, j] $$"
+
+msgid "其中："
+msgstr "Where:"
 
 msgid "`x` 的形状为 `(A, B)`"
 msgstr "The shape of `x` is `(A, B)`."
