@@ -273,23 +273,32 @@ def _extract_po_value(block: str, field: str) -> Optional[str]:
     return None
 
 
-def write_po_file(filepath: Path, entries: dict, source_pot: str = ""):
-    """Write entries dict to a .po file."""
+def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: bool = True):
+    """Write entries dict to a .po file.
+
+    ``changed`` controls whether the POT/PO creation timestamps are stamped:
+    - True (content changed): write the current POT-Creation-Date /
+      PO-Revision-Date so the diff clearly marks the file as updated.
+    - False (content identical): write a stable header WITHOUT the timestamp
+      fields, so an unchanged .po file is rewritten byte-identically and
+      produces no git diff (keeps incremental translation PRs minimal).
+    """
     filepath.parent.mkdir(parents=True, exist_ok=True)
 
     now_str = time.strftime("%Y-%m-%d %H:%M%z")
     lines = []
 
-    # Header
+    # Header.
     lines.append(f'# English translations for triton-ascend docs.\n'
                  f'# Copyright (c) 2025 Huawei Technologies Co., Ltd.\n'
                  f'#\n'
                  f'msgid ""\n'
                  f'msgstr ""\n'
-                 f'"Project-Id-Version: triton-ascend-docs\\n"\n'
-                 f'"POT-Creation-Date: {now_str}\\n"\n'
-                 f'"PO-Revision-Date: {now_str}\\n"\n'
-                 f'"Last-Translator: Auto Translation (DeepSeek)\\n"\n'
+                 f'"Project-Id-Version: triton-ascend-docs\\n"\n')
+    if changed:
+        lines.append(f'"POT-Creation-Date: {now_str}\\n"\n'
+                     f'"PO-Revision-Date: {now_str}\\n"\n')
+    lines.append(f'"Last-Translator: Auto Translation (DeepSeek)\\n"\n'
                  f'"Language-Team: English\\n"\n'
                  f'"Language: en\\n"\n'
                  f'"MIME-Version: 1.0\\n"\n'
@@ -431,6 +440,12 @@ class PoTranslator:
         new_entries = {}
         untranslated: List[str] = []
         kept = 0
+        # Tracks whether any msgstr actually changed in this run (a new
+        # translation succeeded, or a stored translation was repaired by
+        # _restore_enumeration_prefix). Only then is the .po file rewritten
+        # with fresh POT/PO timestamps; unchanged files are left untouched so
+        # incremental PRs don't carry timestamp-only diffs.
+        content_changed = False
 
         for msgid, entry in pot_entries.items():
             existing = po_entries.get(msgid)
@@ -439,9 +454,12 @@ class PoTranslator:
                 # prefix from a Chinese list heading. Re-attach it here so the
                 # repaired translation is persisted (find_changed_pot_files
                 # detects such files and routes them through this function).
+                restored = _restore_enumeration_prefix(msgid, existing.get("msgstr", ""))
+                if restored != existing.get("msgstr", ""):
+                    content_changed = True
                 new_entries[msgid] = {
                     "msgid": msgid,
-                    "msgstr": _restore_enumeration_prefix(msgid, existing.get("msgstr", "")),
+                    "msgstr": restored,
                     "translated": True,
                 }
                 kept += 1
@@ -464,11 +482,18 @@ class PoTranslator:
                     # list-number prefix that exists on the Chinese source.
                     new_entries[msgid]["msgstr"] = _restore_enumeration_prefix(msgid, translation)
                     new_entries[msgid]["translated"] = True
+                    content_changed = True
                 if idx < len(untranslated) - 1:
                     await asyncio.sleep(0.3)
             print(" done", end=" ", flush=True)
 
-        write_po_file(po_path, new_entries, str(pot_path))
+        if not content_changed:
+            # Nothing actually changed: keep the existing .po file untouched so
+            # its header (and timestamp) is preserved and no diff is produced.
+            print("No content change, skip rewriting", flush=True)
+            return False
+
+        write_po_file(po_path, new_entries, str(pot_path), changed=True)
         print("OK")
         return True
 
