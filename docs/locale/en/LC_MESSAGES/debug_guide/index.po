@@ -4,8 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:58+0000\n"
-"PO-Revision-Date: 2026-08-10 08:58+0000\n"
+
+"POT-Creation-Date: 2026-08-10 13:20+0000\n"
+"PO-Revision-Date: 2026-08-10 13:20+0000\n"
+
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,22 +17,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English. Please provide the text you'd like me to translate."
+msgstr "I'll translate the Chinese text into English, but I notice you haven't provided the actual text to translate. Please share the Chinese content you'd like me to translate."
 
 msgid "Triton-Ascend算子调试与调优"
-msgstr "Triton-Ascend operator debugging and tuning"
+msgstr "Triton-Ascend Operator Debugging and Optimization"
 
 msgid "概述：本文档介绍 Triton-Ascend 算子的调试方法和性能调优技术，帮助开发者定位和解决算子开发过程中的问题。"
-msgstr "Overview: This document introduces the debugging methods and performance tuning techniques for Triton-Ascend operators, helping developers locate and resolve issues encountered during operator development."
+msgstr "Overview: This document introduces the debugging methods and performance tuning techniques for Triton-Ascend operators, helping developers locate and resolve issues during operator development."
 
 msgid "文档组织"
-msgstr "Documentation Organization"
+msgstr "Document Organization"
 
 msgid "[调试指南](./debugging.md) — Triton-Ascend算子调试方法"
 msgstr "[Debugging Guide](./debugging.md) — Triton-Ascend Operator Debugging Methods"
 
 msgid "[性能分析](./profiling.md) — 使用性能分析工具定位性能瓶颈"
-msgstr "[Performance Profiling](./profiling.md) — Use performance profiling tools to identify performance bottlenecks."
+msgstr "[Performance Profiling](./profiling.md) — Use profiling tools to identify performance bottlenecks."
 
 msgid "[精度分析](./precision.md) — 算子精度问题分析与解决"
 msgstr "[Precision Analysis](./precision.md) — Analysis and Resolution of Operator Precision Issues"

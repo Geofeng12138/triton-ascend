@@ -4,8 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:57+0000\n"
-"PO-Revision-Date: 2026-08-10 08:57+0000\n"
+
+"POT-Creation-Date: 2026-08-10 13:13+0000\n"
+"PO-Revision-Date: 2026-08-10 13:13+0000\n"
+
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -18,47 +20,25 @@ msgid ""
 msgstr ""
 "# Roadmap Guide\n"
 "\n"
-"This guide provides a detailed explanation of the roadmap, including its purpose, usage, and how to interpret its contents.\n"
-"\n"
-"## Purpose\n"
-"\n"
-"The roadmap is a strategic planning tool that outlines the planned features, improvements, and milestones for a project or product over a specific period. It helps align team efforts, communicate priorities, and track progress toward long-term goals.\n"
-"\n"
-"## Usage\n"
-"\n"
-"The roadmap is typically divided into time-based phases (e.g., quarters, months) and categorized by themes or priorities. Each item on the roadmap represents a feature, enhancement, or task that is planned for implementation.\n"
-"\n"
-"## Interpreting the Roadmap\n"
-"\n"
-"- **Phases**: Indicate the expected timeline for when items will be addressed.\n"
-"- **Priorities**: Highlight which items are most critical and should be tackled first.\n"
-"- **Status**: Shows whether an item is planned, in progress, or completed.\n"
-"\n"
-"## Best Practices\n"
-"\n"
-"- Regularly update the roadmap to reflect changes in priorities or scope.\n"
-"- Communicate the roadmap clearly to all stakeholders to ensure alignment.\n"
-"- Use the roadmap as a guide, but remain flexible to adapt to new information or feedback.\n"
-"\n"
-"By following this guide, you can effectively use the roadmap to plan, execute, and communicate your project's direction.\n"
+"This document provides a comprehensive guide for the project roadmap, outlining key milestones, deliverables, and timelines. It serves as a reference for stakeholders to understand the project's direction and progress. The roadmap is divided into phases, each with specific objectives and expected outcomes. For any questions or clarifications, please refer to the contact information provided at the end of this document.\n"
 
 msgid "Roadmap指导"
 msgstr "Roadmap Guide"
 
 msgid "使用 GitHub Issue 来跟踪和管理各组织的计划及中长期目标。本文档为社区项目编写路线图类 Issue 提供参考和规范，以帮助创建和维护高质量的路线图。"
-msgstr "Use GitHub Issues to track and manage the plans and mid-to-long-term goals of each organization. This document provides references and guidelines for the community to write roadmap-type issues for projects, aiming to help create and maintain high-quality roadmaps."
+msgstr "Use GitHub Issues to track and manage the plans and mid-to-long-term goals of each organization. This document provides reference and guidelines for community projects to write roadmap-type Issues, aiming to help create and maintain high-quality roadmaps."
 
 msgid "下面是一个完整的路线图 Issue 示例，展示了所有推荐元素的实际应用。建议先查看此示例获得整体印象，再阅读后续的详细规范说明。"
-msgstr "Below is a complete roadmap issue example, demonstrating the practical application of all recommended elements. It is advisable to first review this example to gain an overall impression, and then read the subsequent detailed specification instructions."
+msgstr "Below is a complete roadmap issue example, demonstrating the practical application of all recommended elements. It is advisable to first review this example to gain an overall impression, and then read the subsequent detailed specification explanations."
 
 msgid "创建 Issue 标题：[Roadmap] Triton-Ascend Roadmap 2026 Q2\\n"
 msgstr "Create Issue title: [Roadmap] Triton-Ascend Roadmap 2026 Q2"
 
 msgid "1. 标题格式"
-msgstr "Title format"
+msgstr "1\\. Heading Format"
 
 msgid "**格式：** `[Roadmap] <Project Name> Roadmap <Time Range>`，季度发布使用 Q1/Q2/Q3/Q4 标记，半年度发布使用 H1/H2 标记"
-msgstr "**Format:** `[Roadmap] <Project Name> Roadmap <Time Range>`, with quarterly releases marked using Q1/Q2/Q3/Q4, and semi-annual releases marked using H1/H2."
+msgstr "**Format:** `[Roadmap] <Project Name> Roadmap <Time Range>`, quarterly releases use Q1/Q2/Q3/Q4 markers, semi-annual releases use H1/H2 markers."
 
 msgid "**示例：**"
 msgstr "**Example:**"
@@ -70,7 +50,7 @@ msgid "`[Roadmap] Triton-Ascend Roadmap 2026 H1`"
 msgstr "[Roadmap] Triton-Ascend Roadmap 2026 H1"
 
 msgid "2. 顶层内容"
-msgstr "2\\. Top-level content"
+msgstr "2\\. Top-level Content"
 
 msgid "2.1 开篇描述（可选）"
 msgstr "2.1 Opening Description (Optional)"
@@ -82,7 +62,7 @@ msgid "2.2 重点方向章节"
 msgstr "2.2 Key Focus Areas Section"
 
 msgid "列出本周期最关键的 3-5 个重点方向，建议按项目的**功能领域**或**技术模块**分组，覆盖全局视角："
-msgstr "List the 3-5 most critical focus areas for this cycle, grouped by the project's **functional domains** or **technical modules**, covering a global perspective:"
+msgstr "List the 3-5 most critical focus areas for this cycle, recommended to be grouped by the project's **functional domains** or **technical modules**, covering a global perspective:"
 
 msgid "## Focus\\n"
 msgstr "## Focus"
@@ -100,7 +80,7 @@ msgid "3.1 章节划分原则"
 msgstr "3.1 Chapter Division Principles"
 
 msgid "按项目的**功能领域**或**技术模块**分组，例如："
-msgstr "Group by the project's **functional area** or **technical module**, for example:"
+msgstr "Group by the project's **functional areas** or **technical modules**, for example:"
 
 msgid "**Upstream Compatibility** - Upstream Triton frontend and IR alignment"
 msgstr "**Upstream Compatibility** - Alignment with upstream Triton frontend and IR"
@@ -154,7 +134,7 @@ msgid "**格式**：`负责人：@GitHubID`"
 msgstr "**Format**: `Lead: @GitHubID`"
 
 msgid "**用法**：明确谁负责或主导该工作项"
-msgstr "**Usage**: Clearly specify who is responsible for or leads the work item."
+msgstr "**Usage**: Clearly indicate who is responsible for or leads the work item."
 
 msgid "**示例**：`负责人：@contributor-a`"
 msgstr "**Example**: `Lead: @contributor-a`"
@@ -184,28 +164,28 @@ msgid "**格式**：`PR：<PR 链接>`"
 msgstr "**Format**: `PR: <PR link>`"
 
 msgid "**用法**：关联实现工作"
-msgstr "**Usage**: Link implementation work."
+msgstr "**Usage**: Link implementation work"
 
 msgid "**示例**：`PR：https://github.com/triton-lang/triton-ascend/pulls`"
 msgstr "**Example**: `PR: https://github.com/triton-lang/triton-ascend/pulls`"
 
 msgid "5. 可选补充内容"
-msgstr "5\\. Optional Supplementary Content"
+msgstr "5\\. Optional supplementary content"
 
 msgid "5.1 🙋 欢迎贡献标记"
 msgstr "5.1 🙋 Welcome Contribution Markers"
 
 msgid "对于特别欢迎社区开发者贡献的工作项，建议使用 **[🙋 欢迎贡献]** 标记来标识："
-msgstr "For work items that particularly welcome contributions from community developers, it is recommended to use the **[🙋 Welcome Contributions]** marker to identify them."
+msgstr "For work items that particularly welcome contributions from community developers, it is recommended to use the **[🙋 Welcome Contributions]** tag to mark them."
 
 msgid "- [ ] **FP8 dtype and mixed-precision ops support [🙋 Help Wanted]**\\n"
 msgstr "- [ ] **FP8 dtype and mixed-precision ops support [🙋 Help Wanted]**"
 
 msgid "5.2 子 Issue"
-msgstr "5.2 Sub-issue"
+msgstr "5.2 Sub-issues"
 
 msgid "在路线图 Issue 底部列出跨周期的相关路线图 Issue 或大工作项的分解 Issue。"
-msgstr "List related cross-cycle roadmap issues or decomposition issues of large work items at the bottom of the roadmap issue."
+msgstr "List related cross-cycle roadmap issues or breakdown issues of large work items at the bottom of the roadmap issue."
 
 msgid "**与工作项中 Issue 字段的区别：**"
 msgstr "**Difference from the Issue field in work items:**"
@@ -214,7 +194,7 @@ msgid "**工作项中的 Issue 字段**：链接到该工作项的具体设计�
 msgstr "**Issue fields in work items**: Link to the specific design, discussion, or tracking Issue for that work item."
 
 msgid "**子 Issue 章节**：用于关联其他周期的路线图 Issue（如上季度未完成的工作），或将大工作项分解为多个独立跟踪的子 Issue"
-msgstr "**Sub-issue Section**: Used to link roadmap issues from other cycles (such as unfinished work from the previous quarter), or to break down large work items into multiple independently tracked sub-issues."
+msgstr "**Sub-issue Section**: Used to link roadmap issues from other periods (such as unfinished work from the previous quarter), or to break down large work items into multiple independently tracked sub-issues."
 
 msgid "## Sub-issues\\n"
 msgstr "## Sub-issues"
