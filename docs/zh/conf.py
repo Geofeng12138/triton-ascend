@@ -32,6 +32,8 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.autosectionlabel',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.mathjax',
     'myst_parser',
 ]
 
@@ -144,6 +146,9 @@ if not _is_zh:
 
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
+# python-api RST files require triton import; mock it at build time.
+autodoc_mock_imports = ['triton']
 
 # -- General configuration ---------------------------------------------------
 templates_path = ['_templates']
