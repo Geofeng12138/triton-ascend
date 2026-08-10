@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-05 12:14+0000\n"
-"PO-Revision-Date: 2026-08-05 12:14+0000\n"
+"POT-Creation-Date: 2026-08-10 08:59+0000\n"
+"PO-Revision-Date: 2026-08-10 08:59+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -26,9 +26,6 @@ msgstr "In this section, we will use Triton to write a simple accuracy compariso
 msgid "Triton 每种数据类型的精度比对方法。"
 msgstr "Precision comparison method for each data type in Triton."
 
-msgid "参考示例代码：triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py"
-msgstr "Reference example code: triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py"
-
 msgid "计算内核:"
 msgstr "Computing kernel:"
 
@@ -40,9 +37,3 @@ msgstr "Create a precision comparison function that adapts to each dtype and use
 
 msgid "\\n"
 msgstr "Accuracy Comparison Example"
-
-msgid "可以使用下面指令，运行参考示例代码：tutorials/14-accuracy-comparison.py"
-msgstr "You can use the following command to run the reference example code: tutorials/14-accuracy-comparison.py"
-
-msgid "python triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py\\n"
-msgstr "python triton-ascend/ascend/examples/tutorials/14-accuracy-comparison.py"

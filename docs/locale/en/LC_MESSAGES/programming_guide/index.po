@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-05 12:15+0000\n"
-"PO-Revision-Date: 2026-08-05 12:15+0000\n"
+"POT-Creation-Date: 2026-08-10 09:00+0000\n"
+"PO-Revision-Date: 2026-08-10 09:00+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I notice you haven't provided the actual Chinese text to translate. Please include the content you'd like me to translate, and I'll be happy to help."
+msgstr "I'll translate the Chinese text into English following your rules. However, I notice you haven't provided the actual Chinese text to translate. Please share the content you'd like me to translate, and I'll proceed accordingly."
 
 msgid "Triton算子开发指南"
 msgstr "Triton Operator Development Guide"
@@ -89,11 +89,11 @@ msgstr "Taking `add_kernel` as an example, variables and operations together det
 msgid "import triton.language as tl\\n"
 msgstr "import triton.language as tl"
 
-msgid "尽量保证Tensor的尾轴大小数据对齐"
-msgstr "Ensure that the size data of the trailing axis of the Tensor is aligned as much as possible."
+msgid "尽量保证Tensor的尾轴（最后一个维度）大小数据对齐"
+msgstr "Try to ensure that the size data of the trailing axis (the last dimension) of the Tensor is aligned."
 
-msgid "【描述】对于VV类算子需要调用Vector核计算时，昇腾硬件的UB要求Tensor的尾轴大小能被32Bytes整除，而对于CV类算子需要调用vector核和Cube核计算时，要求Tensor的尾轴大小能被512Bytes整除，若尾轴长度不足则会自动补齐。在此前提下，对模型中shape为(2048,3)和(2048,1)Tensor的种种操作，都会因为自动补齐导致性能明显恶化，此时可考虑通过转置操作将对齐轴转到低维，直到store时再转置为原始状态，从而规避自动补齐，优化计算速度。同时由于转置操作本身也受自动补齐规则的影响，因此同样需要特殊技巧来规避补齐。这里列出一个\"借轴转置\"的tip，适用于**tensor.numel() % 256Byte == 0**的场景，具体操作如下："
-msgstr "【Description】For VV-type operators that need to call the Vector core for computation, the UB of Ascend hardware requires that the size of the last axis of the Tensor be divisible by 32Bytes. For CV-type operators that need to call both the Vector core and the Cube core for computation, the size of the last axis of the Tensor must be divisible by 512Bytes. If the length of the last axis is insufficient, it will be automatically padded. Under this premise, various operations on Tensors with shapes (2048,3) and (2048,1) in the model will experience significant performance degradation due to automatic padding. In this case, consider using transpose operations to move the alignment axis to a lower dimension, and then transpose back to the original state at store time, thereby avoiding automatic padding and optimizing computation speed. Additionally, since the transpose operation itself is also affected by the automatic padding rule, special techniques are also needed to avoid padding. Here is a \"borrowed-axis transpose\" tip, applicable to scenarios where **tensor.numel() % 256Byte == 0**, with the specific operations as follows:"
+msgid "【描述】对于VV类算子需要调用Vector核计算时，昇腾硬件的UB要求Tensor的尾轴（最后一个维度）大小能被32Byte整除，而对于CV类算子需要调用vector核和Cube核计算时，要求Tensor的尾轴大小能被512Byte整除，若尾轴长度不足则会自动补齐。在此前提下，对模型中shape为(2048,3)和(2048,1)Tensor的种种操作，都会因为自动补齐导致性能明显恶化，此时可考虑通过转置操作将对齐轴转到低维，直到store时再转置为原始状态，从而规避自动补齐，优化计算速度。同时由于转置操作本身也受自动补齐规则的影响，因此同样需要特殊技巧来规避补齐。这里列出一个\"借轴转置\"的tip，适用于**tensor.numel() % 256Byte == 0**的场景，具体操作如下："
+msgstr "【Description】For VV-type operators that need to invoke the Vector core for computation, the UB of Ascend hardware requires that the size of the tensor's tail axis (the last dimension) be divisible by 32 bytes. For CV-type operators that need to invoke both the Vector core and the Cube core, the tail axis size must be divisible by 512 bytes. If the tail axis length is insufficient, it will be automatically padded. Under this premise, various operations on tensors with shapes (2048,3) and (2048,1) in the model will experience significant performance degradation due to automatic padding. In such cases, consider using transpose operations to move the alignment axis to a lower dimension, and only transpose back to the original state at store time, thereby avoiding automatic padding and optimizing computation speed. Additionally, since the transpose operation itself is also affected by the automatic padding rule, special techniques are also needed to avoid padding. Here is a \"borrowed-axis transpose\" tip, applicable to scenarios where **tensor.numel() % 256Byte == 0**. The specific operations are as follows:"
 
 msgid "注：VV类算子表示该类算子在运算过程中只使用了Vector Core；CV类算子表示该类算子运算过程中既使用了AI Core又使用了Vector Core。"
 msgstr "Note: VV-type operators indicate that this type of operator only uses the Vector Core during computation; CV-type operators indicate that this type of operator uses both the AI Core and the Vector Core during computation."

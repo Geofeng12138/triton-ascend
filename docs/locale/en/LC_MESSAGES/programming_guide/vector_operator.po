@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-05 12:15+0000\n"
-"PO-Revision-Date: 2026-08-05 12:15+0000\n"
+"POT-Creation-Date: 2026-08-10 09:00+0000\n"
+"PO-Revision-Date: 2026-08-10 09:00+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,10 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"I notice you've asked me to translate Chinese text into English, but you haven't provided the actual Chinese text to translate. The text field appears to be empty.\n"
-"\n"
-"Please provide the Chinese text you'd like me to translate, and I'll be happy to help with the translation following your specified rules.\n"
+msgstr "Vector operators are mathematical tools used to describe the properties of vector fields, such as gradient, divergence, and curl. They play a crucial role in fields like physics and engineering, particularly in electromagnetism and fluid dynamics."
 
 msgid "Vector 算子开发"
 msgstr "Vector operator development"
@@ -110,8 +107,8 @@ msgstr "Whether the grid is far larger than the number of physical Vector Cores,
 msgid "离散访存是否可转化为“批量搬入 UB 后在 UB 内选择”。"
 msgstr "Can discrete memory access be transformed into \"batch loading into UB followed by selection within UB\"?"
 
-msgid "尾轴是否满足 32B 对齐；不满足时是否可用转置或借轴转置规避自动 padding。"
-msgstr "Whether the tail axis satisfies 32B alignment; if not, whether transposition or borrowed-axis transposition can be used to avoid automatic padding."
+msgid "尾轴（最后一个维度）是否满足 32B 对齐；不满足时是否可用转置或借轴转置规避自动 padding。"
+msgstr "Whether the tail axis (the last dimension) satisfies 32B alignment; if not, whether transposition or axis-borrowing transposition can be used to avoid automatic padding."
 
 msgid "`BLOCK_X` 和 `SUB_BLOCK_SIZE` 是否造成 UB overflow 或过小的搬运粒度。"
 msgstr "Whether `BLOCK_X` and `SUB_BLOCK_SIZE` cause UB overflow or excessively small transfer granularity."
