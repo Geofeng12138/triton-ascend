@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:58+0000\n"
-"PO-Revision-Date: 2026-08-10 08:58+0000\n"
+"POT-Creation-Date: 2026-08-10 11:33+0000\n"
+"PO-Revision-Date: 2026-08-10 11:33+0000\n"
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I need the Chinese text you want translated to proceed. Please provide it."
+msgstr "I need the Chinese text you'd like me to translate. Please provide it."
 
 msgid "精度对比与误差分析"
 msgstr "Precision comparison and error analysis"
@@ -24,7 +24,7 @@ msgid "本文档介绍如何在昇腾 NPU 上进行 Triton 算子的精度对比
 msgstr "This document describes how to perform precision comparison and error analysis of Triton operators on Ascend NPU, including comparison methods, evaluation criteria, and precautions."
 
 msgid "1. 精度对比流程"
-msgstr "Precision comparison process"
+msgstr "1\\. Precision comparison process"
 
 msgid "基本步骤"
 msgstr "Basic steps"
