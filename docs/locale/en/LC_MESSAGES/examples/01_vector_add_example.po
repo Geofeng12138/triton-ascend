@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-10 13:30+0000\n"
-"PO-Revision-Date: 2026-08-10 13:30+0000\n"
+"POT-Creation-Date: 2026-08-11 01:21+0000\n"
+"PO-Revision-Date: 2026-08-11 01:21+0000\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "This example demonstrates how to use the Vector Add API to perform vector addition operations on the Ascend 910B processor."
+msgstr "本示例演示了如何使用C++ API实现一个简单的向量加法运算。该程序创建两个整数向量，使用SYCL*队列将计算提交到设备，并验证结果。"
 
 msgid "向量相加 （Vector Addition）"
 msgstr "Vector Addition"

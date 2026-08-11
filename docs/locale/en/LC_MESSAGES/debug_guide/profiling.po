@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-10 13:24+0000\n"
-"PO-Revision-Date: 2026-08-10 13:24+0000\n"
+"POT-Creation-Date: 2026-08-11 01:21+0000\n"
+"PO-Revision-Date: 2026-08-11 01:21+0000\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I need the Chinese text you'd like me to translate. Please provide the content."
+msgstr "The text to translate is empty. Please provide the Chinese text you'd like me to translate into English."
 
 msgid "Triton-Ascend 性能分析方法"
 msgstr "Triton-Ascend performance analysis method"
