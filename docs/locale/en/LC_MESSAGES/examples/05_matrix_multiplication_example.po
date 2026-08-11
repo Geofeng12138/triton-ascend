@@ -5,8 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-10 13:32+0000\n"
-"PO-Revision-Date: 2026-08-10 13:32+0000\n"
+"POT-Creation-Date: 2026-08-11 01:50+0000\n"
+"PO-Revision-Date: 2026-08-11 01:50+0000\n"
+
+"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -17,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "This section is a detailed example of matrix multiplication, demonstrating how to use the CUDA C programming language to implement a basic parallel computing task. Through this example, you will learn the basic steps of CUDA programming, including memory allocation, data transfer, kernel function writing, and execution configuration."
+msgstr "矩阵乘法示例"
 
 msgid "矩阵乘法 （Matrix Multiplication）"
 msgstr "Matrix Multiplication"
