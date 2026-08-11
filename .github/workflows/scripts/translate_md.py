@@ -71,6 +71,7 @@ import re
 import subprocess
 import sys
 import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import List, Optional
 
@@ -88,6 +89,10 @@ ZH_DIR = Path("docs/zh")
 LOCALE_DIR = Path("docs/locale")
 POT_DIR = LOCALE_DIR / "zh" / "LC_MESSAGES"
 PO_DIR = LOCALE_DIR / "en" / "LC_MESSAGES"
+
+# PO timestamps use Beijing time (UTC+8) so headers read as local time
+# regardless of the CI runner's timezone (GitHub Actions runs on UTC).
+_BEIJING_TZ = timezone(timedelta(hours=8))
 
 # ---------------------------------------------------------------------------
 # Exclusions
@@ -200,6 +205,38 @@ def _get_source_commit(source_md: Path) -> str:
         return res.stdout.strip()
     except (OSError, subprocess.CalledProcessError):
         return ""
+
+
+def _find_source_for_pot(pot_path: Path) -> Optional[Path]:
+    """Locate the actual source file (docs/zh/**) behind a .pot / .po.
+
+    Prefers the .md sibling (existing documents are Markdown), falls back to
+    the .rst sibling (e.g. docs/zh/index.rst -> index.po), and returns None
+    when neither exists (e.g. sphinx.po has no source document at all).
+    """
+    rel = pot_path.relative_to(POT_DIR) if POT_DIR is not None else Path()
+    md = ZH_DIR / rel.with_suffix('.md')
+    if md.exists():
+        return md
+    rst = ZH_DIR / rel.with_suffix('.rst')
+    if rst.exists():
+        return rst
+    return None
+
+
+def _po_source_path(po_path: Path) -> Optional[Path]:
+    """The source behind a .po path (same relative mapping as _find_source_for_pot)."""
+    if PO_DIR is None:
+        return None
+    try:
+        rel = po_path.relative_to(PO_DIR)
+    except ValueError:
+        rel = po_path
+    md = ZH_DIR / rel.with_suffix('.md')
+    if md.exists():
+        return md
+    rst = ZH_DIR / rel.with_suffix('.rst')
+    return rst if rst.exists() else None
 
 
 def _get_po_source_commit(po_path: Path) -> str:
@@ -335,7 +372,7 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
     """
     filepath.parent.mkdir(parents=True, exist_ok=True)
 
-    now_str = time.strftime("%Y-%m-%d %H:%M%z")
+    now_str = datetime.now(_BEIJING_TZ).strftime("%Y-%m-%d %H:%M%z")
     lines = []
 
     # Header.
@@ -480,9 +517,13 @@ class PoTranslator:
         po_path = PO_DIR / rel.with_suffix('.po')
         po_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # Record the git commit of the source Chinese .md so future incremental
-        # runs can skip this document entirely when the source hasn't changed.
-        source_md = ZH_DIR / rel.with_suffix('.md')
+        # Record the content fingerprint of the source Chinese document so
+        # future incremental runs can skip this file when the source hasn't
+        # changed. Documents without a source (e.g. sphinx.po) are skipped.
+        source_md = _find_source_for_pot(pot_path)
+        if source_md is None:
+            print(f"  Skip: {pot_path.name} (no source document)", flush=True)
+            return False
         source_commit = _get_source_commit(source_md)
 
         pot_entries = parse_pot_file(pot_path)
@@ -689,8 +730,12 @@ def find_changed_pot_files() -> list[Path]:
         rel = pot_file.relative_to(POT_DIR)
         po_file = PO_DIR / rel.with_suffix('.po')
 
-        # Source-commit guard: unchanged source => skip this document entirely.
-        source_md = ZH_DIR / rel.with_suffix('.md')
+        # Source-content guard: unchanged source => skip this document entirely.
+        # Generated .po files with no source document (e.g. sphinx.po) are also
+        # skipped so they never enter the translation pipeline.
+        source_md = _find_source_for_pot(pot_file)
+        if source_md is None:
+            continue
         cur_commit = _get_source_commit(source_md)
         po_commit = _get_po_source_commit(po_file)
         if cur_commit and po_commit and cur_commit == po_commit:
