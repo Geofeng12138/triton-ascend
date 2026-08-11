@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-10 13:21+0000\n"
-"PO-Revision-Date: 2026-08-10 13:21+0000\n"
+"POT-Creation-Date: 2026-08-11 01:21+0000\n"
+"PO-Revision-Date: 2026-08-11 01:21+0000\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "好的，请提供需要翻译的中文文本，我会严格按照规则将其翻译为英文。"
+msgstr "I notice you've provided the rules for translation but haven't included the actual Chinese text to translate. Please provide the Chinese text you'd like me to translate into English, and I'll be happy to help."
 
 msgid "精度对比与误差分析"
 msgstr "Precision Comparison and Error Analysis"
