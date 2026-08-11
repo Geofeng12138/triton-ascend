@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 01:51+0000\n"
-"PO-Revision-Date: 2026-08-11 01:51+0000\n"
+"POT-Creation-Date: 2026-08-11 02:22+0000\n"
+"PO-Revision-Date: 2026-08-11 02:22+0000\n"
 
-"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
+"X-Source-Commit: 2b9bfc6b98a38f27df9224e9b6976437b3d4cd10\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Vector operators are mathematical tools used to describe the behavior of vector fields, commonly applied in physics and engineering to analyze phenomena such as fluid dynamics, electromagnetism, and quantum mechanics."
+msgstr "Vector operators are mathematical tools used to describe vector operations in space, commonly including dot product, cross product, and mixed product. These operators play a crucial role in fields such as physics, engineering, and computer graphics, aiding in the analysis and computation of relationships between vectors. The dot product reflects the projection relationship between two vectors, the cross product describes the direction perpendicular to two vectors and the area of the parallelogram they form, and the mixed product combines the dot product and cross product to calculate the volume of a parallelepiped. Mastery of vector operators is essential for understanding and solving problems involving direction and magnitude in three-dimensional space."
 
 msgid "Vector 算子开发"
 msgstr "Vector operator development"
