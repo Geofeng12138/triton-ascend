@@ -168,27 +168,31 @@ def _source_rel_from_pot(pot_path: Path) -> Optional[Path]:
 
 
 def _get_source_commit(source_md: Path) -> str:
-    """Return the git commit hash that last touched a source .md file.
+    """Return a stable content fingerprint of a source .md at HEAD.
 
-    Uses `git log -1 --format=%H -- <path>`. Falls back to HEAD if git is
-    unavailable or the file is untracked, and '' if there is no git repo —
-    callers treat '' as "unknown, must translate".
+    Uses the file's blob object id: `git rev-parse HEAD:<repo-rel-path>`.
+
+    Why blob id instead of `git log -1 -- <path>`? GitHub Actions checkouts
+    are shallow (fetch-depth: 1) by default, so `git log -- <path>` typically
+    returns NOTHING for files whose history predates the shallow boundary and
+    the old code fell back to `git rev-parse HEAD`. That made every unrelated
+    merge (e.g. an auto-translation PR touching only .po files) change the
+    fingerprint, re-selecting every document.
+
+    The blob id equals `git hash-object` of the file's version at HEAD: it
+    changes only when the file's CONTENT changes, and it works on shallow clones.
     """
     if not source_md.exists():
         return ""
     try:
+        # `HEAD:<path>` needs a path relative to the repo root (cwd).
+        cwd = Path.cwd().resolve()
+        try:
+            rel = source_md.resolve().relative_to(cwd)
+        except ValueError:
+            return ""
         res = subprocess.run(
-            ["git", "log", "-1", "--format=%H", "--", str(source_md)],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        commit = res.stdout.strip()
-        if commit:
-            return commit
-        # Untracked -> use HEAD of the working tree.
-        res = subprocess.run(
-            ["git", "rev-parse", "HEAD"],
+            ["git", "rev-parse", f"HEAD:{rel.as_posix()}"],
             capture_output=True,
             text=True,
             check=True,
@@ -541,8 +545,17 @@ class PoTranslator:
             print(" done", end=" ", flush=True)
 
         if not content_changed:
-            # Nothing actually changed: keep the existing .po file untouched so
-            # its header (and timestamp) is preserved and no diff is produced.
+            # Content identical. Still stamp (or refresh) the X-Source-Commit
+            # fingerprint when it differs from the current one: after switching
+            # from the commit-hash to the blob-id algorithm, or for .po files
+            # that predate the field, one stable-header rewrite is needed so the
+            # next incremental run can skip this document entirely. No POT/PO
+            # timestamps are touched (changed=False keeps them unchanged).
+            if source_commit and source_commit != _get_po_source_commit(po_path):
+                write_po_file(po_path, new_entries, str(pot_path), changed=False, source_commit=source_commit)
+                print("OK (fingerprint refreshed)", flush=True)
+                return True
+            # Nothing to do: keep the file untouched.
             print("No content change, skip rewriting", flush=True)
             return False
 
@@ -659,14 +672,14 @@ def find_changed_pot_files() -> list[Path]:
 
     Two guards can skip a file entirely:
 
-    1. Source-commit guard (primary): each .po records the git commit of the
-       Chinese source .md it was generated from (X-Source-Commit). If that
-       commit equals the source's current commit, the document is unchanged
-       -> skip without any msgid comparison or rewrite.
+    1. Source-content guard (primary): each .po records the blob id
+       (X-Source-Commit) of the Chinese source .md it was generated from. If
+       that fingerprint equals the source's current blob id, the document
+       content is unchanged -> skip without any msgid comparison or rewrite.
 
-    2. msgid fallback: for .po files written before the commit guard existed
-       (no X-Source-Commit), fall back to comparing msgids; also catch
-       missing/empty translations and enumeration-prefix self-heal.
+    2. msgid fallback: for .po files that predate the fingerprint field, fall
+       back to comparing msgids; also catch missing/empty translations and
+       enumeration-prefix self-heal.
     """
     changed = []
     for pot_file in sorted(POT_DIR.rglob("*.pot")):
