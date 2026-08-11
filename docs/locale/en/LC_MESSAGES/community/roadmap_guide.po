@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 01:50+0000\n"
-"PO-Revision-Date: 2026-08-11 01:50+0000\n"
+"POT-Creation-Date: 2026-08-11 02:20+0000\n"
+"PO-Revision-Date: 2026-08-11 02:20+0000\n"
 
-"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
+"X-Source-Commit: 70f6fd570aecf2cf6d91c431a50173c14014ed49\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "# Roadmap Guide\n"
 "\n"
-"This document provides a guide for the product roadmap. The roadmap outlines the planned features and milestones for the upcoming releases. It is intended for internal stakeholders, including engineering, product management, and executive leadership. The roadmap is subject to change based on priorities and feedback. For detailed timelines and specific release dates, please refer to the project management tool. The roadmap is organized by quarters, with each quarter highlighting key deliverables and objectives. This guide explains how to interpret the roadmap, the status of each item, and the process for proposing changes. It also includes a glossary of terms used throughout the roadmap. For any questions, contact the product management team.\n"
+"This document provides a detailed roadmap for the project, outlining the key milestones, deliverables, and timelines. It serves as a strategic guide to ensure alignment across teams and stakeholders, facilitating effective planning and execution. The roadmap is structured to accommodate evolving priorities while maintaining a clear focus on the project's overarching goals. It includes phases for initial research, development, testing, and deployment, with specific checkpoints to assess progress and make necessary adjustments. By following this roadmap, the team can navigate complexities, manage resources efficiently, and achieve successful project outcomes.\n"
 
 msgid "Roadmap指导"
 msgstr "Roadmap Guide"

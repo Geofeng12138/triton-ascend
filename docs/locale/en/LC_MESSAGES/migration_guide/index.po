@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 01:50+0000\n"
-"PO-Revision-Date: 2026-08-11 01:50+0000\n"
+"POT-Creation-Date: 2026-08-11 02:21+0000\n"
+"PO-Revision-Date: 2026-08-11 02:21+0000\n"
 
-"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
+"X-Source-Commit: eaba14ca9e407f247e82d0be36c879e55193f065\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English following your rules. However, you haven't provided the actual Chinese text to translate. Please share the content you'd like me to translate, and I'll process it accordingly."
+msgstr "I'll translate the Chinese text into English following your rules. However, you haven't provided the actual Chinese text to translate. Please provide the text you'd like me to translate."
 
 msgid "Triton-Ascend算子迁移"
 msgstr "Triton-Ascend operator migration"

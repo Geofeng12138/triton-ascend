@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 01:51+0000\n"
-"PO-Revision-Date: 2026-08-11 01:51+0000\n"
+"POT-Creation-Date: 2026-08-11 02:23+0000\n"
+"PO-Revision-Date: 2026-08-11 02:23+0000\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Sphinx is an open-source full-text search server designed with the goal of providing high-performance, low-resource-occupation, and high-relevance search results to applications or websites. Sphinx can easily integrate with SQL databases and scripting languages, providing professional-grade full-text search functionality for various applications. Currently, Sphinx supports mainstream programming languages such as PHP, Python, Perl, Ruby, and Java, and is widely used in many well-known websites and applications as a search solution."
+msgstr "好的，请提供需要翻译的中文文本，我会严格按照规则将其翻译为英文。"
 
 msgid "Next"
 msgstr "Next"
