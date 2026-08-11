@@ -167,6 +167,47 @@ def _source_rel_from_pot(pot_path: Path) -> Optional[Path]:
     return source_rel.with_suffix('.md')
 
 
+def _get_source_commit(source_md: Path) -> str:
+    """Return the git commit hash that last touched a source .md file.
+
+    Uses `git log -1 --format=%H -- <path>`. Falls back to HEAD if git is
+    unavailable or the file is untracked, and '' if there is no git repo —
+    callers treat '' as "unknown, must translate".
+    """
+    if not source_md.exists():
+        return ""
+    try:
+        res = subprocess.run(
+            ["git", "log", "-1", "--format=%H", "--", str(source_md)],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        commit = res.stdout.strip()
+        if commit:
+            return commit
+        # Untracked -> use HEAD of the working tree.
+        res = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return res.stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return ""
+
+
+def _get_po_source_commit(po_path: Path) -> str:
+    """Read the X-Source-Commit header field recorded in a .po file."""
+    try:
+        raw = po_path.read_text(encoding="utf-8")
+    except OSError:
+        return ""
+    m = re.search(r'X-Source-Commit:\s*([0-9a-fA-F]{7,40})', raw)
+    return m.group(1) if m else ""
+
+
 def _is_excluded_pot(pot_path: Path) -> bool:
     """Check if a .pot file corresponds to an excluded source file or directory.
 
@@ -273,7 +314,7 @@ def _extract_po_value(block: str, field: str) -> Optional[str]:
     return None
 
 
-def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: bool = True):
+def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: bool = True, source_commit: str = ""):
     """Write entries dict to a .po file.
 
     ``changed`` controls whether the POT/PO creation timestamps are stamped:
@@ -282,6 +323,11 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
     - False (content identical): write a stable header WITHOUT the timestamp
       fields, so an unchanged .po file is rewritten byte-identically and
       produces no git diff (keeps incremental translation PRs minimal).
+
+    ``source_commit`` records the git commit hash of the source Chinese .md
+    from which this .po was generated. Incremental runs compare it with the
+    source's current commit: if equal, the .po is skipped entirely (no
+    rewrite, no API calls), so untouched documents never appear in PRs.
     """
     filepath.parent.mkdir(parents=True, exist_ok=True)
 
@@ -298,6 +344,8 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
     if changed:
         lines.append(f'"POT-Creation-Date: {now_str}\\n"\n'
                      f'"PO-Revision-Date: {now_str}\\n"\n')
+    if source_commit:
+        lines.append(f'"X-Source-Commit: {source_commit}\\n"\n')
     lines.append(f'"Last-Translator: Auto Translation (DeepSeek)\\n"\n'
                  f'"Language-Team: English\\n"\n'
                  f'"Language: en\\n"\n'
@@ -428,6 +476,11 @@ class PoTranslator:
         po_path = PO_DIR / rel.with_suffix('.po')
         po_path.parent.mkdir(parents=True, exist_ok=True)
 
+        # Record the git commit of the source Chinese .md so future incremental
+        # runs can skip this document entirely when the source hasn't changed.
+        source_md = ZH_DIR / rel.with_suffix('.md')
+        source_commit = _get_source_commit(source_md)
+
         pot_entries = parse_pot_file(pot_path)
         po_entries = parse_pot_file(po_path)
 
@@ -493,7 +546,7 @@ class PoTranslator:
             print("No content change, skip rewriting", flush=True)
             return False
 
-        write_po_file(po_path, new_entries, str(pot_path), changed=True)
+        write_po_file(po_path, new_entries, str(pot_path), changed=True, source_commit=source_commit)
         print("OK")
         return True
 
@@ -602,7 +655,19 @@ def find_all_pot_files() -> list[Path]:
 
 
 def find_changed_pot_files() -> list[Path]:
-    """Find .pot files that have new/changed entries vs their .po counterpart."""
+    """Find .pot files that need (re)translation vs their .po counterpart.
+
+    Two guards can skip a file entirely:
+
+    1. Source-commit guard (primary): each .po records the git commit of the
+       Chinese source .md it was generated from (X-Source-Commit). If that
+       commit equals the source's current commit, the document is unchanged
+       -> skip without any msgid comparison or rewrite.
+
+    2. msgid fallback: for .po files written before the commit guard existed
+       (no X-Source-Commit), fall back to comparing msgids; also catch
+       missing/empty translations and enumeration-prefix self-heal.
+    """
     changed = []
     for pot_file in sorted(POT_DIR.rglob("*.pot")):
         if _is_excluded_pot(pot_file):
@@ -610,6 +675,13 @@ def find_changed_pot_files() -> list[Path]:
 
         rel = pot_file.relative_to(POT_DIR)
         po_file = PO_DIR / rel.with_suffix('.po')
+
+        # Source-commit guard: unchanged source => skip this document entirely.
+        source_md = ZH_DIR / rel.with_suffix('.md')
+        cur_commit = _get_source_commit(source_md)
+        po_commit = _get_po_source_commit(po_file)
+        if cur_commit and po_commit and cur_commit == po_commit:
+            continue
 
         pot_entries = parse_pot_file(pot_file)
         po_entries = parse_pot_file(po_file)
