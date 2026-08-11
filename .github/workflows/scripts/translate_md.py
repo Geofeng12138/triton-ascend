@@ -51,9 +51,11 @@ Excluded files (not translated):
     community/CONTRIBUTING_zh.md
     community/GOVERNANCE_zh.md
     community/SECURITYNOTE_zh.md
+    community/CONTRIBUTOR.md
+    community/MAINTAINERS.md
     (The English site renders the canonical English docs from the
     repository root (CODE_OF_CONDUCT.md, CONTRIBUTING.md, GOVERNANCE.md,
-    SECURITYNOTE.md) directly via a source-read hook in docs/zh/conf.py.)
+    SECURITYNOTE.md,CONTRIBUTOR.md,MAINTAINERS.md) directly via a source-read hook in docs/zh/conf.py.)
 
 Usage:
     # First-time: generate .pot files and translate ALL
@@ -118,6 +120,8 @@ EXCLUDED_FILE_STEMS: List[str] = [
     "CONTRIBUTING_zh",
     "GOVERNANCE_zh",
     "SECURITYNOTE_zh",
+    "CONTRIBUTOR",
+    "MAINTAINERS",
 ]
 
 # ---------------------------------------------------------------------------
