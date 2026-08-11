@@ -5,8 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-10 13:50+0000\n"
-"PO-Revision-Date: 2026-08-10 13:50+0000\n"
+"POT-Creation-Date: 2026-08-11 01:51+0000\n"
+"PO-Revision-Date: 2026-08-11 01:51+0000\n"
+
+"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -17,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "Vector operators are a set of operators used to perform operations on vector data. They can be used to manipulate vector data, such as adding, deleting, modifying, querying, and analyzing vector data. Vector operators can be divided into the following categories:"
+msgstr "Vector operators are mathematical tools used to describe the behavior of vector fields, commonly applied in physics and engineering to analyze phenomena such as fluid dynamics, electromagnetism, and quantum mechanics."
 
 msgid "Vector 算子开发"
 msgstr "Vector operator development"

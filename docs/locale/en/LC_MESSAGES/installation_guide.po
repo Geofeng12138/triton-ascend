@@ -5,8 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-10 13:37+0000\n"
-"PO-Revision-Date: 2026-08-10 13:37+0000\n"
+"POT-Creation-Date: 2026-08-11 01:50+0000\n"
+"PO-Revision-Date: 2026-08-11 01:50+0000\n"
+
+"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -17,10 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"I'll translate the Chinese text into English following the rules. However, I notice that you haven't provided the actual Chinese text to translate. The text appears to be missing from your message.\n"
-"\n"
-"Please provide the Chinese text you'd like me to translate, and I'll translate it according to your specified rules.\n"
+msgstr "I'll translate the Chinese text into English following the rules provided. However, I notice that the text to translate is missing from your message. Please provide the Chinese text you'd like me to translate."
 
 msgid "安装指南"
 msgstr "Installation Guide"
