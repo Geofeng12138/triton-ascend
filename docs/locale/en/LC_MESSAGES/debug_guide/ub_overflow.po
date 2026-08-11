@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 01:50+0000\n"
-"PO-Revision-Date: 2026-08-11 01:50+0000\n"
+"POT-Creation-Date: 2026-08-11 02:03+0000\n"
+"PO-Revision-Date: 2026-08-11 02:03+0000\n"
 
-"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
+"X-Source-Commit: ed6f70caf98e11004951a38783485016d8fd7469\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,8 +21,7 @@ msgstr ""
 msgid ""
 msgstr ""
 "unsigned char ub_overflow[] = {\n"
-"  0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F, 0x70, 0x81,\n"
-"  0x92, 0xA3, 0xB4, 0xC5, 0xD6, 0xE7, 0xF8, 0x09\n"
+"  0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F, 0x80, 0x91\n"
 "};\n"
 
 msgid "UB Overflow 问题排查指南"

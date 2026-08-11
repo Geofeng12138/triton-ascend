@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 01:50+0000\n"
-"PO-Revision-Date: 2026-08-11 01:50+0000\n"
+"POT-Creation-Date: 2026-08-11 02:03+0000\n"
+"PO-Revision-Date: 2026-08-11 02:03+0000\n"
 
-"X-Source-Commit: b882df4e58baefa182b4462dda111221b664f841\n"
+"X-Source-Commit: ed6f70caf98e11004951a38783485016d8fd7469\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "This is a simple example of vector addition using oneDNN."
+msgstr "本示例演示了如何使用C++ API实现一个简单的向量加法计算。它涵盖了在XPU上分配内存、执行内核以及验证结果的基本步骤。"
 
 msgid "向量相加 （Vector Addition）"
 msgstr "Vector Addition"
