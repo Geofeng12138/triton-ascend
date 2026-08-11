@@ -4,8 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:59+0000\n"
-"PO-Revision-Date: 2026-08-10 08:59+0000\n"
+
+"POT-Creation-Date: 2026-08-10 13:31+0000\n"
+"PO-Revision-Date: 2026-08-10 13:31+0000\n"
+
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -30,7 +32,7 @@ msgid "import pytest\\n"
 msgstr "import pytest"
 
 msgid "使用 Triton 自定义的 LayerNorm 实现方式"
-msgstr "Custom LayerNorm implementation using Triton."
+msgstr "Custom LayerNorm implementation using Triton"
 
 msgid "@torch.inference_mode()\\n"
 msgstr "@torch.inference_mode()"
@@ -42,7 +44,7 @@ msgid "y_tri: tensor([[ 0.2512,  0.0647,  0.8389,  ...,  2.3652,  1.5039,  1.190
 msgstr "y_tri: tensor([[ 0.2512,  0.0647,  0.8389,  ...,  2.3652,  1.5039,  1.1904],"
 
 msgid "“Layer Normalization 128,128 torch.float16 PASSED!”、 “Layer Normalization 128,128 torch.bfloat16 PASSED!”、 “Layer Normalization 128,128 torch.float32 PASSED!” 表明Triton和PyTorch上float16、bfloat16、float32数据类型的输出结果完全一致。"
-msgstr "\"Layer Normalization 128,128 torch.float16 PASSED!\", \"Layer Normalization 128,128 torch.bfloat16 PASSED!\", \"Layer Normalization 128,128 torch.float32 PASSED!\" indicate that the output results of float16, bfloat16, and float32 data types on Triton and PyTorch are completely consistent."
+msgstr "\"Layer Normalization 128,128 torch.float16 PASSED!\", \"Layer Normalization 128,128 torch.bfloat16 PASSED!\", \"Layer Normalization 128,128 torch.float32 PASSED!\" indicate that the output results for float16, bfloat16, and float32 data types on Triton and PyTorch are completely consistent."
 
 msgid "<br />\\n"
 msgstr "<br />"

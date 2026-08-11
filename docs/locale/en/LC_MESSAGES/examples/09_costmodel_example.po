@@ -4,8 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:59+0000\n"
-"PO-Revision-Date: 2026-08-10 08:59+0000\n"
+
+"POT-Creation-Date: 2026-08-10 13:34+0000\n"
+"PO-Revision-Date: 2026-08-10 13:34+0000\n"
+
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -18,7 +20,7 @@ msgid ""
 msgstr "成本模型示例"
 
 msgid "Costmodel 端到端示例"
-msgstr "Costmodel end-to-end example"
+msgstr "End-to-End Example of Cost Model"
 
 msgid "本示例展示 costmodel 后端的基本调用流程："
 msgstr "This example demonstrates the basic calling flow of the costmodel backend."
@@ -33,7 +35,7 @@ msgid "调用 `costmodel_bench` 得到每个 config 的预测耗时。"
 msgstr "Call `costmodel_bench` to obtain the predicted latency for each config."
 
 msgid "这个流程适合在 autotune 前快速筛掉预计性能较差的 config。示例只使用向量加法 kernel，便于聚焦 costmodel 的输入和返回值。"
-msgstr "This process is suitable for quickly filtering out configs with expected poor performance before autotune. The example only uses a vector addition kernel to focus on the inputs and return values of the cost model."
+msgstr "This process is suitable for quickly filtering out configs with expected poor performance before autotune. The example only uses a vector addition kernel to focus on the inputs and return values of the costmodel."
 
 msgid "完整示例"
 msgstr "Complete example"
@@ -48,7 +50,7 @@ msgid "示例输出"
 msgstr "Example output"
 
 msgid "不同版本的 costmodel 参数可能会使具体数值略有不同，但输出结构类似："
-msgstr "Different versions of costmodel parameters may cause slight variations in specific values, but the output structure is similar:"
+msgstr "Cost model parameters in different versions may cause slight variations in specific values, but the output structure is similar:"
 
 msgid "block256: 0.098 us\\n"
 msgstr "block256: 0.098 us"
@@ -66,10 +68,10 @@ msgid "`config` 会影响 `tl.constexpr`，例如 `BLOCK_SIZE`，因此每个候
 msgstr "`config` affects `tl.constexpr`, such as `BLOCK_SIZE`, so each candidate config requires generating its own TTIR."
 
 msgid "`costmodel_bench` 接收的每个元素至少包含 `config` 和 `ttir`，也可以附带 `arg_bindings`。"
-msgstr "Each element received by `costmodel_bench` contains at least `config` and `ttir`, and may also include `arg_bindings`."
+msgstr "Each element received by `costmodel_bench` must contain at least `config` and `ttir`, and may also include `arg_bindings`."
 
 msgid "`arg_bindings` 用于把运行时整数参数绑定到 TTIR 中的 `%argN`。例如本例中 `n_elements=98432` 对应 `arg3=98432`。"
 msgstr "`arg_bindings` is used to bind runtime integer parameters to `%argN` in TTIR. For example, in this case, `n_elements=98432` corresponds to `arg3=98432`."
 
 msgid "如果 kernel 中使用 `tl.program_id(0)`，通常需要传入 `pid_x=0`。如果还使用 `tl.num_programs(0)`，可额外传入 `num_programs_x=...`。"
-msgstr "If `tl.program_id(0)` is used in the kernel, `pid_x=0` usually needs to be passed in. If `tl.num_programs(0)` is also used, `num_programs_x=...` can be passed in additionally."
+msgstr "If the kernel uses `tl.program_id(0)`, you typically need to pass `pid_x=0`. If it also uses `tl.num_programs(0)`, you can additionally pass `num_programs_x=...`."

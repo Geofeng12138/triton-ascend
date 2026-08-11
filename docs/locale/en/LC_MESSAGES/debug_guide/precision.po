@@ -4,8 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:58+0000\n"
-"PO-Revision-Date: 2026-08-10 08:58+0000\n"
+
+"POT-Creation-Date: 2026-08-10 13:21+0000\n"
+"PO-Revision-Date: 2026-08-10 13:21+0000\n"
+
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,16 +17,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I need the Chinese text you want translated to proceed. Please provide it."
+msgstr "好的，请提供需要翻译的中文文本，我会严格按照规则将其翻译为英文。"
 
 msgid "精度对比与误差分析"
-msgstr "Precision comparison and error analysis"
+msgstr "Precision Comparison and Error Analysis"
 
 msgid "本文档介绍如何在昇腾 NPU 上进行 Triton 算子的精度对比与误差分析，包括对比方法、评判标准及注意事项。"
 msgstr "This document describes how to perform precision comparison and error analysis of Triton operators on Ascend NPU, including comparison methods, evaluation criteria, and precautions."
 
 msgid "1. 精度对比流程"
-msgstr "Precision comparison process"
+msgstr "1\\. Accuracy comparison process"
 
 msgid "基本步骤"
 msgstr "Basic steps"
@@ -51,19 +53,19 @@ msgid "def compare_precision(cal, ref):\\n"
 msgstr "def compare_precision(cal, ref):"
 
 msgid "3. 精度判定标准"
-msgstr "3\\. Precision Determination Criteria"
+msgstr "3\\. Precision Acceptance Criteria"
 
 msgid "判定规则"
-msgstr "Determination rules"
+msgstr "Decision rules"
 
 msgid "`torch.testing.assert_close`/`torch.equal` 不抛出异常 → **通过**，否则 **不通过**。"
 msgstr "`torch.testing.assert_close`/`torch.equal` does not throw an exception → **Pass**, otherwise **Fail**."
 
 msgid "`torch.testing.assert_close`：如果张量在指定的容差范围内近似相等，则通过（不抛出异常）；否则不通过（抛出 AssertionError）。"
-msgstr "`torch.testing.assert_close`: Passes (does not raise an exception) if the tensors are approximately equal within the specified tolerance; otherwise, fails (raises an AssertionError)."
+msgstr "`torch.testing.assert_close`: Passes (does not raise an exception) if the tensors are approximately equal within the specified tolerance; otherwise, it fails (raises an AssertionError)."
 
 msgid "`torch.equal`：要求两个张量具有完全相同的形状，且所有元素在二进制级别上绝对相等，才返回 True，否则返回 False。"
-msgstr "`torch.equal`: Requires two tensors to have exactly the same shape and all elements to be absolutely equal at the binary level, returning True only in that case; otherwise, it returns False."
+msgstr "`torch.equal`: It requires that two tensors have exactly the same shape and that all elements are absolutely equal at the binary level, only then does it return True; otherwise, it returns False."
 
 msgid "`torch.testing.assert_close` 的内部逻辑："
 msgstr "Internal logic of `torch.testing.assert_close`:"
@@ -72,13 +74,13 @@ msgid "|cal - ref| <= atol + rtol * |ref|\\n"
 msgstr "|cal - ref| <= atol + rtol * |ref|"
 
 msgid "即：绝对误差 `|cal - ref|` 需要满足相对误差容限和绝对误差容限相加共同构成一个动态的误差边界。"
-msgstr "That is, the absolute error `|cal - ref|` must satisfy a dynamic error boundary formed by the sum of the relative error tolerance and the absolute error tolerance."
+msgstr "That is, the absolute error `|cal - ref|` must satisfy the dynamic error boundary formed by the sum of the relative error tolerance and the absolute error tolerance."
 
 msgid "按数据类型推荐容限"
 msgstr "Recommended tolerances by data type"
 
 msgid "数据类型"
-msgstr "Data Types"
+msgstr "Data Type"
 
 msgid "rtol"
 msgstr "rtol"
@@ -87,7 +89,7 @@ msgid "atol"
 msgstr "atol"
 
 msgid "说明"
-msgstr "Explanation"
+msgstr "Instructions"
 
 msgid "`float32`"
 msgstr "`float32`"
@@ -96,7 +98,7 @@ msgid "1e-5"
 msgstr "1e-5"
 
 msgid "严格"
-msgstr "strict"
+msgstr "Strict"
 
 msgid "`float16`"
 msgstr "`float16`"
@@ -105,7 +107,7 @@ msgid "1e-3"
 msgstr "1e-3"
 
 msgid "精度较低，适当放宽"
-msgstr "Lower precision, relax appropriately."
+msgstr "Lower precision, appropriately relax the tolerance."
 
 msgid "`bfloat16`"
 msgstr "`bfloat16`"
@@ -138,4 +140,4 @@ msgid "整数类型"
 msgstr "Integer type"
 
 msgid "整数和布尔类型不允许任何误差，需严格一致。在跨设备比对时，务必确保数据已移至同一设备（如 CPU），以避免底层表示差异带来的误判。"
-msgstr "Integer and boolean types do not allow any tolerance and must match exactly. When comparing across devices, ensure that the data has been moved to the same device (e.g., CPU) to avoid misjudgment caused by differences in underlying representation."
+msgstr "Integer and boolean types do not allow any deviation and must match exactly. When comparing across devices, ensure that the data has been moved to the same device (e.g., CPU) to avoid misjudgment caused by differences in underlying representation."

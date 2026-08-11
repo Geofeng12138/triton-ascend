@@ -4,8 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:59+0000\n"
-"PO-Revision-Date: 2026-08-10 08:59+0000\n"
+
+"POT-Creation-Date: 2026-08-10 13:32+0000\n"
+"PO-Revision-Date: 2026-08-10 13:32+0000\n"
+
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "矩阵乘法示例"
+msgstr "This section is a detailed example of matrix multiplication, demonstrating how to use the CUDA C programming language to implement a basic parallel computing task. Through this example, you will learn the basic steps of CUDA programming, including memory allocation, data transfer, kernel function writing, and execution configuration."
 
 msgid "矩阵乘法 （Matrix Multiplication）"
 msgstr "Matrix Multiplication"
@@ -54,10 +56,10 @@ msgid "import pytest\\n"
 msgstr "import pytest"
 
 msgid "工具方法"
-msgstr "Utility method"
+msgstr "Utility methods"
 
 msgid "以下辅助函数用于支持 Triton 内核的测试与验证，包括 PyTorch 参考实现、数据类型映射、随机张量生成及结果校验。"
-msgstr "The following helper functions are used to support testing and validation of the Triton kernel, including the PyTorch reference implementation, data type mapping, random tensor generation, and result verification."
+msgstr "The following helper functions are used to support testing and validation of Triton kernels, including PyTorch reference implementations, data type mapping, random tensor generation, and result verification."
 
 msgid "def torch_dot_Bias(x0, x1, bias):\\n"
 msgstr "def torch_dot_Bias(x0, x1, bias):"
@@ -78,4 +80,4 @@ msgid "Test matmul with dtype=float16, shape=(16,16,16) PASSED!\\n"
 msgstr "Test matmul with dtype=float16, shape=(16,16,16) PASSED!"
 
 msgid "上面输出日志表明Triton和Pytorch上的输出结果完全一致。"
-msgstr "The output log above shows that the results from Triton and PyTorch are exactly the same."
+msgstr "The output log above indicates that the results from Triton and PyTorch are exactly identical."

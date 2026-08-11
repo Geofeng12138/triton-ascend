@@ -4,8 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
-"POT-Creation-Date: 2026-08-10 08:57+0000\n"
-"PO-Revision-Date: 2026-08-10 08:57+0000\n"
+
+"POT-Creation-Date: 2026-08-10 13:11+0000\n"
+"PO-Revision-Date: 2026-08-10 13:11+0000\n"
+
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -15,13 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "好的，请提供需要翻译的中文文本，我会按照规则将其翻译成英文。"
+msgstr "好的，请提供需要翻译的中文文本内容，我会严格按照规则进行翻译。"
 
 msgid "技术例会"
 msgstr "Technical Meeting"
 
 msgid "Triton-Ascend 定期召开社区技术会议，作为项目治理的核心决策机制。技术方向、重大提案评审和版本发布等重大事项在技术会议中讨论和决定，由全体 `Maintainer` 投票。会议对所有社区成员开放，任何人均可参与讨论，但决策和投票仅由 `Maintainer` 进行。"
-msgstr "Triton-Ascend holds regular community technical meetings as the core decision-making mechanism for project governance. Major matters such as technical direction, review of significant proposals, and version releases are discussed and decided in these technical meetings, with voting conducted by all `Maintainer`s. The meetings are open to all community members, and anyone can participate in the discussions, but decision-making and voting are carried out solely by the `Maintainer`s."
+msgstr "Triton-Ascend holds regular community technical meetings as the core decision-making mechanism for project governance. Major matters such as technical direction, review of significant proposals, and version releases are discussed and decided during these technical meetings, with voting conducted by all `Maintainer`s. The meetings are open to all community members, and anyone may participate in discussions, but decisions and voting are made solely by the `Maintainer`s."
 
 msgid "会议内容"
 msgstr "Meeting content"
@@ -45,7 +47,7 @@ msgid "会议安排"
 msgstr "Meeting Agenda"
 
 msgid "**会议频率**：每两周一次"
-msgstr "**Meeting Frequency**: Every two weeks"
+msgstr "**Meeting Frequency**: Once every two weeks"
 
 msgid "**会议时间**：周四 14:15（UTC+8）"
 msgstr "**Meeting Time**: Thursday 14:15 (UTC+8)"
@@ -69,7 +71,7 @@ msgid "**会议 iCalendar**：[iCalendar-ics](https://us06web.zoom.us/meeting/tZ
 msgstr "**Meeting iCalendar**: [iCalendar-ics](https://us06web.zoom.us/meeting/tZIoc-mppzkqH92hP7TBYHppsqZUxg9F8VPf/ics?icsToken=DObLUj7lyTNwJj6XJgAALAAAAOvNV2DJnuObI9tqQGt1c3aeqVgCdzMYHV0m_J0KHIX0i4QUrtvsJwMu_EMF5VKyBKdX4rPWh_raTxvF4jAwMDAwMQ&meetingMasterEventId=1PZVSVC8S8WIBZJ1e4wuZQ)"
 
 msgid "投票规则"
-msgstr "Voting Rules"
+msgstr "Voting rules"
 
 msgid "未出席会议的 `Maintainer` 须在会议后 3 个工作日内提交投票；逾期未投票视为弃权"
 msgstr "`Maintainer` who did not attend the meeting must submit their vote within 3 working days after the meeting; failure to vote within the deadline will be considered abstention."
@@ -90,7 +92,7 @@ msgid "日常开发中的常规决策（如 `Bug` 修复、小功能改进）由
 msgstr "Routine decisions in daily development (such as `Bug` fixes and minor feature improvements) are reviewed and decided by the `Maintainer` of the relevant module in the `Issue` or `PR`, without the need to hold a meeting."
 
 msgid "重大决策"
-msgstr "Major decision"
+msgstr "Major Decision"
 
 msgid "以下事项视为重大决策，需由 `Maintainer` 在社区技术会议中集体讨论："
 msgstr "The following matters are considered major decisions and require collective discussion by the `Maintainer` at the community technical meeting:"
@@ -105,7 +107,7 @@ msgid "新增核心功能或移除现有功能"
 msgstr "Added core features or removed existing features."
 
 msgid "第三方依赖的重大升级"
-msgstr "Major upgrade of third-party dependencies"
+msgstr "Major Upgrades to Third-Party Dependencies"
 
 msgid "版本发布规划"
 msgstr "Version Release Planning"
@@ -117,7 +119,7 @@ msgid "提交 `RFC`（征求意见稿），描述变更内容、影响范围和�
 msgstr "Submit an RFC (Request for Comments) describing the changes, impact scope, and implementation plan."
 
 msgid "在技术会议中讨论"
-msgstr "Discussing in technical meetings."
+msgstr "Discussing in a technical meeting."
 
 msgid "`Maintainer` 共同决策"
 msgstr "`Maintainer` collective decision-making"
