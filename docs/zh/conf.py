@@ -18,8 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 import os
-import sys
-# General information about the project.
+import sys as _sys
+import importlib.util as _ilu
 
 project = 'Triton Ascend'
 copyright = '2026, Huawei'
@@ -60,7 +60,27 @@ _COMMUNITY_ROOT_DOCS = {
     "community/SECURITYNOTE_zh": "SECURITYNOTE.md",
 }
 
-# -- I18n: detect language and root doc ---------------------------------------
+_EN_REPLACEMENTS = {
+    "python-api/triton.language.extra.extension.buffer.language":
+    "python-api/triton.language.extra.extension.buffer.language.rst", "python-api/triton.extension.buffer.language":
+    "python-api/triton.extension.buffer.language.rst", "python-api/triton.language.extra.cann.extension":
+    "python-api/triton.language.extra.cann.extension.rst", "python-api/triton.language.extra.cann.libdevice":
+    "python-api/triton.language.extra.cann.libdevice.rst", "python-api/triton.language":
+    "python-api/triton.language.rst", "python-api/triton": "python-api/triton.rst", "python-api/triton.testing":
+    "python-api/triton.testing.rst"
+}
+
+# Suppress duplicate autosectionlabel warnings caused by subdirectory
+# index.md headings sharing names with category headings in main index.md.
+suppress_warnings = ["autosectionlabel"]
+
+# -- MyST configuration -------------------------------------------------------
+# Enable dollar-math extension so that $$...$$ and $...$ syntax is parsed.
+myst_enable_extensions = ['dollarmath']
+myst_dollar_math = True
+
+autosummary_generate = True
+
 _readthedocs_lang = os.environ.get('READTHEDOCS_LANGUAGE')
 
 if _readthedocs_lang:
@@ -150,16 +170,97 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # python-api RST files require triton import; mock it at build time.
 autodoc_mock_imports = ['triton']
 
-# -- General configuration ---------------------------------------------------
+_HERE = os.path.dirname(__file__)
+_REPO = os.path.abspath(os.path.join(_HERE, "..", ".."))
+
+
+def _load_module(module_name, file_path):
+    """Load a Python module by file path."""
+    spec = _ilu.spec_from_file_location(module_name, file_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load {module_name!r} from {file_path!r}")
+    module = _ilu.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_sys.path.insert(0, os.path.join(_REPO, "python"))
+_force_mock = (os.environ.get("TRITON_DOCS_FORCE_MOCK", "").lower() in ("1", "true", "yes")
+               or os.environ.get("READTHEDOCS") == "True")
+if not _force_mock:
+    try:
+        import triton
+    except Exception as _exc:
+        print(f"import triton failed ({_exc!r}); building docs with mock stubs")
+        _force_mock = True
+
+if _force_mock:
+    _load_module(
+        "docs.zh._mock._triton_mock",
+        os.path.join(_HERE, "_mock", "_triton_mock.py"),
+    ).install()
+
+import triton
+import triton.language.extra as _tl_extra
+
+# Operator doc stubs — ``tensor`` operator syntax (``x / y``, ``x & y``,
+# ``x >= y``, ...) has no ``tl.``-prefixed functions; attach lightweight
+# stubs so autosummary can render them like add/sub/mul.
+_ops_stubs_path = os.path.join(_HERE, "python-api", "_ops_stubs.py")
+_ops_stubs_spec = _ilu.spec_from_file_location("_ops_stubs", _ops_stubs_path)
+if _ops_stubs_spec is not None and _ops_stubs_spec.loader is not None:
+    _ops_stubs = _ilu.module_from_spec(_ops_stubs_spec)
+    _ops_stubs_spec.loader.exec_module(_ops_stubs)
+    _ops_stubs.install(triton.language)
+
+_cann_lang_path = os.path.join(_REPO, "third_party", "ascend", "language")
+if _cann_lang_path not in _tl_extra.__path__:
+    _tl_extra.__path__.append(_cann_lang_path)
+
+import sphinx.ext.autosummary
+import sphinx.util.inspect
+
+
+def _unwrap_jit(fn):
+    """Wrap a Sphinx inspection helper so it sees JITFunction.fn instead."""
+
+    def wrapper(obj, **kwargs):
+        if isinstance(obj, triton.runtime.JITFunction):
+            obj = obj.fn
+        return fn(obj, **kwargs)
+
+    return wrapper
+
+
+# Sphinx <9 uses "get_documenter"(app, obj, parent);
+# Sphinx 9+ uses "_get_documenter"(obj, parent).
+_doc_fn_name = "_get_documenter" if hasattr(sphinx.ext.autosummary, "_get_documenter") else "get_documenter"
+if hasattr(sphinx.ext.autosummary, _doc_fn_name):
+    _orig_get_documenter = getattr(sphinx.ext.autosummary, _doc_fn_name)
+    import inspect as _inspect
+    _takes_app = "app" in _inspect.signature(_orig_get_documenter).parameters
+
+    def _patched_get_documenter(*args, **kwargs):
+        # 'obj' is at index 1 for old Sphinx (app, obj, parent),
+        # at index 0 for Sphinx 9.x (obj, parent).
+        _args = list(args)
+        _obj_idx = 1 if _takes_app else 0
+        if isinstance(_args[_obj_idx], triton.runtime.JITFunction):
+            _args[_obj_idx] = _args[_obj_idx].fn
+        return _orig_get_documenter(*_args, **kwargs)
+
+    setattr(sphinx.ext.autosummary, _doc_fn_name, _patched_get_documenter)
+
+sphinx.util.inspect.unwrap_all = _unwrap_jit(sphinx.util.inspect.unwrap_all)
+sphinx.util.inspect.signature = _unwrap_jit(sphinx.util.inspect.signature)
+sphinx.util.inspect.object_description = _unwrap_jit(sphinx.util.inspect.object_description)
+
 templates_path = ['_templates']
 
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
 }
-
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
 html_static_path = ['_static']
@@ -217,8 +318,18 @@ if not _is_zh:
 
         def _on_source_read(app, docname, source):
             src_rel = _COMMUNITY_ROOT_DOCS.get(docname)
-            if src_rel is None:
+            if src_rel is not None:
+                with open(os.path.join(_repo_root, src_rel), encoding="utf-8") as f:
+                    source[0] = f.read()
                 return
+
+            en_rel = _EN_REPLACEMENTS.get(docname)
+            if en_rel is not None:
+                en_path = os.path.join(_en_dir, en_rel)
+                with open(en_path, encoding="utf-8") as f:
+                    source[0] = f.read()
+                return
+
             root_doc = os.path.join(_repo_root, src_rel)
             try:
                 with open(root_doc, encoding="utf-8") as f:
