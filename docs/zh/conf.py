@@ -18,7 +18,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 import os
-import sys
 import sys as _sys
 import importlib.util as _ilu
 
@@ -101,7 +100,7 @@ if not _is_zh:
     # English build uses gettext .po translations from locale/en/LC_MESSAGES/
     autosummary_generate = True
     # Enable mock stubs for triton C extensions during English build
-    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "python"))
+    _sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "python"))
 
     def _load_module(module_name, file_path):
         import importlib.util as _ilu
@@ -290,6 +289,7 @@ if not _is_zh:
         import re
 
         _repo_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
+        _en_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "en")
 
         def _downgrade_trailing_h1(content: str) -> str:
             """Downgrade every H1 after the first (plus its sub-headings) by one level.
@@ -318,26 +318,31 @@ if not _is_zh:
             return out
 
         def _on_source_read(app, docname, source):
+            # 1) Repo-root canonical English docs (community documents):
+            #    read the English original, then normalize duplicate H1s.
             src_rel = _COMMUNITY_ROOT_DOCS.get(docname)
             if src_rel is not None:
-                with open(os.path.join(_repo_root, src_rel), encoding="utf-8") as f:
-                    source[0] = f.read()
+                src_root = os.path.join(_repo_root, src_rel)
+                try:
+                    with open(src_root, encoding="utf-8") as f:
+                        source[0] = _downgrade_trailing_h1(f.read())
+                except OSError as exc:
+                    print(f"Warning: cannot read {src_root}: {exc}")
                 return
 
+            # 2) docs/en English documents (API class): replace directly.
             en_rel = _EN_REPLACEMENTS.get(docname)
             if en_rel is not None:
                 en_path = os.path.join(_en_dir, en_rel)
-                with open(en_path, encoding="utf-8") as f:
-                    source[0] = f.read()
+                try:
+                    with open(en_path, encoding="utf-8") as f:
+                        source[0] = f.read()
+                except OSError as exc:
+                    print(f"Warning: cannot read {en_path}: {exc}")
                 return
 
-            root_doc = os.path.join(_repo_root, src_rel)
-            try:
-                with open(root_doc, encoding="utf-8") as f:
-                    content = f.read()
-                source[0] = _downgrade_trailing_h1(content)
-            except OSError as exc:
-                print(f"Warning: cannot read {root_doc}: {exc}")
+            # 3) All other documents: leave untouched.
+            return
 
         app.connect('source-read', _on_source_read)
 
