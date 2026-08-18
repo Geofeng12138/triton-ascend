@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:21+0000\n"
-"PO-Revision-Date: 2026-08-11 02:21+0000\n"
+"POT-Creation-Date: 2026-08-18 16:43+0800\n"
+"PO-Revision-Date: 2026-08-18 16:43+0800\n"
 
-"X-Source-Commit: 668879f4fed651799521080c58279e6e90f45420\n"
+"X-Source-Commit: ee7d25bffa67ee8af05aa75bc23b948c1107ef2c\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +19,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English following your rules. However, you haven't provided the actual Chinese text to translate. Please provide the text you'd like me to translate."
+msgstr ""
+"I'll translate the Chinese text into English following the rules provided. However, I notice that you haven't actually provided the Chinese text to translate. The text appears to be missing from your message.\n"
+"\n"
+"Please provide the Chinese text you'd like me to translate, and I'll translate it according to your specifications.\n"
 
 msgid "安装指南"
 msgstr "Installation Guide"
@@ -71,6 +74,12 @@ msgstr "Quick Installation"
 
 msgid "pip install triton-ascend --extra-index-url=https://mirrors.huaweicloud.com/ascend/repos/pypi\\n"
 msgstr "pip install triton-ascend --extra-index-url=https://mirrors.huaweicloud.com/ascend/repos/pypi"
+
+msgid "<a id=\"install-from-source\"></a>"
+msgstr "<a id=\"install-from-source\"></a>"
+
+msgid "<a id=\"install-from-source\">"
+msgstr "<a id=\"install-from-source\"></a>"
 
 msgid "源码安装"
 msgstr "Source code installation"
