@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:21+0000\n"
-"PO-Revision-Date: 2026-08-11 02:21+0000\n"
+"POT-Creation-Date: 2026-08-19 08:55+0800\n"
+"PO-Revision-Date: 2026-08-19 08:55+0800\n"
 
-"X-Source-Commit: bc0f4d3a0a3dc7b7aad879c0d7260401a3e7dddd\n"
+"X-Source-Commit: 98955502708bb894f7e036cb2f7e9cafe59ff844\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
