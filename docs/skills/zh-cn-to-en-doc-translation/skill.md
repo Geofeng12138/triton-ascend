@@ -73,7 +73,7 @@ applicable-scope:
 | 中文术语 | 英文译法（权威） | 说明 |
 | ------- | ----------------------- | ----- |
 | 昇腾 / 昇腾NPU | Ascend NPU | "Ascend" 保持大写 |
-| 昇腾平台 / 昇腾硬件 | Ascend-platform / Ascend hardware | 必须精确使用带连字符的形式 "Ascend-platform"，不得写成 "Ascend platform" |
+| 昇腾平台 / 昇腾硬件 | Ascend Platform / Ascend Hardware | 必须写成指定样式，即 Platform / Hardware 的首字母要大写 |
 | 昇腾社区 | Ascend community | |
 | 昇腾AI处理器 | Ascend AI processor | |
 | Ascend处理器 | Ascend processor | |
