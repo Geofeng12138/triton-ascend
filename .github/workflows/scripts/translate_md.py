@@ -63,6 +63,12 @@ Usage:
 
     # Incremental: translate only changed .pot files
     python translate_md.py --all
+
+Translation skill:
+    Every API call injects the translation skill document
+    (docs/skills/zh-cn-to-en-doc-translation/skill.md) as part of the system
+    prompt so terminology/glossary stays consistent across all documents.
+    Use --skill-doc (or TRANSLATION_SKILL_DOC env var) to override the path.
 """
 
 import argparse
@@ -142,6 +148,55 @@ Rules:
 
 Text to translate:
 {content}"""
+
+# ---------------------------------------------------------------------------
+# Translation skill document
+# ---------------------------------------------------------------------------
+# The skill document (docs/skills/zh-cn-to-en-doc-translation/skill.md)
+# defines the authoritative Chinese -> English terminology glossary and
+# translation rules for this project. It is injected into every translation
+# request so that terminology stays consistent across all documents.
+#
+# The document is designed to be extensible: contributors can add new
+# glossary entries / rules to the Markdown file and the translation pipeline
+# picks them up automatically on the next run. The path can be overridden
+# via the --skill-doc CLI argument or the TRANSLATION_SKILL_DOC env var.
+SKILL_DOC_PATH = Path("docs/skills/zh-cn-to-en-doc-translation/skill.md")
+
+_skill_doc_cache: Optional[str] = None
+
+
+def load_skill_doc(path: Optional[Path] = None) -> str:
+    """Load the translation skill document content.
+
+    Returns the raw skill Markdown content, or an empty string when the
+    document is missing / unreadable (the pipeline then falls back to the
+    plain system prompt).
+
+    The result is cached module-wide so concurrent calls in the same run
+    only read the file once. A non-None ``path`` (from --skill-doc) clears
+    the cache so a caller-specified document is always honored.
+    """
+    global _skill_doc_cache
+    if path is not None:
+        _skill_doc_cache = None
+        skill_path = path
+    else:
+        skill_path = SKILL_DOC_PATH
+    if _skill_doc_cache is not None:
+        return _skill_doc_cache
+    try:
+        if not skill_path.exists():
+            print(f"  Skill doc not found: {skill_path} (translating without skill)", flush=True)
+            _skill_doc_cache = ""
+            return _skill_doc_cache
+        _skill_doc_cache = skill_path.read_text(encoding="utf-8").strip()
+        print(f"  Loaded translation skill doc: {skill_path} ({len(_skill_doc_cache)} chars)", flush=True)
+    except OSError as e:
+        print(f"  Warning: failed to read skill doc {skill_path}: {e} (translating without skill)", flush=True)
+        _skill_doc_cache = ""
+    return _skill_doc_cache
+
 
 # ---------------------------------------------------------------------------
 # Path helpers
@@ -504,8 +559,25 @@ def _restore_enumeration_prefix(msgid: str, msgstr: str) -> str:
 class PoTranslator:
     """Translate .pot entries to .po using DeepSeek API with translation memory."""
 
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, skill_doc: Optional[str] = None):
         self.client = AsyncOpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+        # The skill document text (docs/skills/zh-cn-to-en-doc-translation/skill.md)
+        # is injected as part of the system prompt so every translation request
+        # follows the project's authoritative terminology glossary and rules.
+        self.skill_doc = (skill_doc or "").strip()
+
+    def _system_prompt(self, context: str = "") -> str:
+        """Build the system prompt, injecting the skill document when available."""
+        parts = [SYSTEM_PROMPT]
+        if self.skill_doc:
+            parts.append("Follow the skill document below for terminology, style, and rules. "
+                         "Its glossary is authoritative; use it for every translation.\n\n"
+                         "===== BEGIN TRANSLATION SKILL DOCUMENT =====\n"
+                         f"{self.skill_doc}\n"
+                         "===== END TRANSLATION SKILL DOCUMENT =====")
+        if context:
+            parts.append(f"(File: {context})")
+        return "\n\n".join(parts)
 
     async def translate_file(self, pot_path: Path) -> bool:
         """Translate a single .pot file, producing/updating the matching .po file.
@@ -611,9 +683,7 @@ class PoTranslator:
     async def _translate_single(self, content: str, context: str = "") -> Optional[str]:
         """Translate a single text string via DeepSeek API."""
         prompt = BLOCK_TRANSLATION_PROMPT.format(content=content)
-        system = SYSTEM_PROMPT
-        if context:
-            system = f"{SYSTEM_PROMPT} (File: {context})"
+        system = self._system_prompt(context)
 
         try:
             response = await self.client.chat.completions.create(
@@ -835,6 +905,12 @@ async def async_main():
     parser.add_argument("--files", help="Comma-separated .pot filenames")
     parser.add_argument("--output-json", default=os.getenv("OUTPUT_JSON", "/tmp/translation_results.json"))
     parser.add_argument("--api-key", default=os.getenv("DEEPSEEK_API_KEY"))
+    parser.add_argument(
+        "--skill-doc",
+        default=os.getenv("TRANSLATION_SKILL_DOC", ""),
+        help="Path to the translation skill document (Markdown). "
+        "Defaults to docs/skills/zh-cn-to-en-doc-translation/skill.md.",
+    )
     args = parser.parse_args()
 
     output_json = args.output_json
@@ -845,6 +921,11 @@ async def async_main():
         print(f"Error: {msg}", flush=True)
         write_empty_json(output_json, msg)
         return 1
+
+    # Load the translation skill document (authoritative terminology glossary
+    # and rules). It is injected into every translation request's system prompt.
+    skill_doc_path = Path(args.skill_doc) if args.skill_doc else None
+    skill_doc = load_skill_doc(skill_doc_path)
 
     # Step 1: Generate .pot files (unless --skip-gettext)
     if not args.skip_gettext:
@@ -883,7 +964,7 @@ async def async_main():
         write_empty_json(output_json, f"no .pot files to translate ({reason})")
         return 0
 
-    translator = PoTranslator(api_key=api_key)
+    translator = PoTranslator(api_key=api_key, skill_doc=skill_doc)
     return await translator.translate_files(pot_list, output_json)
 
 

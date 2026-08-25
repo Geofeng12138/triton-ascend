@@ -1,0 +1,221 @@
+# 翻译技能可扩展操作指南（中文版）
+
+本指南介绍如何向 `skill.md` 翻译技能文档中添加自定义翻译需求。
+`skill.md` 是 Triton-Ascend 项目中文（简体）文档翻译为英文时的**权威术语表与规则文档**，
+由 `.github/workflows/scripts/translate_md.py` 翻译引擎在每次 API 调用时作为系统提示词注入。
+
+---
+
+## 1. 技能文档所在位置
+
+```text
+docs/skills/zh-cn-to-en-doc-translation/
+├── skill.md                  # 权威翻译技能文档（术语表 + 规则）
+└── EXTENSION_GUIDE_zh.md     # 本指南（如何扩展 skill.md）
+```
+
+翻译引擎默认从以下路径读取技能文档：
+
+```text
+docs/skills/zh-cn-to-en-doc-translation/skill.md
+```
+
+> 也可以通过 `--skill-doc` 命令行参数或 `TRANSLATION_SKILL_DOC` 环境变量指定其他路径。
+
+---
+
+## 2. skill.md 文档结构总览
+
+| 章节 | 内容 | 如何扩展 |
+| ---- | ---- | -------- |
+| `1. Role / 角色定义` | 翻译专家角色说明 | 一般无需修改 |
+| `2. Global Translation Rules / 全局翻译规则` | 通用翻译规则（编号 1-13） | 可新增编号条目 |
+| `3. Tone & Style / 语气与风格` | 翻译风格要求 | 可新增条目 |
+| `4. Terminology Glossary / 术语表` | 中译英权威术语映射表（4.1-4.9） | **最常扩展的章节** |
+| `5. Domain-Specific Style Notes / 领域特定风格说明` | Triton-Ascend 特定风格规则 | 可新增编号条目 |
+| `6. Extensibility / 可扩展性` | 扩展规则说明 | 一般无需修改 |
+| `7. Reference / 当前翻译流水线` | 翻译引擎信息 | 一般无需修改 |
+
+---
+
+## 3. 常见扩展场景与操作步骤
+
+### 场景 A：添加新的中文术语 → 英文映射
+
+当在文档中发现新的中文术语（如新的硬件特性、新的接口名、新的编译选项）时，
+需要将其添加到 **第 4 节对应的术语表中**。
+
+**操作步骤：**
+
+1. 打开 `docs/skills/zh-cn-to-en-doc-translation/skill.md`。
+2. 定位到第 4 节中最接近的术语表（4.1 - 4.8）。
+3. 在表格末尾（或合适位置）添加一行，格式如下：
+
+   ```markdown
+   | 中文术语 | 英文译法 | 说明 |
+   | ------- | --------- | ---- |
+   | 新术语A | New Term A | 补充说明 |
+   ```
+
+4. 如果该术语是**常用短语**（不是单个术语），添加到 **4.9 节**：
+
+   ```markdown
+   | 中文短语 | 推荐英文表达 |
+   | -------- | ------------- |
+   | 常见短语B | Preferred English phrasing B |
+   ```
+
+5. **更新版本号**：将 YAML front-matter 中的 `version` 字段递增
+   （例如从 `1.0.0` 改为 `1.0.1`）。
+6. **更新日期**：将 `last-updated` 字段更新为当天日期。
+
+**示例：**
+
+假设需要添加术语"流水线并行"：
+
+```markdown
+### 4.5 Autotune / Tiling terms / 自动调优与分块术语
+
+| 中文术语 | English (authoritative) | Notes / 说明 |
+| ------- | ----------------------- | ----- |
+| ...（已有条目）... |
+| 流水线并行 | pipeline parallelism | 新的流水线并行场景 |
+```
+
+---
+
+### 场景 B：添加新的翻译规则
+
+当需要添加全新的翻译行为约束（例如"所有标题不得使用缩写"）时：
+
+**操作步骤：**
+
+1. 打开 `skill.md`。
+2. 在 **第 2 节（全局翻译规则）** 或 **第 3 节（语气与风格）** 中添加新的编号条目。
+3. 如果规则仅适用于特定领域（如仅适用于调试文档），则在 **第 5 节** 中添加。
+
+   ```markdown
+   ## 2. Global Translation Rules / 全局翻译规则
+
+   13. 新规则的描述...
+       新规则的详细说明...
+   ```
+
+4. 如果规则属于全新领域，可在 **第 5 节** 添加新的编号：
+
+   ```markdown
+   ## 5. Domain-Specific Style Notes / 领域特定风格说明
+
+   13. **新领域规则标题 / New Domain Rule**:
+       English description.
+       中文描述。
+   ```
+
+5. **更新版本号** 和 **last-updated** 字段。
+
+---
+
+### 场景 C：添加全新的领域子章节
+
+当新中文文档类型引入大量新词汇，现有子章节无法容纳时：
+
+**操作步骤：**
+
+1. 在 **第 4 节** 中加入新的子章节，例如 `### 4.10 XXX terms / XXX 术语`。
+
+   ```markdown
+   ### 4.10 新领域 terms / 新领域术语
+
+   | Chinese | English (authoritative) | Notes / 说明 |
+   | ------- | ----------------------- | ----- |
+   | 新术语A | New Term A | 说明 |
+   ```
+
+2. 确保新子章节编号与现有编号一致递增（4.10、4.11...）。
+3. **更新版本号** 和 **last-updated** 字段。
+
+---
+
+### 场景 D：更新 skill.md 后如何让翻译引擎生效
+
+`skill.md` 由翻译引擎在**每次运行时**读取，因此：
+
+- **无需重启服务**：修改并保存 `skill.md` 后，下一次运行 `translate_md.py` 时会自动加载最新内容。
+- **手动验证**：可执行以下命令检查技能文档是否被加载：
+
+  ```bash
+  python .github/workflows/scripts/translate_md.py --skip-gettext \
+      --api-key <YOUR_DEEPSEEK_API_KEY> --files <某个.pot文件名> \
+      --output-json /tmp/test_translation.json
+  ```
+
+  运行日志中如果出现：
+
+  ```text
+  Loaded translation skill doc: docs/skills/zh-cn-to-en-doc-translation/skill.md (XXXXX chars)
+  ```
+
+  说明技能文档已成功加载。
+
+- **CI 自动生效**：在 GitHub Actions 中运行 `schedule_doc_translate.yaml` 时，
+  checkout 的代码包含最新的 `skill.md`，翻译引擎会自动使用最新版本。
+
+---
+
+## 4. 修改规范与注意事项
+
+### 4.1 保持格式一致性
+
+- 术语表表格必须保持 `| 列名 | 列名 | 列名 |` 的格式。
+- 每行必须包含**完整的一行内容**，不要拆行。
+- 中英文内容都必须保留（英文 + 中文说明），以便中英文读者都能理解。
+
+### 4.2 避免重复条目
+
+- 添加新术语前，先搜索 `skill.md` 中是否已存在该中文术语。
+- 同一个中文术语只能出现一次，且必须放入**最具体**的表格中。
+
+### 4.3 更新版本号
+
+每次修改都必须更新：
+
+```markdown
+version: 1.0.0   →   version: 1.0.1
+last-updated: 2026-08-24
+```
+
+版本号规则建议：`主版本.次版本.修订号`
+
+- **修订号**：仅新增术语条目或小修改（不影响整体行为）。
+- **次版本**：新增规则或新领域子章节。
+- **主版本**：重构或重大行为变更。
+
+### 4.4 提交 PR 时的说明
+
+提交修改 `skill.md` 的 PR 时，建议在 PR 描述中包含：
+
+- 修改了哪些章节 / 表格。
+- 新增了哪些术语或规则。
+- 为什么需要这些修改（例如：新文档引入了新术语，翻译不一致）。
+
+---
+
+## 5. 快速检查清单
+
+修改完成后，请对照以下清单确认：
+
+- [ ] 新术语/规则已添加到**最具体**的表格/章节。
+- [ ] 没有重复条目。
+- [ ] 表格格式正确（`| 列 |...` 格式，每行完整）。
+- [ ] 中英文描述都已添加。
+- [ ] `version` 字段已递增。
+- [ ] `last-updated` 已更新。
+- [ ] 修改内容能被翻译引擎正确加载（可运行脚本验证）。
+
+---
+
+## 6. 参考资料
+
+- 翻译引擎脚本：`.github/workflows/scripts/translate_md.py`
+- 自动翻译工作流：`.github/workflows/schedule_doc_translate.yaml`
+- 翻译技能文档：`docs/skills/zh-cn-to-en-doc-translation/skill.md`
