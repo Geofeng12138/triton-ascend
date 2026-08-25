@@ -179,6 +179,10 @@ jobs:
           # access. A plain `git push origin` can fall back to credentials
           # lacking write permission -> 403 "denied to <user>".
           PUSH_TOKEN: ${{ steps.resolve_token.outputs.token }}
+          # Fallback credential: if the primary token (e.g. an expired or
+          # under-scoped PAT) is rejected by the remote with 403, retry the
+          # push with the job-scoped GITHUB_TOKEN instead of failing the run.
+          GH_TOKEN_FALLBACK: ${{ github.token }}
         run: |
           git diff --cached --quiet && echo "Nothing to commit" && exit 1
 
@@ -191,10 +195,20 @@ jobs:
 
           count=$(git diff --cached --name-only | wc -l)
           git commit -s -m "[doc](feat) Auto-translate ${count} file(s) (Sphinx gettext)"
-          # Explicitly set the push URL with the token so the push authenticates
-          # as x-access-token (GITHUB_TOKEN) / PAT with write permission.
+
+          # Try the primary token (PAT if configured, else GITHUB_TOKEN) first.
+          # If it is rejected (e.g. stale/expired PAT), retry once with the
+          # job-scoped GITHUB_TOKEN so the workflow no longer dies on a bad
+          # secret, and re-export GH_TOKEN so later `gh pr create` works too.
           git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git push origin "${BRANCH_NAME}"
+          if git push origin "${BRANCH_NAME}"; then
+            echo "Push succeeded with primary token"
+          else
+            echo "::warning::Primary token push rejected; retrying with job-scoped GITHUB_TOKEN..."
+            git remote set-url origin "https://x-access-token:${GH_TOKEN_FALLBACK}@github.com/${GITHUB_REPOSITORY}.git"
+            git push origin "${BRANCH_NAME}"
+            echo "GH_TOKEN=${GH_TOKEN_FALLBACK}" >> "$GITHUB_ENV"
+          fi
 
       - name: Create Pull Request
         if: steps.detect.outputs.has_changes == 'true'
@@ -236,10 +250,13 @@ jobs:
           BODYEOF
           )
 
-          gh pr create \
+          if gh pr create \
             --base "${PR_BASE}" \
             --head "${PR_HEAD}" \
             --title "${TITLE}" \
             --body "${BODY}" \
-            --repo "${{ github.repository }}" \
-            2>&1 || true
+            --repo "${{ github.repository }}" 2>&1; then
+            echo "Pull request created successfully"
+          else
+            echo "::warning::gh pr create failed (a PR may already exist for ${PR_HEAD}, or the token lacks pull-requests write permission)"
+          fi
