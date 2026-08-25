@@ -4,7 +4,7 @@ description: >
   本技能用于将 Triton-Ascend 项目的中文（简体）技术文档翻译成专业的英文。
   当翻译 docs/zh/ 目录下的任何中文内容（或 Triton-Ascend 项目的其他中文材料）时，
   请使用本技能，以确保术语保持一致，并与现有英文文档的风格匹配。
-version: 1.1.0
+version: 1.1.1
 last-updated: 2026-08-25
 applicable-scope:
   - docs/zh/** → docs/en/** translation workflow

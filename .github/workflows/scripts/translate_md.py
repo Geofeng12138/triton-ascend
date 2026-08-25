@@ -414,7 +414,8 @@ def _extract_po_value(block: str, field: str) -> Optional[str]:
     return None
 
 
-def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: bool = True, source_commit: str = ""):
+def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: bool = True, source_commit: str = "",
+                  skill_version: str = ""):
     """Write entries dict to a .po file.
 
     ``changed`` controls whether the POT/PO creation timestamps are stamped:
@@ -428,6 +429,11 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
     from which this .po was generated. Incremental runs compare it with the
     source's current commit: if equal, the .po is skipped entirely (no
     rewrite, no API calls), so untouched documents never appear in PRs.
+
+    ``skill_version`` records the skill-document version that was in effect
+    when this .po was written. Incremental runs compare it with the current
+    skill version: when the skill changes (e.g. the glossary was extended),
+    affected .po files are re-processed so terminology edits propagate.
     """
     filepath.parent.mkdir(parents=True, exist_ok=True)
 
@@ -446,6 +452,8 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
                      f'"PO-Revision-Date: {now_str}\\n"\n')
     if source_commit:
         lines.append(f'"X-Source-Commit: {source_commit}\\n"\n')
+    if skill_version:
+        lines.append(f'"X-Skill-Version: {skill_version}\\\\n"\n')
     lines.append(f'"Last-Translator: Auto Translation (DeepSeek)\\n"\n'
                  f'"Language-Team: English\\n"\n'
                  f'"Language: en\\n"\n'
@@ -551,6 +559,146 @@ def _restore_enumeration_prefix(msgid: str, msgstr: str) -> str:
     return leading_ws + prefix + stripped
 
 
+_EN_TERM_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9\s\-_().,/'+]*$")
+
+
+def _looks_like_english_term(s: str) -> bool:
+    """True if ``s`` looks like a plain English glossary value."""
+    return bool(s) and bool(_EN_TERM_PATTERN.match(s)) and not re.search(r"[\u4e00-\u9fff]", s)
+
+
+def _lower_first_word(w: str) -> str:
+    """Lowercase the first letter of a word unless it is an acronym (all caps)."""
+    if w.isupper() or len(w) <= 1:
+        return w
+    return w[:1].lower() + w[1:]
+
+
+def _casing_variants(authoritative: str) -> List[str]:
+    """Generate plausible casing variants of an authoritative term.
+
+    E.g. "Ascend Platform" -> ["Ascend platform", "ascend platform"].
+    Acronyms (e.g. "NPU") keep their caps. The authoritative spelling itself
+    is excluded from the returned variants.
+    """
+    words = authoritative.split()
+    if len(words) < 2:
+        return []
+    variants = set()
+    # Only the first word keeps its case; the rest get lowercase first letters.
+    variants.add(" ".join([words[0]] + [_lower_first_word(w) for w in words[1:]]))
+    # Every word lowercased.
+    variants.add(" ".join(_lower_first_word(w) for w in words))
+    # Fully-lowercase fallback.
+    variants.add(" ".join(w.lower() for w in words))
+    variants.discard(authoritative)
+    return list(variants)
+
+
+def _build_glossary_rules(skill_doc: str) -> List[tuple]:
+    """Extract deterministic (variant -> authoritative) replacement pairs from
+    the skill document's glossary tables (section 4).
+
+    Each table row is ``| 中文术语 | English (authoritative) | Notes |``. For
+    every English form in the second column we generate variants that the LLM
+    tends to output instead of the authoritative spelling:
+
+    - separator variants: hyphen/underscore collapsed to spaces, e.g.
+      ``("Ascend platform", "Ascend-platform")``;
+    - casing variants: same word sequence with a different letter case, e.g.
+      ``("Ascend platform", "Ascend Platform")``.
+
+    ``apply_glossary_rules()`` then deterministically enforces the
+    authoritative spellings on every translated string, so the pipeline no
+    longer depends on the LLM choosing to follow the glossary (DeepSeek tends
+    to normalize "Ascend Platform" back to the natural "Ascend platform").
+
+    Only the section-4 tables are scanned and only plain-English values are
+    accepted, so explanatory cells (e.g. section 4.9's "删除 "概述：""...)
+    are ignored.
+    """
+    rules: List[tuple] = []
+    if not skill_doc:
+        return rules
+    in_section4 = False
+    for line in skill_doc.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("## 4."):
+            in_section4 = True
+            continue
+        if in_section4 and stripped.startswith("## "):
+            break
+        if not in_section4:
+            continue
+        if not stripped.startswith("|"):
+            continue
+        cells = [c.strip() for c in stripped.strip("|").split("|")]
+        if len(cells) < 2:
+            continue
+        en_cell = cells[1]
+        if not en_cell or set(en_cell) <= {"-", " ", ":"}:
+            continue
+        for authoritative in en_cell.split("/"):
+            authoritative = authoritative.strip().strip("`").strip()
+            if not _looks_like_english_term(authoritative):
+                continue
+            # Separator variants: hyphen/underscore -> spaces.
+            normalized = re.sub(r"[-_]", " ", authoritative)
+            normalized = re.sub(r"\s+", " ", normalized).strip()
+            if normalized and normalized != authoritative:
+                rules.append((normalized, authoritative))
+            # Casing variants: same words, different letter case.
+            for variant in _casing_variants(authoritative):
+                rules.append((variant, authoritative))
+    # Longer variants first so e.g. "Ascend platform" wins over any shorter
+    # overlapping variant.
+    rules.sort(key=lambda r: len(r[0]), reverse=True)
+    return rules
+
+
+def apply_glossary_rules(text: str, rules: List[tuple]) -> str:
+    """Replace glossary variants in ``text`` with their authoritative spellings.
+
+    Inline code spans and fenced code blocks are left untouched so identifiers
+    and string literals are never rewritten.
+    """
+    if not text or not rules:
+        return text
+    protected: List[str] = []
+
+    def _protect(m):
+        protected.append(m.group(0))
+        return "\x00%d\x00" % (len(protected) - 1)
+
+    text = re.sub(r"```.*?```", _protect, text, flags=re.DOTALL)
+    text = re.sub(r"`[^`\n]+`", _protect, text)
+    for variant, authoritative in rules:
+        text = re.sub(r"(?<![\w])" + re.escape(variant) + r"(?![\w])", authoritative, text)
+    return re.sub(r"\x00(\d+)\x00", lambda m: protected[int(m.group(1))], text)
+
+
+def _get_current_skill_version() -> str:
+    """Read the ``version`` field from the skill doc front-matter."""
+    try:
+        skill = load_skill_doc()
+    except Exception:
+        return ""
+    if not skill:
+        return ""
+    m = re.search(r"^version:\s*([0-9A-Za-z.+-]+)", skill, re.MULTILINE)
+    return m.group(1).strip() if m else ""
+
+
+def _get_po_skill_version(po_path: Path) -> str:
+    """Read the X-Skill-Version header field recorded in a .po file."""
+    try:
+        raw = po_path.read_text(encoding="utf-8")
+    except OSError:
+        return ""
+    m = re.search(r"X-Skill-Version:\s*([0-9A-Za-z.+-]+)", raw)
+    return m.group(1) if m else ""
+
+
 # ---------------------------------------------------------------------------
 # Translation engine
 # ---------------------------------------------------------------------------
@@ -565,6 +713,15 @@ class PoTranslator:
         # is injected as part of the system prompt so every translation request
         # follows the project's authoritative terminology glossary and rules.
         self.skill_doc = (skill_doc or "").strip()
+        # Deterministic glossary enforcement: (variant, authoritative) pairs
+        # parsed from the skill doc's section-4 tables. Applied to every
+        # translation before it is written to the .po file, so the exact
+        # spellings defined in the glossary (e.g. "Ascend-platform") are always
+        # honoured even if the LLM outputs the natural-space variant
+        # ("Ascend platform").
+        self._glossary_rules: List[tuple] = _build_glossary_rules(self.skill_doc)
+        m = re.search(r"^version:\s*([0-9A-Za-z.+-]+)", self.skill_doc, re.MULTILINE)
+        self._skill_version = m.group(1).strip() if m else ""
 
     def _system_prompt(self, context: str = "") -> str:
         """Build the system prompt, injecting the skill document when available."""
@@ -629,6 +786,10 @@ class PoTranslator:
                 # repaired translation is persisted (find_changed_pot_files
                 # detects such files and routes them through this function).
                 restored = _restore_enumeration_prefix(msgid, existing.get("msgstr", ""))
+                # Glossary enforcement: deterministically fix stored
+                # translations too, so terminology edits in skill.md propagate
+                # to already-translated entries without re-calling the API.
+                restored = apply_glossary_rules(restored, self._glossary_rules)
                 if restored != existing.get("msgstr", ""):
                     content_changed = True
                 new_entries[msgid] = {
@@ -654,7 +815,12 @@ class PoTranslator:
                 if translation:
                     # Defensive: ensure the model returned every leading "N. "
                     # list-number prefix that exists on the Chinese source.
-                    new_entries[msgid]["msgstr"] = _restore_enumeration_prefix(msgid, translation)
+                    translation = _restore_enumeration_prefix(msgid, translation)
+                    # Glossary enforcement: force the authoritative spellings
+                    # defined in the skill doc glossary (e.g. "Ascend-platform")
+                    # on the fresh output before persisting it.
+                    translation = apply_glossary_rules(translation, self._glossary_rules)
+                    new_entries[msgid]["msgstr"] = translation
                     new_entries[msgid]["translated"] = True
                     content_changed = True
                 if idx < len(untranslated) - 1:
@@ -668,15 +834,21 @@ class PoTranslator:
             # that predate the field, one stable-header rewrite is needed so the
             # next incremental run can skip this document entirely. No POT/PO
             # timestamps are touched (changed=False keeps them unchanged).
-            if source_commit and source_commit != _get_po_source_commit(po_path):
-                write_po_file(po_path, new_entries, str(pot_path), changed=False, source_commit=source_commit)
-                print("OK (fingerprint refreshed)", flush=True)
+            # Likewise, stamp X-Skill-Version once so a freshly-upgraded skill
+            # doc does not re-trigger processing on every subsequent run.
+            needs_stamp = source_commit and source_commit != _get_po_source_commit(po_path)
+            needs_skill = self._skill_version and self._skill_version != _get_po_skill_version(po_path)
+            if needs_stamp or needs_skill:
+                write_po_file(po_path, new_entries, str(pot_path), changed=False, source_commit=source_commit,
+                              skill_version=self._skill_version)
+                print("OK (header refreshed)", flush=True)
                 return True
             # Nothing to do: keep the file untouched.
             print("No content change, skip rewriting", flush=True)
             return False
 
-        write_po_file(po_path, new_entries, str(pot_path), changed=True, source_commit=source_commit)
+        write_po_file(po_path, new_entries, str(pot_path), changed=True, source_commit=source_commit,
+                      skill_version=self._skill_version)
         print("OK")
         return True
 
@@ -804,19 +976,30 @@ def find_changed_pot_files() -> list[Path]:
         rel = pot_file.relative_to(POT_DIR)
         po_file = PO_DIR / rel.with_suffix('.po')
 
-        # Source-content guard: unchanged source => skip this document entirely.
-        # Generated .po files with no source document (e.g. sphinx.po) are also
-        # skipped so they never enter the translation pipeline.
+        # Source-content guard: unchanged source AND unchanged skill version
+        # => skip this document entirely. Generated .po files with no source
+        # document (e.g. sphinx.po) are also skipped so they never enter the
+        # translation pipeline.
         source_md = _find_source_for_pot(pot_file)
         if source_md is None:
             continue
         cur_commit = _get_source_commit(source_md)
         po_commit = _get_po_source_commit(po_file)
-        if cur_commit and po_commit and cur_commit == po_commit:
+        cur_skill = _get_current_skill_version()
+        po_skill = _get_po_skill_version(po_file)
+        if (cur_commit and po_commit and cur_commit == po_commit and cur_skill and po_skill and cur_skill == po_skill):
             continue
 
         pot_entries = parse_pot_file(pot_file)
         po_entries = parse_pot_file(po_file)
+
+        # Skill version changed (or not yet recorded): force re-processing of
+        # the whole file so every kept translation is re-checked against the
+        # new glossary (deterministic terminology enforcement), not just the
+        # untranslated entries.
+        if cur_skill and (not po_skill or cur_skill != po_skill):
+            changed.append(pot_file)
+            continue
 
         for msgid, entry in pot_entries.items():
             existing = po_entries.get(msgid)

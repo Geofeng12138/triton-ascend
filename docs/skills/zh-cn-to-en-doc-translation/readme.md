@@ -66,7 +66,13 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
    ```
 
 5. **更新版本号**：将 YAML front-matter 中的 `version` 字段递增
-   （例如从 `1.0.0` 改为 `1.0.1`）。
+   （例如从 `1.1.0` 改为 `1.1.1`）。
+
+   > `version` 变更会触发翻译引擎在增量运行时对所有存量 `.po`
+   > 执行**确定性术语替换**：`translate_md.py` 会从第 4 节术语表解析
+   > "变体 → 权威形式"映射（如把模型输出的 `Ascend platform` 强制改写为
+   > 术语表定义的 `Ascend Platform`），因此新增或修改术语后**无需删除
+   > `.po` 文件**，旧译文也会被自动修正。
 6. **更新日期**：将 `last-updated` 字段更新为当天日期。
 
 **示例：**
@@ -155,6 +161,15 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
   ```
 
   说明技能文档已成功加载。
+
+- **术语表修改自动生效（确定性后处理）**：`translate_md.py` 在每次
+  翻译落盘前都会对**模型新输出**和**已翻译条目**执行确定性术语替换
+  （从第 4 节术语表解析"变体 → 权威形式"，例如把 `Ascend platform`
+  强制改写为术语表定义的 `Ascend Platform`）。因此：
+  - 修改术语表后，只需 **bump `version` 字段**并运行一次增量翻译，
+    所有受影响文档的旧译文都会被自动修正（无需删除 `.po` 文件）；
+  - 即便模型不遵循术语表（例如把 "Ascend Platform" 规范化成
+    "Ascend platform"），最终写入 `.po` 的译文也会强制符合术语表。
 
 - **CI 自动生效**：在 GitHub Actions 中运行 `schedule_doc_translate.yaml` 时，
   checkout 的代码包含最新的 `skill.md`，翻译引擎会自动使用最新版本。
