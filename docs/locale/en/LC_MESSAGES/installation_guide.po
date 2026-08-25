@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:21+0000\n"
-"PO-Revision-Date: 2026-08-11 02:21+0000\n"
+"POT-Creation-Date: 2026-08-25 21:45+0800\n"
+"PO-Revision-Date: 2026-08-25 21:45+0800\n"
 
-"X-Source-Commit: 668879f4fed651799521080c58279e6e90f45420\n"
+"X-Source-Commit: 582dc86d2a843d1db17683b35914bbdf75a49392\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +19,53 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English following your rules. However, you haven't provided the actual Chinese text to translate. Please provide the text you'd like me to translate."
+msgstr ""
+"# Installation and Environment Configuration\n"
+"\n"
+"## 1. Installation\n"
+"\n"
+"### 1.1 Installing the Triton-Ascend Compiler\n"
+"\n"
+"Triton-Ascend is an open-source compiler that extends the Triton language to support Ascend NPUs. You can install it using the following command:\n"
+"\n"
+"```bash\n"
+"pip install triton-ascend\n"
+"```\n"
+"\n"
+"Alternatively, you can build and install it from the source code:\n"
+"\n"
+"```bash\n"
+"git clone https://github.com/Ascend/Triton-Ascend.git\n"
+"cd Triton-Ascend\n"
+"pip install .\n"
+"```\n"
+"\n"
+"### 1.2 Installing CANN\n"
+"\n"
+"Triton-Ascend depends on the CANN toolkit. You need to install CANN first. For detailed installation instructions, refer to the [CANN installation guide](https://www.hiascend.com/software/cann/community).\n"
+"\n"
+"## 2. Environment Configuration\n"
+"\n"
+"### 2.1 Setting Environment Variables\n"
+"\n"
+"After installing CANN, you need to set the following environment variables:\n"
+"\n"
+"```bash\n"
+"source /usr/local/Ascend/ascend-toolkit/set_env.sh\n"
+"```\n"
+"\n"
+"### 2.2 Verifying the Installation\n"
+"\n"
+"To verify that Triton-Ascend is installed correctly, run the following Python script:\n"
+"\n"
+"```python\n"
+"import triton\n"
+"import triton_ascend\n"
+"\n"
+"print(\"Triton-Ascend is installed successfully.\")\n"
+"```\n"
+"\n"
+"If the script runs without errors, the installation is successful.\n"
 
 msgid "安装指南"
 msgstr "Installation Guide"
@@ -71,6 +117,12 @@ msgstr "Quick Installation"
 
 msgid "pip install triton-ascend --extra-index-url=https://mirrors.huaweicloud.com/ascend/repos/pypi\\n"
 msgstr "pip install triton-ascend --extra-index-url=https://mirrors.huaweicloud.com/ascend/repos/pypi"
+
+msgid "<a id=\"install-from-source\"></a>"
+msgstr "<a id=\"install-from-source\"></a>"
+
+msgid "<a id=\"install-from-source\">"
+msgstr "<a id=\"install-from-source\">"
 
 msgid "源码安装"
 msgstr "Source code installation"
@@ -209,6 +261,45 @@ msgstr "Observing similar output indicates that the environment is configured co
 
 msgid "tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')\\n"
 msgstr "tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')"
+
+msgid "运行Pytest UT"
+msgstr "Run Pytest UT"
+
+msgid "源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。执行前需完成Triton-Ascend安装，并设置CANN环境变量。"
+msgstr "The source repository provides single-operator test cases, located in the `third_party/ascend/unittest/pytest_ut` directory. Before execution, you must complete the Triton-Ascend installation and set the CANN environment variables."
+
+msgid "# 设置CANN环境变量（默认安装路径`/usr/local/Ascend`为例）\\n"
+msgstr "# Set CANN Environment Variables (Using the Default Installation Path `/usr/local/Ascend` as an Example)"
+
+msgid "**运行单个测试用例**"
+msgstr "**Run a Single Test Case**"
+
+msgid "# 以向量加法测试用例为例\\n"
+msgstr "# Vector Addition Test Case Example"
+
+msgid "**运行全部测试用例**"
+msgstr "**Run All Test Cases**"
+
+msgid "# 串行执行全部用例\\n"
+msgstr "# Execute All Test Cases Sequentially"
+
+msgid "如需加速测试，可通过`-n`指定并行worker数（并行执行需安装pytest-xdist）："
+msgstr "To speed up testing, you can specify the number of parallel workers with `-n` (parallel execution requires `pytest-xdist` to be installed):"
+
+msgid "python -m pytest -n 8 third_party/ascend/unittest/pytest_ut\\n"
+msgstr "python -m pytest -n 8 third_party/ascend/unittest/pytest_ut"
+
+msgid "如需要打印测试过程详细信息，添加`-sv`参数："
+msgstr "If you need to print detailed information during the test process, add the `-sv` parameter:"
+
+msgid "python -m pytest -sv -n 8 third_party/ascend/unittest/pytest_ut\\n"
+msgstr "python -m pytest -sv -n 8 third_party/ascend/unittest/pytest_ut"
+
+msgid "执行完成后输出示例如下："
+msgstr "After execution completes, the output is as follows:"
+
+msgid "collected 6 items\\n"
+msgstr "collected 6 items"
 
 msgid "安装常见问题"
 msgstr "Common Installation Issues"
