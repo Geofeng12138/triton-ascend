@@ -5,10 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:21+0000\n"
-"PO-Revision-Date: 2026-08-11 02:21+0000\n"
+"POT-Creation-Date: 2026-08-25 23:28+0800\n"
+"PO-Revision-Date: 2026-08-25 23:28+0800\n"
 
 "X-Source-Commit: 003d8f3496a08299fb1707a392f435f0674be61c\n"
+
+"X-Skill-Version: 1.1.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English following your rules. However, you haven't provided the actual Chinese text to translate. Please provide the text you'd like me to translate."
+msgstr "I'm ready to translate the Chinese text into English. Please provide the text you'd like me to translate."
 
 msgid "Triton算子开发指南"
 msgstr "Triton Operator Development Guide"
@@ -55,7 +57,7 @@ msgid "设置最大硬件核数"
 msgstr "Set the maximum number of hardware cores."
 
 msgid "在一个Triton算子中，通常使用grid进行分核操作。对于GPU而言，其计算核心SM通常是几十到几百量级。但是对于昇腾 NPU 平台而言，其计算核心AI Core的数量在几十个的量级。 虽然运行时接口允许下发并发任务数最大为65535，但超过物理核数的部分是通过新一轮的下发来完成的。如果直接将GPU上的Triton算子拿到昇腾平台上运行，这些大量的任务会引入可观的核启动和核初始化时的额外开销，影响到算子性能表现。 因此，需要针对昇腾平台特性修改分核逻辑。最推荐的做法是**将分核的数量直接固定为硬件的物理核数**，在核内做更为细致的数据分块："
-msgstr "In a Triton operator, the grid is typically used for kernel partitioning. For GPUs, the number of compute cores (SMs) is usually on the order of tens to hundreds. However, for the Ascend NPU platform, the number of compute cores (AI Cores) is on the order of tens. Although the runtime interface allows a maximum of 65535 concurrent tasks to be dispatched, the portion exceeding the physical core count is completed through additional dispatch rounds. If Triton operators from GPUs are directly run on the Ascend platform, these numerous tasks will introduce considerable overhead from kernel launch and kernel initialization, impacting operator performance. Therefore, the kernel partitioning logic needs to be modified to suit the characteristics of the Ascend platform. The most recommended approach is to **fix the number of kernels directly to the hardware's physical core count** and perform finer-grained data partitioning within each kernel."
+msgstr "In a Triton operator, the grid is typically used for kernel partitioning. For GPUs, the number of compute cores (SMs) is usually on the order of tens to hundreds. However, for the Ascend NPU platform, the number of compute cores (AI Cores) is on the order of tens. Although the runtime interface allows a maximum of 65535 concurrent tasks to be dispatched, the portion exceeding the physical core count is completed through additional dispatch rounds. If Triton operators from GPUs are directly run on the Ascend Platform, these numerous tasks will introduce considerable overhead from kernel launch and kernel initialization, impacting operator performance. Therefore, the kernel partitioning logic needs to be modified to suit the characteristics of the Ascend Platform. The most recommended approach is to **fix the number of kernels directly to the hardware's physical core count** and perform finer-grained data partitioning within each kernel."
 
 msgid "<br />\\n"
 msgstr "<br />"
@@ -70,7 +72,7 @@ msgid "对于CV融合算子，分核数等于**Cube核数量**（通常为Vector
 msgstr "For the CV fusion operator, the number of split cores equals the **number of Cube cores** (usually half the number of Vector cores). When the operator executes, it invokes Vector cores in a 1:2 ratio."
 
 msgid "一般而言，在NPU卡上，一个计算核心AI Core含有一个cube核，每个cube核配有两个vector核，因此可以通过以下接口获取**Vector核数(vectorcore_num)**与**Cube核数量(aicore_num)**："
-msgstr "Generally, on an NPU card, a computing core AI Core contains one cube core, and each cube core is equipped with two vector cores. Therefore, the **number of vector cores (vectorcore_num)** and the **number of cube cores (aicore_num)** can be obtained through the following interfaces:"
+msgstr "Generally, on an NPU card, a computing core AI Core contains one Cube Core, and each Cube Core is equipped with two vector cores. Therefore, the **number of vector cores (vectorcore_num)** and the **number of cube cores (aicore_num)** can be obtained through the following interfaces:"
 
 msgid "import torch\\n"
 msgstr "import torch"
@@ -97,7 +99,7 @@ msgid "尽量保证Tensor的尾轴（最后一个维度）大小数据对齐"
 msgstr "Try to ensure that the size data of the Tensor's trailing axis (the last dimension) is aligned."
 
 msgid "【描述】对于VV类算子需要调用Vector核计算时，昇腾硬件的UB要求Tensor的尾轴（最后一个维度）大小能被32Byte整除，而对于CV类算子需要调用vector核和Cube核计算时，要求Tensor的尾轴大小能被512Byte整除，若尾轴长度不足则会自动补齐。在此前提下，对模型中shape为(2048,3)和(2048,1)Tensor的种种操作，都会因为自动补齐导致性能明显恶化，此时可考虑通过转置操作将对齐轴转到低维，直到store时再转置为原始状态，从而规避自动补齐，优化计算速度。同时由于转置操作本身也受自动补齐规则的影响，因此同样需要特殊技巧来规避补齐。这里列出一个\"借轴转置\"的tip，适用于**tensor.numel() % 256Byte == 0**的场景，具体操作如下："
-msgstr "【Description】For VV-type operators that need to invoke the Vector core for computation, the UB of Ascend hardware requires that the size of the tensor's last axis (the final dimension) be divisible by 32 bytes. For CV-type operators that need to invoke both the Vector core and the Cube core, the tensor's last axis size must be divisible by 512 bytes. If the last axis length is insufficient, it will be automatically padded. Under this premise, various operations on tensors with shapes (2048,3) and (2048,1) in the model will experience significant performance degradation due to automatic padding. In such cases, consider using transpose operations to move the alignment axis to a lower dimension, and only transpose back to the original state at store time, thereby avoiding automatic padding and optimizing computation speed. Additionally, since the transpose operation itself is also affected by the automatic padding rule, special techniques are also needed to avoid padding. Here is a \"borrowed-axis transpose\" tip, applicable to scenarios where **tensor.numel() % 256Byte == 0**, with the specific operations as follows:"
+msgstr "【Description】For VV-type operators that need to invoke the Vector Core for computation, the UB of Ascend Hardware requires that the size of the tensor's last axis (the final dimension) be divisible by 32 bytes. For CV-type operators that need to invoke both the Vector Core and the Cube Core, the tensor's last axis size must be divisible by 512 bytes. If the last axis length is insufficient, it will be automatically padded. Under this premise, various operations on tensors with shapes (2048,3) and (2048,1) in the model will experience significant performance degradation due to automatic padding. In such cases, consider using transpose operations to move the alignment axis to a lower dimension, and only transpose back to the original state at store time, thereby avoiding automatic padding and optimizing computation speed. Additionally, since the transpose operation itself is also affected by the automatic padding rule, special techniques are also needed to avoid padding. Here is a \"borrowed-axis transpose\" tip, applicable to scenarios where **tensor.numel() % 256Byte == 0**, with the specific operations as follows:"
 
 msgid "注：VV类算子表示该类算子在运算过程中只使用了Vector Core；CV类算子表示该类算子运算过程中既使用了AI Core又使用了Vector Core。"
 msgstr "Note: VV-type operators indicate that such operators only use the Vector Core during computation; CV-type operators indicate that such operators use both the AI Core and the Vector Core during computation."
