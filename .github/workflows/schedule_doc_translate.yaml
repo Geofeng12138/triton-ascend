@@ -46,12 +46,36 @@ jobs:
       pull-requests: write
     env:
       TARGET_BRANCH: ${{ inputs.target_branch || 'main' }}
-      GH_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
     steps:
+      # Resolve the git token explicitly. Using
+      # `secrets.PAT_TOKEN || secrets.GITHUB_TOKEN` inline does NOT work: when
+      # PAT_TOKEN is not configured (e.g. on a fork), GitHub evaluates the
+      # whole expression to an empty string instead of falling through to
+      # GITHUB_TOKEN, which makes actions/checkout fail with:
+      #   "fatal: could not read Username for 'https://github.com': terminal prompts disabled"
+      - name: Resolve Git token (PAT when configured, else GITHUB_TOKEN)
+        id: resolve_token
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          if [ -n "$PAT_TOKEN" ]; then
+            # PAT has explicit push/PR permissions on the target repo.
+            echo "token=${PAT_TOKEN}" >> "$GITHUB_OUTPUT"
+            # Expose the same token for later `git push` / `gh pr create` steps.
+            echo "GH_TOKEN=${PAT_TOKEN}" >> "$GITHUB_ENV"
+            echo "Using PAT_TOKEN for git authentication"
+          else
+            # Fall back to the job-scoped GITHUB_TOKEN (permissions declared
+            # at the job level: contents: write, pull-requests: write).
+            echo "token=${{ github.token }}" >> "$GITHUB_OUTPUT"
+            echo "GH_TOKEN=${{ github.token }}" >> "$GITHUB_ENV"
+            echo "PAT_TOKEN not configured; using GITHUB_TOKEN"
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          token: ${{ env.GH_TOKEN }}
+          token: ${{ steps.resolve_token.outputs.token }}
           ref: ${{ env.TARGET_BRANCH }}
 
       - name: Setup Python
