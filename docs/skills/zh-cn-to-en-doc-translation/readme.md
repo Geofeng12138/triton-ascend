@@ -1,4 +1,4 @@
-# 翻译技能可扩展操作指南（中文版）
+# 翻译技能可扩展操作指南
 
 本指南介绍如何向 `skill.md` 翻译技能文档中添加自定义翻译需求。
 `skill.md` 是 Triton-Ascend 项目中文（简体）文档翻译为英文时的**权威术语表与规则文档**，
@@ -11,7 +11,7 @@
 ```text
 docs/skills/zh-cn-to-en-doc-translation/
 ├── skill.md                  # 权威翻译技能文档（术语表 + 规则）
-└── EXTENSION_GUIDE_zh.md     # 本指南（如何扩展 skill.md）
+└── readme.md                 # 本指南（如何扩展 skill.md）
 ```
 
 翻译引擎默认从以下路径读取技能文档：
@@ -28,13 +28,13 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
 
 | 章节 | 内容 | 如何扩展 |
 | ---- | ---- | -------- |
-| `1. Role / 角色定义` | 翻译专家角色说明 | 一般无需修改 |
-| `2. Global Translation Rules / 全局翻译规则` | 通用翻译规则（编号 1-13） | 可新增编号条目 |
-| `3. Tone & Style / 语气与风格` | 翻译风格要求 | 可新增条目 |
-| `4. Terminology Glossary / 术语表` | 中译英权威术语映射表（4.1-4.9） | **最常扩展的章节** |
-| `5. Domain-Specific Style Notes / 领域特定风格说明` | Triton-Ascend 特定风格规则 | 可新增编号条目 |
-| `6. Extensibility / 可扩展性` | 扩展规则说明 | 一般无需修改 |
-| `7. Reference / 当前翻译流水线` | 翻译引擎信息 | 一般无需修改 |
+| `1. 角色定义` | 翻译专家角色说明 | 一般无需修改 |
+| `2. 全局翻译规则` | 通用翻译规则（编号 1-13） | 可新增编号条目 |
+| `3. 语气与风格` | 翻译风格要求 | 可新增条目 |
+| `4. 术语表（自定义中文 → 英文）` | 中译英权威术语映射表（4.1-4.9） | **最常扩展的章节** |
+| `5. 领域特定风格说明` | Triton-Ascend 特定风格规则 | 可新增编号条目 |
+| `6. 可扩展性` | 扩展规则说明 | 一般无需修改 |
+| `7. 参考：当前翻译流水线` | 翻译引擎信息 | 一般无需修改 |
 
 ---
 
@@ -48,7 +48,7 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
 **操作步骤：**
 
 1. 打开 `docs/skills/zh-cn-to-en-doc-translation/skill.md`。
-2. 定位到第 4 节中最接近的术语表（4.1 - 4.8）。
+2. 定位到第 4 节中最接近的术语表（4.1 - 4.9）。
 3. 在表格末尾（或合适位置）添加一行，格式如下：
 
    ```markdown
@@ -74,9 +74,9 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
 假设需要添加术语"流水线并行"：
 
 ```markdown
-### 4.5 Autotune / Tiling terms / 自动调优与分块术语
+### 4.5 自动调优与分块术语
 
-| 中文术语 | English (authoritative) | Notes / 说明 |
+| 中文术语 | 英文译法（权威） | 说明 |
 | ------- | ----------------------- | ----- |
 | ...（已有条目）... |
 | 流水线并行 | pipeline parallelism | 新的流水线并行场景 |
@@ -95,7 +95,7 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
 3. 如果规则仅适用于特定领域（如仅适用于调试文档），则在 **第 5 节** 中添加。
 
    ```markdown
-   ## 2. Global Translation Rules / 全局翻译规则
+   ## 2. 全局翻译规则
 
    13. 新规则的描述...
        新规则的详细说明...
@@ -104,10 +104,9 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
 4. 如果规则属于全新领域，可在 **第 5 节** 添加新的编号：
 
    ```markdown
-   ## 5. Domain-Specific Style Notes / 领域特定风格说明
+   ## 5. 领域特定风格说明
 
-   13. **新领域规则标题 / New Domain Rule**:
-       English description.
+   13. **新领域规则标题**：
        中文描述。
    ```
 
@@ -121,12 +120,12 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
 
 **操作步骤：**
 
-1. 在 **第 4 节** 中加入新的子章节，例如 `### 4.10 XXX terms / XXX 术语`。
+1. 在 **第 4 节** 中加入新的子章节，例如 `### 4.10 XXX 术语`。
 
    ```markdown
-   ### 4.10 新领域 terms / 新领域术语
+   ### 4.10 新领域术语
 
-   | Chinese | English (authoritative) | Notes / 说明 |
+   | 中文术语 | 英文译法（权威） | 说明 |
    | ------- | ----------------------- | ----- |
    | 新术语A | New Term A | 说明 |
    ```
@@ -168,7 +167,7 @@ docs/skills/zh-cn-to-en-doc-translation/skill.md
 
 - 术语表表格必须保持 `| 列名 | 列名 | 列名 |` 的格式。
 - 每行必须包含**完整的一行内容**，不要拆行。
-- 中英文内容都必须保留（英文 + 中文说明），以便中英文读者都能理解。
+- 内容使用中文撰写；术语表需同时保留中文术语与英文译法。
 
 ### 4.2 避免重复条目
 
@@ -207,7 +206,7 @@ last-updated: 2026-08-24
 - [ ] 新术语/规则已添加到**最具体**的表格/章节。
 - [ ] 没有重复条目。
 - [ ] 表格格式正确（`| 列 |...` 格式，每行完整）。
-- [ ] 中英文描述都已添加。
+- [ ] 中文描述已添加。
 - [ ] `version` 字段已递增。
 - [ ] `last-updated` 已更新。
 - [ ] 修改内容能被翻译引擎正确加载（可运行脚本验证）。
