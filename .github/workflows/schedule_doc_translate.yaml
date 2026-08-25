@@ -173,6 +173,12 @@ jobs:
 
       - name: Create branch and commit
         if: steps.detect.outputs.has_changes == 'true'
+        env:
+          # The resolved git token (PAT if configured, else GITHUB_TOKEN).
+          # Injected explicitly so `git push` uses credentials with write
+          # access. A plain `git push origin` can fall back to credentials
+          # lacking write permission -> 403 "denied to <user>".
+          PUSH_TOKEN: ${{ steps.resolve_token.outputs.token }}
         run: |
           git diff --cached --quiet && echo "Nothing to commit" && exit 1
 
@@ -185,6 +191,9 @@ jobs:
 
           count=$(git diff --cached --name-only | wc -l)
           git commit -s -m "[doc](feat) Auto-translate ${count} file(s) (Sphinx gettext)"
+          # Explicitly set the push URL with the token so the push authenticates
+          # as x-access-token (GITHUB_TOKEN) / PAT with write permission.
+          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push origin "${BRANCH_NAME}"
 
       - name: Create Pull Request
