@@ -8,14 +8,13 @@
 
 - Ascend产品：支持Atlas A2/A3/950系列。
 
-- NPU配置：建议至少单卡32GB内存。
+- NPU配置：建议单卡32GB及以上内存。
 
-- 操作系统：需Linux系统，具体请参考<a href="https://www.hiascend.com/hardware/compatibility" style="text-decoration: none; color: #0066cc;">兼容性查询助手</a>。本文接下来所有操作均以**Ubuntu**环境演示。
+- 操作系统：需Linux系统，具体请参考[兼容性查询助手](https://www.hiascend.com/hardware/compatibility)。本文接下来所有操作均以**Ubuntu**环境演示。
 
 **软件依赖**
 
-确定CANN、Python和TorchNPU软件版本并安装。其中，可以参考昇腾社区官网《[CANN快速安装](https://www.hiascend.com/cann/download)》
-完成驱动与固件安装。
+确定CANN、Python和TorchNPU软件版本并安装。其中，可以参考昇腾社区官网《[CANN快速安装](https://www.hiascend.com/cann/download)》完成驱动与固件安装。
 
 - CANN版本：9.1.0
 - Python版本：python3.11
@@ -47,14 +46,15 @@ pip install ninja cmake wheel pybind11 # build-time dependencies
 ### 编译Triton-Ascend
 
 ```bash
-git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
+git clone https://github.com/triton-lang/triton-ascend.git
+cd triton-ascend
 git checkout main
 pip install -e .
 ```
 
 ### 自定义LLVM构建（可选）
 
-如果需要自定义构建LLVM过程的，可以执行下面的步骤去编译Triton-Ascend。
+如需自定义构建LLVM，可执行以下步骤编译Triton-Ascend。
 
 1. **代码准备**：通过`git checkout`检出指定版本的LLVM源码并应用补丁。
 
@@ -92,7 +92,8 @@ pip install -e .
 3. **编译Triton-Ascend**
 
     ```bash
-    git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
+    git clone https://github.com/triton-lang/triton-ascend.git
+    cd triton-ascend
     LLVM_SYSPATH=${LLVM_INSTALL_PREFIX} \
     TRITON_BUILD_WITH_CCACHE=true \
     TRITON_BUILD_WITH_CLANG_LLD=true \
@@ -102,38 +103,31 @@ pip install -e .
     python3 setup_ascend.py install
     ```
 
-## 镜像
+## 镜像安装
 
 ### 开箱即用镜像
 
-#### 镜像内关键组件
+该类镜像基于CANN镜像预装Triton-Ascend，进入容器后开箱即用。适用于快速体验和验证Triton-Ascend功能的场景。
 
-| 组件              | 版本          |
-|-----------------|-------------|
-| Triton-Ascend   | 3.2.2       |
-| CANN            | 9.1.0       |
-| Torch-NPU       | 2.7.1.post8 |
+**表1**Triton-Ascend镜像列表。
 
-#### 镜像列表
+| 芯片类型 | 镜像标签 | Dockerfile | 镜像下载命令 |
+|----------|----------|------------|-------------|
+| A2 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-debian12-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-debian12-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-debian12-py3.11` |
+| A2 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11` |
+| A2 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-openeuler24.03-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-openeuler24.03-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-openeuler24.03-py3.11` |
+| A3 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-debian12-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-debian12-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-debian12-py3.11` |
+| A3 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-ubuntu24.04-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-ubuntu24.04-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-ubuntu24.04-py3.11` |
+| A3 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-openeuler24.03-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-openeuler24.03-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-openeuler24.03-py3.11` |
+| 950 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-debian12-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-debian12-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-debian12-py3.11` |
+| 950 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-ubuntu24.04-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-ubuntu24.04-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-ubuntu24.04-py3.11` |
+| 950 | 3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-openeuler24.03-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-openeuler24.03-py3.11/Dockerfile) | `docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-openeuler24.03-py3.11` |
 
-| 镜像标签                                                            | Dockerfile                                                                               | 镜像下载命令                                                                                            |
-|-----------------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-debian12-py3.11       | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-debian12-py3.11/Dockerfile)       | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-debian12-py3.11       |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11    | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11/Dockerfile)    | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11    |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-openeuler24.03-py3.11 | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-openeuler24.03-py3.11/Dockerfile) | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-openeuler24.03-py3.11 |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-debian12-py3.11         | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-debian12-py3.11/Dockerfile)         | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-debian12-py3.11         |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-ubuntu24.04-py3.11      | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-ubuntu24.04-py3.11/Dockerfile)      | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-ubuntu24.04-py3.11      |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-openeuler24.03-py3.11   | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-openeuler24.03-py3.11/Dockerfile)   | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-a3-openeuler24.03-py3.11   |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-debian12-py3.11        | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-debian12-py3.11/Dockerfile)        | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-debian12-py3.11        |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-ubuntu24.04-py3.11     | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-ubuntu24.04-py3.11/Dockerfile)     | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-ubuntu24.04-py3.11     |
-| 3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-openeuler24.03-py3.11  | [Dockerfile](../../docker/3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-openeuler24.03-py3.11/Dockerfile)  | docker pull quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-950-openeuler24.03-py3.11  |
+> 更多镜像请参考[OVERVIEW.md](../../docker/OVERVIEW.zh.md)。
 
-更多镜像参见[OVERVIEW.md](../../docker/OVERVIEW.zh.md)
-
-#### 镜像使用
+**镜像使用**：以 `3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11` 为例。其中，3.2.2代表Triton-Ascend的版本。
 
 ```bash
-# 这里以 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 为例
 docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 --security-opt seccomp=unconfined \
 --device=/dev/davinci0 \
@@ -156,82 +150,31 @@ docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 \
 /bin/bash
 
-# 镜像已安装运行算子所需的基础组件（比如CANN, Torch-NPU, Triton-Ascend等），可直接运行样例
+# 镜像已安装运行算子所需的基础组件（CANN、TorchNPU、Triton-Ascend等），可直接运行样例
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
 ### 开发镜像
 
-#### 检查镜像版本
+该类镜像仅包含CANN开发环境，进入容器后需手动安装Triton-Ascend。适用于需要自定义Triton-Ascend版本或从源码编译的场景。
 
-**表1** CANN版本与镜像标签对照表。
-<table style="table-layout: fixed; width: 100%; border-collapse: collapse;">
-  <tr style="height: 50px;">
-    <th style="width: 20%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">CANN版本</th>
-    <th style="width: 20%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">芯片类型</th>
-    <th style="width: 20%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">Python版本</th>
-    <th style="width: 40%; border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #f5f5f5;">镜像标签</th>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A2</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.11</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-910b-ubuntu22.04-py3.11</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A3</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.11</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-a3-ubuntu22.04-py3.11</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">950</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.11</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-950-ubuntu22.04-py3.11</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A2</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-910b-ubuntu22.04-py3.12</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A3</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-a3-ubuntu22.04-py3.12</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">950</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.0.0-950-ubuntu22.04-py3.12</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.1.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A2</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.1.0-910b-ubuntu22.04-py3.12</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.1.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">A3</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.1.0-a3-ubuntu22.04-py3.12</td>
-  </tr>
-  <tr style="height: 50px;">
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.1.0</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">950</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3.12</td>
-    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">9.1.0-950-ubuntu22.04-py3.12</td>
-  </tr>
-</table>
+**表2**CANN版本与镜像标签对照表。
 
-#### 镜像使用
+| CANN版本 | 芯片类型 | Python版本 | 镜像标签 |
+|----------|----------|------------|----------|
+| 9.0.0 | A2 | 3.11 | 9.0.0-910b-ubuntu22.04-py3.11 |
+| 9.0.0 | A3 | 3.11 | 9.0.0-a3-ubuntu22.04-py3.11 |
+| 9.0.0 | 950 | 3.11 | 9.0.0-950-ubuntu22.04-py3.11 |
+| 9.0.0 | A2 | 3.12 | 9.0.0-910b-ubuntu22.04-py3.12 |
+| 9.0.0 | A3 | 3.12 | 9.0.0-a3-ubuntu22.04-py3.12 |
+| 9.0.0 | 950 | 3.12 | 9.0.0-950-ubuntu22.04-py3.12 |
+| 9.1.0 | A2 | 3.12 | 9.1.0-910b-ubuntu22.04-py3.12 |
+| 9.1.0 | A3 | 3.12 | 9.1.0-a3-ubuntu22.04-py3.12 |
+| 9.1.0 | 950 | 3.12 | 9.1.0-950-ubuntu22.04-py3.12 |
+
+**镜像使用**：以 `9.0.0-a3-ubuntu22.04-py3.11` 为例。
 
 ```bash
-# 这里以 9.0.0-a3-ubuntu22.04-py3.11 为例
 docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 --security-opt seccomp=unconfined \
 --device=/dev/davinci0 \
@@ -254,15 +197,15 @@ docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 quay.io/ascend/cann:9.0.0-a3-ubuntu22.04-py3.11 \
 /bin/bash
 
-# 进入容器，可在前面的快速安装和源码安装中任选一种方式安装Triton-Ascend
+# 进入容器，参考前文「快速安装」或「源码安装」完成Triton-Ascend安装
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
 ## 运行样例
 
-**运行tutorials中向量加法示例验证结果**
+**样例一：运行tutorials中向量加法示例验证结果**
 
-向量加法示例：<a href="https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/01-vector-add.py" style="text-decoration: none; color: #0066cc;">01-vector-add.py </a>
+向量加法示例：<a href="https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/01-vector-add.py" style="text-decoration: none; color: #0066cc;">01-vector-add.py</a>
 
 ```bash
 # 设置CANN环境变量（以root用户默认安装路径`/usr/local/Ascend`为例）
@@ -281,7 +224,7 @@ tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')
 The maximum difference between torch and triton is 0.0
 ```
 
-## 运行Pytest UT
+**样例二：运行Pytest UT**
 
 源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。执行前需完成Triton-Ascend安装，并设置CANN环境变量。
 
@@ -292,14 +235,14 @@ source /usr/local/Ascend/ascend-toolkit/set_env.sh
 pip install pytest pytest-xdist
 ```
 
-**运行单个测试用例**
+运行单个测试用例
 
 ```bash
 # 以向量加法测试用例为例
 python -m pytest third_party/ascend/unittest/pytest_ut/test_add.py
 ```
 
-**运行全部测试用例**
+运行全部测试用例
 
 ```bash
 # 串行执行全部用例
@@ -337,20 +280,20 @@ third_party/ascend/unittest/pytest_ut/test_add.py ......
 pip install torch==2.7.1+cpu --index-url https://download.pytorch.org/whl/cpu
 ```
 
-**问题二：编译安装Triton-Ascend时，如果GCC < 9.4.0，可能报错 “ld.lld: error: unable to find library -lstdc++fs”**
+**问题二：编译安装Triton-Ascend时，如果GCC < 9.4.0，可能报错“ld.lld: error: unable to find library -lstdc++fs”**
 
 **解决措施**
 
 一般是链接器无法找到stdc++fs库引起的报错。该库用于支持GCC 9之前版本的文件系统特性。此时需要手动把CMake文件中以下相关代码片段的注释打开。
 文件路径：triton-ascend/CMakeLists.txt
 
-```bash
+```cmake
 if (NOT WIN32 AND NOT APPLE)
 link_libraries(stdc++fs)
 endif()
 ```
 
-**问题三：执行算子时报错 ModuleNotFoundError: No module named 'triton._C.libtriton.ascend'; 'triton._C.libtriton' is not a package**
+**问题三：执行算子时报错“ModuleNotFoundError: No module named 'triton._C.libtriton.ascend'; 'triton._C.libtriton' is not a package”**
 
 **根因分析**
 
@@ -358,7 +301,7 @@ triton-ascend目录被triton覆盖，导致triton-ascend功能受损。
 
 **解决措施**
 
-卸载已损坏的triton-ascend，重新安装即可。以3.2.1 版本为例，可执行如下命令修复：
+卸载已损坏的triton-ascend，重新安装即可。以3.2.1版本为例，可执行如下命令修复：
 
 ```bash
 pip uninstall triton-ascend triton
@@ -375,21 +318,15 @@ ERROR: pip's dependency resolver does not currently take into account all the pa
 triton-ascend 3.2.1 requires triton==3.5.0, but you have triton 3.5.1 which is incompatible.
 ```
 
-若用户遇到且想恢复Triton-Ascend功能，可做如下操作：
-
-```bash
-pip uninstall triton-ascend triton
-pip install triton-ascend==3.2.1 --extra-index-url=https://mirrors.huaweicloud.com/ascend/repos/pypi
-
-```
+若用户遇到且想恢复Triton-Ascend功能，可根据问题三的解决措施进行命令修复。
 
 **问题五：Triton-Ascend 3.2.1版本依赖的Triton版本为何不一致？**
 
-答复：X86与Arm使用不同版本的社区Triton安装包，是因为社区从Triton 3.2版本开始提供X86安装包，而Arm安装包是从Triton 3.5版本开始提供的。
+答复：x86与Arm使用不同版本的社区Triton安装包，是因为社区从Triton 3.2版本开始提供x86安装包，而Arm安装包是从Triton 3.5版本开始提供的。
 
-**问题六：如何确认芯片类型**
+**问题六：如何确认芯片类型？**
 
-您可以使用npu-smi命令查看系统上的NPU型号。例如，在npu-smi info命令的输出中，"910B4" 对应芯片类型A2（昇腾910b系列）：
+可以使用npu-smi命令查看系统上的NPU型号。例如，在npu-smi info命令的输出中，“910B4”对应芯片类型A2（昇腾910b系列）：
 
 ```Text
 root@localhost:/# npu-smi  info
