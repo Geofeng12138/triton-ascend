@@ -66,7 +66,7 @@ pip install -e .
     git apply llvm_patch_f6ded0b.patch
     ```
 
-2. **构建LLVM**：路径 `/path/llvm-install` 为用户规划的LLVM安装路径，需根据实际调整；路径`{PATH_TO}`为用户第一步检出LLVM源码的路径。
+2. **构建LLVM**：路径`/path/llvm-install`为用户规划的LLVM安装路径，需根据实际调整；路径`{PATH_TO}`为用户第一步检出LLVM源码的路径。
 
     ```bash
     export LLVM_INSTALL_PREFIX=/path/llvm-install
@@ -89,7 +89,7 @@ pip install -e .
     cp  {PATH_TO}/llvm-project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
     ```
 
-3. **编译Triton-Ascend**
+3. **编译Triton-Ascend**：通过配置LLVM路径定位依赖库，启用ccache加速编译，并关闭proton和单元测试来减少构建开销。
 
     ```bash
     git clone https://github.com/triton-lang/triton-ascend.git
