@@ -103,9 +103,6 @@ pip install -e .
     python3 setup_ascend.py install
     ```
 
-<<<<<<< HEAD
-## 镜像安装
-=======
   **源码编译参数说明表**
 
   | 参数（环境变量）                 | 默认值         | 说明                                                                                                                                           |
@@ -124,7 +121,6 @@ pip install -e .
   | `IS_MANYLINUX`                | OFF           | 设为 `ON` 后构建生成的 wheel 包为 manylinux 兼容格式，用于在不同 Linux 发行版上安装。                                                                                   |
 
 ## 镜像
->>>>>>> b64287188046fe7bb0cfd424ee3e389f96a7affa
 
 ### 开箱即用镜像
 
