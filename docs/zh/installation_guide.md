@@ -89,7 +89,7 @@ pip install -e .
     cp  {PATH_TO}/llvm-project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
     ```
 
-3. **编译Triton-Ascend**：通过配置LLVM路径定位依赖库，启用ccache加速编译，并关闭Proton和单元测试来减少构建开销（参数说明请参考表1）。
+3. **编译Triton-Ascend**：通过配置LLVM路径定位依赖库，启用ccache加速编译，并关闭Proton和单元测试来减少构建开销。
 
     ```bash
     git clone https://github.com/triton-lang/triton-ascend.git
@@ -286,7 +286,7 @@ triton-ascend 3.2.1 requires triton==3.5.0, but you have triton 3.5.1 which is i
 
 可以使用npu-smi命令查看系统上的NPU型号。例如，在npu-smi info命令的输出中，“910B4”对应芯片类型A2（昇腾910b系列）：
 
-```Text
+```text
 root@localhost:/# npu-smi  info
 +------------------------------------------------------------------------------------------------------------------+
 | npu-smi 26.0.rc1                            Version: 26.0.rc1                                                    |
