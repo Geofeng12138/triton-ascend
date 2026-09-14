@@ -1,9 +1,4 @@
 <!-- markdownlint-disable-file MD041 -->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vllm-project/vllm-ascend/main/docs/source/logos/vllm-ascend-logo-text-dark.png">
-  </picture>
-</p>
 
 <h3 align="center"><font size="68">
 Triton-Ascend
@@ -112,9 +107,9 @@ pip install -e .
 # Check out the specified version of LLVM source code and apply patches
 git clone --no-checkout https://github.com/llvm/llvm-project.git
 cd llvm-project
-git checkout fad3272286528b8a491085183434c5ad4b59ab92
-wget https://raw.gitcode.com/Ascend/triton-ascend/blobs/2b0a06eb21438359d6d0576b622e3bb5e0292d17/fad3272.patch
-git apply fad3272.patch
+git checkout f6ded0be897e2878612dd903f7e8bb85448269e5
+wget https://raw.githubusercontent.com/triton-lang/triton-ascend/main/third_party/ascend/patch/llvm_patch_f6ded0b.patch
+git apply llvm_patch_f6ded0b.patch
 
 export LLVM_INSTALL_PREFIX=/path/to/llvm-install
 
@@ -165,7 +160,7 @@ python3 setup_ascend.py install
 ```bash
 git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
 docker build \
---build-arg CANN_BASE_IMAGE=quay.io/ascend/cann:8.5.0-a3-ubuntu22.04-py3.10 \
+--build-arg CANN_BASE_IMAGE=quay.io/ascend/cann:9.1.0-a3-ubuntu22.04-py3.12 \
 -t triton-ascend-image:latest -f ./docker/Dockerfile .
 ```
 
@@ -225,8 +220,7 @@ docker exec -u root -it triton-ascend_container /bin/bash
 
 ## 🏘️ Community Activities
 
-1. [Meeting Calendar](https://meeting.osinfra.cn/ascend)
-2. [Meeting Minutes Board](https://docs.google.com/document/d/1qfat2wZtO2nfZb5FC2dWAcR6sTqgTNSvvh7MzTDoI4s/edit?pli=1&tab=t.0)
+1. [Meeting Time, Link, and Minutes](https://docs.google.com/document/d/1qfat2wZtO2nfZb5FC2dWAcR6sTqgTNSvvh7MzTDoI4s/edit?pli=1&tab=t.0)
 
 ## 🤝 Community and Contribution
 

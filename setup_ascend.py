@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 try:
@@ -22,6 +23,7 @@ def _set_default_env_vars():
     os.environ.setdefault("TRITON_BUILD_WITH_CLANG_LLD", "true")
     os.environ.setdefault("TRITON_BUILD_PROTON", "OFF")
     os.environ.setdefault("TRITON_BUILD_TD", "OFF")
+    os.environ.setdefault("TRITON_BUILD_NPUIR", "OFF")
     os.environ.setdefault("TRITON_WHEEL_NAME", "triton_ascend")
     os.environ.setdefault("TRITON_APPEND_CMAKE_ARGS", "-DTRITON_BUILD_UT=OFF")
 
@@ -149,6 +151,34 @@ def _apply_triton_ascend_patch():
         _apply_patch(str(patch))
 
 
+def _print_patch_restore_warning():
+    """Warn that the build left patched (dirty) source files in the worktree.
+
+    ``_apply_triton_ascend_patch`` modifies in-tree Triton sources, so a
+    subsequent ``git pull`` would fail with local changes. Users can restore
+    those files with ``python3 init_code.py`` (which runs ``git checkout --``
+    on the patched file list).
+    """
+    if not _is_git_repo():
+        return
+    if sys.stdout.isatty():
+        highlight = "\033[1;93m"
+        reset = "\033[0m"
+    else:
+        highlight = ""
+        reset = ""
+    print("")
+    print("=" * 72)
+    print("WARNING: Ascend patches were applied to the in-tree Triton sources")
+    print("         during this build. Your working tree is now dirty, which")
+    print("         will cause `git pull` to fail with local changes.")
+    print("")
+    print("         To restore the source files, run:")
+    print(f"            >>> {highlight}python3 init_code.py{reset} <<<")
+    print("=" * 72)
+    print("")
+
+
 def _get_default_version():
     version_file = _THIS_DIR / "version.txt"
     if version_file.exists():
@@ -234,22 +264,58 @@ def add_git_safe_dir(path: str):
         ], cwd=_THIS_DIR)
 
 
+def _git_check_call_with_retry(cmd, cwd=None, retries=3, interval=5):
+    """Run a git network command (clone/fetch) with retries.
+
+    Network operations against the remote may fail intermittently; retry up to
+    ``retries`` times, waiting ``interval`` seconds between attempts.
+    """
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            subprocess.check_call(cmd, cwd=cwd)
+            return
+        except subprocess.CalledProcessError as e:
+            last_error = e
+            if attempt < retries:
+                print(f"Command '{' '.join(cmd)}' failed (attempt {attempt}/{retries}), "
+                      f"retrying in {interval}s...")
+                time.sleep(interval)
+            else:
+                print(f"Command '{' '.join(cmd)}' failed after {retries} attempts.")
+    raise last_error
+
+
+def _ensure_npuir_submodule():
+    if os.getenv("TRITON_BUILD_NPUIR", "OFF").upper() not in ["ON", "1", "YES", "TRUE", "Y"]:
+        return
+    import build_npuir
+    build_npuir.build_npuir()
+
+
 def _ensure_distributed_submodule():
     if os.getenv("TRITON_BUILD_TD", "OFF").upper() not in ["ON", "1", "YES", "TRUE", "Y"]:
         return
     distributed_dir = _THIS_DIR / "third_party" / "ascend" / "Triton-distributed-ascend"
-    commit_id = "63e07743167ab7cbe7902b19214a9c56b24e9777"
+    commit_id = "7786ae06d5cf16fc232d3ccfeb4a18f5d6a9e26e"
     if not distributed_dir.is_dir():
-        subprocess.check_call([
-            "git",
-            "clone",
-            "https://gitcode.com/Ascend/Triton-distributed-ascend.git",
-            "-b",
-            "master",
-        ], cwd=_THIS_DIR / "third_party" / "ascend")
+        try:
+            _git_check_call_with_retry([
+                "git",
+                "clone",
+                "https://gitcode.com/Ascend/Triton-distributed-ascend.git",
+                "-b",
+                "master",
+            ], cwd=_THIS_DIR / "third_party" / "ascend")
+        except Exception:
+            # A clone interrupted by a network failure leaves a partially
+            # populated directory; remove it so the next build retries cleanly.
+            if distributed_dir.is_dir():
+                shutil.rmtree(distributed_dir, ignore_errors=True)
+            raise
     if _is_git_repo():
         add_git_safe_dir(str(distributed_dir))
-        subprocess.check_call([
+        _git_check_call_with_retry([
             "git",
             "fetch",
             "origin",
@@ -289,6 +355,39 @@ def _copy_ascend_tools(extdir, cmake_dir):
             print(f"Copied {name} to {dst}")
 
 
+_BISHENGIR_PAYLOAD_ENV = "TRITON_ASCEND_BISHENGIR_PATH"
+
+
+def _get_bishengir_payload_source():
+    raw_path = os.getenv(_BISHENGIR_PAYLOAD_ENV)
+    if not raw_path:
+        return None
+
+    source = Path(raw_path).expanduser().resolve()
+    required_paths = [
+        source / "bin" / "bishengir-compile",
+        source / "bin" / "bishengir-opt",
+        source / "lib",
+    ]
+    if not source.is_dir() or any(not path.exists() for path in required_paths):
+        raise RuntimeError(f"{_BISHENGIR_PAYLOAD_ENV} must name a BishengIR directory containing "
+                           "bin/bishengir-compile, bin/bishengir-opt, and lib")
+    return source
+
+
+def _copy_bishengir_payload(build_lib):
+    source = _get_bishengir_payload_source()
+    if source is None:
+        return
+
+    destination = Path(build_lib) / "triton" / "backends" / "ascend" / "bishengir"
+    if destination.exists():
+        shutil.rmtree(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source, destination, symlinks=True)
+    print(f"Bundled BishengIR payload from {source} into {destination}")
+
+
 def _get_ascend_cmake_args():
     cmake_args = []
     ascendnpu_ir_tag = os.getenv("ASCENDNPU_IR_TAG")
@@ -310,6 +409,7 @@ def _get_install_requirements():
         "pyyaml",
         "pybind11",
         "pandas",
+        "pyelftools>=0.29",
         "triton==3.6.0",
     ]
     return [*install_requires]
@@ -403,7 +503,16 @@ def _patch_module(mod):
 
     mod.CMakeBuild = CMakeBuild
 
-    # 4. Replace BuildWheel (bdist_wheel) with Ascend auditwheel variant.
+    _OrigCMakeBuildPy = mod.CMakeBuildPy
+
+    class AscendBuildPy(_OrigCMakeBuildPy):
+
+        def run(self):
+            super().run()
+            _copy_bishengir_payload(self.build_lib)
+
+    mod.AscendBuildPy = AscendBuildPy
+
     is_manylinux = mod.check_env_flag("IS_MANYLINUX", "FALSE")
 
     class BuildWheel(bdist_wheel):
@@ -435,7 +544,6 @@ def _patch_module(mod):
 
     mod.BuildWheel = BuildWheel
 
-    # 5. Patch get_package_dirs to include distributed package.
     _orig_get_package_dirs = mod.get_package_dirs
 
     def get_package_dirs():
@@ -446,7 +554,6 @@ def _patch_module(mod):
 
     mod.get_package_dirs = get_package_dirs
 
-    # 6. Patch get_packages to include distributed subpackages.
     _orig_get_packages = mod.get_packages
 
     def get_packages():
@@ -465,7 +572,6 @@ def _patch_module(mod):
 
     mod.get_packages = get_packages
 
-    # 7. Patch add_links to include distributed symlink.
     _orig_add_links = mod.add_links
 
     def add_links(external_only):
@@ -506,10 +612,10 @@ def _build_setup_kwargs(mod, kwargs):
     if package_data:
         kwargs["package_data"] = package_data
 
-    # cmdclass: replace bdist_wheel with BuildWheel, build_ext with CMakeBuild
     cmdclass = dict(kwargs.get("cmdclass") or {})
     cmdclass["bdist_wheel"] = mod.BuildWheel
     cmdclass["build_ext"] = mod.CMakeBuild
+    cmdclass["build_py"] = mod.AscendBuildPy
     kwargs["cmdclass"] = cmdclass
 
     # packages / package_dir must be re-evaluated (they were computed with
@@ -526,6 +632,7 @@ def _build_setup_kwargs(mod, kwargs):
 
 def main():
     _set_default_env_vars()
+    _ensure_npuir_submodule()
     _ensure_distributed_submodule()
 
     # Import the community setup_triton module without executing its setup()
@@ -551,6 +658,7 @@ def main():
 
     kwargs = _build_setup_kwargs(mod, captured["kwargs"])
     _real_setup(**kwargs)
+    _print_patch_restore_warning()
 
 
 if __name__ == "__main__":

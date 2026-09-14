@@ -20,7 +20,7 @@ GPU 上常见的写法会把 grid 设计为大量逻辑 program，由硬件和�
 
 - grid 优先使用 1D；2D NPU 适配写法也会合并为 1D，例如 `(20,)` 与 `(4, 5)` 的效果相同。
 - Vector-only 算子的并发任务数通常按 Vector Core 数量组织；包含 `tl.dot` 的算子通常按 AI Core 数量组织。
-- 当逻辑 grid 远大于物理核数时，需要评估是否改成每个 program 内部循环处理多个 tile，或在逻辑核之间无顺序依赖时使用 `TRITON_ALL_BLOCKS_PARALLEL`。
+- 当逻辑 grid 远大于物理核数时，后端会自动把符合条件且逻辑核相互独立的任务折叠到可用物理核。对于存在顺序依赖或未通过 IR 安全分析的 kernel，应改成每个 program 内部循环处理多个 tile。
 - coreDim 不能超过 `UINT16_MAX`（65535），大 shape 算子需要结合 BLOCK_SIZE 或分块方式控制 grid 大小。
 
 | 维度 | 核心结构 | 算子类型 |
@@ -51,11 +51,11 @@ NPU 与 GPU 的计算单元和支持的数据类型存在差异。迁移后应�
 
 ```diff
 import torch
-import torch_npu  # [NEW] Import the Ascend NPU PyTorch adaptation library to provide NPU device support
+import torch_npu  # 【新增】导入昇腾NPU PyTorch适配库，提供NPU设备支持
 import triton
 import triton.language as tl
 
-# DEVICE = triton.runtime.driver.active.get_active_torch_device()  # [DELETE] Automatic GPU device acquisition; not needed on NPU
+# DEVICE = triton.runtime.driver.active.get_active_torch_device()  # 【删除】GPU设备自动获取，NPU无需此逻辑
 
 @triton.jit
 def add_kernel(
@@ -76,7 +76,7 @@ def add_kernel(
 
 def add(x: torch.Tensor, y: torch.Tensor):
     output = torch.empty_like(x)
-    # assert x.device == DEVICE and y.device == DEVICE and output.device == DEVICE  # [DELETE] GPU device consistency check; no explicit assertion needed on NPU
+    # assert x.device == DEVICE and y.device == DEVICE and output.device == DEVICE  # 【删除】GPU设备一致性校验，NPU无需显式断言
     n_elements = output.numel()
     grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )
     add_kernel[grid](x, y, output, n_elements, BLOCK_SIZE=1024)
@@ -84,10 +84,10 @@ def add(x: torch.Tensor, y: torch.Tensor):
 
 torch.manual_seed(0)
 size = 98432
-# x = torch.rand(size, device='cuda')  # [DELETE] GPU device specification
-x = torch.rand(size, device='npu')  # [MODIFY] Specify the Ascend NPU device
-# y = torch.rand(size, device='cuda')  # [DELETE] GPU device specification
-y = torch.rand(size, device='npu')  # [MODIFY] Specify the Ascend NPU device
+# x = torch.rand(size, device='cuda')  # 【删除】GPU设备指定
+x = torch.rand(size, device='npu')  # 【修改】指定为昇腾NPU设备
+# y = torch.rand(size, device='cuda')  # 【删除】GPU设备指定
+y = torch.rand(size, device='npu')  # 【修改】指定为昇腾NPU设备
 output_torch = x + y
 output_triton = add(x, y)
 print(output_torch)
@@ -155,11 +155,7 @@ NPU的 coreDim 参数不能超过 UINT16_MAX（65535）。当处理大规模数�
 数据规模：N = 1073741824，原始 BLOCK_SIZE = 2048，计算得到的 coreDim = 524288 > 65535（超限）
 
 解决思路1：
-昇腾编译器针对coreDim超限问题，有对应的解决方案，只需将环境变量'TRITON_ALL_BLOCKS_PARALLEL'设为1。设置命令如下：
-
-```bash
-export TRITON_ALL_BLOCKS_PARALLEL=1
-```
+后端会对通过 IR 安全分析的 kernel 自动启用 block mapping，无需再设置环境变量。需要确认各逻辑 program 之间不存在顺序依赖；如果编译器提示自动 block mapping 已跳过，请采用解决思路2中的显式 tiling。
 
 解决思路2：
 通过增大 BLOCK_SIZE 来减少所需的核心数量，确保 coreDim 不超过限制。
@@ -212,7 +208,7 @@ def zeros_like(x, *, dtype=None, layout=None, device=None, pin_memory=None, memo
     N = x.numel()
     grid_fn = lambda meta: (triton.cdiv(N, meta["BLOCK_SIZE"]),)
 
-    zeros_kernel[grid_fn](out, N, BLOCK_SIZE=1024)  # Original value too small
+    zeros_kernel[grid_fn](out, N, BLOCK_SIZE=1024)  # 原始值过小
     return out
 ```
 
@@ -247,7 +243,7 @@ def zeros_like(x, *, dtype=None, layout=None, device=None, pin_memory=None, memo
     out = torch.empty_like(x, device=device, dtype=dtype)
     N = x.numel()
     min_block_size = triton.next_power_of_2(triton.cdiv(N, 65535))
-    BLOCK_SIZE = max(32768, min_block_size) # At least 32768
+    BLOCK_SIZE = max(32768, min_block_size) # 至少为 32768
     grid_fn = lambda meta: (triton.cdiv(N, meta["BLOCK_SIZE"]),)
 
     zeros_kernel[grid_fn](out, N, BLOCK_SIZE=BLOCK_SIZE)
@@ -257,7 +253,7 @@ def zeros_like(x, *, dtype=None, layout=None, device=None, pin_memory=None, memo
 ### 动态计算适合的 BLOCK_SIZE 以避免 coreDim 超限
 
 ```diff
-optimal_block_size = 32768  # The optimized value derived from calculation
+optimal_block_size = 32768  # 根据计算得出的优化值
 
 grid_fn = lambda meta: (triton.cdiv(N, optimal_block_size),)
 
@@ -296,14 +292,14 @@ def masked_fill_kernel(inp, expand_mask, value, out, N, BLOCK_SIZE: tl.constexpr
     tl.store(out + offsets, value, fill_mask & mask)
 
 def masked_fill(inp, mask, value):
-    # ... parameter validation code ...
+    # ... 参数验证代码 ...
     # inp.device = "npu"
     out = torch.zeros_like(inp)
     N = inp.numel()
     if N == 0:
         return out
 
-    grid = lambda meta: (triton.cdiv(N, 4096),)  # Causes coreDim to exceed the limit
+    grid = lambda meta: (triton.cdiv(N, 4096),)  # 导致 coreDim 超限
     masked_fill_kernel[grid](inp, mask.to(torch.int), value, out, N, 4096)
     return out
 ```
@@ -323,19 +319,19 @@ def masked_fill_kernel(inp, expand_mask, value, out, N,
     BLOCK_SIZE: tl.constexpr, BLOCK_SIZE_SUB: tl.constexpr):
     pid = tl.program_id(axis=0)
     base_offset = pid * BLOCK_SIZE
-    # Compute the number of sub-blocks to process
+    # 计算需要处理的子块数量
     num_sub_blocks = tl.cdiv(BLOCK_SIZE, BLOCK_SIZE_SUB)
-    # Process in sub-blocks to avoid UB overflow
+    # 分块处理，避免 UB 溢出
     for sub_block_idx in range(num_sub_blocks):
         sub_offset = base_offset + sub_block_idx * BLOCK_SIZE_SUB
         offsets = sub_offset + tl.arange(0, BLOCK_SIZE_SUB)
         mask = offsets < N
-        # Load and process data in batches
+        # 分批加载和处理数据
         input_vals = tl.load(inp + offsets, mask=mask, other=0)
         fill_mask_vals = tl.load(expand_mask + offsets, mask=mask, other=0).to(tl.int1)
-        # First write the original data
+        # 先写入原始数据
         tl.store(out + offsets, input_vals, mask=mask)
-        # Then overwrite the target value at positions that need filling
+        # 然后在需要填充的位置覆写目标值
         value_to_write = tl.full([BLOCK_SIZE_SUB], value, dtype=input_vals.dtype)
         final_vals = tl.where(fill_mask_vals, value_to_write, input_vals)
         tl.store(out + offsets, final_vals, mask=mask)
@@ -344,15 +340,15 @@ def masked_fill(inp, expand_mask, value):
     logger.debug("GEMS MASKED FILL")
 
     out = torch.zeros_like(inp)
-    # ... parameter validation code ...
+    # ... 参数验证代码 ...
     # inp.device = "npu"
     N = inp.numel()
     if N == 0:
         return out
 
-    # Use the optimized parameter configuration
-    MAIN_BLOCK_SIZE = 32768  # Ensure coreDim compliance
-    SUB_BLOCK_SIZE = 1024    # Control UB usage
+    # 使用优化的参数配置
+    MAIN_BLOCK_SIZE = 32768  # 确保 coreDim 合规
+    SUB_BLOCK_SIZE = 1024    # 控制 UB 使用量
 
     grid = lambda meta: (triton.cdiv(N, MAIN_BLOCK_SIZE),)
     masked_fill_kernel[grid](inp, expand_mask.to(torch.int), value, out, N,
@@ -383,13 +379,13 @@ chunk_fwd_kernel_o[(NT, B * H)](
     p_g = tl.make_block_ptr(g, (T,), (H,), (i_t * BT,), (BT,), (0,))
     block_ptr = tl.make_block_ptr(
         base=input_ptr,
-        shape=(1024,), # 1D tensor
-        strides=(32,), # Contiguous memory
-        offsets=(i_t * 16,), # From the starting position
-        block_shape=(BT,), # Block size
-        order=(0,) # Contiguous access
+        shape=(1024,), # 一维张量
+        strides=(32,), # 连续内存
+        offsets=(i_t * 16,), # 从起始位置开始
+        block_shape=(BT,), # 块大小
+        order=(0,) # 连续访问
     )
-​)
+)
 ```
 
 优化思路
@@ -406,6 +402,6 @@ block_ptr = tl.make_block_ptr(
     strides=(32, 1),
     offsets=(i_t * BT, 0),
     block_shape=(BT, 32),
-    order=(1, 0) # Row-major layout: dimension 1 is the most contiguous (stride 1), dimension 0 is the least contiguous
+    order=(1, 0) # 行优先布局：维度 1 最连续（stride 1），维度 0 最不连续
 )
 ```

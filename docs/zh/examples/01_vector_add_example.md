@@ -48,20 +48,20 @@ def add_kernel(x_ptr,  # Pointer to the first input vector.
 
 ```Python
 def add(x: torch.Tensor, y: torch.Tensor):
-    # The output needs to be pre-allocated.
-    output = torch.empty_like(x)
-    n_elements = output.numel()
-    # The launch grid represents the number of kernel instances running in parallel.
-    # It can be a Tuple[int], or a Callable(metaparameters) -> Tuple[int].
-    # In this case, we use a 1D grid whose size is the number of blocks:
+    # 需要预分配输出。
+    z = torch.empty_like(x)
+    n_elements = z.numel()
+    # 启动网格表示并行运行的内核实例的数量。
+    # 可以是 Tuple[int]，也可以是 Callable(metaparameters) -> Tuple[int]。
+    # 在本case中，使用 1D 网格，其中大小是块的数量：
     grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )
     # NOTE:
-    #  - Each torch.tensor object is implicitly converted to a pointer to its first element.
-    #  - `triton.jit` functions can be invoked through the launch grid index to obtain a callable NPU kernel.
-    #  - Do not forget to pass meta-parameters as keywords.
-    add_kernel[grid](x, y, output, n_elements, BLOCK_SIZE=1024)
-    # Return the handle of z.
-    return output
+    #  - 每个 torch.tensor 对象都会隐式转换为其第一个元素的指针。
+    #  - `triton.jit` 函数可以通过启动网格索引来获得可调用的 NPU 内核。
+    #  - 不要忘记以keywords的方式传递meta-parameters。
+    add_kernel[grid](x, y, z, n_elements, BLOCK_SIZE=1024)
+    # 返回 z 的句柄。
+    return z
 ```
 
 使用上述函数计算两个 `torch.tensor` 对象的 element-wise sum，并测试其正确性：

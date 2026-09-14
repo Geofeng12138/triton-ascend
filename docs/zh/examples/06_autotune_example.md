@@ -105,10 +105,10 @@ if __name__ == "__main__":
 #     2. If the user defines Config and auto_gen_config=False, the framework does not auto-generate Config and only uses the user-defined Config;
 #     3. If the user defines Config and auto_gen_config=True, the framework auto-generates Config and merges it with the user-defined Config for selection;
 #
-# key (list[str]/Dict[str,str]):
-# - A list of runtime parameter names; a change in any parameter value triggers regeneration and re-evaluation of candidate configs
-# Note: 1. If hints passes split_params, tiling_params, low_dim_axes, reduction_axes, the key type must be Dict[str,str], as in Example 1:
-#      2. If hints does not pass split_params, tiling_params, low_dim_axes, reduction_axes, the key type must be list[str], and axis information is assigned according to the parameter order, as in Example 2:
+# key（list[str]/Dict[str,str]）：
+# - 传入运行时参数名列表；列表中任一参数值变化会触发候选配置的重新生成与评估
+# 注意：1.若hints传递切分轴（split_params）、分块轴（tiling_params）、低维轴（low_dim_axes）、规约轴（reduction_axes）参数信息，key类型需为Dict[str,str],如示例1：
+#      2.若hints不传递切分轴（split_params）、分块轴（tiling_params）、低维轴（low_dim_axes）、规约轴（reduction_axes）参数信息，key类型需为list[str]，轴信息会按参数顺序进行分配，如示例2：
 
 示例1:
 @triton.autotune(

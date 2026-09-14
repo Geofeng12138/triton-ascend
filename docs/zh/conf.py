@@ -35,6 +35,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.mathjax',
     'myst_parser',
+    'sphinx_copybutton',
 ]
 
 # Prefix autosectionlabel with document path to avoid duplicate label warnings
@@ -257,112 +258,43 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-html_theme = 'furo'
+# -- HTML theme: sphinx_book_theme (same setup as the pre-mkdocs vllm-ascend
+# docs, e.g. https://docs.vllm.ai/projects/ascend/en/v0.23.0/) ---------------
+html_theme = 'sphinx_book_theme'
+html_title = 'Triton Ascend'
 html_static_path = ['_static']
-pygments_style = "friendly"
 html_last_updated_fmt = "%b %d, %Y"
 
-if not _is_zh:
+html_theme_options = {
+    # Repository buttons (top right of every page) and "suggest edit" links.
+    'path_to_docs': 'docs/zh',
+    'repository_url': 'https://github.com/triton-lang/triton-ascend',
+    'repository_branch': 'main',
+    'use_repository_button': True,
+    'use_edit_page_button': True,
+    # Sidebar shows only the project name (no logo image).
+    'logo': {
+        'text': 'Triton Ascend',
+    },
+    # No persistent items in the top navbar: pydata-sphinx-theme otherwise
+    # renders a search field there that duplicates the sidebar search, and
+    # its hidden sidebar-toggle would steal the JS click binding from the
+    # visible toggle in the article header. Note this only empties the
+    # navbar's content -- the empty top bar (sticky background strip) is
+    # hidden separately via _static/custom.css (#pst-header).
+    'navbar_persistent': [],
+}
 
-    def _setup_community_root_docs(app):
-        """source-read hook: replace the four Chinese community documents
-        (CODE_OF_CONDUCT_zh.md, CONTRIBUTING_zh.md, GOVERNANCE_zh.md,
-        SECURITYNOTE_zh.md) with the canonical English documents from the
-        repository root (CODE_OF_CONDUCT.md, CONTRIBUTING.md, GOVERNANCE.md,
-        SECURITYNOTE.md) during the English build.
 
-        The Chinese site (zh) is unaffected — it still renders the original
-        Chinese Markdown.
+def setup(app):
+    """Chinese build setup."""
+    from sphinx.highlighting import lexers
+    from pygments.lexers import get_lexer_by_name
 
-        Markdown documents can contain multiple H1 headings (e.g.
-        CONTRIBUTING.md has both "# Governance Structure" and
-        "# Decision Making"). Sphinx renders each H1 as a top-level section,
-        which splits one toctree entry into several sidebar entries. Here we
-        downgrade every H1 after the first (and its following H2/H3...) so the
-        document has exactly one doc title and the sidebar keeps a single entry.
-        """
-        import re
-
-        _repo_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-        _en_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "en")
-
-        def _downgrade_trailing_h1(content: str) -> str:
-            """Downgrade every H1 after the first (plus its sub-headings) by one level.
-
-            The first H1 stays the document title. Every heading line at/after the
-            second H1 gets one '#' prepended, so '# X' becomes '## X', '## Y'
-            becomes '### Y', etc. This keeps the document with exactly one H1 so
-            Sphinx renders a single sidebar entry for the doc.
-            """
-            h1_idx = [m.start() for m in re.finditer(r'^#\s+(?!#)', content, re.MULTILINE)]
-            if len(h1_idx) < 2:
-                return content
-
-            out = content[:h1_idx[1]]
-            pos = h1_idx[1]
-            for end in h1_idx[2:] + [len(content)]:
-                block = content[pos:end]
-                lines = []
-                for line in block.split('\n'):
-                    if re.match(r'^#+ ', line):
-                        lines.append('#' + line)
-                    else:
-                        lines.append(line)
-                out += '\n'.join(lines)
-                pos = end
-            return out
-
-        def _on_source_read(app, docname, source):
-            # 1) Repo-root canonical English docs (community documents):
-            #    read the English original, then normalize duplicate H1s.
-            src_rel = _COMMUNITY_ROOT_DOCS.get(docname)
-            if src_rel is not None:
-                src_root = os.path.join(_repo_root, src_rel)
-                try:
-                    with open(src_root, encoding="utf-8") as f:
-                        source[0] = _downgrade_trailing_h1(f.read())
-                except OSError as exc:
-                    print(f"Warning: cannot read {src_root}: {exc}")
-                return
-
-            # 2) docs/en English documents (API class): replace directly.
-            en_rel = _EN_REPLACEMENTS.get(docname)
-            if en_rel is not None:
-                en_path = os.path.join(_en_dir, en_rel)
-                try:
-                    with open(en_path, encoding="utf-8") as f:
-                        source[0] = f.read()
-                except OSError as exc:
-                    print(f"Warning: cannot read {en_path}: {exc}")
-                return
-
-            # 3) All other documents: leave untouched.
-            return
-
-        app.connect('source-read', _on_source_read)
-
-    def setup(app):
-        """English build setup."""
-        from sphinx.highlighting import lexers
-        from pygments.lexers import get_lexer_by_name
-
-        lexers['mlir'] = get_lexer_by_name('text')
-        lexers['plaintext'] = get_lexer_by_name('text')
-        app.add_css_file('custom.css')
-        _setup_en(app)
-        _setup_community_root_docs(app)
-        return {'version': '0.1', 'parallel_read_safe': True}
-else:
-
-    def setup(app):
-        """Chinese build setup."""
-        from sphinx.highlighting import lexers
-        from pygments.lexers import get_lexer_by_name
-
-        lexers['mlir'] = get_lexer_by_name('text')
-        lexers['plaintext'] = get_lexer_by_name('text')
-        app.add_css_file('custom.css')
-        return {'version': '0.1', 'parallel_read_safe': True}
+    lexers['mlir'] = get_lexer_by_name('text')
+    lexers['plaintext'] = get_lexer_by_name('text')
+    app.add_css_file('custom.css')
+    return {'version': '0.1', 'parallel_read_safe': True}
 
 
 readthedocs_version = os.environ.get('READTHEDOCS_VERSION', 'latest')

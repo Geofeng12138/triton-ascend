@@ -66,7 +66,7 @@ Usage:
 
 Translation skill:
     Every API call injects the translation skill document
-    (docs/skills/zh-cn-to-en-doc-translation/skill.md) as part of the system
+    (.agents/skills/translate/skill.md) as part of the system
     prompt so terminology/glossary stays consistent across all documents.
     Use --skill-doc (or TRANSLATION_SKILL_DOC env var) to override the path.
 """
@@ -152,7 +152,7 @@ Text to translate:
 # ---------------------------------------------------------------------------
 # Translation skill document
 # ---------------------------------------------------------------------------
-# The skill document (docs/skills/zh-cn-to-en-doc-translation/skill.md)
+# The skill document (.agents/skills/translate/skill.md)
 # defines the authoritative Chinese -> English terminology glossary and
 # translation rules for this project. It is injected into every translation
 # request so that terminology stays consistent across all documents.
@@ -161,7 +161,7 @@ Text to translate:
 # glossary entries / rules to the Markdown file and the translation pipeline
 # picks them up automatically on the next run. The path can be overridden
 # via the --skill-doc CLI argument or the TRANSLATION_SKILL_DOC env var.
-SKILL_DOC_PATH = Path("docs/skills/zh-cn-to-en-doc-translation/skill.md")
+SKILL_DOC_PATH = Path(".agents/skills/translate/skill.md")
 
 _skill_doc_cache: Optional[str] = None
 
@@ -709,7 +709,7 @@ class PoTranslator:
 
     def __init__(self, api_key: str, skill_doc: Optional[str] = None):
         self.client = AsyncOpenAI(api_key=api_key, base_url="https://api.deepseek.com")
-        # The skill document text (docs/skills/zh-cn-to-en-doc-translation/skill.md)
+        # The skill document text (.agents/skills/translate/skill.md)
         # is injected as part of the system prompt so every translation request
         # follows the project's authoritative terminology glossary and rules.
         self.skill_doc = (skill_doc or "").strip()
@@ -1092,7 +1092,7 @@ async def async_main():
         "--skill-doc",
         default=os.getenv("TRANSLATION_SKILL_DOC", ""),
         help="Path to the translation skill document (Markdown). "
-        "Defaults to docs/skills/zh-cn-to-en-doc-translation/skill.md.",
+        "Defaults to .agents/skills/translate/skill.md.",
     )
     args = parser.parse_args()
 

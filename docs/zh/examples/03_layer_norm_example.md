@@ -13,15 +13,15 @@ import torch_npu
 
 @triton.jit
 def _layer_norm_fwd_fused(
-    X,  # Input pointer
-    Y,  # Output pointer
-    W,  # Weight pointer
-    B,  # Bias pointer
-    Mean,  # Mean pointer
-    Rstd,  # 1/std pointer
-    stride,  # How many elements to add to the pointer to advance one row
-    N,  # Number of columns in X
-    eps,  # Epsilon to avoid division by zero
+    X,  # 输入指针
+    Y,  # 输出指针
+    W,  # 权重指针
+    B,  # 偏置指针
+    Mean,  # 均值指针
+    Rstd,  # 1/std 指针
+    stride,  # 指针移动一行应该增加多少元素
+    N,  # X 的列数
+    eps,  # 用于避免除以 0 的 epsilon
     BLOCK_SIZE: tl.constexpr,
 ):
     # Map program id to the row of X and Y to compute
