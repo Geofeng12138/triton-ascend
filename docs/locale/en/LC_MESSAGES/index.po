@@ -5,10 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-17 16:33+0800\n"
-"PO-Revision-Date: 2026-08-17 16:33+0800\n"
+"POT-Creation-Date: 2026-08-25 23:25+0800\n"
+"PO-Revision-Date: 2026-08-25 23:25+0800\n"
 
 "X-Source-Commit: e7745bae0beb8a376cfc8077028ea4d7b5f1b545\n"
+
+"X-Skill-Version: 1.1.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,10 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"I'll translate the Chinese text into English following your rules. However, I notice that you've provided the instruction but haven't included the actual Chinese text to translate. The text appears to be missing from your message.\n"
-"\n"
-"Could you please provide the Chinese text you'd like me to translate?\n"
+msgstr "I'd be happy to translate your text, but it looks like you haven't provided the Chinese content to translate yet. Please share the text you'd like me to translate, and I'll follow the translation skill document to produce professional English technical documentation."
 
 msgid "版本说明"
 msgstr "Version Notes"
@@ -118,7 +117,7 @@ msgid "社区"
 msgstr "Community"
 
 msgid "Triton Ascend"
-msgstr "Triton Ascend"
+msgstr "Triton-Ascend"
 
 msgid "<p align=\"center\">\\n"
 msgstr "<p align=\"center\">"

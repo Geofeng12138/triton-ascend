@@ -5,10 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:20+0000\n"
-"PO-Revision-Date: 2026-08-11 02:20+0000\n"
+"POT-Creation-Date: 2026-08-25 23:23+0800\n"
+"PO-Revision-Date: 2026-08-25 23:23+0800\n"
 
 "X-Source-Commit: 21fcdc5fd437274c0dbf3f35cbf4da18ca962148\n"
+
+"X-Skill-Version: 1.1.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English following your rules. However, you haven't provided the actual Chinese text to translate. Please include the text you'd like me to translate, and I'll proceed with the translation."
+msgstr ""
+"I'd be happy to help translate your Chinese text into English, but it looks like you haven't provided the actual text to translate yet. The message says \"(File: index)\" but no Chinese content follows.\n"
+"\n"
+"Please provide the Chinese text you'd like me to translate, and I'll translate it according to the rules you've specified.\n"
 
 msgid "Triton-Ascend算子调试与调优"
 msgstr "Triton-Ascend Operator Debugging and Optimization"

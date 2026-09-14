@@ -5,10 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:20+0000\n"
-"PO-Revision-Date: 2026-08-11 02:20+0000\n"
+"POT-Creation-Date: 2026-08-25 23:23+0800\n"
+"PO-Revision-Date: 2026-08-25 23:23+0800\n"
 
 "X-Source-Commit: 8a96c7bb5472b78fa3f38bcb3c46d909ba5fd40b\n"
+
+"X-Skill-Version: 1.1.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "You have not provided any Chinese text to translate. Please provide the text you would like me to translate into English."
+msgstr "I'll translate the Chinese text into English following the rules provided. Please provide the text you'd like me to translate."
 
 msgid "Triton-Ascend 性能分析方法"
 msgstr "Triton-Ascend performance analysis method"
@@ -271,7 +273,7 @@ msgid "方法二：通过上板Profiling分析Tiling情况 先前示例中使用
 msgstr "Method 2: Analyzing Tiling Conditions through On-Board Profiling. The AI processor used in the previous example can be viewed via the hardware platform as having 48 Vector cores. The _layer_norm_fwd_fused operator is a pure Vector operator, but in some scenarios, too many Blocks are dispatched (Block Dim > 48), resulting in excessive Host scheduling overhead. Therefore, the next main optimization direction is Tiling optimization."
 
 msgid "方法三：通过仿真流水图分析流水情况 ![analyse_data_waveform](../figures/performance_analysis_analyse_data_waveform.png)   上图示例中为某款AI处理器仿真器上获取的数据，可以看到Vector核的SCALAR以及FLOWCTRL的指令饱和，可以结合算子逻辑分析，是否存在过多标量计算以及不支持的向量化操作。下一步的主要优化方向为标量计算优化。另一方面，可以看到Vector核的相关流水（veccore0的MTE2、VECTOR等）有规律性的断流现象，即大量无操作的空白段。可以结合算子逻辑分析，是否存在基本块切分过小等因素导致断流。主要优化方向为流水优化，其次结合Tiling优化和内存优化等手段进一步提升Vector流水利用率。"
-msgstr "Method 3: Analyze pipeline behavior through simulation waveform diagrams ![analyse_data_waveform](../figures/performance_analysis_analyse_data_waveform.png) In the example above, data obtained from a certain AI processor simulator is shown. It can be observed that the SCALAR and FLOWCTRL instructions of the Vector core are saturated. Combined with operator logic analysis, it can be determined whether there are excessive scalar computations and unsupported vectorized operations. The next primary optimization direction is scalar computation optimization. On the other hand, it can be seen that the related pipelines of the Vector core (such as MTE2 and VECTOR of veccore0) exhibit periodic pipeline stalls, i.e., large blank segments with no operations. Combined with operator logic analysis, it can be assessed whether factors such as overly small basic block partitioning cause the stalls. The main optimization direction is pipeline optimization, followed by Tiling optimization and memory optimization to further improve Vector pipeline utilization."
+msgstr "Method 3: Analyze pipeline behavior through simulation waveform diagrams ![analyse_data_waveform](../figures/performance_analysis_analyse_data_waveform.png) In the example above, data obtained from a certain AI processor simulator is shown. It can be observed that the SCALAR and FLOWCTRL instructions of the Vector Core are saturated. Combined with operator logic analysis, it can be determined whether there are excessive scalar computations and unsupported vectorized operations. The next primary optimization direction is scalar computation optimization. On the other hand, it can be seen that the related pipelines of the Vector Core (such as MTE2 and VECTOR of veccore0) exhibit periodic pipeline stalls, i.e., large blank segments with no operations. Combined with operator logic analysis, it can be assessed whether factors such as overly small basic block partitioning cause the stalls. The main optimization direction is pipeline optimization, followed by Tiling optimization and memory optimization to further improve Vector pipeline utilization."
 
 msgid "analyse_data_waveform"
 msgstr "analyze_data_waveform"

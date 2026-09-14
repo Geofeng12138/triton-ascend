@@ -5,10 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:20+0000\n"
-"PO-Revision-Date: 2026-08-11 02:20+0000\n"
+"POT-Creation-Date: 2026-08-25 23:23+0800\n"
+"PO-Revision-Date: 2026-08-25 23:23+0800\n"
 
 "X-Source-Commit: 70f6fd570aecf2cf6d91c431a50173c14014ed49\n"
+
+"X-Skill-Version: 1.1.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,10 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"# Roadmap Guide\n"
-"\n"
-"This document provides a detailed roadmap for the project, outlining the key milestones, deliverables, and timelines. It serves as a strategic guide to ensure alignment across teams and stakeholders, facilitating effective planning and execution. The roadmap is structured to accommodate evolving priorities while maintaining a clear focus on the project's overarching goals. It includes phases for initial research, development, testing, and deployment, with specific checkpoints to assess progress and make necessary adjustments. By following this roadmap, the team can navigate complexities, manage resources efficiently, and achieve successful project outcomes.\n"
+msgstr "I need the Chinese text to translate. Please provide it."
 
 msgid "Roadmap指导"
 msgstr "Roadmap Guide"

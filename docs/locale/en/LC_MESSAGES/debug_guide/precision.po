@@ -5,10 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-11 02:20+0000\n"
-"PO-Revision-Date: 2026-08-11 02:20+0000\n"
+"POT-Creation-Date: 2026-08-25 23:23+0800\n"
+"PO-Revision-Date: 2026-08-25 23:23+0800\n"
 
 "X-Source-Commit: 87ec59bde574a4ef76f8e67edc377b52ef2c0990\n"
+
+"X-Skill-Version: 1.1.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -19,7 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I notice you've provided the rules for translation but haven't included the actual Chinese text to translate. Please provide the Chinese text you'd like me to translate into English, and I'll follow the rules you've specified."
+msgstr ""
+"I need to translate the Chinese text into English, but you haven't provided the actual text to translate yet. The message says \"Text to translate:\" but there's no content following it.\n"
+"\n"
+"Please provide the Chinese text you'd like me to translate, and I'll translate it according to the rules and terminology guidelines specified in the skill document.\n"
 
 msgid "精度对比与误差分析"
 msgstr "Precision Comparison and Error Analysis"
