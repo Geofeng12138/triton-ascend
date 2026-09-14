@@ -170,7 +170,7 @@ quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
-**注：**如需用该镜像测试源码编译安装，则要先运行`pip uninstall triton-ascend triton`命令。
+**注**：如需使用该类镜像测试源码编译安装，则先运行`pip uninstall triton-ascend triton`命令卸载已安装的**Triton-Asecend**组件。
 
 ## 验证与测试
 
