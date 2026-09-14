@@ -144,15 +144,13 @@ EXCLUDED_FILE_STEMS: List[str] = [
 # Translation prompts
 # ---------------------------------------------------------------------------
 
-SYSTEM_PROMPT = (
-    "You are a professional technical documentation translation expert, "
-    "proficient in Chinese-to-English technical document translation. "
-    "Before translating anything you MUST read and follow the translation "
-    "standard embedded in the skill document below (the key points of the "
-    "Google Developer Documentation Style Guide, https://developers.google.com/style). "
-    "Skipping the translation standard produces non-compliant translations "
-    "that must be redone, so the standard is mandatory for every request."
-)
+SYSTEM_PROMPT = ("You are a professional technical documentation translation expert, "
+                 "proficient in Chinese-to-English technical document translation. "
+                 "Before translating anything you MUST read and follow the translation "
+                 "standard embedded in the skill document below (the key points of the "
+                 "Google Developer Documentation Style Guide, https://developers.google.com/style). "
+                 "Skipping the translation standard produces non-compliant translations "
+                 "that must be redone, so the standard is mandatory for every request.")
 
 BLOCK_TRANSLATION_PROMPT = """Translate the following Chinese text block into English.
 
@@ -743,8 +741,7 @@ def _get_po_skill_version(po_path: Path) -> str:
 class PoTranslator:
     """Translate .pot entries to .po using LLM API with translation memory."""
 
-    def __init__(self, api_key: str, skill_doc: Optional[str] = None,
-                 api_base: str = "", model: str = ""):
+    def __init__(self, api_key: str, skill_doc: Optional[str] = None, api_base: str = "", model: str = ""):
         self.api_base = api_base or DEFAULT_API_BASE
         self.model = model or DEFAULT_MODEL
         # Per-request timeout and retry budget (env-tunable). Without a timeout
@@ -783,15 +780,14 @@ class PoTranslator:
         """Build the system prompt, injecting the skill document when available."""
         parts = [SYSTEM_PROMPT]
         if self.skill_doc:
-            parts.append(
-                "Follow the skill document below for the mandatory translation "
-                "standard (Google Developer Documentation Style Guide key points), "
-                "terminology, and structure rules. The standard MUST be read and "
-                "followed before translating anything; its glossary is "
-                "authoritative. Use it for every translation.\n\n"
-                "===== BEGIN TRANSLATION SKILL DOCUMENT =====\n"
-                f"{self.skill_doc}\n"
-                "===== END TRANSLATION SKILL DOCUMENT =====")
+            parts.append("Follow the skill document below for the mandatory translation "
+                         "standard (Google Developer Documentation Style Guide key points), "
+                         "terminology, and structure rules. The standard MUST be read and "
+                         "followed before translating anything; its glossary is "
+                         "authoritative. Use it for every translation.\n\n"
+                         "===== BEGIN TRANSLATION SKILL DOCUMENT =====\n"
+                         f"{self.skill_doc}\n"
+                         "===== END TRANSLATION SKILL DOCUMENT =====")
         if context:
             parts.append(f"(File: {context})")
         return "\n\n".join(parts)
@@ -948,8 +944,7 @@ class PoTranslator:
     async def _translate_single(self, content: str, context: str = "") -> Optional[str]:
         """Translate a single text string via the configured LLM API."""
         if self.client is None:
-            print(f"  No API key configured - block for '{context}' needs fresh translation, skipped",
-                  flush=True)
+            print(f"  No API key configured - block for '{context}' needs fresh translation, skipped", flush=True)
             return None
         prompt = BLOCK_TRANSLATION_PROMPT.replace("{content}", content)
         system = self._system_prompt(context)
@@ -1204,8 +1199,7 @@ async def async_main():
     parser.add_argument("--output-json", default=os.getenv("OUTPUT_JSON", "/tmp/translation_results.json"))
     parser.add_argument(
         "--api-key",
-        default=os.getenv("TRANSLATION_ASCEND",
-                          os.getenv("LLM_API_KEY", os.getenv("DEEPSEEK_API_KEY", ""))),
+        default=os.getenv("TRANSLATION_ASCEND", os.getenv("LLM_API_KEY", os.getenv("DEEPSEEK_API_KEY", ""))),
         help="LLM API key (env: TRANSLATION_ASCEND, fallback LLM_API_KEY / DEEPSEEK_API_KEY)",
     )
     parser.add_argument(
@@ -1226,16 +1220,13 @@ async def async_main():
 
     output_json = args.output_json
 
-    api_key = (
-        args.api_key
-        or os.getenv("TRANSLATION_ASCEND")
-        or os.getenv("LLM_API_KEY")
-        or os.getenv("DEEPSEEK_API_KEY")
-    )
+    api_key = (args.api_key or os.getenv("TRANSLATION_ASCEND") or os.getenv("LLM_API_KEY")
+               or os.getenv("DEEPSEEK_API_KEY"))
     if not api_key:
-        print("Warning: no LLM API key set (TRANSLATION_ASCEND / LLM_API_KEY / DEEPSEEK_API_KEY). "
-              "Documents whose entries are fully cached will still be re-processed; entries that "
-              "need a fresh translation will fail (fail-closed).", flush=True)
+        print(
+            "Warning: no LLM API key set (TRANSLATION_ASCEND / LLM_API_KEY / DEEPSEEK_API_KEY). "
+            "Documents whose entries are fully cached will still be re-processed; entries that "
+            "need a fresh translation will fail (fail-closed).", flush=True)
 
     # Load the translation skill document (authoritative terminology glossary
     # and rules). It is injected into every translation request's system prompt.
@@ -1283,8 +1274,7 @@ async def async_main():
         write_empty_json(output_json, f"no .pot files to translate ({reason})")
         return 0
 
-    translator = PoTranslator(api_key=api_key, skill_doc=skill_doc,
-                               api_base=args.api_base, model=args.model)
+    translator = PoTranslator(api_key=api_key, skill_doc=skill_doc, api_base=args.api_base, model=args.model)
     return await translator.translate_files(pot_list, output_json)
 
 
