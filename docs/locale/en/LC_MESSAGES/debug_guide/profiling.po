@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:23+0800\n"
-"PO-Revision-Date: 2026-08-25 23:23+0800\n"
+"POT-Creation-Date: 2026-09-14 19:10+0800\n"
+"PO-Revision-Date: 2026-09-14 19:10+0800\n"
 
-"X-Source-Commit: 8a96c7bb5472b78fa3f38bcb3c46d909ba5fd40b\n"
+"X-Source-Commit: 8b6038a24d7b61cc38dfd2d5a4d8bbbd9ca7faed\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'll translate the Chinese text into English following the rules provided. Please provide the text you'd like me to translate."
+msgstr "No text was provided for translation. Please provide the Chinese text block you would like translated into English."
 
 msgid "Triton-Ascend 性能分析方法"
 msgstr "Triton-Ascend performance analysis method"
@@ -41,8 +41,8 @@ msgstr "The msProf tool is used to collect and analyze key performance metrics o
 msgid "注： msProf工具的使用依赖CANN包中的msopprof可执行文件，该文件中的接口功能和msprof op一致，该文件为CANN包自带，无需单独安装，msProf工具常用命令请参考[msProf常用命令](https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/ODtools/Operatordevelopmenttools/atlasopdev_16_0082.html)。"
 msgstr "Note: The use of the msProf tool depends on the msopprof executable file in the CANN package. The interface functions in this file are consistent with msprof op. This file is included with the CANN package and does not require separate installation. For common msProf tool commands, please refer to [msProf Common Commands](https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/ODtools/Operatordevelopmenttools/atlasopdev_16_0082.html)."
 
-msgid "如下命令行使一个算子上板性能数据采集的示例，可以根据自身的需要灵活组合配置参数。实例中 --output为可选参数，用于指定收集到的性能数据的存放路径；--kernel-name为可选参数，用于指定需要收集的单个kernel的性能数据（如果不指定，则只对程序运行过程中调度的第一个算子进行采集）；$HOME/projects/test_op.py为算子可执行脚本。"
-msgstr "The following command line provides an example of collecting performance data for an operator on the device. You can flexibly combine and configure parameters according to your own needs. In the example, --output is an optional parameter used to specify the storage path for the collected performance data; --kernel-name is an optional parameter used to specify the performance data of a single kernel to be collected (if not specified, only the first operator scheduled during program execution will be collected); $HOME/projects/test_op.py is the operator executable script."
+msgid "如下命令行是一个算子上板性能数据采集的示例，可以根据自身的需要灵活组合配置参数。示例中 --output为可选参数，用于指定收集到的性能数据的存放路径；--kernel-name为可选参数，用于指定需要收集的单个kernel的性能数据（如果不指定，则只对程序运行过程中调度的第一个算子进行采集）；$HOME/projects/test_op.py为算子可执行脚本。"
+msgstr "The following command line is an example of on-board performance data collection for an operator. You can flexibly combine configuration parameters according to your needs. In this example, --output is an optional parameter that specifies the storage path for the collected performance data. The --kernel-name parameter is optional and specifies a single kernel for which to collect performance data. If you do not specify this parameter, only the first operator scheduled during program execution is collected. The $HOME/projects/test_op.py file is the operator executable script."
 
 msgid "msprof op --kernel-name=target_kernel_name --output=$HOME/projects/output python3 $HOME/projects/test_op.py\\n"
 msgstr "msprof op --kernel-name=target_kernel_name --output=$HOME/projects/output python3 $HOME/projects/test_op.py"
@@ -197,8 +197,8 @@ msgstr "[WARN] Kernel missed debug_line information. If you need code call stack
 msgid "Triton算子无需手动添加`-g`，triton-ascend后端通过环境变量`TRITON_DISABLE_LINE_INFO`控制是否在`bishengir-compile`命令中追加`--enable-debug-info=true`。注意triton-ascend默认值为`true`（即默认**关闭**行号信息，与社区Triton默认开启相反），需显式置为`False`："
 msgstr "Triton operators do not require manually adding `-g`; the triton-ascend backend controls whether to append `--enable-debug-info=true` to the `bishengir-compile` command via the environment variable `TRITON_DISABLE_LINE_INFO`. Note that the default value of triton-ascend is `true` (i.e., line number information is **disabled** by default, contrary to the community Triton default of enabled), and it needs to be explicitly set to `False`:"
 
-msgid "export TRITON_DISABLE_LINE_INFO=false\\n"
-msgstr "export TRITON_DISABLE_LINE_INFO=false"
+msgid "export TRITON_DISABLE_LINE_INFO=0\\n"
+msgstr "export TRITON_DISABLE_LINE_INFO=0"
 
 msgid "验证是否生效：日志中`[DEBUG] cmd_list:`一行应包含`--enable-debug-info=true`，且`Kernel missed debug_line information`告警消失。随后将`visualize_data.bin`导入MindStudio Insight，即可在指令时序图中查看每条指令关联的源码行与调用栈。"
 msgstr "To verify whether it takes effect: the `[DEBUG] cmd_list:` line in the logs should contain `--enable-debug-info=true`, and the `Kernel missed debug_line information` warning should disappear. Then import `visualize_data.bin` into MindStudio Insight to view the source code line and call stack associated with each instruction in the instruction timing diagram."
@@ -293,8 +293,8 @@ msgstr ".. image:: ../figures/performance_analysis_analyse_data_code_mapping.png
 msgid "示例：i64/i32 的compare在npu上无法启用vector导致向量计算转为标量计算"
 msgstr "Example: The compare of i64/i32 cannot enable vector on NPU, causing vector computation to be converted to scalar computation."
 
-msgid "【描述】i64/i32 的cmp在npu上无法启用vector，退化为scalar计算效率降低；通过转化为fp32来利用vec_cast和vec_cmp实现vector操作加速。 【注意】在tl.load和tl.save中的mask使用cmp功能，大部分情况下编译器可以自动优化为vec操作，本例中tl.where则需要手动转换。"
-msgstr "【Description】The cmp of i64/i32 cannot enable vector on NPU, degrading to scalar computation with reduced efficiency; by converting to fp32, vec_cast and vec_cmp can be utilized to achieve vector operation acceleration. 【Note】When cmp is used in masks within tl.load and tl.save, the compiler can usually automatically optimize it to vector operations; in this example, tl.where requires manual conversion."
+msgid "【描述】i64/i32 的cmp在npu上无法启用vector，退化为scalar计算效率降低；通过转化为fp32来利用vec_cast和vec_cmp实现vector操作加速。 【注意】在tl.load和tl.store中的mask使用cmp功能，大部分情况下编译器可以自动优化为vec操作，本例中tl.where则需要手动转换。"
+msgstr "[Description] The cmp operation for i64/i32 cannot enable vector operations on the NPU and degrades to scalar computation, reducing efficiency. By converting to fp32, you can use vec_cast and vec_cmp to accelerate vector operations. [Note] The mask in tl.load and tl.store uses the cmp function. In most cases, the compiler can automatically optimize it into a vector operation. In this example, tl.where requires manual conversion."
 
 msgid "import triton\\n"
 msgstr "import triton"
