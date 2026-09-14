@@ -57,29 +57,28 @@ jobs:
     env:
       TARGET_BRANCH: ${{ inputs.target_branch || 'main' }}
     steps:
-      # Resolve the git token explicitly. Using
-      # `secrets.PAT_TOKEN || secrets.GITHUB_TOKEN` inline does NOT work: when
-      # PAT_TOKEN is not configured (e.g. on a fork), GitHub evaluates the
-      # whole expression to an empty string instead of falling through to
-      # GITHUB_TOKEN, which makes actions/checkout fail with:
-      #   "fatal: could not read Username for 'https://github.com': terminal prompts disabled"
+      # Resolve the git token for checkout / push / PR creation.
+      # PAT_TOKEN is preferred so that the auto-translation PR can trigger CI
+      # workflows (GITHUB_TOKEN-created PRs do not trigger downstream workflows).
+      # When PAT_TOKEN is not configured, fall back to GITHUB_TOKEN.
+      #
+      # NOTE: The GITHUB_TOKEN value is passed via the env variable
+      # JOB_TOKEN (not "GITHUB_TOKEN") because GitHub Actions automatically
+      # injects GITHUB_TOKEN into the environment and can shadow our
+      # assignment, causing checkout to receive an empty token.
       - name: Resolve Git token (PAT when configured, else GITHUB_TOKEN)
         id: resolve_token
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-          GITHUB_TOKEN: ${{ github.token }}
+          JOB_TOKEN: ${{ github.token }}
         run: |
           if [ -n "$PAT_TOKEN" ]; then
-            # PAT has explicit push/PR permissions on the target repo.
             echo "token=${PAT_TOKEN}" >> "$GITHUB_OUTPUT"
-            # Expose the same token for later `git push` / `gh pr create` steps.
             echo "GH_TOKEN=${PAT_TOKEN}" >> "$GITHUB_ENV"
             echo "Using PAT_TOKEN for git authentication"
           else
-            # Fall back to the job-scoped GITHUB_TOKEN (permissions declared
-            # at the job level: contents: write, pull-requests: write).
-            echo "token=${GITHUB_TOKEN}" >> "$GITHUB_OUTPUT"
-            echo "GH_TOKEN=${GITHUB_TOKEN}" >> "$GITHUB_ENV"
+            echo "token=${JOB_TOKEN}" >> "$GITHUB_OUTPUT"
+            echo "GH_TOKEN=${JOB_TOKEN}" >> "$GITHUB_ENV"
             echo "PAT_TOKEN not configured; using GITHUB_TOKEN"
           fi
 
@@ -198,15 +197,7 @@ jobs:
       - name: Create branch and commit
         if: steps.results.outputs.has_changes == 'true'
         env:
-          # The resolved git token (PAT if configured, else GITHUB_TOKEN).
-          # Injected explicitly so `git push` uses credentials with write
-          # access. A plain `git push origin` can fall back to credentials
-          # lacking write permission -> 403 "denied to <user>".
           PUSH_TOKEN: ${{ steps.resolve_token.outputs.token }}
-          # Fallback credential: if the primary token (e.g. an expired or
-          # under-scoped PAT) is rejected by the remote with 403, retry the
-          # push with the job-scoped GITHUB_TOKEN instead of failing the run.
-          GH_TOKEN_FALLBACK: ${{ github.token }}
         run: |
           git diff --cached --quiet && echo "Nothing to commit" && exit 1
 
@@ -220,19 +211,8 @@ jobs:
           count=$(git diff --cached --name-only | wc -l)
           git commit -s -m "[doc](feat) Auto-translate ${count} file(s) (Sphinx gettext)"
 
-          # Try the primary token (PAT if configured, else GITHUB_TOKEN) first.
-          # If it is rejected (e.g. stale/expired PAT), retry once with the
-          # job-scoped GITHUB_TOKEN so the workflow no longer dies on a bad
-          # secret, and re-export GH_TOKEN so later `gh pr create` works too.
           git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          if git push origin "${BRANCH_NAME}"; then
-            echo "Push succeeded with primary token"
-          else
-            echo "::warning::Primary token push rejected; retrying with job-scoped GITHUB_TOKEN..."
-            git remote set-url origin "https://x-access-token:${GH_TOKEN_FALLBACK}@github.com/${GITHUB_REPOSITORY}.git"
-            git push origin "${BRANCH_NAME}"
-            echo "GH_TOKEN=${GH_TOKEN_FALLBACK}" >> "$GITHUB_ENV"
-          fi
+          git push origin "${BRANCH_NAME}"
 
       - name: Create Pull Request
         if: steps.results.outputs.has_changes == 'true'
@@ -242,6 +222,7 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           PR_HEAD: ${{ github.repository_owner }}:${{ env.BRANCH_NAME }}
           PR_BASE: ${{ env.TARGET_BRANCH }}
+          GH_TOKEN: ${{ steps.resolve_token.outputs.token }}
         run: |
           if [ -z "${{ env.BRANCH_NAME }}" ]; then
             echo "Error: BRANCH_NAME not set"
