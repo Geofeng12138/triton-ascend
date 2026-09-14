@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:23+0800\n"
-"PO-Revision-Date: 2026-08-25 23:23+0800\n"
+"POT-Creation-Date: 2026-09-14 18:28+0800\n"
+"PO-Revision-Date: 2026-09-14 18:28+0800\n"
 
-"X-Source-Commit: 128c94fa45f2dc7faf048d616c74ac47e15969a6\n"
+"X-Source-Commit: c9ca7104583ccf3f2163fe6fceb8f6d1574aea95\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,105 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"# Environment Variables and Compiler Options Reference\n"
-"\n"
-"## Environment Variables\n"
-"\n"
-"### `TRITON_DEBUG`\n"
-"\n"
-"| Item | Description |\n"
-"| ---- | ----------- |\n"
-"| Function | Enables debug mode for the Triton-Ascend compiler, outputting detailed compilation and runtime logs. |\n"
-"| Value Range | `0` (disabled, default), `1` (enabled) |\n"
-"| Default Value | `0` |\n"
-"| Usage | Set `TRITON_DEBUG=1` to view the compilation process and error details. |\n"
-"\n"
-"### `TRITON_INTERPRET`\n"
-"\n"
-"| Item | Description |\n"
-"| ---- | ----------- |\n"
-"| Function | Enables interpreter mode, allowing Triton kernels to run without actual hardware compilation. |\n"
-"| Value Range | `0` (disabled, default), `1` (enabled) |\n"
-"| Default Value | `0` |\n"
-"| Usage | Set `TRITON_INTERPRET=1` to debug kernel logic without hardware support. |\n"
-"\n"
-"### `TRITON_ALL_BLOCKS_PARALLEL`\n"
-"\n"
-"| Item | Description |\n"
-"| ---- | ----------- |\n"
-"| Function | Controls whether all blocks are executed in parallel. |\n"
-"| Value Range | `0` (disabled, default), `1` (enabled) |\n"
-"| Default Value | `0` |\n"
-"| Usage | Set `TRITON_ALL_BLOCKS_PARALLEL=1` to enable parallel execution of all blocks. |\n"
-"\n"
-"### `MLIR_ENABLE_DUMP`\n"
-"\n"
-"| Item | Description |\n"
-"| ---- | ----------- |\n"
-"| Function | Enables MLIR intermediate representation dump functionality. |\n"
-"| Value Range | `0` (disabled, default), `1` (enabled) |\n"
-"| Default Value | `0` |\n"
-"| Usage | Set `MLIR_ENABLE_DUMP=1` to dump the MLIR IR at each compilation stage. |\n"
-"\n"
-"## Compiler Options\n"
-"\n"
-"### `--enable-dump`\n"
-"\n"
-"| Item | Description |\n"
-"| ---- | ----------- |\n"
-"| Function | Enables the dump of intermediate files during compilation. |\n"
-"| Value Range | Boolean |\n"
-"| Default Value | `false` |\n"
-"| Usage | Add `--enable-dump` to the compilation command to output intermediate files. |\n"
-"\n"
-"### `--debug`\n"
-"\n"
-"| Item | Description |\n"
-"| ---- | ----------- |\n"
-"| Function | Enables debug mode, outputting more detailed debugging information. |\n"
-"| Value Range | Boolean |\n"
-"| Default Value | `false` |\n"
-"| Usage | Add `--debug` to the compilation command to enable debug mode. |\n"
-"\n"
-"### `--target`\n"
-"\n"
-"| Item | Description |\n"
-"| ---- | ----------- |\n"
-"| Function | Specifies the target hardware platform. |\n"
-"| Value Range | `ascend` (default), other supported platforms |\n"
-"| Default Value | `ascend` |\n"
-"| Usage | Use `--target=ascend` to specify the Ascend NPU as the compilation target. |\n"
-"\n"
-"## Common Usage Examples\n"
-"\n"
-"### Example 1: Enabling Debug Mode\n"
-"\n"
-"```bash\n"
-"export TRITON_DEBUG=1\n"
-"python example.py\n"
-"```\n"
-"\n"
-"### Example 2: Using Interpreter Mode\n"
-"\n"
-"```bash\n"
-"export TRITON_INTERPRET=1\n"
-"python example.py\n"
-"```\n"
-"\n"
-"### Example 3: Dumping MLIR Intermediate Files\n"
-"\n"
-"```bash\n"
-"export MLIR_ENABLE_DUMP=1\n"
-"python example.py\n"
-"```\n"
-"\n"
-"## Notes\n"
-"\n"
-"1. Environment variables take effect at runtime and need to be set before program execution.\n"
-"2. Compiler options are passed through the command line and take effect during compilation.\n"
-"3. When both environment variables and compiler options are set, the compiler options take precedence.\n"
-"4. Enabling debug mode may affect performance; it is recommended to disable it in production environments.\n"
+msgstr "No text provided for translation."
 
 msgid "环境变量与编译选项"
 msgstr "Environment Variables and Compiler Options"
@@ -250,6 +152,21 @@ msgstr "Control whether to include location information (such as file names, lin
 msgid "0：不包含位置信息<br>1：包含位置信息"
 msgstr "0: Does not include location information<br>1: Includes location information"
 
+msgid "TRITON_DISABLE_LINE_INFO"
+msgstr "TRITON_DISABLE_LINE_INFO"
+
+msgid "true"
+msgstr "true"
+
+msgid "控制是否在`bishengir-compile`命令中追加`--enable-debug-info=true`，即是否在生成的内核可执行文件中包含行号等调试信息。**注意**：triton-ascend 默认值为`true`（默认**关闭**行号信息，与社区 Triton 默认开启相反）。行号信息可用于定位精度/性能问题及 profiling 分析，但会增加编译产物大小。"
+msgstr "Controls whether to append `--enable-debug-info=true` to the `bishengir-compile` command, that is, whether to include debugging information such as line numbers in the generated kernel executable. **Note**: The default value for triton-ascend is `true` (line number information is **disabled** by default, which is the opposite of community Triton, where it is enabled by default). Line number information can be used to locate precision/performance issues and for profiling analysis, but it increases the size of compilation artifacts."
+
+msgid "0/false：启用行号信息<br>1/true：禁用行号信息"
+msgstr "0/false: Enable line number information<br>1/true: Disable line number information"
+
+msgid "配合性能分析使用时，请参考[算子性能调优方法](./debug_guide/profiling.md)。"
+msgstr "For use with performance profiling, refer to [Operator Performance Tuning Methods](./debug_guide/profiling.md)."
+
 msgid "TRITON_PRINT_AUTOTUNING"
 msgstr "TRITON_PRINT_AUTOTUNING"
 
@@ -367,29 +284,11 @@ msgstr "~/.triton/override"
 msgid "指定 Triton 内核覆盖文件的查找目录。当`TRITON_KERNEL_OVERRIDE=1`时加载IR/PTX文件的目录。"
 msgstr "Directory for locating Triton kernel override files. When `TRITON_KERNEL_OVERRIDE=1`, this is the directory from which IR/PTX files are loaded."
 
-msgid "TRITON_ASCEND_COMPILE_SPEED_OPT"
-msgstr "TRITON_ASCEND_COMPILE_SPEED_OPT"
-
-msgid "控制JIT编译器在发现内核编译失败后是否跳过后续编译阶段。设为`1`跳过（默认`0`继续尝试）。"
-msgstr "Controls whether the JIT compiler skips subsequent compilation phases after detecting a kernel compilation failure. Set to `1` to skip (default `0` to continue attempting)."
-
-msgid "0：继续尝试<br>1：跳过"
-msgstr "0: Continue trying<br>1: Skip"
-
 msgid "TRITON_COMPILE_ONLY"
 msgstr "TRITON_COMPILE_ONLY"
 
 msgid "remote_launch时使用，只编译不运行。"
 msgstr "Used when remote_launch is enabled, compile only without running."
-
-msgid "TRITON_DISABLE_FFTS"
-msgstr "TRITON_DISABLE_FFTS"
-
-msgid "是否禁用FFTS。**注意**：逻辑为取反，0 表示启用 FFTS，1 表示禁用。"
-msgstr "Whether to disable FFTS. **Note**: The logic is inverted; 0 means FFTS is enabled, 1 means it is disabled."
-
-msgid "0：启用<br>1：禁用"
-msgstr "0: Enable<br>1: Disable"
 
 msgid "TRITON_DISABLE_PRECOMPILE"
 msgstr "TRITON_DISABLE_PRECOMPILE"
@@ -402,12 +301,6 @@ msgstr "0: Enable precompilation<br>1: Disable precompilation"
 
 msgid "**运行与调度**"
 msgstr "**Execution and Scheduling**"
-
-msgid "TRITON_ALL_BLOCKS_PARALLEL"
-msgstr "TRITON_ALL_BLOCKS_PARALLEL"
-
-msgid "启用或禁用自动根据物理核数优化逻辑核数，仅当逻辑核间可并行时方可启动。当逻辑核数大于物理核数时，启动该优化，则编译器自动调整逻辑核数量为物理核数，减少调度开销；启用后允许grid>65535。限制：triton kernel的逻辑必须对执行顺序不敏感才能开启该选项，否则可能会导致死锁。per-kernel 选项 `enable_auto_blockify`（详见 `architecture_difference.md`）在显式设置时优先于该环境变量；环境变量仅对未设置 `enable_auto_blockify` 的 kernel 起默认值作用。"
-msgstr "Enable or disable automatic optimization of the logical core count based on the physical core count; this can only be enabled when logical cores can run in parallel. When the logical core count is greater than the physical core count, enabling this optimization causes the compiler to automatically adjust the logical core count to the physical core count, reducing scheduling overhead; when enabled, grid>65535 is allowed. Limitation: the logic of the triton kernel must be insensitive to execution order for this option to be enabled; otherwise, it may lead to deadlock. The per-kernel option `enable_auto_blockify` (see `architecture_difference.md`) takes precedence over this environment variable when explicitly set; the environment variable only serves as the default value for kernels where `enable_auto_blockify` is not set."
 
 msgid "TRITON_ENABLE_TASKQUEUE"
 msgstr "TRITON_ENABLE_TASKQUEUE"
@@ -502,6 +395,27 @@ msgstr "Enable or disable the ping-pong/double buffer pipeline. Enabled by defau
 msgid "`triton.Config` 或 launch meta-parameter"
 msgstr "`triton.Config` or launch meta-parameter"
 
+msgid "**图优化**"
+msgstr "**Graph Optimization**"
+
+msgid "`enable_graph_optimize`"
+msgstr "`enable_graph_optimize`"
+
+msgid "启用或禁用 TTIR Graph Optimization。具体规则、重写次数和 UB 预算由后端维护。"
+msgstr "Enable or disable TTIR Graph Optimization. The backend maintains the specific rules, rewrite counts, and UB budget."
+
+msgid "**毕昇编译器**"
+msgstr "**BiSheng compiler**"
+
+msgid "`bisheng_options`"
+msgstr "`bisheng_options`"
+
+msgid "后端默认字符串或用户字符串"
+msgstr "Backend default string or user string"
+
+msgid "向支持该选项的毕昇编译路径透传附加参数。"
+msgstr "Passes additional parameters to the BiSheng compilation path that supports this option."
+
 msgid "**CV 融合**"
 msgstr "**CV Fusion**"
 
@@ -522,6 +436,45 @@ msgstr "Enable or disable automatic CV balance."
 
 msgid "`triton.Config` 或 Autotune 参数"
 msgstr "`triton.Config` or Autotune parameters"
+
+msgid "`enable_cube_block_merge`"
+msgstr "`enable_cube_block_merge`"
+
+msgid "`False`（默认）、`True`"
+msgstr "`False` (default), `True`"
+
+msgid "控制 DynamicCV pipeline 的 Cube block merge。"
+msgstr "Controls the Cube block merge in the DynamicCV pipeline."
+
+msgid "**VF 融合**"
+msgstr "**VF fusion**"
+
+msgid "`vf_fusion_mode`"
+msgstr "`vf_fusion_mode`"
+
+msgid "`None`（默认，遵循 BiShengIR 默认值 `\"max-parallel\"`）、`\"max-parallel\"`、`\"all-op\"`、`\"ub-aware-op\"`"
+msgstr "`None` (default, follows the BiShengIR default value `\"max-parallel\"`), `\"max-parallel\"`, `\"all-op\"`, `\"ub-aware-op\"`"
+
+msgid "选择 Ascend 950 BiShengIR 阶段的 VF fusion 策略。"
+msgstr "Select the VF fusion strategy for the Ascend 950 BiShengIR stage."
+
+msgid "`enable_vf_fusion`"
+msgstr "`enable_vf_fusion`"
+
+msgid "`None`（默认，遵循 BiShengIR 默认值 `True`）、`True`、`False`"
+msgstr "`None` (default, follows the BiShengIR default value `True`), `True`, `False`"
+
+msgid "控制 Ascend 950 BiShengIR 阶段是否启用 VF fusion。该选项是 VF fusion 的总开关；`vf_fusion_mode` 仅用于选择融合策略。"
+msgstr "Controls whether to enable VF fusion during the Ascend 950 BiShengIR stage. This option is the master switch for VF fusion; `vf_fusion_mode` is only used to select the fusion strategy."
+
+msgid "**HFusion**"
+msgstr "**HFusion**"
+
+msgid "`hfusion_enable_multiple_consumer_fusion`"
+msgstr "`hfusion_enable_multiple_consumer_fusion`"
+
+msgid "控制 Ascend 950 BiShengIR 阶段的多 consumer 融合。"
+msgstr "Controls the multi-consumer fusion in the Ascend 950 BiShengIR stage."
 
 msgid "**CV 融合/同步**"
 msgstr "**CV Fusion/Sync**"
@@ -601,65 +554,29 @@ msgstr "`tile_mix_cube_loop`"
 msgid "配置 Cube loop 的切分份数。"
 msgstr "Configure the split count of the Cube loop."
 
-msgid "`disable_auto_inject_block_sync`"
-msgstr "`disable_auto_inject_block_sync`"
+msgid "**DynamicCV 缓冲**"
+msgstr "**DynamicCV buffer**"
 
-msgid "启用或禁用自动 block sync 注入。"
-msgstr "Enable or disable automatic block sync injection."
+msgid "`buf_slot_num_of_veccore`"
+msgstr "`buf_slot_num_of_veccore`"
 
-msgid "**运行流**"
-msgstr "**Execution Flow**"
+msgid "`None`（默认）或整数"
+msgstr "`None` (default) or an integer"
 
-msgid "`stream`"
-msgstr "stream"
+msgid "配置 veccore 内部 buffer slot 数量。"
+msgstr "Configure the number of internal buffer slots in veccore."
 
-msgid "`None` 或 NPU stream 标识"
-msgstr "`None` or NPU stream identifier"
+msgid "`buf_slot_num_of_crosscore`"
+msgstr "`buf_slot_num_of_crosscore`"
 
-msgid "指定 NPU stream。"
-msgstr "Specify the NPU stream."
+msgid "配置跨 core buffer slot 数量。"
+msgstr "Configure the number of cross-core buffer slots."
 
-msgid "launch meta-parameter"
-msgstr "launch meta-parameter"
+msgid "`buf_slot_num_of_gm`"
+msgstr "`buf_slot_num_of_gm`"
 
-msgid "**编译 Pass**"
-msgstr "**Compilation Pass**"
-
-msgid "`enable_linearize`"
-msgstr "enable_linearize"
-
-msgid "版本相关"
-msgstr "Version-related"
-
-msgid "启用或禁用 linearization pass。"
-msgstr "Enable or disable the linearization pass."
-
-msgid "**CV 融合/layout**"
-msgstr "**CV Fusion/Layout**"
-
-msgid "`enable_nd2nz_on_vector`"
-msgstr "enable_nd2nz_on_vector"
-
-msgid "默认 `False`"
-msgstr "Default `False`"
-
-msgid "启用或禁用 Vector 路径上的 ND 到 NZ 布局转换。"
-msgstr "Enable or disable the ND-to-NZ layout conversion on the Vector path."
-
-msgid "**大 grid 优化**"
-msgstr "**Large Grid Optimization**"
-
-msgid "`auto_blockify_size`"
-msgstr "`auto_blockify_size`"
-
-msgid "默认 `1`"
-msgstr "Default `1`"
-
-msgid "启用或禁用 AutoBlockify pass。未设置 `TRITON_ALL_BLOCKS_PARALLEL` 时忽略。"
-msgstr "Enable or disable the AutoBlockify pass. Ignored when `TRITON_ALL_BLOCKS_PARALLEL` is not set."
-
-msgid "launch meta-parameter 或 `triton.Config`"
-msgstr "launch meta-parameter or `triton.Config`"
+msgid "配置 GM load buffer slot 数量。"
+msgstr "Configure the number of GM load buffer slots."
 
 msgid "**编译模式**"
 msgstr "**Compilation Mode**"
@@ -667,8 +584,326 @@ msgstr "**Compilation Mode**"
 msgid "`compile_mode`"
 msgstr "`compile_mode`"
 
-msgid "`\"unstructured_in_simt\"`（默认）、`\"simd\"`、`\"simt_only\"`"
-msgstr "`\"unstructured_in_simt\"` (default), `\"simd\"`, `\"simt_only\"`"
+msgid "`\"simd_simt_template\"`（默认）、`\"simd\"`、`\"simt_only\"`"
+msgstr "`\"simd_simt_template\"` (default), `\"simd\"`, `\"simt_only\"`"
 
-msgid "控制 Ascend 950 上 SIMD / SIMT 编译路径。`\"simd\"`：纯 SIMD；`\"unstructured_in_simt\"`：混合（结构化 SIMD，离散/非结构化尽量走 SIMT 间接访存模板）；`\"simt_only\"`：纯 SIMT （`ttir→npubin`）。"
-msgstr "Controls the SIMD/SIMT compilation path on Ascend 950. `\"simd\"`: pure SIMD; `\"unstructured_in_simt\"`: hybrid (structured SIMD, discrete/unstructured paths prioritize SIMT indirect memory access templates as much as possible); `\"simt_only\"`: pure SIMT (`ttir→npubin`)."
+msgid "控制 SIMD / SIMT 编译路径。`\"simd\"`：纯 SIMD；`\"simd_simt_template\"`：普通 SIMD pipeline，并在 Ascend 950 上启用 template-SIMT 子路径；`\"simt_only\"`：仅 Ascend 950 支持的纯 SIMT 路径（`ttir→npubin`）。"
+msgstr "Controls the SIMD / SIMT compilation path. `\"simd\"`: pure SIMD; `\"simd_simt_template\"`: standard SIMD pipeline, and enables the template-SIMT sub-path on Ascend 950; `\"simt_only\"`: pure SIMT path supported only on Ascend 950 (`ttir→npubin`)."
+
+msgid "编译选项清理与兼容性"
+msgstr "Compilation Options Cleanup and Compatibility"
+
+msgid "环境变量和编译选项参考表仅列出仍然生效的公开控制项。已经删除或转由后端内部维护的旧环境变量和编译选项不再列入参考表。作为临时兼容措施，当前继续传入这些废弃项时，编译器会发出 `FutureWarning` 并忽略用户值，使用后端维护值或默认行为。这些废弃项将在后续版本中按计划彻底删除；废弃编译选项彻底删除后，继续传入将被视为不支持的选项，并导致编译报错。用户应在兼容期内完成迁移。"
+msgstr "The reference table for environment variables and compilation options lists only the public control items that are still in effect. The reference table no longer includes old environment variables and compilation options that have been deleted or are now maintained internally by the backend. As a temporary compatibility measure, if you pass these deprecated items, the compiler issues a `FutureWarning`, ignores the user value, and uses the backend maintenance value or default behavior. These deprecated items will be completely removed in subsequent versions as planned; after the deprecated compilation options are completely removed, continuing to pass them will be treated as unsupported options and will cause a compilation error. You should complete the migration within the compatibility period."
+
+msgid "已更名的编译选项"
+msgstr "Renamed compilation options"
+
+msgid "以下废弃名称仍可在兼容期内传入，编译器会将其路由到当前名称。新代码应直接使用当前名称："
+msgstr "The following deprecated names can still be specified during the compatibility period, and the compiler routes them to the current names. New code should use the current names directly:"
+
+msgid "废弃名称"
+msgstr "Deprecated name"
+
+msgid "当前名称或取值"
+msgstr "Current name or value"
+
+msgid "兼容行为"
+msgstr "Compatibility Behavior"
+
+msgid "`force_simt_only`"
+msgstr "`force_simt_only`"
+
+msgid "`compile_mode=\"simt_only\"`"
+msgstr "`compile_mode=\"simt_only\"`"
+
+msgid "显式传入即发出 `FutureWarning`；旧值为 `True` 时路由并覆盖已传入的 `compile_mode`，为 `False` 时不改变当前模式。"
+msgstr "If explicitly passed, a `FutureWarning` is issued; when the old value is `True`, it routes and overrides the passed-in `compile_mode`; when `False`, the current mode remains unchanged."
+
+msgid "`force_simt_template`"
+msgstr "`force_simt_template`"
+
+msgid "`compile_mode=\"simd_simt_template\"`"
+msgstr "`compile_mode=\"simd_simt_template\"`"
+
+msgid "`intra_cache_num`"
+msgstr "`intra_cache_num`"
+
+msgid "发出 `FutureWarning` 后保留原值；同时传入新旧名称时使用新名称。"
+msgstr "After a `FutureWarning` is issued, the original value is retained; when both the old and new names are passed in, the new name is used."
+
+msgid "`inter_cache_num`"
+msgstr "`inter_cache_num`"
+
+msgid "`load_cache_num`"
+msgstr "`load_cache_num`"
+
+msgid "`compile_mode=\"unstructured_in_simt\"` 当前作为 `compile_mode=\"simd_simt_template\"` 的等价兼容取值接受，并会规范化为当前取值；它当前不会触发 `FutureWarning`。新代码应使用 `simd_simt_template`。"
+msgstr "`compile_mode=\"unstructured_in_simt\"` is currently accepted as an equivalent compatible value to `compile_mode=\"simd_simt_template\"` and is normalized to the current value. It does not currently trigger a `FutureWarning`. New code should use `simd_simt_template`."
+
+msgid "应从用户配置中删除的编译选项"
+msgstr "Compilation options to remove from user configurations"
+
+msgid "以下废弃选项没有继续生效的同名公开入口。兼容期内显式传入时，编译器会发出 `FutureWarning` 并忽略用户值；用户应按下表将其从 `triton.Config`、Autotune 配置或 kernel launch meta-parameter 中删除。"
+msgstr "The following deprecated options do not have a public entry with the same name that remains in effect. If you explicitly pass them during the compatibility period, the compiler issues a `FutureWarning` and ignores the provided value. Remove them from `triton.Config`, Autotune configurations, or kernel launch meta-parameters according to the table below."
+
+msgid "废弃选项"
+msgstr "Deprecated options"
+
+msgid "迁移方式及当前后端行为"
+msgstr "Migration methods and current backend behavior"
+
+msgid "`add_auto_scheduling`"
+msgstr "`add_auto_scheduling`"
+
+msgid "删除该选项；DAG 自动调度开关已移除，无替代项。"
+msgstr "Remove this option; the DAG automatic scheduling switch has been removed, and there is no replacement."
+
+msgid "`allow_fp8e4nv`"
+msgstr "`allow_fp8e4nv`"
+
+msgid "删除该选项；该字段没有有效 consumer，无替代项。"
+msgstr "Remove this option; this field has no valid consumer, and there is no replacement."
+
+msgid "`arch`"
+msgstr "`arch`"
+
+msgid "删除该选项；目标架构由编译目标的 `GPUTarget.arch` 提供。"
+msgstr "Delete this option; the compilation target's `GPUTarget.arch` provides the target architecture."
+
+msgid "`auto_blockify_size`"
+msgstr "`auto_blockify_size`"
+
+msgid "`auto_tile_and_bind_subblock`"
+msgstr "`auto_tile_and_bind_subblock`"
+
+msgid "删除该选项；tiling 和 sub-block binding 由 Linalg IR 与 lock 语义推导。"
+msgstr "Remove this option; tiling and sub-block binding are derived from Linalg IR and lock semantics."
+
+msgid "`code_motion`"
+msgstr "`code_motion`"
+
+msgid "删除该选项；原 vendor compiler 控制项已移除，无替代项。"
+msgstr "This option has been removed; the original vendor compiler control item has been removed, and there is no replacement."
+
+msgid "`compile_on_910_95`"
+msgstr "`compile_on_910_95`"
+
+msgid "删除该选项；目标产品由编译目标自动识别。"
+msgstr "Remove this option; the target product is automatically identified by the compilation target."
+
+msgid "`disable_auto_inject_block_sync`"
+msgstr "`disable_auto_inject_block_sync`"
+
+msgid "删除该选项；block synchronization injection 由 NPU IR 管理。"
+msgstr "This option is removed; block synchronization injection is managed by NPU IR."
+
+msgid "`disable_size_align_for_cast`"
+msgstr "`disable_size_align_for_cast`"
+
+msgid "`enable_auto_blockify`"
+msgstr "`enable_auto_blockify`"
+
+msgid "删除该选项；自动 block mapping 及安全分析由后端管理。"
+msgstr "Remove this option; automatic block mapping and safety analysis are managed by the backend."
+
+msgid "`enable_buffer_insert_optimization`"
+msgstr "`enable_buffer_insert_optimization`"
+
+msgid "删除该选项；DynamicCV 在内部保持 buffer insertion optimization 开启。"
+msgstr "Remove this option; DynamicCV keeps buffer insertion optimization enabled internally."
+
+msgid "`enable_cce_vf_auto_sync`"
+msgstr "`enable_cce_vf_auto_sync`"
+
+msgid "`enable_cce_vf_remove_membar`"
+msgstr "`enable_cce_vf_remove_membar`"
+
+msgid "`enable_cross_if_fusion`"
+msgstr "`enable_cross_if_fusion`"
+
+msgid "`enable_drop_unit_dims`"
+msgstr "`enable_drop_unit_dims`"
+
+msgid "删除该选项；如果目的是启用 flatten，改用 `enable_flatten`。"
+msgstr "Remove this option; if you want to enable flatten, use `enable_flatten` instead."
+
+msgid "`enable_linearize`"
+msgstr "enable_linearize"
+
+msgid "`enable_mask_fallback_conversion`"
+msgstr "`enable_mask_fallback_conversion`"
+
+msgid "删除该选项；后端将 mask fallback conversion 固定为关闭。"
+msgstr "Remove this option; the backend permanently disables mask fallback conversion."
+
+msgid "`enable_nd2nz_on_vector`"
+msgstr "enable_nd2nz_on_vector"
+
+msgid "删除该选项；后端将 Vector ND2NZ conversion 固定为关闭。"
+msgstr "Remove this option; the backend hardcodes Vector ND2NZ conversion as disabled."
+
+msgid "`enable_select_analysis`"
+msgstr "`enable_select_analysis`"
+
+msgid "删除该选项；后端将 select analysis 固定为开启。"
+msgstr "Delete this option; the backend hardcodes select analysis as enabled."
+
+msgid "`enable_sync_block_lock`"
+msgstr "`enable_sync_block_lock`"
+
+msgid "`enable_ub_refine_opt`"
+msgstr "`enable_ub_refine_opt`"
+
+msgid "删除该选项；后端将 UB refine optimization 固定为关闭。"
+msgstr "Remove this option; the backend disables UB refine optimization."
+
+msgid "`graph_optimize_emit_remarks`"
+msgstr "`graph_optimize_emit_remarks`"
+
+msgid "删除该选项；Graph Optimization remarks 由后端固定为关闭。"
+msgstr "Remove this option; the backend fixes Graph Optimization remarks as disabled."
+
+msgid "`graph_optimize_max_rewrites_per_function`"
+msgstr "`graph_optimize_max_rewrites_per_function`"
+
+msgid "删除该选项；每个函数的最大重写次数由后端固定为 64。"
+msgstr "Remove this option; the backend fixes the maximum number of rewrites per function at 64."
+
+msgid "`graph_optimize_rule_mask`"
+msgstr "`graph_optimize_rule_mask`"
+
+msgid "删除该选项；Graph Optimization rule mask 由后端固定为 511。"
+msgstr "Remove this option; the Graph Optimization rule mask is fixed to 511 by the backend."
+
+msgid "`graph_optimize_ub_capacity_bytes`"
+msgstr "`graph_optimize_ub_capacity_bytes`"
+
+msgid "删除该选项；Graph Optimization UB 预算由后端根据目标产品推导。"
+msgstr "Remove this option; the backend derives the Graph Optimization UB budget based on the target product."
+
+msgid "`grid_num_tiles`"
+msgstr "`grid_num_tiles`"
+
+msgid "删除该选项；该值由后端根据静态 grid 自动注入。"
+msgstr "Remove this option; the backend automatically injects the value based on the static grid."
+
+msgid "`has_auto_blockify_blacklist_op`"
+msgstr "`has_auto_blockify_blacklist_op`"
+
+msgid "删除该选项；安全标记由编译器扫描 TTIR 生成。"
+msgstr "Remove this option; the compiler generates safety markers by scanning TTIR."
+
+msgid "`kernel_name`"
+msgstr "`kernel_name`"
+
+msgid "删除该选项；kernel 名称由 TTIR 推导。"
+msgstr "Remove this option; the kernel name is derived from TTIR."
+
+msgid "`llvm_version`"
+msgstr "`llvm_version`"
+
+msgid "`mix_mode`"
+msgstr "`mix_mode`"
+
+msgid "删除该选项；mix mode 由 Linalg IR 推导为内部 metadata。"
+msgstr "Remove this option; Linalg IR infers mix mode as internal metadata."
+
+msgid "`ops_reorder`"
+msgstr "`ops_reorder`"
+
+msgid "`optimize_dynamic_offset`"
+msgstr "`optimize_dynamic_offset`"
+
+msgid "删除该选项；后端将 dynamic-offset optimization 固定为关闭。"
+msgstr "Remove this option; the backend permanently disables dynamic-offset optimization."
+
+msgid "`parallel_mode`"
+msgstr "`parallel_mode`"
+
+msgid "删除该选项；parallel mode 由 `compile_mode` 和 Linalg IR 推导。"
+msgstr "This option is removed; parallel mode is derived from `compile_mode` and Linalg IR."
+
+msgid "`storage_align`"
+msgstr "`storage_align`"
+
+msgid "`stream`"
+msgstr "stream"
+
+msgid "删除该选项；launch stream 由 runtime 和 driver 管理。"
+msgstr "Remove this option; the runtime and driver manage the launch stream."
+
+msgid "`use_bytecode`"
+msgstr "`use_bytecode`"
+
+msgid "删除该选项；bytecode pipeline 由后端固定启用。"
+msgstr "Remove this option; the bytecode pipeline is always enabled by the backend."
+
+msgid "`vf_merge_level`"
+msgstr "`vf_merge_level`"
+
+msgid "删除该选项；VF merge level 使用后端默认值。"
+msgstr "Remove this option; the VF merge level uses the backend default value."
+
+msgid "`warp_size`"
+msgstr "`warp_size`"
+
+msgid "删除该选项；Ascend 后端将 warp size 固定为 32。"
+msgstr "Remove this option; the Ascend backend fixes the warp size to 32."
+
+msgid "已废弃的环境变量"
+msgstr "Deprecated environment variables"
+
+msgid "以下环境变量在兼容期内被检测到时会发出 `FutureWarning`，但其值不再影响后端行为。用户应取消设置："
+msgstr "The following environment variables emit a `FutureWarning` when detected during the compatibility period, but their values no longer affect backend behavior. You should unset them:"
+
+msgid "废弃环境变量"
+msgstr "Deprecated environment variables"
+
+msgid "`LLVM_ROOT`"
+msgstr "`LLVM_ROOT`"
+
+msgid "取消设置；如需选择 CPU launcher 编译器，设置 `CC`。"
+msgstr "Leave it unset; if you need to select the CPU launcher compiler, set `CC`."
+
+msgid "`MLIR_ROOT`"
+msgstr "`MLIR_ROOT`"
+
+msgid "取消设置；使用随包提供或可从 `PATH` 发现的 MLIR 工具。"
+msgstr "Unset; use the MLIR tools provided with the package or discoverable from the `PATH`."
+
+msgid "`TRITON_ALL_BLOCKS_PARALLEL`"
+msgstr "`TRITON_ALL_BLOCKS_PARALLEL`"
+
+msgid "取消设置；自动 block mapping 由后端策略管理。"
+msgstr "Unset; automatic block mapping is managed by the backend strategy."
+
+msgid "`TRITON_ASCEND_ARCH`"
+msgstr "`TRITON_ASCEND_ARCH`"
+
+msgid "取消设置；目标架构由显式编译目标的 `GPUTarget.arch` 提供。"
+msgstr "Unset; the target architecture is provided by the `GPUTarget.arch` of the explicit compilation target."
+
+msgid "`TRITON_ASCEND_COMPILE_SPEED_OPT`"
+msgstr "`TRITON_ASCEND_COMPILE_SPEED_OPT`"
+
+msgid "取消设置；该变量没有有效 consumer，无替代项。"
+msgstr "Unset; this variable has no valid consumer, and no alternative is available."
+
+msgid "`TRITON_BACKEND`"
+msgstr "`TRITON_BACKEND`"
+
+msgid "取消设置；Ascend backend policy 不再由该环境变量选择。"
+msgstr "Unset; this environment variable no longer selects the Ascend backend policy."
+
+msgid "`TRITON_DISABLE_FFTS`"
+msgstr "`TRITON_DISABLE_FFTS`"
+
+msgid "取消设置；FFTS policy 根据显式编译目标推导。"
+msgstr "Unset; the FFTS policy is derived based on the explicit compilation target."
+
+msgid "`TRITON_REGISTER_TENSOR_MSPROF`"
+msgstr "`TRITON_REGISTER_TENSOR_MSPROF`"
+
+msgid "取消设置；tensor-shape msprof registration 不再由环境变量控制。"
+msgstr "Unset; tensor-shape msprof registration is no longer controlled by environment variables."

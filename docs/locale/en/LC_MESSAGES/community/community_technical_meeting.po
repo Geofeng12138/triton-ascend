@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:23+0800\n"
-"PO-Revision-Date: 2026-08-25 23:23+0800\n"
+"POT-Creation-Date: 2026-09-14 18:21+0800\n"
+"PO-Revision-Date: 2026-09-14 18:21+0800\n"
 
-"X-Source-Commit: d3bbc1d8a2bfc2cf22f22282e7b6c4eb042aa0bd\n"
+"X-Source-Commit: f5f4b7e577384310cd720774365319a07584a853\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,10 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"I need to translate the Chinese text into English, but I notice that the text to translate is empty. The message says \"Text to translate:\" but nothing follows it.\n"
-"\n"
-"Could you please provide the Chinese text you'd like me to translate? Once you provide the content, I'll translate it according to the rules specified in the skill document.\n"
+msgstr "No Chinese text was provided to translate. Please provide the text block you would like translated."
 
 msgid "技术例会"
 msgstr "Technical Meeting"
@@ -59,8 +56,8 @@ msgstr "**Meeting Frequency**: Once every two weeks"
 msgid "**会议时间**：周四 14:15（UTC+8）"
 msgstr "**Meeting Time**: Thursday 14:15 (UTC+8)"
 
-msgid "**会议起始日期**：2026 年 6 月 4 日"
-msgstr "**Meeting Start Date**: June 4, 2026"
+msgid "**会议起始日期**：2026 年 9 月 3 日"
+msgstr "**Meeting start date**: September 3, 2026"
 
 msgid "**会议链接**：[链接](https://us06web.zoom.us/j/86540192059?pwd=X2N3pl5bnZH5CgiuX1zjyZoELItmjP.1)"
 msgstr "**Meeting Link**: [Link](https://us06web.zoom.us/j/86540192059?pwd=X2N3pl5bnZH5CgiuX1zjyZoELItmjP.1)"
@@ -74,8 +71,8 @@ msgstr "**Meeting Room Password**: 123456"
 msgid "**会议议程与纪要**：[议程&纪要](https://docs.google.com/document/d/1qfat2wZtO2nfZb5FC2dWAcR6sTqgTNSvvh7MzTDoI4s/edit?pli=1&tab=t.0)"
 msgstr "**Meeting Agenda and Minutes**: [Agenda & Minutes](https://docs.google.com/document/d/1qfat2wZtO2nfZb5FC2dWAcR6sTqgTNSvvh7MzTDoI4s/edit?pli=1&tab=t.0)"
 
-msgid "**会议 iCalendar**：[iCalendar-ics](https://us06web.zoom.us/meeting/tZIoc-mppzkqH92hP7TBYHppsqZUxg9F8VPf/ics?icsToken=DObLUj7lyTNwJj6XJgAALAAAAOvNV2DJnuObI9tqQGt1c3aeqVgCdzMYHV0m_J0KHIX0i4QUrtvsJwMu_EMF5VKyBKdX4rPWh_raTxvF4jAwMDAwMQ&meetingMasterEventId=1PZVSVC8S8WIBZJ1e4wuZQ)"
-msgstr "**Meeting iCalendar**: [iCalendar-ics](https://us06web.zoom.us/meeting/tZIoc-mppzkqH92hP7TBYHppsqZUxg9F8VPf/ics?icsToken=DObLUj7lyTNwJj6XJgAALAAAAOvNV2DJnuObI9tqQGt1c3aeqVgCdzMYHV0m_J0KHIX0i4QUrtvsJwMu_EMF5VKyBKdX4rPWh_raTxvF4jAwMDAwMQ&meetingMasterEventId=1PZVSVC8S8WIBZJ1e4wuZQ)"
+msgid "**会议 iCalendar**：[iCalendar-ics](https://us06web.zoom.us/meeting/tZIoc-mppzkqH92hP7TBYHppsqZUxg9F8VPf/ics?icsToken=DBlmQBo-ZbCIRz2GWwAALAAAAH1WzqoLLdQ-3b1rNf3AN6DLmYOhAUMS4b1zaoD-mgyykQQcSeS7S4Sf27U3_r_pLLEVTWFd8P_zVnm1zzAwMDAwMg)"
+msgstr "**Meeting iCalendar**: [iCalendar-ics](https://us06web.zoom.us/meeting/tZIoc-mppzkqH92hP7TBYHppsqZUxg9F8VPf/ics?icsToken=DBlmQBo-ZbCIRz2GWwAALAAAAH1WzqoLLdQ-3b1rNf3AN6DLmYOhAUMS4b1zaoD-mgyykQQcSeS7S4Sf27U3_r_pLLEVTWFd8P_zVnm1zzAwMDAwMg)"
 
 msgid "投票规则"
 msgstr "Voting rules"

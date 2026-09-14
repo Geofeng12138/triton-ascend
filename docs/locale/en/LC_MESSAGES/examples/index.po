@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:25+0800\n"
-"PO-Revision-Date: 2026-08-25 23:25+0800\n"
+"POT-Creation-Date: 2026-09-14 18:29+0800\n"
+"PO-Revision-Date: 2026-09-14 18:29+0800\n"
 
 "X-Source-Commit: ab4120690f362c8636887544c380ac2ab3343bdd\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -22,9 +22,15 @@ msgstr ""
 
 msgid ""
 msgstr ""
-"I'd be happy to translate your Chinese text into English, but it looks like you haven't provided the actual text to translate yet. The message contains only the instructions and the skill document, but the \"Text to translate:\" section is empty.\n"
+"The user wants me to translate a Chinese text block into English, but the text block appears to be empty. Let me check if there's any content to translate.\n"
 "\n"
-"Please provide the Chinese text you'd like me to translate, and I'll translate it according to the rules you've specified.\n"
+"Looking at the message, after \"Text to translate:\" there is no actual Chinese text provided. I should inform the user that no text was provided for translation.\n"
+"\n"
+"However, since the instructions say \"Return ONLY the translated text, no explanations, no markdown fences,\" and there's no text to translate, I should return nothing or indicate that no text was provided.\n"
+"\n"
+"Wait, let me re-read the message more carefully. The message ends with \"Text to translate:\" followed by a newline, but no actual content. This means there's nothing to translate.\n"
+"\n"
+"I'll return an empty response since there's no text to translate.\n"
 
 msgid "Tutorials"
 msgstr "Tutorials"
