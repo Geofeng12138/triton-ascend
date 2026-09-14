@@ -83,7 +83,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import List, Optional
 
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, AuthenticationError
 
 # ---------------------------------------------------------------------------
 # Directory Layout (relative to project root = triton-ascend/)
@@ -101,6 +101,16 @@ PO_DIR = LOCALE_DIR / "en" / "LC_MESSAGES"
 # PO timestamps use Beijing time (UTC+8) so headers read as local time
 # regardless of the CI runner's timezone (GitHub Actions runs on UTC).
 _BEIJING_TZ = timezone(timedelta(hours=8))
+
+# ---------------------------------------------------------------------------
+# LLM provider configuration
+# ---------------------------------------------------------------------------
+# The translation engine uses the OpenAI-compatible chat-completions API, so
+# any provider with an OpenAI-compatible endpoint can be plugged in by
+# overriding the base URL and model name. Both can be overridden via
+# LLM_API_BASE / LLM_MODEL / --api-base / --model.
+DEFAULT_API_BASE = "https://api.deepseek.com"
+DEFAULT_MODEL = "deepseek-chat"
 
 # ---------------------------------------------------------------------------
 # Exclusions
@@ -134,17 +144,43 @@ EXCLUDED_FILE_STEMS: List[str] = [
 # Translation prompts
 # ---------------------------------------------------------------------------
 
-SYSTEM_PROMPT = ("You are a professional technical documentation translation expert, "
-                 "proficient in Chinese-to-English technical document translation.")
+SYSTEM_PROMPT = (
+    "You are a professional technical documentation translation expert, "
+    "proficient in Chinese-to-English technical document translation. "
+    "Before translating anything you MUST read and follow the translation "
+    "standard embedded in the skill document below (the key points of the "
+    "Google Developer Documentation Style Guide, https://developers.google.com/style). "
+    "Skipping the translation standard produces non-compliant translations "
+    "that must be redone, so the standard is mandatory for every request."
+)
 
-BLOCK_TRANSLATION_PROMPT = """Translate the following Chinese text into English.
+BLOCK_TRANSLATION_PROMPT = """Translate the following Chinese text block into English.
 
 Rules:
 1. Return ONLY the translated text, no explanations, no markdown fences.
-2. Use standard English technical terminology.
-3. For proper nouns (person names, company names, product names), keep them as-is.
-4. If the text contains code blocks or inline code (`code`), translate ONLY the Chinese comments and string literals inside the code; leave all code syntax, variable names, and keywords unchanged.
-5. If any sentence is too difficult to translate, keep the original Chinese as-is.
+2. Preserve the EXACT original structure: markdown/RST heading markers
+   (#, ==, --, ~~), list prefixes (-, 1., 4.1), table separators (|, ----),
+   inline markup (`, **, *), links, and code fences. Do NOT renumber,
+   reorder, merge, or split lines, paragraphs, list items, table rows, or
+   code blocks.
+2b. Keep the leading whitespace (spaces/tabs) of EVERY line exactly as in
+   the source, especially inside code blocks and indented RST blocks.
+3. Follow the translation standard (Google Developer Documentation Style
+   Guide): prefer active voice (imperative for instructions), use simple
+   present tense, use second person ("you"), write complete sentences with
+   explicit subjects and verbs, put articles (a/an/the) before singular
+   countable nouns, keep sentences under ~25 words, and use parallel
+   structures.
+4. Do NOT use foreign words (etc., e.g., i.e., via) or contractions
+   (can't, it's, don't) - use "and so on", "for example", "that is",
+   "through/by/using", "cannot", "it is", "do not" instead.
+5. Proper nouns (product names, environment variables, API identifiers,
+   repository names) stay exactly as-is.
+6. In code blocks or inline code, translate ONLY the Chinese comments and
+   string literals; leave all code syntax, variable names, and keywords
+   unchanged.
+7. If any sentence is too ambiguous to translate faithfully, keep the
+   original Chinese as-is; never guess.
 
 Text to translate:
 {content}"""
@@ -705,10 +741,30 @@ def _get_po_skill_version(po_path: Path) -> str:
 
 
 class PoTranslator:
-    """Translate .pot entries to .po using DeepSeek API with translation memory."""
+    """Translate .pot entries to .po using LLM API with translation memory."""
 
-    def __init__(self, api_key: str, skill_doc: Optional[str] = None):
-        self.client = AsyncOpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+    def __init__(self, api_key: str, skill_doc: Optional[str] = None,
+                 api_base: str = "", model: str = ""):
+        self.api_base = api_base or DEFAULT_API_BASE
+        self.model = model or DEFAULT_MODEL
+        # Per-request timeout and retry budget (env-tunable). Without a timeout
+        # a hung request (slow gateway, stalled connection) would block the
+        # whole sequential translation for minutes per block. When no API key
+        # is provided the client stays None so cache-only re-processing works
+        # without network access; blocks needing fresh translation will fail
+        # closed with a clear message.
+        self.client = (AsyncOpenAI(
+            api_key=api_key,
+            base_url=self.api_base,
+            timeout=float(os.getenv("LLM_TIMEOUT", "120")),
+            max_retries=int(os.getenv("LLM_MAX_RETRIES", "1")),
+        ) if api_key else None)
+        # Number of blocks translated concurrently per document. Raising this
+        # shortens total runtime but may hit provider rate limits (429).
+        self._concurrency = max(1, int(os.getenv("LLM_CONCURRENCY", "4")))
+        # Extra per-block retries for transient failures (timeout / 429 / net
+        # jitter). A block is only considered failed after all attempts.
+        self._block_retries = max(0, int(os.getenv("LLM_BLOCK_RETRIES", "2")))
         # The skill document text (.agents/skills/translate/skill.md)
         # is injected as part of the system prompt so every translation request
         # follows the project's authoritative terminology glossary and rules.
@@ -727,11 +783,15 @@ class PoTranslator:
         """Build the system prompt, injecting the skill document when available."""
         parts = [SYSTEM_PROMPT]
         if self.skill_doc:
-            parts.append("Follow the skill document below for terminology, style, and rules. "
-                         "Its glossary is authoritative; use it for every translation.\n\n"
-                         "===== BEGIN TRANSLATION SKILL DOCUMENT =====\n"
-                         f"{self.skill_doc}\n"
-                         "===== END TRANSLATION SKILL DOCUMENT =====")
+            parts.append(
+                "Follow the skill document below for the mandatory translation "
+                "standard (Google Developer Documentation Style Guide key points), "
+                "terminology, and structure rules. The standard MUST be read and "
+                "followed before translating anything; its glossary is "
+                "authoritative. Use it for every translation.\n\n"
+                "===== BEGIN TRANSLATION SKILL DOCUMENT =====\n"
+                f"{self.skill_doc}\n"
+                "===== END TRANSLATION SKILL DOCUMENT =====")
         if context:
             parts.append(f"(File: {context})")
         return "\n\n".join(parts)
@@ -808,24 +868,57 @@ class PoTranslator:
 
         print(f"  {name}: {len(pot_entries)} entries [{kept} kept, {len(untranslated)} new]", end=" ", flush=True)
 
+        # Translate the pending entries concurrently (bounded by _concurrency)
+        # and collect results. Fail-closed: if any entry fails (API error or
+        # auth failure), the .po file is NOT written so the workflow never
+        # commits a document containing untranslated Chinese text.
+        failed = 0
+        auth_failed = False
+
         if untranslated:
             print(f"\n    Translating {len(untranslated)} entry(ies)...", end=" ", flush=True)
-            for idx, msgid in enumerate(untranslated):
-                translation = await self._translate_single(msgid, name)
-                if translation:
-                    # Defensive: ensure the model returned every leading "N. "
-                    # list-number prefix that exists on the Chinese source.
+
+            sem = asyncio.Semaphore(self._concurrency)
+
+            async def translate_one(msgid: str) -> tuple:
+                async with sem:
+                    translation = None
+                    for attempt in range(self._block_retries + 1):
+                        try:
+                            translation = await self._translate_single(msgid, name)
+                        except AuthenticationError:
+                            return msgid, None, "AUTH"
+                        if translation is not None:
+                            break
+                        if attempt < self._block_retries:
+                            await asyncio.sleep(1.0 * (attempt + 1))
+                    if translation is None:
+                        return msgid, None, None
                     translation = _restore_enumeration_prefix(msgid, translation)
-                    # Glossary enforcement: force the authoritative spellings
-                    # defined in the skill doc glossary (e.g. "Ascend-platform")
-                    # on the fresh output before persisting it.
                     translation = apply_glossary_rules(translation, self._glossary_rules)
+                    return msgid, translation, "OK"
+
+            results = await asyncio.gather(*(translate_one(msgid) for msgid in untranslated))
+
+            for msgid, translation, status in results:
+                if status == "AUTH":
+                    auth_failed = True
+                elif status is None:
+                    failed += 1
+                else:
                     new_entries[msgid]["msgstr"] = translation
                     new_entries[msgid]["translated"] = True
                     content_changed = True
-                if idx < len(untranslated) - 1:
-                    await asyncio.sleep(0.3)
+
             print(" done", end=" ", flush=True)
+
+        if auth_failed:
+            print(f"\n  AUTH FAIL: {name} (invalid API key) - .po NOT written", flush=True)
+            return False
+
+        if failed > 0:
+            print(f"\n  FAIL: {name}: {failed} entry(ies) failed to translate - .po NOT written", flush=True)
+            return False
 
         if not content_changed:
             # Content identical. Still stamp (or refresh) the X-Source-Commit
@@ -853,13 +946,18 @@ class PoTranslator:
         return True
 
     async def _translate_single(self, content: str, context: str = "") -> Optional[str]:
-        """Translate a single text string via DeepSeek API."""
-        prompt = BLOCK_TRANSLATION_PROMPT.format(content=content)
+        """Translate a single text string via the configured LLM API."""
+        if self.client is None:
+            print(f"  No API key configured - block for '{context}' needs fresh translation, skipped",
+                  flush=True)
+            return None
+        prompt = BLOCK_TRANSLATION_PROMPT.replace("{content}", content)
         system = self._system_prompt(context)
 
+        trailing_nl = content.endswith("\n")
         try:
             response = await self.client.chat.completions.create(
-                model="deepseek-chat",
+                model=self.model,
                 messages=[
                     {"role": "system", "content": system},
                     {"role": "user", "content": prompt},
@@ -868,7 +966,14 @@ class PoTranslator:
                 temperature=0.3,
             )
             text = response.choices[0].message.content
-            return text.strip() if text else None
+            if not text:
+                return None
+            text = text.strip()
+            if trailing_nl and not text.endswith("\n"):
+                text += "\n"
+            return text
+        except AuthenticationError:
+            raise
         except Exception as e:
             print(f"API error translating '{context}': {e}")
             return None
@@ -877,23 +982,33 @@ class PoTranslator:
         """Translate a list of .pot files sequentially and save results JSON."""
         print(f"Translating {len(pot_list)} .pot file(s)", flush=True)
 
+        ok_files = []
         success_files = []
         for pot_path in pot_list:
             ok = await self.translate_file(pot_path)
             if ok:
                 rel = pot_path.relative_to(POT_DIR)
                 po_path = PO_DIR / rel.with_suffix('.po')
+                ok_files.append(str(pot_path))
                 success_files.append(str(po_path))
 
         total = len(pot_list)
-        ok_count = len(success_files)
+        ok_count = len(ok_files)
         print(f"\nResult: {ok_count}/{total} translated", flush=True)
+
+        failed_files = [str(p) for p in pot_list if str(p) not in ok_files]
+        if failed_files:
+            print(f"FAILED ({len(failed_files)} document(s)):", flush=True)
+            for f in failed_files:
+                print(f"  - {f}", flush=True)
 
         report = {
             "success_files": success_files,
+            "failed_files": failed_files,
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
             "total_files": total,
             "success_count": ok_count,
+            "failed_count": len(failed_files),
         }
         out = Path(output_json)
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -1087,7 +1202,20 @@ async def async_main():
     parser.add_argument("--skip-gettext", action="store_true", help="Skip sphinx-build gettext step")
     parser.add_argument("--files", help="Comma-separated .pot filenames")
     parser.add_argument("--output-json", default=os.getenv("OUTPUT_JSON", "/tmp/translation_results.json"))
-    parser.add_argument("--api-key", default=os.getenv("DEEPSEEK_API_KEY"))
+    parser.add_argument(
+        "--api-key",
+        default=os.getenv("TRANSLATION_ASCEND",
+                          os.getenv("LLM_API_KEY", os.getenv("DEEPSEEK_API_KEY", ""))),
+        help="LLM API key (env: TRANSLATION_ASCEND, fallback LLM_API_KEY / DEEPSEEK_API_KEY)",
+    )
+    parser.add_argument(
+        "--api-base",
+        default=os.getenv("LLM_API_BASE", ""),
+        help=("OpenAI-compatible API base URL "
+              f"(default: {DEFAULT_API_BASE}, e.g. Zhipu https://open.bigmodel.cn/api/paas/v4)"),
+    )
+    parser.add_argument("--model", default=os.getenv("LLM_MODEL", ""),
+                        help=f"Model name (default: {DEFAULT_MODEL}, e.g. Zhipu glm-4-plus)")
     parser.add_argument(
         "--skill-doc",
         default=os.getenv("TRANSLATION_SKILL_DOC", ""),
@@ -1098,17 +1226,25 @@ async def async_main():
 
     output_json = args.output_json
 
-    api_key = args.api_key or os.getenv("DEEPSEEK_API_KEY")
+    api_key = (
+        args.api_key
+        or os.getenv("TRANSLATION_ASCEND")
+        or os.getenv("LLM_API_KEY")
+        or os.getenv("DEEPSEEK_API_KEY")
+    )
     if not api_key:
-        msg = "DEEPSEEK_API_KEY not set"
-        print(f"Error: {msg}", flush=True)
-        write_empty_json(output_json, msg)
-        return 1
+        print("Warning: no LLM API key set (TRANSLATION_ASCEND / LLM_API_KEY / DEEPSEEK_API_KEY). "
+              "Documents whose entries are fully cached will still be re-processed; entries that "
+              "need a fresh translation will fail (fail-closed).", flush=True)
 
     # Load the translation skill document (authoritative terminology glossary
     # and rules). It is injected into every translation request's system prompt.
     skill_doc_path = Path(args.skill_doc) if args.skill_doc else None
     skill_doc = load_skill_doc(skill_doc_path)
+
+    api_base = args.api_base or DEFAULT_API_BASE
+    model = args.model or DEFAULT_MODEL
+    print(f"LLM provider: {api_base} | model: {model}", flush=True)
 
     # Step 1: Generate .pot files (unless --skip-gettext)
     if not args.skip_gettext:
@@ -1147,7 +1283,8 @@ async def async_main():
         write_empty_json(output_json, f"no .pot files to translate ({reason})")
         return 0
 
-    translator = PoTranslator(api_key=api_key, skill_doc=skill_doc)
+    translator = PoTranslator(api_key=api_key, skill_doc=skill_doc,
+                               api_base=args.api_base, model=args.model)
     return await translator.translate_files(pot_list, output_json)
 
 
