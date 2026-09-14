@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:25+0800\n"
-"PO-Revision-Date: 2026-08-25 23:25+0800\n"
+"POT-Creation-Date: 2026-09-14 19:16+0800\n"
+"PO-Revision-Date: 2026-09-14 19:16+0800\n"
 
 "X-Source-Commit: ab4120690f362c8636887544c380ac2ab3343bdd\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,10 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"I'd be happy to translate your Chinese text into English, but it looks like you haven't provided the actual text to translate yet. The message contains only the instructions and the skill document, but the \"Text to translate:\" section is empty.\n"
-"\n"
-"Please provide the Chinese text you'd like me to translate, and I'll translate it according to the rules you've specified.\n"
+msgstr "(empty)"
 
 msgid "Tutorials"
 msgstr "Tutorials"

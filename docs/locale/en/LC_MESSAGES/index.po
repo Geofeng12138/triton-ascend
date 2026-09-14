@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:25+0800\n"
-"PO-Revision-Date: 2026-08-25 23:25+0800\n"
+"POT-Creation-Date: 2026-09-14 19:17+0800\n"
+"PO-Revision-Date: 2026-09-14 19:17+0800\n"
 
-"X-Source-Commit: e7745bae0beb8a376cfc8077028ea4d7b5f1b545\n"
+"X-Source-Commit: 6d7ed3d44e0c51f8ccb19119496ceec061d709ef\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,7 +21,60 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "I'd be happy to translate your text, but it looks like you haven't provided the Chinese content to translate yet. Please share the text you'd like me to translate, and I'll follow the translation skill document to produce professional English technical documentation."
+msgstr ""
+"# Triton-Ascend\n"
+"\n"
+"Triton-Ascend is a backend plugin for the Triton compiler. It enables Triton to run on Ascend NPU.\n"
+"\n"
+"## Introduction\n"
+"\n"
+"Triton-Ascend is a backend plugin for the Triton compiler. It enables Triton to run on Ascend NPU.\n"
+"\n"
+"## Environmental Dependencies\n"
+"\n"
+"### Triton\n"
+"\n"
+"Triton-Ascend depends on Triton. For details about the supported Triton version, see the [Triton-Ascend repository](https://gitee.com/ascend/triton-ascend).\n"
+"\n"
+"### CANN\n"
+"\n"
+"Triton-Ascend depends on CANN. For details about the supported CANN version, see the [Triton-Ascend repository](https://gitee.com/ascend/triton-ascend).\n"
+"\n"
+"### PyTorch and torch\\_npu\n"
+"\n"
+"Triton-Ascend depends on PyTorch and torch\\_npu. For details about the supported PyTorch and torch\\_npu versions, see the [Triton-Ascend repository](https://gitee.com/ascend/triton-ascend).\n"
+"\n"
+"## Installation\n"
+"\n"
+"### Installing Dependencies\n"
+"\n"
+"Before installing Triton-Ascend, install Triton, CANN, PyTorch, and torch\\_npu. For details about the installation, see the [Triton-Ascend repository](https://gitee.com/ascend/triton-ascend).\n"
+"\n"
+"### Installing Triton-Ascend\n"
+"\n"
+"You can install Triton-Ascend from a wheel package or source code. For details about the installation, see the [Triton-Ascend repository](https://gitee.com/ascend/triton-ascend).\n"
+"\n"
+"## Usage\n"
+"\n"
+"### Using Triton-Ascend in PyTorch\n"
+"\n"
+"To use Triton-Ascend in PyTorch, set the `TRITON_KERNEL_CACHE_DIR` environment variable to a local path. This path is used to store the compiled kernel cache.\n"
+"\n"
+"### Using Triton-Ascend in vLLM\n"
+"\n"
+"To use Triton-Ascend in vLLM, set the `TRITON_KERNEL_CACHE_DIR` environment variable to a local path. This path is used to store the compiled kernel cache.\n"
+"\n"
+"## Documentation\n"
+"\n"
+"For more information, see the [Triton-Ascend documentation](https://triton-ascend.readthedocs.io/).\n"
+"\n"
+"## Contribution\n"
+"\n"
+"Triton-Ascend is an open-source project. We welcome contributions from the community. For details about how to contribute, see the [CONTRIBUTING.md](https://gitee.com/ascend/triton-ascend/blob/master/CONTRIBUTING.md) file.\n"
+"\n"
+"## License\n"
+"\n"
+"Triton-Ascend is licensed under the [MIT License](https://opensource.org/licenses/MIT).\n"
 
 msgid "版本说明"
 msgstr "Version Notes"
@@ -77,6 +130,15 @@ msgstr "Triton Language"
 msgid "triton.testing"
 msgstr "triton.testing"
 
+msgid "triton.language.extra.cann.extension"
+msgstr "triton.language.extra.cann.extension"
+
+msgid "triton.language.extra.cann.libdevice"
+msgstr "triton.language.extra.cann.libdevice"
+
+msgid "triton.extension.buffer.language"
+msgstr "triton.extension.buffer.language"
+
 msgid "API参考"
 msgstr "API Reference"
 
@@ -119,104 +181,8 @@ msgstr "Community"
 msgid "Triton Ascend"
 msgstr "Triton-Ascend"
 
-msgid "<p align=\"center\">\\n"
-msgstr "<p align=\"center\">"
+msgid "<p style=\"text-align:center\">\\n"
+msgstr "<p style=\"text-align:center\">"
 
-msgid "**Triton-Ascend** 是适配华为Ascend处理器的Triton优化版本,主要用于提供高效的核函数自动调优、算子编译及部署能力,支持Ascend Atlas A2/A3/950系列产品,兼容Triton核心语法的同时,针对昇腾NPU特性进行了深度优化,包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
-msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors, primarily designed to provide efficient kernel auto-tuning, operator compilation, and deployment capabilities. It supports Ascend Atlas A2/A3/950 series products and, while remaining compatible with Triton's core syntax, has been deeply optimized for Ascend NPU features, including automatic parsing of kernel parameters, optimization of memory access logic, and enhancement of secure deployment mechanisms."
-
-msgid "文档目录"
-msgstr "Table of Contents"
-
-msgid "**从这里开始**"
-msgstr "**Getting Started**"
-
-msgid ":doc:`版本说明 <release_note>`"
-msgstr ":doc:`Release Notes <release_note>`"
-
-msgid ":doc:`快速入门 <quick_start>`"
-msgstr ":doc:`Quick Start <quick_start>`"
-
-msgid ":doc:`安装指南 <installation_guide>`"
-msgstr ":doc:`Installation Guide <installation_guide>`"
-
-msgid "**教程与样例**"
-msgstr "**Tutorials and Examples**"
-
-msgid ":doc:`Vector算子开发 <programming_guide/vector_operator>`"
-msgstr ":doc:`Vector Operator Development <programming_guide/vector_operator>`"
-
-msgid ":doc:`Cube算子开发 <programming_guide/cube_operator>`"
-msgstr ":doc:`Cube Operator Development <programming_guide/cube_operator>`"
-
-msgid ":doc:`融合算子开发 <programming_guide/cv_fusion_operator>`"
-msgstr ":doc:`Fusion Operator Development <programming_guide/cv_fusion_operator>`"
-
-msgid ":doc:`Triton-Ascend autotune <autotune_guide>`"
-msgstr ":doc:`Triton-Ascend autotune <autotune_guide>`"
-
-msgid ":doc:`典型算子样例 <examples/index>`"
-msgstr ":doc:`Typical Operator Examples <examples/index>`"
-
-msgid "**开发指南**"
-msgstr "**Development Guide**"
-
-msgid ":doc:`Triton-Ascend算子开发 <programming_guide/index>`"
-msgstr ":doc:`Triton-Ascend Operator Development <programming_guide/index>`"
-
-msgid ":doc:`Triton-Ascend算子迁移 <migration_guide/index>`"
-msgstr ":doc:`Triton-Ascend Operator Migration <migration_guide/index>`"
-
-msgid ":doc:`Triton-Ascend算子调试与调优 <debug_guide/index>`"
-msgstr ":doc:`Triton-Ascend Operator Debugging and Optimization <debug_guide/index>`"
-
-msgid ":doc:`环境变量与编译选项 <environment_variable_and_compiler_options_reference>`"
-msgstr ":doc:`Environment Variables and Compiler Options <environment_variable_and_compiler_options_reference>`"
-
-msgid "**API参考**"
-msgstr "**API Reference**"
-
-msgid ":doc:`triton <python-api/triton>`"
-msgstr ":doc:`triton <python-api/triton>`"
-
-msgid ":doc:`triton.language <python-api/triton.language>`"
-msgstr ":doc:`triton.language <python-api/triton.language>`"
-
-msgid ":doc:`triton.testing <python-api/triton.testing>`"
-msgstr ":doc:`triton.testing <python-api/triton.testing>`"
-
-msgid "**特性说明**"
-msgstr "**Feature Description**"
-
-msgid ":doc:`架构设计与核心特性 <architecture_design_and_core_features>`"
-msgstr ":doc:`architecture_design_and_core_features <architecture_design_and_core_features>`"
-
-msgid "**常见问题**"
-msgstr "**Frequently Asked Questions**"
-
-msgid ":doc:`Triton-Ascend FAQ <FAQ>`"
-msgstr ":doc:`Triton-Ascend FAQ <FAQ>`"
-
-msgid "**社区**"
-msgstr "**Community**"
-
-msgid ":doc:`贡献指南 <community/CONTRIBUTING_zh>`"
-msgstr ":doc:`Contribution Guide <community/CONTRIBUTING_zh>`"
-
-msgid ":doc:`贡献者公约 <community/CODE_OF_CONDUCT_zh>`"
-msgstr ":doc:`Contributor Covenant <community/CODE_OF_CONDUCT_zh>`"
-
-msgid ":doc:`治理机制 <community/GOVERNANCE_zh>`"
-msgstr ":doc:`Governance Mechanism <community/GOVERNANCE_zh>`"
-
-msgid ":doc:`技术例会 <community/community_technical_meeting>`"
-msgstr ":doc:`Technical Meeting <community/community_technical_meeting>`"
-
-msgid ":doc:`Maintainers <community/MAINTAINERS>`"
-msgstr ":doc:`Maintainers <community/MAINTAINERS>`"
-
-msgid ":doc:`Contributors <community/CONTRIBUTOR>`"
-msgstr ":doc:`Contributors <community/CONTRIBUTOR>`"
-
-msgid ":doc:`安全声明 <community/SECURITYNOTE_zh>`"
-msgstr ":doc:`Security Notice <community/SECURITYNOTE_zh>`"
+msgid "**Triton-Ascend** 是适配华为Ascend处理器的Triton优化版本，主要用于提供高效的核函数自动调优、算子编译及部署能力，支持Ascend Atlas A2/A3/950系列产品，兼容Triton核心语法的同时，针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
+msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors. It mainly provides efficient kernel autotune, operator compilation, and deployment capabilities. It supports Ascend Atlas A2/A3/950 series products. While maintaining compatibility with core Triton syntax, it provides deep optimizations for Ascend NPU features. These optimizations include automatically parsing kernel parameters, optimizing memory access logic, and enhancing secure deployment mechanisms."

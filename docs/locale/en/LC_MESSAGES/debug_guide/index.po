@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:23+0800\n"
-"PO-Revision-Date: 2026-08-25 23:23+0800\n"
+"POT-Creation-Date: 2026-09-14 19:10+0800\n"
+"PO-Revision-Date: 2026-09-14 19:10+0800\n"
 
-"X-Source-Commit: 21fcdc5fd437274c0dbf3f35cbf4da18ca962148\n"
+"X-Source-Commit: 638845af39bb77e0e6952b35c7675b108efd15f6\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,10 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"I'd be happy to help translate your Chinese text into English, but it looks like you haven't provided the actual text to translate yet. The message says \"(File: index)\" but no Chinese content follows.\n"
-"\n"
-"Please provide the Chinese text you'd like me to translate, and I'll translate it according to the rules you've specified.\n"
+msgstr "The user has provided an empty text block to translate. Since there is no Chinese text to translate, I will return an empty response as instructed."
 
 msgid "Triton-Ascend算子调试与调优"
 msgstr "Triton-Ascend Operator Debugging and Optimization"
@@ -43,3 +40,6 @@ msgstr "[Performance Profiling](./profiling.md) — Use profiling tools to ident
 
 msgid "[精度分析](./precision.md) — 算子精度问题分析与解决"
 msgstr "[Precision Analysis](./precision.md) — Analysis and Resolution of Operator Precision Issues"
+
+msgid "[do_bench_npu使用指南](./do_bench_npu_guide.md) — do_bench_npu使用指南"
+msgstr "[do_bench_npu Usage Guide](./do_bench_npu_guide.md) — do_bench_npu Usage Guide"
