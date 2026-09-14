@@ -1,5 +1,7 @@
 # 安装指南
 
+**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，提供核函数自动调优、算子编译及部署能力。支持Ascend Atlas A2/A3/950系列产品，兼容Triton核心语法，并针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。
+
 本指南指导开发者在**Ubuntu**环境下安装**Triton-Ascend**，涵盖快速安装、源码安装及镜像安装三种方式，并包含环境验证与常见问题排查。
 
 ## 环境准备
@@ -168,7 +170,7 @@ quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
-**注：** 如需用该镜像测试源码编译安装，则要先运行`pip uninstall triton-ascend triton`命令。
+**注：**如需用该镜像测试源码编译安装，则要先运行`pip uninstall triton-ascend triton`命令。
 
 ## 验证与测试
 
