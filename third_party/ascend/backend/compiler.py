@@ -224,10 +224,6 @@ def _finalize_program_launch_policy(metadata, opt):
     if mapping_applied and row_coalescing_applied:
         raise RuntimeError("program-grid mapping conflicts with legacy RowCoalescing")
 
-    blacklist_policy_allows = bool(opt.is_pure_simt) or not has_auto_blockify_blacklist_op
-    auto_blockify_enabled = (_is_auto_map_parallel_blocks_enabled() and blacklist_policy_allows
-                             and not row_coalescing_applied and not mapping_applied)
-
     persistent_transform = get_persistent_transform(transforms) if transforms is not None else None
     ptsm_cap_authorized = False
     if persistent_transform is not None:
@@ -237,8 +233,16 @@ def _finalize_program_launch_policy(metadata, opt):
             raise RuntimeError("persistent program-grid transform lacks coverage/ABI verification")
         ptsm_cap_authorized = True
 
+    if opt.is_pure_simt:
+        auto_blockify_enabled = (_is_auto_map_parallel_blocks_enabled() and not has_auto_blockify_blacklist_op
+                                 and not row_coalescing_applied)
+    else:
+        auto_blockify_enabled = (_is_auto_map_parallel_blocks_enabled() and not has_auto_blockify_blacklist_op
+                                 and not ptsm_cap_authorized)
+
     if auto_blockify_enabled and ptsm_cap_authorized:
         raise RuntimeError("AutoBlockify and persistent-grid cap cannot both be enabled")
+
     metadata["auto_blockify_enabled"] = auto_blockify_enabled
     metadata["ptsm_cap_authorized"] = ptsm_cap_authorized
 
@@ -632,6 +636,23 @@ def get_common_bishengir_compile_options(metadata):
     return [bishengir_target_opt]
 
 
+def _needs_lib_call_no_inline(metadata):
+    """Return whether the target needs the CANN 9.1 hacc.noinline workaround."""
+    arch = metadata['target'].arch
+    return arch.startswith("Ascend950")
+
+
+@functools.lru_cache()
+def _npu_compiler_supports_option(compiler_path: str, option: str) -> bool:
+    """Check an optional BiShengIR flag instead of assuming toolchain parity."""
+    try:
+        result = subprocess.run([compiler_path, "--help"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+                                timeout=10, check=False)
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return option in result.stdout
+
+
 def get_auto_bind_sub_block_option(metadata):
     # auto_tile_and_bind_subblock is read from the module.
     # enable_auto_bind_sub_block is set by the user and has a higher priority.
@@ -853,6 +874,9 @@ def linalg_to_bin_enable_npu_compile_910_95(linalg: str, metadata, opt):
             # Temporary until the NPU compiler enables batch matmul by default in Q4.
             if metadata.get("enable_hivm_batch_matmul"):
                 _compile_option_list += ["--enable-hivm-batch-matmul"]
+            if (_needs_lib_call_no_inline(metadata)
+                    and _npu_compiler_supports_option(npu_compiler_path, "--enable-lib-call-no-inline")):
+                _compile_option_list += ["--enable-lib-call-no-inline=false"]
         bisheng_options = metadata["bisheng_options"]
         if bisheng_options is not None:
             _compile_option_list += [f"--append-bisheng-options={bisheng_options}"]
@@ -952,6 +976,12 @@ def linalg_to_bin_enable_npu_compile_A2_A3(linalg: str, metadata, opt):
         if enable_ubuf_saving is not None:
             _compile_option_list += [
                 f"--enable-ubuf-saving={enable_ubuf_saving}",
+            ]
+
+        disable_size_align_for_cast = metadata["disable_size_align_for_cast"]
+        if disable_size_align_for_cast is not None:
+            _compile_option_list += [
+                f"--disable-size-align-for-cast={disable_size_align_for_cast}",
             ]
 
         enable_preload = metadata["enable_preload"]
@@ -1064,6 +1094,9 @@ def linalg_to_bin_enable_npu_compile_A2_A3(linalg: str, metadata, opt):
                 bishengir_hivm_opt,
                 "--enable-triton-kernel-compile=true",
             ]
+            if (_needs_lib_call_no_inline(metadata)
+                    and _npu_compiler_supports_option(npu_compiler_path, "--enable-lib-call-no-inline")):
+                _compile_option_list += ["--enable-lib-call-no-inline=false"]
 
         _compile_option_list += ["--mlir-print-ir-after-failure"]
         _compile_option_list += ["--mlir-print-stacktrace-on-diagnostic"]
@@ -1194,6 +1227,7 @@ class NPUOptions:
     multibuffer: bool = True
     vf_fusion_mode: str = None
     enable_ubuf_saving: bool = None
+    disable_size_align_for_cast: bool = None
     enable_preload: bool = None
     enable_auto_bind_sub_block: bool = None
     disable_tightly_coupled_buffer_reuse: bool = False
@@ -1233,15 +1267,17 @@ class NPUOptions:
     is_pure_simt: bool = field(default=False, init=False)
     # Only takes effect on the pure-SIMT path.
     shared_mem_dynamic_size: int = None
-    # A5 pure-SIMT-only option passed as -enable-bishengir-simt-optimization
+    # A5 pure-SIMT-only option passed as -simt-optimization-mode
     # to bishengir-compile. Its value grammar belongs to the toolchain.
-    enable_bishengir_simt_optimization: int = 000
+    # Individual digits are passed to various passes to control behavior,
+    # and are parsed right-to-left.
+    # For example, a value of 101 is interpreted as 0000101.
+    # If left as 0, bishengir-compile sets this to 900101
+    simt_optimization_mode: int = 0000000
     # Canonical modes: SIMD (D), SIMD with template-SIMT (P), and pure-SIMT
     # (T). ``unstructured_in_simt`` is an equivalent P spelling.
     compile_mode: str = "simd_simt_template"
     simt_stack_limit: int = None
-    # take effect on the reorder instruction pattern for SIMT. The pattern is disabled by default.
-    enable_simt_reorder_instruction: bool = False
     # disable simt fma optimization to get high precision
     disable_fma: bool = False
 
@@ -1330,7 +1366,7 @@ def _is_internal_npu_options(options, target_arch: str) -> bool:
 
 def _normalize_bishengir_simt_optimization_for_context(options: NPUOptions, raw_options) -> None:
     """Restrict the vendor SIMT optimization switch to its A5 pure-SIMT path."""
-    option_name = "enable_bishengir_simt_optimization"
+    option_name = "simt_optimization_mode"
     if option_name not in raw_options:
         return
 
@@ -1340,7 +1376,7 @@ def _normalize_bishengir_simt_optimization_for_context(options: NPUOptions, raw_
         return
 
     warnings.warn(
-        "enable_bishengir_simt_optimization only takes effect for A5 "
+        "simt_optimization_mode only takes effect for A5 "
         "pure-SIMT compilation; ignoring the explicit value.",
         UserWarning,
         stacklevel=3,
@@ -1368,23 +1404,27 @@ def ttir_to_npubin(mod, metadata, opt):
             _compile_option_list += ["--pure-simt"]
             _compile_option_list += [f"--num-warps={opt.num_warps}"]
             _compile_option_list += [f"--threads-per-warp={opt.warp_size}"]
-            if opt.enable_bishengir_simt_optimization != 000:
-                _compile_option_list += [
-                    f"--enable-bishengir-simt-optimization={opt.enable_bishengir_simt_optimization}"
-                ]
+            if opt.simt_optimization_mode != 0000000:
+                _compile_option_list += [f"--simt-optimization-mode={opt.simt_optimization_mode}"]
             _compile_option_list += [f"--simt-stack-limit={get_simt_stack_limit(opt.simt_stack_limit)}"]
             if opt.shared_mem_dynamic_size is not None:
                 _compile_option_list += [f"--shared-mem-dynamic-size={opt.shared_mem_dynamic_size}"]
-            if opt.enable_simt_reorder_instruction:
-                _compile_option_list += ["--enable-simt-reorder-instruction=true"]
             if opt.disable_fma:
                 _compile_option_list += [f"--disable-fma"]
+            if opt.compile_on_910_95:
+                npu_utils = NPUUtils()
+                if npu_utils.has_device_limit():
+                    _compile_option_list += [
+                        f"--custom-aic-number={npu_utils.get_aicore_num()}",
+                        f"--custom-aiv-number={npu_utils.get_aivector_core_num()}",
+                    ]
 
             bisheng_options = metadata["bisheng_options"]
             if bisheng_options is not None:
                 _compile_option_list += [f"--append-bisheng-options={bisheng_options}"]
 
-            if metadata["auto_blockify_enabled"]:
+            if (_is_auto_map_parallel_blocks_enabled() and not metadata.get("has_auto_blockify_blacklist_op", False)
+                    and not metadata.get("row_coalescing_applied", False)):
                 _compile_option_list += ["--enable-auto-blockify-loop"]
                 if opt.superblock_factor > 1:
                     _compile_option_list += [f"--super-block-factor={opt.superblock_factor}"]
