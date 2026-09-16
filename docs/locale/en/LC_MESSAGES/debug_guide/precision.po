@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:23+0800\n"
-"PO-Revision-Date: 2026-08-25 23:23+0800\n"
+"POT-Creation-Date: 2026-09-14 19:10+0800\n"
+"PO-Revision-Date: 2026-09-14 19:10+0800\n"
 
-"X-Source-Commit: 87ec59bde574a4ef76f8e67edc377b52ef2c0990\n"
+"X-Source-Commit: 5abc1dcf8c2cd7741ae44850b6747906d5dbbd75\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -22,9 +22,8 @@ msgstr ""
 
 msgid ""
 msgstr ""
-"I need to translate the Chinese text into English, but you haven't provided the actual text to translate yet. The message says \"Text to translate:\" but there's no content following it.\n"
-"\n"
-"Please provide the Chinese text you'd like me to translate, and I'll translate it according to the rules and terminology guidelines specified in the skill document.\n"
+"<translated>\n"
+"</translated>\n"
 
 msgid "精度对比与误差分析"
 msgstr "Precision Comparison and Error Analysis"
@@ -56,8 +55,8 @@ msgstr "import torch"
 msgid "2. 精度对比函数"
 msgstr "2\\. Precision comparison function"
 
-msgid "def compare_precision(cal, ref):\\n"
-msgstr "def compare_precision(cal, ref):"
+msgid "def compare_precision(cal, ref, rtol=1e-3, atol=1e-3):\\n"
+msgstr "def compare_precision(cal, ref, rtol=1e-3, atol=1e-3):"
 
 msgid "3. 精度判定标准"
 msgstr "3\\. Precision Acceptance Criteria"

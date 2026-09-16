@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-08-25 23:22+0800\n"
-"PO-Revision-Date: 2026-08-25 23:22+0800\n"
+"POT-Creation-Date: 2026-09-14 19:03+0800\n"
+"PO-Revision-Date: 2026-09-14 19:03+0800\n"
 
-"X-Source-Commit: 68124a1c13e65777265e3138fcffb1fe377e78d6\n"
+"X-Source-Commit: 4b195e937bd56732ec96505d8737a90278aca71f\n"
 
-"X-Skill-Version: 1.1.0\\n"
+"X-Skill-Version: 2.0.0\\n"
 
 "Last-Translator: Auto Translation (DeepSeek)\n"
 "Language-Team: English\n"
@@ -21,10 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr ""
-"I'd be happy to translate your Chinese text into English, but it looks like you haven't provided the actual text to translate yet. The message only contains the instructions and the placeholder \"(File: FAQ)\".\n"
-"\n"
-"Please paste the Chinese content you'd like me to translate, and I'll apply the translation skill document rules to produce a professional English technical translation for the Triton-Ascend project.\n"
+msgstr "The text to translate appears to be empty. Please provide the Chinese text block you would like translated into English."
 
 msgid "Triton-Ascend FAQ"
 msgstr "Triton-Ascend FAQ"
@@ -50,8 +47,8 @@ msgstr "A: triton-ascend 3.2.0 and below do not support this. You need to uninst
 msgid "<br>"
 msgstr "<br>"
 
-msgid "注：若安装triton-ascend后，在安装依赖triton的三方件或者triton本身，将覆盖掉已安装的 Triton-Ascend 目录。 此时需要先卸载社区 Triton 和 Triton-Ascend，再安装 Triton-Ascend。"
-msgstr "Note: If you install triton-ascend and then install third-party components that depend on triton, or triton itself, the installed Triton-Ascend directory will be overwritten. In this case, you need to first uninstall the community Triton and Triton-Ascend, and then install Triton-Ascend."
+msgid "注：若安装triton-ascend后，再安装依赖triton的三方件或者triton本身，将覆盖掉已安装的 Triton-Ascend 目录。 此时需要先卸载社区 Triton 和 Triton-Ascend，再安装 Triton-Ascend。"
+msgstr "Note: If you install triton-ascend and then install third-party components that depend on triton or triton itself, the installed Triton-Ascend directory is overwritten. In this case, uninstall the community Triton and Triton-Ascend first, and then install Triton-Ascend."
 
 msgid "pip uninstall triton\\n"
 msgstr "pip uninstall triton"
