@@ -90,7 +90,6 @@ with proton.scope("test2", {"bytes": 3000}):
 Proton scopes coexist with NVTX ranges.
 NVTX pushes and pops (for example, `torch.cuda.nvtx.range_push`) appear as nested scopes in the Proton profile, letting you correlate custom NVTX annotations with Proton's aggregated metrics.
 
-
 ### Backend and mode
 
 Proton supports three profiling backends: `cupti`, `roctracer`, and `instrumentation`.
@@ -168,7 +167,6 @@ def kernel(...):
 ```
 
 Advanced users can instrument either the `ttir` or `ttgir` intermediate representations for even finer-grained measurement. The relevant IR instructions are `proton.record start` and `proton.record end`. This can be combined with the environment variable `TRITON_KERNEL_OVERRIDE=1` for custom kernel overrides. For detailed steps, refer to the Triton [documentation](https://github.com/triton-lang/triton?tab=readme-ov-file#tips-for-hacking) under the **Kernel Override Steps** section. We have also assembled a [tutorial](tutorials/intra_kernel) that demonstrates how to use the IR-based instrumentation approach and the proton DSL approach.
-
 
 ### Hook
 

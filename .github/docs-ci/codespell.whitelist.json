@@ -237,5 +237,6 @@
   "ctypes",
   "xdist",
   "manylinux",
-  "NVTX"
+  "NVTX",
+  "CUPTI"
 ]
