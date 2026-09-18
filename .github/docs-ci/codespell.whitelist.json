@@ -236,5 +236,6 @@
   "ffts",
   "ctypes",
   "xdist",
-  "manylinux"
+  "manylinux",
+  "NVTX"
 ]
