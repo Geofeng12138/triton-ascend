@@ -109,8 +109,8 @@ _BEIJING_TZ = timezone(timedelta(hours=8))
 # any provider with an OpenAI-compatible endpoint can be plugged in by
 # overriding the base URL and model name. Both can be overridden via
 # LLM_API_BASE / LLM_MODEL / --api-base / --model.
-DEFAULT_API_BASE = "https://api.deepseek.com"
-DEFAULT_MODEL = "deepseek-chat"
+DEFAULT_API_BASE = "https://st8tp3ajl0df3n8b8l8qu.apigateway-cn-beijing.volceapi.com/v1"
+DEFAULT_MODEL = "glm-5.2"
 
 # ---------------------------------------------------------------------------
 # Exclusions
@@ -1199,8 +1199,8 @@ async def async_main():
     parser.add_argument("--output-json", default=os.getenv("OUTPUT_JSON", "/tmp/translation_results.json"))
     parser.add_argument(
         "--api-key",
-        default=os.getenv("TRANSLATION_ASCEND", os.getenv("LLM_API_KEY", os.getenv("DEEPSEEK_API_KEY", ""))),
-        help="LLM API key (env: TRANSLATION_ASCEND, fallback LLM_API_KEY / DEEPSEEK_API_KEY)",
+        default=os.getenv("TRANSLATION_ASCEND", os.getenv("LLM_API_KEY", "")),
+        help="LLM API key (env: TRANSLATION_ASCEND, fallback LLM_API_KEY)",
     )
     parser.add_argument(
         "--api-base",
@@ -1220,11 +1220,10 @@ async def async_main():
 
     output_json = args.output_json
 
-    api_key = (args.api_key or os.getenv("TRANSLATION_ASCEND") or os.getenv("LLM_API_KEY")
-               or os.getenv("DEEPSEEK_API_KEY"))
+    api_key = (args.api_key or os.getenv("TRANSLATION_ASCEND") or os.getenv("LLM_API_KEY"))
     if not api_key:
         print(
-            "Warning: no LLM API key set (TRANSLATION_ASCEND / LLM_API_KEY / DEEPSEEK_API_KEY). "
+            "Warning: no LLM API key set (TRANSLATION_ASCEND / LLM_API_KEY). "
             "Documents whose entries are fully cached will still be re-processed; entries that "
             "need a fresh translation will fail (fail-closed).", flush=True)
 
