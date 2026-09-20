@@ -50,6 +50,7 @@ inline constexpr llvm::StringLiteral kAddFromMatmul =
 inline constexpr llvm::StringLiteral kMainLoop = "ssbuffer.main_loop";
 inline constexpr llvm::StringLiteral kTcoreType = "hivm.tcore_type";
 inline constexpr llvm::StringLiteral kIf = "ssbuffer.if";
+inline constexpr llvm::StringLiteral kSplittedIf = "ssbuffer.splitted_if";
 inline constexpr llvm::StringLiteral kIntraBuffer = "ssbuffer.intra_buffer";
 inline constexpr llvm::StringLiteral kIntraBufCount =
     "ssbuffer.intra_buf_count";
@@ -89,6 +90,8 @@ inline constexpr llvm::StringLiteral kFromMakeRange = "tt.from_make_range";
 inline constexpr llvm::StringLiteral kSubBlock = "ssbuffer.subBlock";
 inline constexpr llvm::StringLiteral kMergeComputeBlockApplied =
     "ssbuffer.merge_compute_block_applied";
+inline constexpr llvm::StringLiteral kMergeSmallBlockFirstRunDone =
+    "ssbuffer.merge_small_block_first_run_done";
 
 inline constexpr const char *ERRCODE_ATTR =
     "triton_ascend.dynamic_cv_pipeline.rc";
@@ -137,6 +140,8 @@ bool isOnlyDirectlyUse(Operation *preOp, Operation *nextOp,
                        const CVPipeline::MemoryDependenceGraph &memGraph);
 bool isSyncOp(Operation *op);
 bool isExternalSyncOp(Operation *op);
+
+void setSubBlockId(Operation *op, int subBlockId);
 
 // Wrapper around a "main loop" — either scf.for or scf.while carrying the
 // ssbuffer.main_loop attribute. Lets downstream code treat both uniformly.
@@ -266,6 +271,10 @@ int64_t getBTSizeFromValidBroadcastOp(linalg::BroadcastOp broadcastOp);
 
 int getLoopCarriedArgIndex(Value operand, Block *block);
 
+// Returns the index of `v` in `iterArgs` when `v` is a tensor-type iter_arg,
+// or -1 otherwise.
+int getTensorIterArgIndex(Value v, ArrayRef<Value> iterArgs);
+
 // Helper: convert OpCoreType to string for IR attribute
 inline llvm::StringRef coreTypeToString(CoreType ct) {
   switch (ct) {
@@ -326,6 +335,10 @@ inline bool isTensorComputeOp(Operation *op) {
 // - arith.trunci: i32 -> i8
 std::optional<hivm::FixpipePreQuantMode>
 getFixpipePreQuantMode(Operation *truncOp);
+
+// Trace an operand's defining op back through C2C intermediate ops to find the
+// underlying producing op. Returns null when the operand has no defining op.
+Operation *getSourceThroughCIntermediateOps(Value operand);
 
 } // namespace CVPipeline
 } // namespace mlir

@@ -36,10 +36,16 @@ extensions = [
     'sphinx.ext.mathjax',
     'myst_parser',
     'sphinx_copybutton',
+    'sphinxcontrib.mermaid',
 ]
 
-# Prefix autosectionlabel with document path to avoid duplicate label warnings
-autosectionlabel_prefix_document = True
+# Map ```mermaid code fences to the mermaid directive instead of rendering as code blocks.
+myst_fence_as_directive = ['mermaid']
+
+# -- MyST configuration -------------------------------------------------------
+# Enable dollar-math extension so that $$...$$ and $...$ syntax is parsed.
+myst_enable_extensions = ['dollarmath']
+myst_dollar_math = True
 
 # Mock imports for modules that aren't available in the build environment
 autodoc_mock_imports = [
