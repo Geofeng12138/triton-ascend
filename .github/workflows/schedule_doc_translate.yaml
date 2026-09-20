@@ -95,7 +95,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install openai sphinx myst-parser sphinx_rtd_theme sphinx-copybutton sphinx-copybutton
+          pip install openai -r docs/zh/requirement.txt
 
       - name: Clean stale locale files for full translation
         if: inputs.full_translate
