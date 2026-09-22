@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Huawei
+# This file is distributed under the same license as the Triton Ascend package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Triton Ascend \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 09:26+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../zh/community/roadmap_guide.md:1
+msgid "Roadmap指导"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:3
+msgid "使用 GitHub Issue 来跟踪和管理各组织的计划及中长期目标。本文档为社区项目编写路线图类 Issue 提供参考和规范，以帮助创建和维护高质量的路线图。"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:5
+msgid "下面是一个完整的路线图 Issue 示例，展示了所有推荐元素的实际应用。建议先查看此示例获得整体印象，再阅读后续的详细规范说明。"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:7
+msgid "Issue title: [Roadmap] Triton-Ascend Roadmap 2026 Q2\n"
+"\n"
+"---\n"
+"# Triton-Ascend Roadmap 2026 Q2\n"
+"\n"
+"This quarter focuses on upstream Triton compatibility alignment, Ascend NPU backend performance optimization, and operator coverage expansion, continuously improving compiler stability and ecosystem integration capability.\n"
+"\n"
+"## Focus\n"
+"\n"
+"- Upstream Compatibility: Align with upstream Triton compiler frontend and IR changes, reduce fork divergence\n"
+"- Backend Performance: Optimize Ascend NPU kernel generation and memory scheduling strategy\n"
+"- Operator Coverage: Expand supported Triton ops and data types, improve end-to-end model coverage\n"
+"- Usability: Improve debugging tools and error reporting for Ascend backend\n"
+"\n"
+"## Upstream Compatibility\n"
+"\n"
+"- [ ] **Triton 3.x IR and frontend alignment**\n"
+"Goal: Align forked Triton frontend with upstream Triton 3.x IR changes, reduce merge conflict and divergence\n"
+"Issue: [Related Issue link]\n"
+"\n"
+"- [ ] **Triton Language feature parity check**\n"
+"Goal: Systematically check and supplement missing Triton language features (e.g., tl.dot with new dtypes, constexpr enhancements) on Ascend backend\n"
+"Issue: [Related Issue link]\n"
+"\n"
+"## Backend Performance\n"
+"\n"
+"- [ ] **Ascend NPU kernel auto-tuning support**\n"
+"Goal: Support Triton autotune mechanism on Ascend backend, enable dynamic kernel configuration selection\n"
+"Owner: @contributor-a\n"
+"Issue: [Related Issue link]\n"
+"\n"
+"- [ ] **Memory scheduling and L2 cache optimization**\n"
+"Goal: Optimize memory allocation strategy and L2 cache utilization in generated Ascend kernels for large-scale training scenarios\n"
+"Issue: [Related Issue link]\n"
+"\n"
+"## Operator Coverage\n"
+"\n"
+"- [ ] **FP8 dtype and mixed-precision ops support [🙋 Help Wanted]**\n"
+"Goal: Support FP8 (E4M3/E5M2) dtype in tl.dot and related ops on Ascend backend, enabling FP8 training workflows\n"
+"Owner: TBD\n"
+"Issue: [Related Issue link]\n"
+"\n"
+"- [ ] **Additional Triton built-in ops support**\n"
+"Goal: Add missing built-in ops (e.g., tl.cumsum, tl.reduce with custom axis, advanced indexing) on Ascend backend\n"
+"Issue: [Related Issue link]\n"
+"\n"
+"## Usability\n"
+"\n"
+"- [ ] **Ascend backend debugging and error reporting improvement**\n"
+"Goal: Improve Ascend backend error messages, add device-side debug print and kernel profiling support\n"
+"Issue: [Related Issue link]\n"
+"\n"
+"## Sub-issues\n"
+"\n"
+"[Triton-Ascend Roadmap 2026 Q1 #xxx](link)\n"
+"[FP8 Support Phase 2 #xxx](link)\n"
+""
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:66
+msgid "1. 标题格式"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:68
+msgid "**格式：** `[Roadmap] <Project Name> Roadmap <Time Range>`，季度发布使用 Q1/Q2/Q3/Q4 标记，半年度发布使用 H1/H2 标记"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:70
+msgid "**示例：**"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:72
+msgid "`[Roadmap] Triton-Ascend Roadmap 2026 Q2`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:73
+msgid "`[Roadmap] Triton-Ascend Roadmap 2026 H1`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:75
+msgid "2. 顶层内容"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:77
+msgid "2.1 开篇描述（可选）"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:79
+msgid "提供项目概述、愿景或整体方向的简要总结。例如，简要描述 Triton-Ascend 本季度在上游对齐、后端性能和算子覆盖方面的目标。"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:81
+msgid "2.2 重点方向章节"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:83
+msgid "列出本周期最关键的 3-5 个重点方向，建议按项目的**功能领域**或**技术模块**分组，覆盖全局视角："
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:85
+msgid "## Focus\n"
+"\n"
+"• Upstream Compatibility: Align with upstream Triton compiler frontend and IR changes, reduce fork divergence\n"
+"• Backend Performance: Optimize Ascend NPU kernel generation and memory scheduling strategy\n"
+"• Operator Coverage: Expand supported Triton ops and data types, improve end-to-end model coverage\n"
+"• Usability: Improve debugging tools and error reporting for Ascend backend\n"
+"• Ecosystem Integration: Enhance integration with PyTorch, vLLM, and MindSpeed on Ascend backend\n"
+""
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:95
+msgid "**特征：**"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:97
+msgid "高层次概括和描述当前周期项目的主要开发方向，无需详细展开"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:99
+msgid "3. 主要功能模块章节"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:101
+msgid "3.1 章节划分原则"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:103
+msgid "按项目的**功能领域**或**技术模块**分组，例如："
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:105
+msgid "**Upstream Compatibility** - Upstream Triton frontend and IR alignment"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:106
+msgid "**Backend Performance** - Ascend NPU backend kernel generation and memory optimization"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:107
+msgid "**Operator Coverage** - Triton built-in ops and dtype support on Ascend"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:108
+msgid "**Usability** - Debugging tools and error reporting"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:109
+msgid "**Ecosystem Integration** - Integration with training/inference frameworks"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:111
+msgid "3.2 各模块结构"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:113
+msgid "每个模块包含多个**具体工作项**，格式如下："
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:115
+msgid "## [Module Name]\n"
+"\n"
+"- [ ] **Work item name/feature description**\n"
+"Goal: [Goal description]\n"
+"Owner: @GitHubID      [optional]\n"
+"Issue: [Related Issue link]   [optional]\n"
+"PR: [Related PR link]         [optional]\n"
+"\n"
+"- [ ] **Another work item**\n"
+"Goal: [Goal description]\n"
+"Owner: @GitHubID      [optional]\n"
+"Issue: [Related Issue link]   [optional]\n"
+"PR: [Related PR link]         [optional]\n"
+""
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:131
+msgid "4. 关键元数据字段"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:133
+msgid "每个工作项应包含以下关键信息："
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:135
+msgid "4.1 目标（Goal）"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:137
+msgid "**含义**：工作目标或简要描述"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:138
+msgid "**用法**：说明该工作项的目标"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:139
+msgid "**示例**：`目标：在昇腾后端 tl.dot 中支持 FP8（E4M3/E5M2）数据类型`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:141
+msgid "4.2 负责人（Owner）"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:143
+msgid "**含义**：责任人"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:144
+msgid "**格式**：`负责人：@GitHubID`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:145
+msgid "**用法**：明确谁负责或主导该工作项"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:146
+msgid "**示例**：`负责人：@contributor-a`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:148
+msgid "4.3 Issue"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:150
+msgid "**含义**：关联的 GitHub Issue"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:151
+msgid "**格式**：`Issue：<Issue 链接>`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:152
+msgid "**用法**：跟踪详细设计和讨论"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:153
+msgid "**示例**：`Issue：https://github.com/triton-lang/triton-ascend/issues`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:155
+msgid "4.4 PR（Pull Request）"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:157
+msgid "**含义**：相关实现 PR"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:158
+msgid "**格式**：`PR：<PR 链接>`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:159
+msgid "**用法**：关联实现工作"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:160
+msgid "**示例**：`PR：https://github.com/triton-lang/triton-ascend/pulls`"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:162
+msgid "5. 可选补充内容"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:164
+msgid "5.1 🙋 欢迎贡献标记"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:166
+msgid "对于特别欢迎社区开发者贡献的工作项，建议使用 **[🙋 欢迎贡献]** 标记来标识："
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:168
+msgid "- [ ] **FP8 dtype and mixed-precision ops support [🙋 Help Wanted]**\n"
+"Goal: Support FP8 (E4M3/E5M2) dtype in tl.dot and related ops on Ascend backend\n"
+"Owner: TBD\n"
+"Issue: #123\n"
+""
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:175
+msgid "5.2 子 Issue"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:177
+msgid "在路线图 Issue 底部列出跨周期的相关路线图 Issue 或大工作项的分解 Issue。"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:179
+msgid "**与工作项中 Issue 字段的区别：**"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:181
+msgid "**工作项中的 Issue 字段**：链接到该工作项的具体设计、讨论或跟踪 Issue"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:182
+msgid "**子 Issue 章节**：用于关联其他周期的路线图 Issue（如上季度未完成的工作），或将大工作项分解为多个独立跟踪的子 Issue"
+msgstr ""
+
+#: ../zh/community/roadmap_guide.md:184
+msgid "## Sub-issues\n"
+"\n"
+"[Triton-Ascend Roadmap 2026 Q1 #xxx](link)  <!-- Related previous quarter Roadmap -->\n"
+"[FP8 Support Phase 2 #xxx](link)            <!-- Breakdown of a large work item -->\n"
+""
+msgstr ""

@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Huawei
+# This file is distributed under the same license as the Triton Ascend package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Triton Ascend \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 09:26+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../zh/examples/01_vector_add_example.md:1
+msgid "向量相加 （Vector Addition）"
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:3
+msgid "在本节中，我们将使用 Triton 编写一个简单的向量相加的程序。 在此过程中，你会学习到："
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:6
+msgid "Triton 的基本编程模式。"
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:7
+msgid "用于定义Triton内核的`triton.jit`装饰器（decorator）。"
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:9
+msgid "计算内核:"
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:11
+msgid "import torch\n"
+"import torch_npu\n"
+"\n"
+"import triton\n"
+"import triton.language as tl\n"
+"\n"
+"\n"
+"@triton.jit\n"
+"def add_kernel(x_ptr,  # Pointer to the first input vector.\n"
+"               y_ptr,  # Pointer to the second input vector.\n"
+"               output_ptr,  # Pointer to the output vector.\n"
+"               n_elements,  # Size of the vector.\n"
+"               BLOCK_SIZE: tl.constexpr,  # Number of elements each program should process.\n"
+"               # Note: `constexpr` marks the variable as a constant.\n"
+"               ):\n"
+"    # Different data is handled by different \"processes\", so we need to allocate:\n"
+"    pid = tl.program_id(axis=0)  # Use a 1D launch grid, so axis is 0.\n"
+"    # This program will handle inputs relative to the initial data offset.\n"
+"    # For example, if there is a vector of length 256 with a block size of 64, the programs will each access elements [0:64, 64:128, 128:192, 192:256].\n"
+"    # Note that offsets is a list of pointers:\n"
+"    block_start = pid * BLOCK_SIZE\n"
+"    offsets = block_start + tl.arange(0, BLOCK_SIZE)\n"
+"    # Create a mask to prevent memory operations from accessing out of bounds.\n"
+"    mask = offsets < n_elements\n"
+"    # Load x and y from DRAM, masking out any extra elements if the input is not a multiple of the block size.\n"
+"    x = tl.load(x_ptr + offsets, mask=mask)\n"
+"    y = tl.load(y_ptr + offsets, mask=mask)\n"
+"    output = x + y\n"
+"    # Write x + y back to DRAM.\n"
+"    tl.store(output_ptr + offsets, output, mask=mask)\n"
+""
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:44
+msgid "创建一个辅助函数用于："
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:46
+msgid "生成 z 张量；"
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:47
+msgid "用适当的 grid/block sizes 将上述内核加入队列。"
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:49
+msgid "def add(x: torch.Tensor, y: torch.Tensor):\n"
+"    # The output must be pre-allocated.\n"
+"    z = torch.empty_like(x)\n"
+"    n_elements = z.numel()\n"
+"    # The launch grid represents the number of kernel instances that run in parallel.\n"
+"    # It can be a Tuple[int] or a Callable(metaparameters) -> Tuple[int].\n"
+"    # In this case, a 1D grid is used, where the size is the number of blocks:\n"
+"    grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )\n"
+"    # NOTE:\n"
+"    #  - Each torch.tensor object is implicitly converted to a pointer to its first element.\n"
+"    #  - The `triton.jit` function can produce a callable NPU kernel via the launch grid index.\n"
+"    #  - Do not forget to pass meta-parameters as keywords.\n"
+"    add_kernel[grid](x, y, z, n_elements, BLOCK_SIZE=1024)\n"
+"    # Return the handle to z.\n"
+"    return z\n"
+""
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:67
+msgid "使用上述函数计算两个 `torch.tensor` 对象的 element-wise sum，并测试其正确性："
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:69
+msgid "torch.manual_seed(0)\n"
+"size = 98432\n"
+"x = torch.rand(size, device='npu')\n"
+"y = torch.rand(size, device='npu')\n"
+"output_torch = x + y\n"
+"output_triton = add(x, y)\n"
+"print(output_torch)\n"
+"print(output_triton)\n"
+"print(f'The maximum difference between torch and triton is '\n"
+"      f'{torch.max(torch.abs(output_torch - output_triton))}')\n"
+""
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:82
+msgid "Out:"
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:84
+msgid "tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')\n"
+"tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')\n"
+"The maximum difference between torch and triton is 0.0\n"
+""
+msgstr ""
+
+#: ../zh/examples/01_vector_add_example.md:90
+msgid "\"The maximum difference between torch and triton is 0.0\" 表示Triton和PyTorch的输出结果一致。"
+msgstr ""

@@ -1,6 +1,6 @@
 # 安装指南
 
-**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，主要用于提供高效的核函数自动调优、算子编译及部署能力，支持Ascend Atlas A2/A3/950系列产品，兼容Triton核心语法的同时，针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。
+**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，主要用于提供高效的核函数自动调优、算子编译及部署能力，支持Ascend Atlas A2/A3/950系列产品，兼容Triton核心语法的同时，针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等,在昇腾平台上快速开发和部署高性能计算任务。
 
 ## 环境准备
 
@@ -151,7 +151,7 @@ pip install -e .
 #### 镜像使用
 
 ```bash
-# 这里以 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 为例
+# Using 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 as an example
 docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 --security-opt seccomp=unconfined \
 --device=/dev/davinci0 \
@@ -174,7 +174,7 @@ docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 quay.io/ascend/triton:3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 \
 /bin/bash
 
-# 镜像已安装运行算子所需的基础组件（比如CANN, Torch-NPU, Triton-Ascend等），可直接运行样例
+# The image already contains the base components needed to run operators (such as CANN, Torch-NPU, Triton-Ascend, and so on), so you can run the samples directly
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
@@ -249,7 +249,7 @@ docker exec -u root -it triton-ascend_container /bin/bash
 #### 镜像使用
 
 ```bash
-# 这里以 9.0.0-a3-ubuntu22.04-py3.11 为例
+# This example uses 9.0.0-a3-ubuntu22.04-py3.11
 docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 --security-opt seccomp=unconfined \
 --device=/dev/davinci0 \
@@ -272,7 +272,7 @@ docker run -u 0 -dit --shm-size=512g --name=triton-ascend_container \
 quay.io/ascend/cann:9.0.0-a3-ubuntu22.04-py3.11 \
 /bin/bash
 
-# 进入容器，可在前面的快速安装和源码安装中任选一种方式安装Triton-Ascend
+# Enter the container; you can install Triton-Ascend using either the quick install or source install method described above
 docker exec -u root -it triton-ascend_container /bin/bash
 ```
 
@@ -283,11 +283,11 @@ docker exec -u root -it triton-ascend_container /bin/bash
 向量加法示例：<a href="https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/01-vector-add.py" style="text-decoration: none; color: #0066cc;">01-vector-add.py </a>
 
 ```bash
-# 设置CANN环境变量（以root用户默认安装路径`/usr/local/Ascend`为例）
+# Set the CANN environment variables (using the root user's default installation path `/usr/local/Ascend` as an example)
 source /usr/local/Ascend/ascend-toolkit/set_env.sh
-# 拉取triton-ascend源码仓及用例（使用源码安装Triton-Ascend的无需重复拉取）
+# Clone the triton-ascend source repository and examples (no need to clone again if you installed Triton-Ascend from source)
 git clone https://github.com/triton-lang/triton-ascend.git
-# 运行tutorials示例
+# Run the tutorials sample
 python3 ./third_party/ascend/tutorials/01-vector-add.py
 ```
 
@@ -304,23 +304,23 @@ The maximum difference between torch and triton is 0.0
 源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。执行前需完成Triton-Ascend安装，并设置CANN环境变量。
 
 ```bash
-# 设置CANN环境变量（默认安装路径`/usr/local/Ascend`为例）
+# Set the CANN environment variables (using the default installation path `/usr/local/Ascend` as an example)
 source /usr/local/Ascend/ascend-toolkit/set_env.sh
-# 安装pytest
+# Install pytest
 pip install pytest pytest-xdist
 ```
 
 **运行单个测试用例**
 
 ```bash
-# 以向量加法测试用例为例
+# Using the vector addition test case as an example
 python -m pytest third_party/ascend/unittest/pytest_ut/test_add.py
 ```
 
 **运行全部测试用例**
 
 ```bash
-# 串行执行全部用例
+# Run all test cases sequentially
 python -m pytest third_party/ascend/unittest/pytest_ut
 ```
 

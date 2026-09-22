@@ -1,0 +1,37 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Huawei
+# This file is distributed under the same license as the Triton Ascend package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Triton Ascend \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 09:26+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../zh/migration_guide/index.md:1
+msgid "Triton-Ascend算子迁移"
+msgstr ""
+
+#: ../zh/migration_guide/index.md:3
+msgid "概述：本文档介绍将 GPU Triton 算子迁移到昇腾 NPU 平台的相关内容，包括架构差异分析和具体迁移步骤。"
+msgstr ""
+
+#: ../zh/migration_guide/index.md:5
+msgid "文档组织"
+msgstr ""
+
+#: ../zh/migration_guide/index.md:7
+msgid "[架构差异分析](./architecture_difference.md) — GPU与NPU平台的架构差异"
+msgstr ""
+
+#: ../zh/migration_guide/index.md:8
+msgid "[GPU Triton算子迁移](./migrate_from_gpu.md) — 详细的迁移步骤和常见问题"
+msgstr ""

@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Huawei
+# This file is distributed under the same license as the Triton Ascend package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Triton Ascend \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 09:26+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../zh/quick_start.md:1
+msgid "快速入门"
+msgstr ""
+
+#: ../zh/quick_start.md:3
+msgid "项目介绍"
+msgstr ""
+
+#: ../zh/quick_start.md:5
+msgid "**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，用于高效进行核函数自动调优、算子编译及部署，通过兼容Triton核心语法并针对昇腾NPU特性进行深度优化，能够帮助用户在昇腾平台上快速开发和部署高性能计算任务。"
+msgstr ""
+
+#: ../zh/quick_start.md:7
+msgid "本文以**Ubuntu 22.04**环境下通过软件包部署方式在线安装并运行向量加法示例为例，指导用户快速上手使用**Triton-Ascend**。如需体验更多安装方式请阅读[安装指南](./installation_guide.md)文档。"
+msgstr ""
+
+#: ../zh/quick_start.md:9
+msgid "环境准备"
+msgstr ""
+
+#: ../zh/quick_start.md:11
+msgid "**硬件要求**"
+msgstr ""
+
+#: ../zh/quick_start.md:13
+msgid "支持的操作系统：Linux（aarch64/x86_64）"
+msgstr ""
+
+#: ../zh/quick_start.md:15
+msgid "支持的Ascend产品：Atlas A2/A3/950系列"
+msgstr ""
+
+#: ../zh/quick_start.md:17
+msgid "最小硬件配置：单卡32GB内存（推荐）"
+msgstr ""
+
+#: ../zh/quick_start.md:19
+msgid "**软件依赖**"
+msgstr ""
+
+#: ../zh/quick_start.md:21
+msgid "确定CANN、Python和TorchNPU软件版本并安装。其中，可以参考昇腾社区官网《[CANN快速安装](https://www.hiascend.com/cann/download)》完成驱动与固件安装。"
+msgstr ""
+
+#: ../zh/quick_start.md:23
+msgid "CANN版本：9.1.0"
+msgstr ""
+
+#: ../zh/quick_start.md:24
+msgid "Python版本：python3.11"
+msgstr ""
+
+#: ../zh/quick_start.md:25
+msgid "TorchNPU版本：2.7.1.post8"
+msgstr ""
+
+#: ../zh/quick_start.md:27
+msgid "注：更多配套关系请参考[版本说明表](./release_note.md#version-compatibility-matrix)。"
+msgstr ""
+
+#: ../zh/quick_start.md:29
+msgid "快速安装"
+msgstr ""
+
+#: ../zh/quick_start.md:31
+msgid "pip install triton-ascend --extra-index-url=https://mirrors.huaweicloud.com/ascend/repos/pypi\n"
+""
+msgstr ""
+
+#: ../zh/quick_start.md:35
+msgid "快速开始"
+msgstr ""
+
+#: ../zh/quick_start.md:37
+msgid "**运行tutorials中的向量加法示例验证结果**"
+msgstr ""
+
+#: ../zh/quick_start.md:39
+msgid "向量加法示例：[01-vector-add.py](../../third_party/ascend/tutorials/01-vector-add.py) 通过对比Triton算子与PyTorch原生计算的输出结果，证明昇腾NPU设备可正确调用Triton算子并保证计算精度。"
+msgstr ""
+
+#: ../zh/quick_start.md:41
+msgid "⚠️ 下述命令需在bash环境下执行。若使用POSIX sh，请将 `source` 替换为 `.`。"
+msgstr ""
+
+#: ../zh/quick_start.md:43
+msgid "# Set the CANN environment variables (using the root user's default installation path `/usr/local/Ascend` as an example)\n"
+"source /usr/local/Ascend/ascend-toolkit/set_env.sh\n"
+"# Clone the triton-ascend source repository and examples\n"
+"git clone https://github.com/triton-lang/triton-ascend.git\n"
+"# Run the tutorials sample\n"
+"python3 ./triton-ascend/third_party/ascend/tutorials/01-vector-add.py\n"
+""
+msgstr ""
+
+#: ../zh/quick_start.md:52
+msgid "观察到类似的输出即说明环境配置正确。"
+msgstr ""
+
+#: ../zh/quick_start.md:54
+msgid "tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')\n"
+"tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='npu:0')\n"
+"The maximum difference between torch and triton is 0.0\n"
+""
+msgstr ""
+
+#: ../zh/quick_start.md:60
+msgid "下一步：从样例到完整开发"
+msgstr ""
+
+#: ../zh/quick_start.md:62
+msgid "本页帮助您完成安装与首个样例验证。若希望继续上手算子开发全流程，可按下面路径推进："
+msgstr ""
+
+#: ../zh/quick_start.md:64
+msgid "**算子开发**：按算子类型阅读 Vector / Cube / 融合开发教程，再对照典型样例修改 Kernel，完成开发、编译、验证闭环。"
+msgstr ""
+
+#: ../zh/quick_start.md:65
+msgid "**自动调优**：使用 Autotune 选择合适的 Tiling 配置。"
+msgstr ""
+
+#: ../zh/quick_start.md:66
+msgid "**调试与调优**：掌握打印调试与性能采集方法。"
+msgstr ""
+
+#: ../zh/quick_start.md:67
+msgid "**迁移与进阶**：从 GPU Triton 迁移到 Ascend，或查阅环境变量与编译选项。"
+msgstr ""
+
+#: ../zh/quick_start.md:69
+msgid "开发指南"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "文档"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "说明"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[Triton-Ascend 算子开发](./programming_guide/index.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "分核、片上内存、访存、Tiling 等通用开发原则"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[Triton-Ascend 算子迁移](./migration_guide/index.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "GPU Triton 算子迁移到昇腾 NPU"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[Triton-Ascend 算子调试与调优](./debug_guide/index.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "调试、性能分析与精度排查"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[环境变量与编译选项](./environment_variable_and_compiler_options_reference.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "运行与编译相关配置说明"
+msgstr ""
+
+#: ../zh/quick_start.md:78
+msgid "教程与样例"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[Vector 算子开发](./programming_guide/vector_operator.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "逐元素、归约、Gather/Scatter 等 Vector Core 算子"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[Cube 算子开发](./programming_guide/cube_operator.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "以 `tl.dot`、矩阵乘为核心的 Cube 算子"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[融合算子开发](./programming_guide/cv_fusion_operator.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "同一 Kernel 中 Cube + Vector 协同的 CV 融合场景"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[Triton-Ascend autotune](./autotune_guide.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "Autotune 推荐用法与自动 Tiling 适用边界"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "[典型算子样例](./examples/index.md)"
+msgstr ""
+
+#: ../zh/quick_start.md:0
+msgid "Softmax、LayerNorm、Attention、Matmul 等端到端样例"
+msgstr ""
