@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:15+0800\n"
-"PO-Revision-Date: 2026-09-14 19:15+0800\n"
+"POT-Creation-Date: 2026-09-22 17:26+0800\n"
+"PO-Revision-Date: 2026-09-22 17:26+0800\n"
 
-"X-Source-Commit: e51ed26341f00a0b6f401d547b1bf1e1993090e7\n"
+"X-Source-Commit: a269809fb4ca263827e8cba21f208f377cd8140f\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -22,8 +22,6 @@ msgstr ""
 
 msgid ""
 msgstr ""
-"<translation>\n"
-"</translation>\n"
 
 msgid "向量相加 （Vector Addition）"
 msgstr "Vector Addition"
