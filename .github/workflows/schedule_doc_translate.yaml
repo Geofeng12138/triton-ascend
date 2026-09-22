@@ -247,7 +247,11 @@ jobs:
             if [ -f "$file" ]; then
               count=$((count + 1))
               file_list="${file_list}- <code>${file}</code>"$'\n'
-              git add "$file"
+              # -f: the generated .po catalogues are the deliverable and must be
+              # staged even if a broad .gitignore pattern happens to match
+              # docs/locale. Anything that should not be committed is rejected
+              # later by the assertions of the "Push CI branch" step.
+              git add -f "$file"
             fi
           done <<< "$success_files"
 
