@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-22 17:26+0800\n"
-"PO-Revision-Date: 2026-09-22 17:26+0800\n"
+"POT-Creation-Date: 2026-09-22 20:44+0800\n"
+"PO-Revision-Date: 2026-09-22 20:44+0800\n"
 
-"X-Source-Commit: dba3f61ab0e5b27cf85cfa834477a7c5ef43dd90\n"
+"X-Source-Commit: bf19bc4e91050c3fba0beff4948470f500d754d1\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -389,8 +389,8 @@ msgstr "tensor([0.8329, 1.0024, 1.3639,  ..., 1.0796, 1.0406, 1.5811], device='n
 msgid "运行Pytest UT"
 msgstr "Run Pytest UT"
 
-msgid "源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。执行前需完成Triton-Ascend安装，并设置CANN环境变量。"
-msgstr "The source repository provides single-op test cases in the `third_party/ascend/unittest/pytest_ut` directory. Before running them, you must complete the Triton-Ascend installation and set the CANN environment variables."
+msgid "源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。"
+msgstr "The source code repository provides single-op test cases in the `third_party/ascend/unittest/pytest_ut` directory."
 
 msgid "# Set the CANN environment variables (using the default installation path `/usr/local/Ascend` as an example)\\n"
 msgstr "# Set the CANN environment variables (using the default installation path `/usr/local/Ascend` as an example)\\n"
