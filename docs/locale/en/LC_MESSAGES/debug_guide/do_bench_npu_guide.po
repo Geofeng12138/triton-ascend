@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:10+0800\n"
-"PO-Revision-Date: 2026-09-14 19:10+0800\n"
+"POT-Creation-Date: 2026-09-22 10:55+0800\n"
+"PO-Revision-Date: 2026-09-22 10:55+0800\n"
 
-"X-Source-Commit: 22f0fe8fa649c091c62e116b3aec766549f8a5ce\n"
+"X-Source-Commit: 1f70bd182e1adc7f7bb4311b441a5c530bedf48e\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -104,7 +104,7 @@ msgstr "1\\. Difference between passing a single function and multiple functions
 msgid "您可以传入单个可调用对象，也可以传入可调用对象的列表："
 msgstr "You can pass a single callable object, or a list of callable objects:"
 
-msgid "# 单个函数: 返回浮点数\\n"
+msgid "# Single function: returns a float\\n"
 msgstr "# Single function: returns a float\\n"
 
 msgid "约束："

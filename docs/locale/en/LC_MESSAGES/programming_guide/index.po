@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-20 20:59+0800\n"
-"PO-Revision-Date: 2026-09-20 20:59+0800\n"
+"POT-Creation-Date: 2026-09-22 10:55+0800\n"
+"PO-Revision-Date: 2026-09-22 10:55+0800\n"
 
-"X-Source-Commit: 53653a8a957f17959610878d1cba6266c74f8102\n"
+"X-Source-Commit: 01a8ef374a9e3ebeed3071fc929fb1cb6394c44e\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "<empty>"
+msgstr ""
 
 msgid "Triton算子开发指南"
 msgstr "Triton Operator Development Guide"
@@ -491,14 +491,14 @@ msgstr "Performance key points:"
 msgid "(1)访存优化  -保证连续访问。  -使用对齐的 stride，避免跨行/跨列跳跃式访问。  -尽量让数据块大小对齐到 32 字节边界。  输入输出 buffer 在分配时保证对齐，避免访存性能下降。  例："
 msgstr "(1) Memory access optimization  - Ensure contiguous access.  - Use aligned strides to avoid jumping access across rows or columns.  - Align data block sizes to the 32-byte boundary as much as possible.  Ensure that input and output buffers are aligned during allocation to prevent memory access performance degradation.  Example:"
 
-msgid "BLOCK_SIZE = 256  # 256 * 4 Byte = 1024 Byte，对齐良好\\n"
-msgstr "BLOCK_SIZE = 256  # 256 * 4 Byte = 1024 Byte, well aligned"
+msgid "BLOCK_SIZE = 256  # 256 * 4 Byte = 1024 Byte, well aligned\\n"
+msgstr "BLOCK_SIZE = 256  # 256 * 4 Byte = 1024 Byte, well aligned\\n"
 
 msgid "(2)子块划分  -将大矩阵分解为小block，每个block在 UB 内完成计算。  -子块划分要兼顾访存连续性和计算单元利用率。  例："
 msgstr "(2) Sub-block partitioning  -Decompose a large matrix into small blocks, with each block completing computation within the UB.  -Sub-block partitioning must balance memory access continuity and compute unit utilization.  Example:"
 
-msgid "BLOCK_M = 64   # 每个 block 处理 64 行\\n"
-msgstr "BLOCK_M = 64   # Each block processes 64 rows"
+msgid "BLOCK_M = 64   # Each block processes 64 rows\\n"
+msgstr "BLOCK_M = 64   # Each block processes 64 rows\\n"
 
 msgid "通用多维张量切分"
 msgstr "General multidimensional tensor slicing."

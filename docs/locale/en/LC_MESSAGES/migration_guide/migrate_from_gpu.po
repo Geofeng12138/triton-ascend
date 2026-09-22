@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:21+0800\n"
-"PO-Revision-Date: 2026-09-14 19:21+0800\n"
+"POT-Creation-Date: 2026-09-22 10:55+0800\n"
+"PO-Revision-Date: 2026-09-22 10:55+0800\n"
 
-"X-Source-Commit: 7b6c16a991353b0355c0664a6416cc5d6db24020\n"
+"X-Source-Commit: 2d4296e23b6b010a581bf2a7fcd5f563de2192a3\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -206,8 +206,8 @@ msgstr "Optimized code:"
 msgid "动态计算适合的 BLOCK_SIZE 以避免 coreDim 超限"
 msgstr "Dynamically calculate the appropriate BLOCK_SIZE to avoid exceeding the coreDim limit."
 
-msgid "optimal_block_size = 32768  # 根据计算得出的优化值\\n"
-msgstr "optimal_block_size = 32768  # Optimized value obtained through calculation\\n"
+msgid "optimal_block_size = 32768  # Optimized value derived from calculation\\n"
+msgstr "optimal_block_size = 32768  # Optimized value derived from calculation\\n"
 
 msgid "处理复合问题：coreDim + UB 溢出"
 msgstr "Handling composite issues: coreDim + UB overflow"

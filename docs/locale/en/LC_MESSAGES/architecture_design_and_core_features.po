@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-20 20:54+0800\n"
-"PO-Revision-Date: 2026-09-20 20:54+0800\n"
+"POT-Creation-Date: 2026-09-22 10:55+0800\n"
+"PO-Revision-Date: 2026-09-22 10:55+0800\n"
 
-"X-Source-Commit: beb0ee40b795a9f72cf942f2c916f55b3b8e0c07\n"
+"X-Source-Commit: 4fa7bd7af2b5e85c1c2f1532b1ea10fd258d3f63\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
-msgstr "(empty)"
+msgstr ""
 
 msgid "架构设计与核心特性"
 msgstr "Architecture Design and Core Features"

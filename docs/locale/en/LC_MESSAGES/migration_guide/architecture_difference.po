@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:20+0800\n"
-"PO-Revision-Date: 2026-09-14 19:20+0800\n"
+"POT-Creation-Date: 2026-09-22 10:55+0800\n"
+"PO-Revision-Date: 2026-09-22 10:55+0800\n"
 
-"X-Source-Commit: 8559130f824901aea32d7347dd5b9f697b5dfa46\n"
+"X-Source-Commit: 0cd019cb9d0d1433c07cab122a9faaa43a730bc9\n"
 
 "X-Skill-Version: 2.0.0\\n"
 

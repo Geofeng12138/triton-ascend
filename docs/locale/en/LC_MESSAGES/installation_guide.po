@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:20+0800\n"
-"PO-Revision-Date: 2026-09-14 19:20+0800\n"
+"POT-Creation-Date: 2026-09-22 10:55+0800\n"
+"PO-Revision-Date: 2026-09-22 10:55+0800\n"
 
-"X-Source-Commit: 3de88b311c9613ae6409b6a10933d7de55db1966\n"
+"X-Source-Commit: 44ed7d3eb0fc6f76498873ac8aac838783e4a093\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -347,8 +347,8 @@ msgstr "For more images, refer to [OVERVIEW.md](../../docker/OVERVIEW.zh.md)."
 msgid "镜像使用"
 msgstr "Image Usage"
 
-msgid "# 这里以 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 为例\\n"
-msgstr "# This uses 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 as an example"
+msgid "# Using 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 as an example\\n"
+msgstr "# Using 3.2.2-cann9.1.0-torch_npu2.7.1.post8-910b-ubuntu24.04-py3.11 as an example\\n"
 
 msgid "开发镜像"
 msgstr "Development Image"
@@ -392,20 +392,20 @@ msgstr "Run Pytest UT"
 msgid "源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。执行前需完成Triton-Ascend安装，并设置CANN环境变量。"
 msgstr "The source repository provides single-op test cases in the `third_party/ascend/unittest/pytest_ut` directory. Before running them, you must complete the Triton-Ascend installation and set the CANN environment variables."
 
-msgid "# 设置CANN环境变量（默认安装路径`/usr/local/Ascend`为例）\\n"
-msgstr "# Setting CANN Environment Variables (Using the Default Installation Path `/usr/local/Ascend` as an Example)"
+msgid "# Set the CANN environment variables (using the default installation path `/usr/local/Ascend` as an example)\\n"
+msgstr "# Set the CANN environment variables (using the default installation path `/usr/local/Ascend` as an example)\\n"
 
 msgid "**运行单个测试用例**"
 msgstr "**Run a Single Test Case**"
 
-msgid "# 以向量加法测试用例为例\\n"
-msgstr "# Vector Addition Test Case Example"
+msgid "# Using the vector addition test case as an example\\n"
+msgstr "# Using the vector addition test case as an example\\n"
 
 msgid "**运行全部测试用例**"
 msgstr "**Run All Test Cases**"
 
-msgid "# 串行执行全部用例\\n"
-msgstr "# Execute All Test Cases Sequentially"
+msgid "# Run all test cases sequentially\\n"
+msgstr "# Run all test cases sequentially\\n"
 
 msgid "如需加速测试，可通过`-n`指定并行worker数（并行执行需安装pytest-xdist）："
 msgstr "To speed up testing, you can specify the number of parallel workers with `-n` (parallel execution requires installing pytest-xdist):"
