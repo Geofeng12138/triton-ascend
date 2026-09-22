@@ -93,3 +93,8 @@ docs/sg_execution_times.rst
 
 # macOS
 .DS_Store
+
+# Docs gettext intermediates (translation pipeline output, never committed)
+docs/locale/.doctrees/
+docs/locale/zh/
+locale/

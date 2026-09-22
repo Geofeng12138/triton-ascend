@@ -14,29 +14,27 @@
 # limitations under the License.
 # This file is a part of the triton-ascend project.
 #
-# Branch model
-# ============
-# This workflow lives in the CI fork (Geofeng12138/triton-ascend) and is meant
-# to run there only:
+# Deployment model
+# ================
+# The pipeline is owned and executed by the upstream repository
+# (triton-lang/triton-ascend): both the tooling and the translation state
+# (docs/locale/en/LC_MESSAGES/*.po) live here.
 #
-#   run branch      = the branch the workflow is dispatched on (the fork default
-#                     branch, `main`). It keeps the translation state
-#                     (docs/locale/en/LC_MESSAGES/*.po) together with the
-#                     workflow tooling, and is never proposed to the upstream
-#                     repository.
-#   delivery branch = a timestamped branch created by every run. It carries
-#                     ONLY the documentation layer (docs/** plus the Read the
-#                     Docs language mapping script) and is the head of the pull
-#                     request opened against the upstream repository. The
-#                     upstream repository therefore never receives an
-#                     `auto-pr/*` branch of its own.
+#   * every run creates a timestamped CI branch on the CI fork
+#     (Geofeng12138/triton-ascend). That commit is a child of the upstream base
+#     branch, so the branch tree matches the upstream repository exactly and the
+#     pull request diff contains the documentation layer only;
+#   * the pull request into this repository is opened with the workflow's own
+#     GITHUB_TOKEN (`permissions: pull-requests: write`). No personal token with
+#     upstream permissions is required;
+#   * the fork copy of this file stays inert: the job only runs in the upstream
+#     repository.
 #
-# Required repository secrets (fork):
-#   PAT_TOKEN          classic PAT (or fine-grained token) with
-#                      - fork:     Contents: Read and write
-#                      - upstream: Contents: Read, Pull requests: Read and write
-#                      plus the `workflow` scope, because the delivery branch
-#                      contains .github/workflows/scripts/readthedocs_checkout.sh
+# Required repository secrets (upstream repository):
+#   FORK_PUSH_TOKEN    token that may write to the CI fork:
+#                      fine-grained -> select only Geofeng12138/triton-ascend with
+#                        Contents: Read and write + Workflows: Read and write
+#                      classic      -> repo + workflow scopes
 #   TRANSLATION_ASCEND default LLM API key (Volcengine glm-5.2)
 #   LLM_API_KEY        optional, used when api_base/model are overridden
 
@@ -75,70 +73,47 @@ concurrency:
 jobs:
   translate:
     runs-on: ubuntu-latest
-    # Fork-only workflow. When this file also exists in the upstream repository
-    # (e.g. after a sync/merge) the job is skipped there, so the upstream
-    # repository never gets CI branches and never needs the translation secrets.
-    if: github.repository == 'Geofeng12138/triton-ascend' && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+    # Upstream-only workflow: the fork copy of this file is a no-op, so the fork
+    # never runs the pipeline and needs no secrets of its own.
+    if: github.repository == 'triton-lang/triton-ascend' && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
     permissions:
-      contents: read          # branch pushes and the PR use PAT_TOKEN
+      contents: read          # the CI branch is pushed to the fork with FORK_PUSH_TOKEN
+      pull-requests: write    # the pull request into this repository uses GITHUB_TOKEN
     env:
       TARGET_BRANCH: ${{ inputs.target_branch || 'main' }}
-      UPSTREAM_REPO: triton-lang/triton-ascend    # PR base repository
       FORK_REPO: Geofeng12138/triton-ascend       # CI branch repository
       FORK_OWNER: Geofeng12138
-      RUN_BRANCH: ${{ github.ref_name }}          # translation state branch
     steps:
-      # Resolve the cross-repo token used for checkout / push / PR creation.
-      # PAT_TOKEN is mandatory: the fork's GITHUB_TOKEN can only write to the
-      # fork itself and cannot open a pull request in the upstream repository.
-      - name: Resolve cross-repo token (PAT_TOKEN)
-        id: resolve_token
+      # The CI branch is pushed to the fork, so the run needs a token that may
+      # write there. Everything else (checkout, pull request) uses this
+      # repository's own GITHUB_TOKEN.
+      - name: Resolve fork push token
+        id: fork_token
         env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-          if [ -z "${PAT_TOKEN}" ]; then
-            echo "::error::PAT_TOKEN is required (GITHUB_TOKEN cannot push branches or open upstream pull requests)."
-            exit 1
-          fi
-          echo "token=${PAT_TOKEN}" >> "$GITHUB_OUTPUT"
-          {
-            echo "GH_TOKEN=${PAT_TOKEN}"
-          } >> "$GITHUB_ENV"
-          echo "Using PAT_TOKEN for checkout / push / PR creation"
-
-      - name: Checkout fork run branch (${{ env.RUN_BRANCH }})
-        uses: actions/checkout@v4
-        with:
-          token: ${{ steps.resolve_token.outputs.token }}
-          ref: ${{ env.RUN_BRANCH }}
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Sync upstream ${{ env.TARGET_BRANCH }} into the run branch
-        id: sync
-        env:
-          PAT: ${{ steps.resolve_token.outputs.token }}
+          FORK_PUSH_TOKEN: ${{ secrets.FORK_PUSH_TOKEN }}
         run: |
           set -euo pipefail
-          git config user.name  'triton-ascend-doc-bot'
-          git config user.email 'triton-ascend-doc-bot@users.noreply.github.com'
-
-          git remote add upstream "https://x-access-token:${PAT}@github.com/${UPSTREAM_REPO}.git"
-          git remote add fork     "https://x-access-token:${PAT}@github.com/${FORK_REPO}.git"
-          git fetch --no-tags upstream "${TARGET_BRANCH}"
-
-          # Keep the run branch on top of the latest upstream documentation, so
-          # the .po content fingerprints (X-Source-Commit) are compared against
-          # the very same sources the upstream pull request is based on.
-          if git merge-base --is-ancestor "upstream/${TARGET_BRANCH}" HEAD; then
-            echo "Already up to date with upstream/${TARGET_BRANCH}"
-          elif git merge --no-edit "upstream/${TARGET_BRANCH}"; then
-            echo "Merged upstream/${TARGET_BRANCH} into ${RUN_BRANCH}"
-          else
-            git merge --abort || true
-            echo "::error::Merge conflict with upstream/${TARGET_BRANCH}. Resolve it in the fork and re-run the workflow."
+          if [ -z "${FORK_PUSH_TOKEN}" ]; then
+            echo "::error::FORK_PUSH_TOKEN is required: it pushes the CI branch to ${FORK_REPO}. Fine-grained tokens need Contents + Workflows (Read and write) on that repository only; classic tokens need the repo and workflow scopes."
             exit 1
           fi
+          # Fail fast (before spending LLM tokens) when the token cannot reach the fork.
+          if ! git ls-remote --heads "https://x-access-token:${FORK_PUSH_TOKEN}@github.com/${FORK_REPO}.git" >/dev/null 2>&1; then
+            echo "::error::FORK_PUSH_TOKEN cannot read ${FORK_REPO}. Check the token's repository access and scopes."
+            exit 1
+          fi
+          echo "token=${FORK_PUSH_TOKEN}" >> "$GITHUB_OUTPUT"
+          echo "FORK_PUSH_TOKEN can reach ${FORK_REPO}"
+
+      # The upstream repository is the base of every CI branch, so the branch
+      # tree always matches the upstream repository and the pull request diff
+      # only contains the documentation layer.
+      - name: Checkout ${{ github.repository }} (${{ env.TARGET_BRANCH }})
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -259,90 +234,71 @@ jobs:
             echo "EOF"
           } >> $GITHUB_OUTPUT
 
-      # Persist the translation state (the .po catalogues) on the run branch so
-      # that the next run only re-translates documents whose source changed.
-      - name: Push translation state to fork (${{ env.RUN_BRANCH }})
-        id: state
+      # The CI branch is a child commit of the checked-out upstream base branch,
+      # so the branch tree matches the upstream repository and the pull request
+      # diff only contains the documentation layer. Intermediate gettext
+      # artifacts must never be committed.
+      - name: Push CI branch to the fork
+        id: ci_branch
         env:
-          HAS_CHANGES: ${{ steps.results.outputs.has_changes }}
+          FORK_TOKEN: ${{ steps.fork_token.outputs.token }}
         run: |
           set -euo pipefail
-          if [ "${HAS_CHANGES}" = "true" ]; then
-            count=$(git diff --cached --name-only | wc -l)
-            git commit -s -m "[doc](feat) Auto-translate ${count} file(s) (Sphinx gettext)"
-          fi
 
-          # First run on a fresh fork has no remote branch yet: keep going.
-          git fetch --no-tags fork "${RUN_BRANCH}" || true
-          remote_sha=$(git rev-parse --verify --quiet "fork/${RUN_BRANCH}" || true)
-          if [ -n "${remote_sha}" ] && [ "$(git rev-parse HEAD)" = "${remote_sha}" ]; then
-            echo "Nothing new to push to fork/${RUN_BRANCH}"
-            echo "pushed=false" >> "$GITHUB_OUTPUT"
-          else
-            git push fork "HEAD:refs/heads/${RUN_BRANCH}"
-            echo "pushed=true" >> "$GITHUB_OUTPUT"
-          fi
+          # Drop the intermediate gettext artifacts produced by this run:
+          # docs/locale/.doctrees/** (binary Sphinx doctrees) and
+          # docs/locale/zh/LC_MESSAGES/**.pot are regenerated by every run and
+          # are not part of the deliverable.
+          rm -rf docs/locale/.doctrees docs/locale/zh
 
-      # Build the branch that is proposed to the upstream repository. It is
-      # created from the upstream base branch and only receives the
-      # documentation layer, so the workflow tooling can never leak upstream.
-      - name: Build delivery branch (documentation layer only)
-        id: delivery
-        run: |
-          set -euo pipefail
-          DELIVERY_BRANCH="auto-pr/doc-translate-$(date +%Y%m%d%H%M%S)"
-          echo "DELIVERY_BRANCH=${DELIVERY_BRANCH}" >> "$GITHUB_ENV"
-
-          # Paths allowed to reach the upstream repository. Workflow tooling
-          # (.github/workflows/*.yaml, .github/workflows/scripts/translate_md.py,
-          # .agents/**) is deliberately absent from this list.
-          DOC_LAYER=(docs .github/workflows/scripts/readthedocs_checkout.sh)
-
-          git checkout -B "${DELIVERY_BRANCH}" "upstream/${TARGET_BRANCH}"
-          for path in "${DOC_LAYER[@]}"; do
-            git checkout "${RUN_BRANCH}" -- "${path}"
-          done
-          # Propagate file deletions of the run branch.
-          while IFS= read -r deleted; do
-            if [ -n "${deleted}" ]; then
-              git rm -q -f "${deleted}"
-            fi
-          done < <(git diff --diff-filter=D --name-only "upstream/${TARGET_BRANCH}" "${RUN_BRANCH}" -- "${DOC_LAYER[@]}")
-          git add -A -- "${DOC_LAYER[@]}"
-
-          if git diff --cached --quiet; then
-            echo "No documentation changes to deliver to upstream"
-            echo "has_delivery=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          # Safety net: nothing outside the documentation layer may be staged.
+          # Safety net 1: nothing outside the documentation layer may be staged.
           leaked=$(git diff --cached --name-only | grep -vE '^(docs/|\.github/workflows/scripts/readthedocs_checkout\.sh$)' || true)
           if [ -n "${leaked}" ]; then
-            echo "::error::Unexpected path(s) staged for the upstream pull request: ${leaked}"
+            echo "::error::Unexpected path(s) staged for the pull request: ${leaked}"
             exit 1
           fi
 
+          # Safety net 2: no gettext build artifacts may be staged.
+          junk=$(git diff --cached --name-only | grep -E '\.doctree$|/\.doctrees/|\.pot$' || true)
+          if [ -n "${junk}" ]; then
+            echo "::error::Build artifact(s) staged for the pull request: ${junk}"
+            exit 1
+          fi
+
+          if git diff --cached --quiet; then
+            echo "No documentation changes to deliver"
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name  'triton-ascend-doc-bot'
+          git config user.email 'triton-ascend-doc-bot@users.noreply.github.com'
+
+          CI_BRANCH="auto-pr/doc-translate-$(date +%Y%m%d%H%M%S)"
+          echo "CI_BRANCH=${CI_BRANCH}" >> "$GITHUB_ENV"
           file_count=$(git diff --cached --name-only | wc -l)
           file_list=$(git diff --cached --name-only | while IFS= read -r f; do printf -- '- <code>%s</code>\n' "${f}"; done)
-          git commit -s -m "[doc](feat) Add English translations for Chinese docs (${file_count} files)"
 
-          git push fork "HEAD:refs/heads/${DELIVERY_BRANCH}"
+          # Commit on top of the upstream base branch and push that commit as a
+          # new branch of the fork.
+          git commit -s -m "[doc](feat) Add English translations for Chinese docs (${file_count} files)"
+          git remote add fork "https://x-access-token:${FORK_TOKEN}@github.com/${FORK_REPO}.git"
+          git push fork "HEAD:refs/heads/${CI_BRANCH}"
 
           {
-            echo "has_delivery=true"
+            echo "pushed=true"
             echo "file_count=${file_count}"
             echo "file_list<<EOF"
             echo "${file_list}"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Create Pull Request in upstream (${{ env.UPSTREAM_REPO }})
-        if: steps.delivery.outputs.has_delivery == 'true'
+      - name: Create Pull Request in this repository
+        if: steps.ci_branch.outputs.pushed == 'true'
         env:
-          GH_TOKEN: ${{ steps.resolve_token.outputs.token }}
-          FILE_LIST: ${{ steps.delivery.outputs.file_list }}
-          FILE_COUNT: ${{ steps.delivery.outputs.file_count }}
+          GH_TOKEN: ${{ github.token }}
+          FILE_LIST: ${{ steps.ci_branch.outputs.file_list }}
+          FILE_COUNT: ${{ steps.ci_branch.outputs.file_count }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -euo pipefail
@@ -421,8 +377,8 @@ jobs:
           > This pull request was generated automatically by the scheduled
           > documentation translation workflow. The translation tooling
           > (`schedule_doc_translate.yaml`, `translate_md.py`,
-          > `.agents/skills/translate/skill.md`) is kept in the CI fork and is
-          > intentionally not part of this pull request.
+          > `.agents/skills/translate/skill.md`) lives in this repository; the
+          > pull request only carries the documentation layer.
           BODYEOF
 
           python3 - <<'PYEOF'
@@ -435,15 +391,19 @@ jobs:
           pathlib.Path('/tmp/pr_body.md').write_text(body, encoding='utf-8')
           PYEOF
 
-          echo "Creating PR ${FORK_OWNER}:${DELIVERY_BRANCH} -> ${UPSTREAM_REPO}:${TARGET_BRANCH}"
-          if gh pr create \
-            --repo "${UPSTREAM_REPO}" \
+          echo "Creating PR ${FORK_OWNER}:${CI_BRANCH} -> ${GITHUB_REPOSITORY}:${TARGET_BRANCH}"
+          if pr_out=$(gh pr create \
+            --repo "${GITHUB_REPOSITORY}" \
             --base "${TARGET_BRANCH}" \
-            --head "${FORK_OWNER}:${DELIVERY_BRANCH}" \
+            --head "${FORK_OWNER}:${CI_BRANCH}" \
             --title "${TITLE}" \
-            --body-file /tmp/pr_body.md 2>&1; then
+            --body-file /tmp/pr_body.md 2>&1); then
+            echo "${pr_out}"
             echo "Pull request created successfully"
           else
-            echo "::warning::gh pr create failed (a pull request may already exist for ${FORK_OWNER}:${DELIVERY_BRANCH}, or PAT_TOKEN lacks pull-requests write permission on ${UPSTREAM_REPO})"
+            # The CI branch is already pushed, so the pull request can also be
+            # opened manually from ${FORK_OWNER}:${CI_BRANCH}.
+            echo "${pr_out}"
+            echo "::error::gh pr create failed for ${FORK_OWNER}:${CI_BRANCH} -> ${GITHUB_REPOSITORY}:${TARGET_BRANCH}. This step authenticates with GITHUB_TOKEN and needs 'permissions: pull-requests: write' on this repository."
           fi
 
