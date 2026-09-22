@@ -290,6 +290,8 @@ applicable-scope:
 
 本技能由 `.github/workflows/scripts/translate_md.py` 中的翻译引擎消费：
 
+- 运行位置：个人 fork（`Geofeng12138/triton-ascend`）的 Actions，触发分支为 fork 默认分支 `main`（= 运行分支，保存 `docs/locale/en/LC_MESSAGES/**.po` 翻译记忆与工作流工具）
+- 交付方式：每次运行在 fork 上新建 `auto-pr/doc-translate-<时间戳>` 分支，**只包含文档层**（`docs/**` 与 `.github/workflows/scripts/readthedocs_checkout.sh`），并向源码仓 `triton-lang/triton-ascend` 提跨仓 PR；工具类文件（本技能、`translate_md.py`、workflow yaml）永不合入源码仓
 - 中文源文档：`docs/zh/**`（Markdown，排除 python-api、triton_api、triton_api_extension、libdevice 目录）
 - 英文译文文件：`docs/locale/en/LC_MESSAGES/**`（.po 译文，镜像 `docs/zh/` 目录结构，由 Sphinx gettext 渲染英文页面）
 - 翻译记忆：`docs/locale/en/LC_MESSAGES/**`（.po 缓存，按 msgid/msgstr 存储）

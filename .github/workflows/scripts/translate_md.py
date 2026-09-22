@@ -29,9 +29,11 @@ Path mapping (PO files mirror docs/zh/ directory structure):
     is IDENTICAL to the relative path under docs/zh/ (e.g. "debug_guide/index.md")
     except for the .md → .po extension change.
 
-This works with conf_en.py (srcdir=docs/zh/, locale_dirs=['../locale/']):
-Sphinx with language='en' reads locale/en/LC_MESSAGES/<relative-path>.po to
-translate docs/zh/<relative-path>.md into English HTML output.
+The English build is driven by docs/zh/conf.py (srcdir=docs/zh/,
+locale_dirs=['../locale/']); .github/workflows/scripts/readthedocs_checkout.sh
+selects it for READTHEDOCS_LANGUAGE=en. Sphinx with language='en' reads
+locale/en/LC_MESSAGES/<relative-path>.po to translate
+docs/zh/<relative-path>.md into English HTML output.
 
 Directory layout:
     docs/zh/                        Chinese source Markdown files (input)
