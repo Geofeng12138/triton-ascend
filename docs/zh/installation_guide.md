@@ -301,7 +301,7 @@ The maximum difference between torch and triton is 0.0
 
 ## 运行Pytest UT
 
-源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。执行前需完成Triton-Ascend安装，并设置CANN环境变量。
+源码仓中提供了单op测试用例，位于`third_party/ascend/unittest/pytest_ut`目录下。
 
 ```bash
 # Set the CANN environment variables (using the default installation path `/usr/local/Ascend` as an example)
