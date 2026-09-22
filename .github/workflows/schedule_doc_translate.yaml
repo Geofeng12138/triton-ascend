@@ -16,27 +16,37 @@
 #
 # Deployment model
 # ================
-# The pipeline is owned and executed by the upstream repository
-# (triton-lang/triton-ascend): both the tooling and the translation state
-# (docs/locale/en/LC_MESSAGES/*.po) live here.
+# The pipeline is executed by the repository that owns the documentation (for
+# triton-ascend that is triton-lang/triton-ascend). Everything that decides
+# whether and how it runs is repository-scoped configuration, so the very same
+# file can be copied to another component without editing the workflow:
 #
-#   * every run creates a timestamped CI branch on the CI fork
-#     (Geofeng12138/triton-ascend). That commit is a child of the upstream base
-#     branch, so the branch tree matches the upstream repository exactly and the
-#     pull request diff contains the documentation layer only;
-#   * the pull request into this repository is opened with the workflow's own
-#     GITHUB_TOKEN (`permissions: pull-requests: write`). No personal token with
-#     upstream permissions is required;
-#   * the fork copy of this file stays inert: the job only runs in the upstream
-#     repository.
+#   DOC_TRANSLATE_ENABLED      repository variable; the job only runs where it
+#                              equals 'true'. Forks or copies of this file
+#                              without the variable are inert.
+#   DOC_TRANSLATE_BRANCH_REPO  optional repository variable; repository that
+#                              receives the per-run CI branch.
+#                              unset -> this repository (same-repository mode,
+#                                       no extra token needed)
+#                              set   -> a fork (cross-repository mode, needs
+#                                       FORK_PUSH_TOKEN; keeps this repository's
+#                                       branch namespace clean)
 #
-# Required repository secrets (upstream repository):
-#   FORK_PUSH_TOKEN    token that may write to the CI fork:
-#                      fine-grained -> select only Geofeng12138/triton-ascend with
-#                        Contents: Read and write + Workflows: Read and write
-#                      classic      -> repo + workflow scopes
+#   * every run creates a timestamped CI branch whose commit is a child of the
+#     base branch of this repository, so the branch tree matches the repository
+#     and the pull request diff contains the documentation layer only;
+#   * the pull request of this repository is always opened with the workflow's
+#     own GITHUB_TOKEN (`permissions: pull-requests: write`), also in
+#     cross-repository mode - no personal token with this repository's
+#     permissions is required.
+#
+# Required secrets:
 #   TRANSLATION_ASCEND default LLM API key (Volcengine glm-5.2)
 #   LLM_API_KEY        optional, used when api_base/model are overridden
+#   FORK_PUSH_TOKEN    only when DOC_TRANSLATE_BRANCH_REPO differs from this
+#                      repository: a token that may write that repository
+#                      (fine-grained: Contents + Workflows read/write on it;
+#                       classic: repo + workflow scopes)
 
 name: Auto Doc Translate
 
@@ -73,37 +83,54 @@ concurrency:
 jobs:
   translate:
     runs-on: ubuntu-latest
-    # Upstream-only workflow: the fork copy of this file is a no-op, so the fork
-    # never runs the pipeline and needs no secrets of its own.
-    if: github.repository == 'triton-lang/triton-ascend' && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+    # Enablement is repository-scoped: only repositories that define the
+    # variable DOC_TRANSLATE_ENABLED=true run the pipeline, so this file can be
+    # copied to another component without editing it.
+    if: vars.DOC_TRANSLATE_ENABLED == 'true' && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
     permissions:
-      contents: read          # the CI branch is pushed to the fork with FORK_PUSH_TOKEN
-      pull-requests: write    # the pull request into this repository uses GITHUB_TOKEN
+      contents: write         # same-repository mode pushes the CI branch with GITHUB_TOKEN
+      pull-requests: write    # the pull request of this repository uses GITHUB_TOKEN
     env:
       TARGET_BRANCH: ${{ inputs.target_branch || 'main' }}
-      FORK_REPO: Geofeng12138/triton-ascend       # CI branch repository
-      FORK_OWNER: Geofeng12138
+      # Repository that receives the per-run CI branch. Defaults to this
+      # repository; set DOC_TRANSLATE_BRANCH_REPO to a fork to keep this
+      # repository's branch namespace clean (that mode needs FORK_PUSH_TOKEN).
+      BRANCH_REPO: ${{ vars.DOC_TRANSLATE_BRANCH_REPO || github.repository }}
     steps:
-      # The CI branch is pushed to the fork, so the run needs a token that may
-      # write there. Everything else (checkout, pull request) uses this
-      # repository's own GITHUB_TOKEN.
-      - name: Resolve fork push token
-        id: fork_token
+      # Decide where the CI branch goes and which token pushes it:
+      #   same repository    -> the workflow's own GITHUB_TOKEN (contents: write)
+      #   another repository -> FORK_PUSH_TOKEN (Contents + Workflows read/write
+      #                         on that repository only)
+      - name: Resolve CI branch repository and push token
+        id: branch_token
         env:
           FORK_PUSH_TOKEN: ${{ secrets.FORK_PUSH_TOKEN }}
+          WORKFLOW_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          if [ -z "${FORK_PUSH_TOKEN}" ]; then
-            echo "::error::FORK_PUSH_TOKEN is required: it pushes the CI branch to ${FORK_REPO}. Fine-grained tokens need Contents + Workflows (Read and write) on that repository only; classic tokens need the repo and workflow scopes."
-            exit 1
+          BRANCH_OWNER="${BRANCH_REPO%%/*}"
+          if [ "${BRANCH_REPO}" = "${GITHUB_REPOSITORY}" ]; then
+            PUSH_MODE="same-repository"
+            PUSH_TOKEN="${WORKFLOW_TOKEN}"
+          else
+            PUSH_MODE="cross-repository"
+            PUSH_TOKEN="${FORK_PUSH_TOKEN}"
+            if [ -z "${PUSH_TOKEN}" ]; then
+              echo "::error::DOC_TRANSLATE_BRANCH_REPO=${BRANCH_REPO} differs from this repository, so FORK_PUSH_TOKEN is required (fine-grained: Contents + Workflows read/write on ${BRANCH_REPO}; classic: repo + workflow scopes)."
+              exit 1
+            fi
+            # Fail fast (before spending LLM tokens) when the token cannot reach that repository.
+            if ! git ls-remote --heads "https://x-access-token:${PUSH_TOKEN}@github.com/${BRANCH_REPO}.git" >/dev/null 2>&1; then
+              echo "::error::FORK_PUSH_TOKEN cannot read ${BRANCH_REPO}. Check the token's repository access and scopes."
+              exit 1
+            fi
           fi
-          # Fail fast (before spending LLM tokens) when the token cannot reach the fork.
-          if ! git ls-remote --heads "https://x-access-token:${FORK_PUSH_TOKEN}@github.com/${FORK_REPO}.git" >/dev/null 2>&1; then
-            echo "::error::FORK_PUSH_TOKEN cannot read ${FORK_REPO}. Check the token's repository access and scopes."
-            exit 1
-          fi
-          echo "token=${FORK_PUSH_TOKEN}" >> "$GITHUB_OUTPUT"
-          echo "FORK_PUSH_TOKEN can reach ${FORK_REPO}"
+          {
+            echo "BRANCH_OWNER=${BRANCH_OWNER}"
+            echo "PUSH_MODE=${PUSH_MODE}"
+          } >> "$GITHUB_ENV"
+          echo "token=${PUSH_TOKEN}" >> "$GITHUB_OUTPUT"
+          echo "CI branches are pushed to ${BRANCH_REPO} (${PUSH_MODE} mode)"
 
       # The upstream repository is the base of every CI branch, so the branch
       # tree always matches the upstream repository and the pull request diff
@@ -234,14 +261,14 @@ jobs:
             echo "EOF"
           } >> $GITHUB_OUTPUT
 
-      # The CI branch is a child commit of the checked-out upstream base branch,
-      # so the branch tree matches the upstream repository and the pull request
-      # diff only contains the documentation layer. Intermediate gettext
-      # artifacts must never be committed.
-      - name: Push CI branch to the fork
+      # The CI branch is a child commit of the checked-out base branch, so the
+      # branch tree matches this repository and the pull request diff only
+      # contains the documentation layer. Intermediate gettext artifacts must
+      # never be committed.
+      - name: Push CI branch
         id: ci_branch
         env:
-          FORK_TOKEN: ${{ steps.fork_token.outputs.token }}
+          PUSH_TOKEN: ${{ steps.branch_token.outputs.token }}
         run: |
           set -euo pipefail
 
@@ -279,11 +306,11 @@ jobs:
           file_count=$(git diff --cached --name-only | wc -l)
           file_list=$(git diff --cached --name-only | while IFS= read -r f; do printf -- '- <code>%s</code>\n' "${f}"; done)
 
-          # Commit on top of the upstream base branch and push that commit as a
-          # new branch of the fork.
+          # Commit on top of the base branch and push that commit as a new
+          # branch of BRANCH_REPO.
           git commit -s -m "[doc](feat) Add English translations for Chinese docs (${file_count} files)"
-          git remote add fork "https://x-access-token:${FORK_TOKEN}@github.com/${FORK_REPO}.git"
-          git push fork "HEAD:refs/heads/${CI_BRANCH}"
+          git remote add branchrepo "https://x-access-token:${PUSH_TOKEN}@github.com/${BRANCH_REPO}.git"
+          git push branchrepo "HEAD:refs/heads/${CI_BRANCH}"
 
           {
             echo "pushed=true"
@@ -391,19 +418,27 @@ jobs:
           pathlib.Path('/tmp/pr_body.md').write_text(body, encoding='utf-8')
           PYEOF
 
-          echo "Creating PR ${FORK_OWNER}:${CI_BRANCH} -> ${GITHUB_REPOSITORY}:${TARGET_BRANCH}"
+          # Same-repository mode: the branch lives in this repository, so the
+          # head is just the branch name. Cross-repository mode: owner:branch.
+          if [ "${PUSH_MODE}" = "same-repository" ]; then
+            HEAD_REF="${CI_BRANCH}"
+          else
+            HEAD_REF="${BRANCH_OWNER}:${CI_BRANCH}"
+          fi
+
+          echo "Creating PR ${HEAD_REF} -> ${GITHUB_REPOSITORY}:${TARGET_BRANCH}"
           if pr_out=$(gh pr create \
             --repo "${GITHUB_REPOSITORY}" \
             --base "${TARGET_BRANCH}" \
-            --head "${FORK_OWNER}:${CI_BRANCH}" \
+            --head "${HEAD_REF}" \
             --title "${TITLE}" \
             --body-file /tmp/pr_body.md 2>&1); then
             echo "${pr_out}"
             echo "Pull request created successfully"
           else
             # The CI branch is already pushed, so the pull request can also be
-            # opened manually from ${FORK_OWNER}:${CI_BRANCH}.
+            # opened manually from ${HEAD_REF}.
             echo "${pr_out}"
-            echo "::error::gh pr create failed for ${FORK_OWNER}:${CI_BRANCH} -> ${GITHUB_REPOSITORY}:${TARGET_BRANCH}. This step authenticates with GITHUB_TOKEN and needs 'permissions: pull-requests: write' on this repository."
+            echo "::error::gh pr create failed for ${HEAD_REF} -> ${GITHUB_REPOSITORY}:${TARGET_BRANCH}. This step authenticates with GITHUB_TOKEN and needs 'permissions: pull-requests: write' on this repository."
           fi
 
