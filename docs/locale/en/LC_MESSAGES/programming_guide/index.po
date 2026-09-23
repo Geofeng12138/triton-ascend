@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-22 17:26+0800\n"
-"PO-Revision-Date: 2026-09-22 17:26+0800\n"
+"POT-Creation-Date: 2026-09-23 11:46+0800\n"
+"PO-Revision-Date: 2026-09-23 11:46+0800\n"
 
-"X-Source-Commit: 01a8ef374a9e3ebeed3071fc929fb1cb6394c44e\n"
+"X-Source-Commit: f5512e2c3ff10e6419196696eeea136d91c02fb4\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -143,8 +143,8 @@ msgstr "# conv_state = tensor([2048, 3], bfloat16)"
 msgid "先将数据搬运到UB上，再从UB中select目标值"
 msgstr "First move the data to UB, then select the target value from UB."
 
-msgid "【描述】在NPU的离散场景下，可以先将数据搬运到UB，再从share中select目标值。"
-msgstr "【Description】In the discrete scenario of the NPU, data can first be moved to the UB, and then the target value can be selected from the share."
+msgid "【描述】在NPU的离散场景下，可以先将数据搬运到UB，再从shared中select目标值。"
+msgstr "[Description] In discrete NPU scenarios, you can first move the data to the UB, and then select the target value from shared."
 
 msgid "@triton.jit\\n"
 msgstr "@triton.jit"
