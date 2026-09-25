@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-23 11:46+0800\n"
-"PO-Revision-Date: 2026-09-23 11:46+0800\n"
+"POT-Creation-Date: 2026-09-25 11:05+0800\n"
+"PO-Revision-Date: 2026-09-25 11:05+0800\n"
 
-"X-Source-Commit: f5512e2c3ff10e6419196696eeea136d91c02fb4\n"
+"X-Source-Commit: 30c46d9ad9c0b664d380b034754451974a2bf702\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -218,8 +218,8 @@ msgstr "The key to achieving memory-compute parallelism is to properly design a 
 msgid "Tiling优化"
 msgstr "Tiling optimization"
 
-msgid "AI Core进行计算的时候要先将数据搬运至片上内存，而片上内存的空间通常远小于AI Core要处理的总数据量，以Atlas 800T/I A2产品为例，片上内存容量为192KB，默认开启doublebuffer特性后容量还会减至原来的一半。因此算子计算时需要对数据进行分块操作，每次只加载处理其中的一小部分数据。"
-msgstr "When AI Core performs computation, data must first be moved to on-chip memory, and the space of on-chip memory is usually much smaller than the total amount of data that AI Core needs to process. Taking the Atlas 800T/I A2 product as an example, the on-chip memory capacity is 192KB, and after the double buffer feature is enabled by default, the capacity is reduced to half of the original. Therefore, during operator computation, data needs to be divided into blocks, and only a small portion of the data is loaded and processed at a time."
+msgid "AI Core进行计算的时候要先将数据搬运至片上内存，而片上内存的空间通常远小于AI Core要处理的总数据量，以Atlas 800T A2训练服务器、Atlas 800I A2推理服务器产品为例，片上内存容量为192KB，默认开启doublebuffer特性后容量还会减至原来的一半。因此算子计算时需要对数据进行分块操作，每次只加载处理其中的一小部分数据。"
+msgstr "When the AI Core performs computations, it must first move data to the on-chip memory. However, the on-chip memory space is usually much smaller than the total amount of data the AI Core needs to process. For example, the Atlas 800T A2 training server and Atlas 800I A2 inference server products have an on-chip memory capacity of 192 KB. After the doublebuffer feature is enabled by default, the capacity is further reduced by half. Therefore, during operator computation, you must perform data blocking, loading and processing only a small portion of the data each time."
 
 msgid "@libentry()\\n"
 msgstr "@libentry()"
@@ -281,8 +281,8 @@ msgstr "Error Cause Analysis"
 msgid "**触发阶段：** 该错误发生在核函数编译期——昇腾后端在将MLIR转换为二进制阶段失败，而非程序运行期；编译失败意味着核函数未生成可执行二进制。"
 msgstr "**Trigger phase:** This error occurs during kernel compilation — the Ascend backend fails during the MLIR-to-binary conversion phase, rather than during program runtime; compilation failure means no executable binary is generated for the kernel."
 
-msgid "**直接原因：** 编译器估算单个tile所需UB为3072256 bit，而硬件可用UB上限为1572864 bit（A2系列，即192 KB），需求量超出上限1499392 bit（3072256 − 1572864 = 1499392），约为可用容量的1.95倍，因此判定ub overflow。"
-msgstr "**Direct cause:** The compiler estimates that the UB required for a single tile is 3072256 bits, while the hardware's available UB upper limit is 1572864 bits (A2 series, that is, 192 KB). The required amount exceeds the upper limit by 1499392 bits (3072256 − 1572864 = 1499392), which is approximately 1.95 times the available capacity. Therefore, a UB overflow is determined."
+msgid "**直接原因：** 编译器估算单个tile所需UB为3072256 bit，而硬件可用UB上限为1572864 bit（Atlas A2系列产品，即192 KB），需求量超出上限1499392 bit（3072256 − 1572864 = 1499392），约为可用容量的1.95倍，因此判定ub overflow。"
+msgstr "**Direct cause:** The compiler estimates that the UB required for a single tile is 3072256 bit, while the upper limit of available UB on the hardware is 1572864 bit (Atlas A2 series products, that is, 192 KB). The required amount exceeds the upper limit by 1499392 bit (3072256 − 1572864 = 1499392), approximately 1.95 times the available capacity. Therefore, a UB overflow is determined."
 
 msgid "**根本原因：** ①块大小参数（如BLOCK_SIZE）过大，单个tile元素数过多；②编译器默认开启multi-buffer存算并行（编译器侧配置项为`multiBuffer=True`，用户在`triton.Config`或kernel launch中通过`multibuffer`参数控制，默认开启），为搬运与计算的流水重叠创建多份张量副本，部分算子需要额外local buffer，使UB占用成倍放大；③核函数内中间张量过多，累积占用超过上限。"
 msgstr "**Root cause:** ① The block size parameter (such as BLOCK_SIZE) is too large, and the number of elements in a single tile is too large; ② The compiler enables multi-buffer compute-memory parallelism by default (the compiler-side configuration item is `multiBuffer=True`, which you control through the `multibuffer` parameter in `triton.Config` or kernel launch, and it is enabled by default). It creates multiple tensor copies for the pipeline overlap of data movement and computation. Some operators require additional local buffers, causing the UB usage to multiply; ③ The kernel contains too many intermediate tensors, and the accumulated usage exceeds the upper limit."
@@ -323,8 +323,8 @@ msgstr "The number of UB bits required for a single tile in this compilation: 30
 msgid "`1572864 bits available`"
 msgstr "`1572864 bits available`"
 
-msgid "当前硬件可用UB上限：1572864 bit，即192 KB（A2系列）"
-msgstr "The maximum available UB on the current hardware is 1572864 bit, that is, 192 KB (A2 series)."
+msgid "当前硬件可用UB上限：1572864 bit，即192 KB（Atlas A2系列产品）"
+msgstr "Current upper limit of available hardware UB: 1572864 bit, that is, 192 KB (Atlas A2 series products)"
 
 msgid "`multi-buffer feature is enabled and some ops need extra local buffer`"
 msgstr "`multi-buffer feature is enabled and some ops need extra local buffer`"
@@ -407,11 +407,11 @@ msgstr "Long sequence batch processing"
 msgid "当序列长度导致单tile估算占用接近或超过UB上限时，在核函数内用for循环按序列维度分块load/计算/store，避免单次整段搬运"
 msgstr "When the sequence length causes the estimated memory usage of a single tile to approach or exceed the UB limit, use a for loop inside the kernel to load, compute, and store in blocks along the sequence dimension. This avoids moving the entire segment in a single pass."
 
-msgid "UB占用估算示例：65536个float32元素（4字节）、双缓冲（2份）时，仅该张量即需65536×4×2×8 = 4194304 bit，已超过A2系列可用的1572864 bit；按A2系列1572864 bit上限反推，单张量float16、双缓冲下的理论上限约49152个元素（1572864÷8÷2÷2 = 49152）。"
-msgstr "UB usage estimation example: With 65536 float32 elements (4 bytes each) and double buffering (2 copies), this single tensor alone requires 65536×4×2×8 = 4194304 bits, which already exceeds the 1572864 bits available on the A2 series. Working backwards from the 1572864-bit upper limit of the A2 series, the theoretical upper limit for a single float16 tensor with double buffering is approximately 49152 elements (1572864÷8÷2÷2 = 49152)."
+msgid "UB占用估算示例：65536个float32元素（4字节）、双缓冲（2份）时，仅该张量即需65536×4×2×8 = 4194304 bit，已超过Atlas A2系列产品可用的1572864 bit；按Atlas A2系列产品1572864 bit上限反推，单张量float16、双缓冲下的理论上限约49152个元素（1572864÷8÷2÷2 = 49152）。"
+msgstr "UB usage estimation example: With 65536 float32 elements (4 bytes each) and double buffering (2 copies), this tensor alone requires 65536×4×2×8 = 4194304 bits, which already exceeds the 1572864 bits available on Atlas A2 series products. Working backward from the 1572864-bit upper limit of Atlas A2 series products, the theoretical upper limit for a single float16 tensor with double buffering is approximately 49152 elements (1572864÷8÷2÷2 = 49152)."
 
-msgid "【注意】A2系列产品UB大小为192 KB（即1572864 bit）。各产品系列片上内存规格如下："
-msgstr "Note: The UB size of A2 series products is 192 KB (that is, 1572864 bits). The on-chip memory specifications for each product series are as follows:"
+msgid "【注意】Atlas A2系列产品UB大小为192KB（即1572864bit）。各产品系列片上内存规格如下："
+msgstr "Note: For Atlas A2 series products, the UB size is 192 KB (that is, 1572864 bits). The on-chip memory specifications for each product series are as follows:"
 
 msgid "产品系列"
 msgstr "Product Series"
@@ -422,23 +422,23 @@ msgstr "UB capacity"
 msgid "L1容量"
 msgstr "L1 capacity"
 
-msgid "A2系列"
-msgstr "A2 series"
+msgid "Atlas A2系列产品"
+msgstr "Atlas A2 series products"
 
-msgid "192 KB"
-msgstr "192 KB"
+msgid "192KB"
+msgstr "192KB"
 
-msgid "512 KB"
-msgstr "512 KB"
+msgid "512KB"
+msgstr "512KB"
 
-msgid "A3系列"
-msgstr "A3 series"
+msgid "Atlas A3系列产品"
+msgstr "Atlas A3 series products"
 
-msgid "A5系列"
-msgstr "A5 series"
+msgid "Ascend 950PR&950DT系列产品"
+msgstr "Ascend 950PR&950DT series products"
 
-msgid "248 KB"
-msgstr "248 KB"
+msgid "248KB"
+msgstr "248KB"
 
 msgid "通用单核数据运算"
 msgstr "General single-core data computation"

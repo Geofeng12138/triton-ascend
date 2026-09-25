@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-22 17:26+0800\n"
-"PO-Revision-Date: 2026-09-22 17:26+0800\n"
+"POT-Creation-Date: 2026-09-25 11:04+0800\n"
+"PO-Revision-Date: 2026-09-25 11:04+0800\n"
 
-"X-Source-Commit: 4fa7bd7af2b5e85c1c2f1532b1ea10fd258d3f63\n"
+"X-Source-Commit: 5f080a4f727d62225beeda52f4f86b7e0fc3e513\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -434,8 +434,8 @@ msgstr "22"
 msgid "compile_mode"
 msgstr "compile_mode"
 
-msgid "编译模式：`\"simd_simt_template\"`（默认）/ `\"simd\"` / `\"simt_only\"`；`\"simt_only\"` 仅支持 Ascend 950。"
-msgstr "Compilation mode: `\"simd_simt_template\"` (default) / `\"simd\"` / `\"simt_only\"`; `\"simt_only\"` is supported only on Ascend 950."
+msgid "编译模式：`\"simd_simt_template\"`（默认）/ `\"simd\"` / `\"simt_only\"`；`\"simt_only\"` 仅支持 Ascend 950PR&950DT系列产品。"
+msgstr "Compilation mode: `\"simd_simt_template\"` (default) / `\"simd\"` / `\"simt_only\"`; `\"simt_only\"` is supported only on Ascend 950PR&950DT series products."
 
 msgid "已废弃选项的兼容行为和更名映射见 {ref}`编译选项清理与兼容性 <compiler-option-cleanup-and-compatibility>`。"
 msgstr "For the compatibility behavior and renaming mapping of deprecated options, see {ref}`Compiler Option Cleanup and Compatibility <compiler-option-cleanup-and-compatibility>`."
@@ -989,11 +989,11 @@ msgstr "ElementwiseInlineAsmOpConversion"
 msgid "将 `triton::ElementwiseInlineAsmOp` 转换为 `LLVM::InlineAsmOp` 。"
 msgstr "Converts `triton::ElementwiseInlineAsmOp` to `LLVM::InlineAsmOp`."
 
-msgid "3.2.3 SIMT Compiler（Ascend 950）"
-msgstr "3.2.3 SIMT Compiler (Ascend 950)"
+msgid "3.2.3 SIMT Compiler（Ascend 950PR&950DT系列产品）"
+msgstr "3.2.3 SIMT Compiler (Ascend 950PR&950DT products)"
 
-msgid "昇腾 950 在 SIMD 路径之外增加 SIMT 能力，用于加速**非结构化 / 离散**访存（如间接索引的 load/store）。 开发者通过 `compile_mode` 选择编译路径。"
-msgstr "Ascend 950 adds SIMT capability beyond the SIMD path to accelerate **unstructured/discrete** memory access (such as indirect indexed load/store). Developers select the compilation path via `compile_mode`."
+msgid "Ascend 950PR&950DT系列产品 在 SIMD 路径之外增加 SIMT 能力，用于加速**非结构化 / 离散**访存（如间接索引的 load/store）。 开发者通过 `compile_mode` 选择编译路径。"
+msgstr "The Ascend 950PR&950DT series products add SIMT capabilities outside the SIMD path to accelerate **unstructured / discrete** memory access (such as indirectly indexed load/store). Developers use `compile_mode` to select the compilation path."
 
 msgid "3.2.3.1 `compile_mode` 说明"
 msgstr "3.2.3.1 Explanation of `compile_mode`"
@@ -1052,8 +1052,8 @@ msgstr "Discrete mask processing"
 msgid "拆成连续/离散边界，用 load + select / store 处理"
 msgstr "Split into continuous/discrete boundaries, handle with load + select / store."
 
-msgid "Ascend 950 且张量维数 ≤ 5：标记后交给下游；否则同左"
-msgstr "Ascend 950 and tensor dimension ≤ 5: mark it and pass it downstream; otherwise, same as left."
+msgid "Ascend 950PR&950DT系列产品 且张量维数 ≤ 5：标记后交给下游；否则同左"
+msgstr "Ascend 950PR&950DT series products with tensor dimensions ≤ 5: marked and passed to downstream; otherwise same as left"
 
 msgid "不运行"
 msgstr "Not running"
@@ -1082,8 +1082,8 @@ msgstr "Hybrid mode does **not** switch the entire kernel to SIMT; it only uses 
 msgid "**离散 mask 处理**"
 msgstr "**Discrete mask processing**"
 
-msgid "若判定为非连续 mask，且满足 Ascend 950、混合模式、维数 ≤ 5：不改写 IR，只标记「下游走 SIMT」。"
-msgstr "If it is determined to be a non-contiguous mask, and it satisfies Ascend 950, mixed mode, and dimension ≤ 5: do not rewrite the IR, only mark \"downstream goes SIMT\"."
+msgid "若判定为非连续 mask，且满足 Ascend 950PR&950DT系列产品、混合模式、维数 ≤ 5：不改写 IR，只标记「下游走 SIMT」。"
+msgstr "If a non-contiguous mask is detected, and the conditions of Ascend 950PR&950DT series products, mixed mode, and dimension ≤ 5 are met: do not rewrite the IR, only mark 'downstream uses SIMT'."
 
 msgid "否则（纯 SIMD 或不满足条件）：将 mask 拆成连续 / 离散部分，用连续边界限定全局内存访问，再通过 select 合并结果。"
 msgstr "Otherwise (pure SIMD or conditions not met): split the mask into contiguous/discrete parts, use contiguous boundaries to limit global memory access, and then merge the results via select."
@@ -1091,8 +1091,8 @@ msgstr "Otherwise (pure SIMD or conditions not met): split the mask into contigu
 msgid "**非结构化访存处理**"
 msgstr "**Handling of Unstructured Memory Access**"
 
-msgid "在 Ascend 950 混合模式下，对非结构化访存或已标记的离散访存走 SIMT 快速通道："
-msgstr "In Ascend 950 hybrid mode, unstructured memory access or marked discrete memory access goes through the SIMT fast path."
+msgid "在 Ascend 950PR&950DT系列产品 混合模式下，对非结构化访存或已标记的离散访存走 SIMT 快速通道："
+msgstr "In the hybrid mode of the Ascend 950PR&950DT series products, unstructured memory access or marked discrete memory access uses the SIMT fast path:"
 
 msgid "`load` / `store` → `indirect_load` / `indirect_store`（维数 ≤ 5）"
 msgstr "`load` / `store` → `indirect_load` / `indirect_store` (dimension ≤ 5)"

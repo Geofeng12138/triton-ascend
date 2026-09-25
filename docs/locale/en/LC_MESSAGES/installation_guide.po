@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-23 11:46+0800\n"
-"PO-Revision-Date: 2026-09-23 11:46+0800\n"
+"POT-Creation-Date: 2026-09-25 11:04+0800\n"
+"PO-Revision-Date: 2026-09-25 11:04+0800\n"
 
-"X-Source-Commit: c8b21f41492883557dde0b7f0c93cea5572278b7\n"
+"X-Source-Commit: 3c43fbfa635d9468c754a020864ef10af3328415\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -26,8 +26,8 @@ msgstr ""
 msgid "安装指南"
 msgstr "Installation Guide"
 
-msgid "**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，提供核函数自动调优、算子编译及部署能力。支持Ascend Atlas A2/A3/950系列产品，兼容Triton核心语法，并针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
-msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors. It provides kernel autotune, operator compilation, and deployment capabilities. It supports Ascend Atlas A2/A3/950 series products and is compatible with the core Triton syntax. It is deeply optimized for Ascend NPU features. These optimizations include automatically parsing kernel parameters, optimizing memory access logic, improving secure deployment mechanisms, and so on."
+msgid "**Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，提供核函数自动调优、算子编译及部署能力。支持Atlas A2系列产品、Atlas A3系列产品、Ascend 950PR&950DT系列产品，兼容Triton核心语法，并针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。 **Triton-Ascend**是适配华为Ascend处理器的Triton优化版本，提供核函数自动调优、算子编译及部署能力。支持Atlas A2系列产品、Atlas A3系列产品、Ascend 950PR&950DT系列产品，兼容Triton核心语法，并针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
+msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors. It provides kernel autotune, operator compilation, and deployment capabilities. It supports Atlas A2 series products, Atlas A3 series products, and Ascend 950PR&950DT series products. It is compatible with the core Triton syntax and is highly optimized for Ascend NPU features. These optimizations include automatically parsing kernel parameters, optimizing memory access logic, and enhancing secure deployment mechanisms, and so on. **Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors. It provides kernel autotune, operator compilation, and deployment capabilities. It supports Atlas A2 series products, Atlas A3 series products, and Ascend 950PR&950DT series products. It is compatible with the core Triton syntax and is highly optimized for Ascend NPU features. These optimizations include automatically parsing kernel parameters, optimizing memory access logic, and enhancing secure deployment mechanisms, and so on."
 
 msgid "本指南指导开发者在**Ubuntu**环境下安装**Triton-Ascend**，涵盖快速安装、源码安装及镜像安装三种方式，并包含环境验证与常见问题排查。"
 msgstr "This guide helps you install **Triton-Ascend** in an **Ubuntu** environment. It covers quick installation, source code installation, and image installation, and includes environment verification and troubleshooting common issues."
@@ -38,8 +38,8 @@ msgstr "Environment Preparation"
 msgid "**硬件要求**"
 msgstr "**Hardware Requirements**"
 
-msgid "Ascend产品：支持Atlas A2/A3/950系列。"
-msgstr "Ascend products: Supports the Atlas A2/A3/950 series."
+msgid "Ascend产品：支持Atlas A2系列产品、Atlas A3系列产品、Ascend 950PR&950DT系列产品。"
+msgstr "Ascend products: Supports Atlas A2 series products, Atlas A3 series products, and Ascend 950PR&950DT series products."
 
 msgid "NPU配置：建议单卡32GB及以上内存。"
 msgstr "NPU configuration: We recommend a single device with 32 GB or more memory."
@@ -434,8 +434,8 @@ msgstr "Answer: x86 and Arm use different versions of the community Triton insta
 msgid "**问题六：如何确认芯片类型？**"
 msgstr "**Question 6: How do I confirm the chip type?**"
 
-msgid "可以使用npu-smi命令查看系统上的NPU型号。例如，在npu-smi info命令的输出中，“910B4”对应芯片类型A2（昇腾910b系列）："
-msgstr "You can use the npu-smi command to view the NPU model on the system. For example, in the output of the npu-smi info command, \"910B4\" corresponds to chip type A2 (Ascend 910b series):"
+msgid "可以使用npu-smi命令查看系统上的NPU型号。例如，在npu-smi info命令的输出中，“910B4”对应芯片类型Atlas A2系列产品："
+msgstr "You can use the npu-smi command to view the NPU model on the system. For example, in the output of the npu-smi info command, 910B4 corresponds to the chip type of Atlas A2 series products:"
 
 msgid "root@localhost:/# npu-smi  info\\n"
 msgstr "root@localhost:/# npu-smi info"

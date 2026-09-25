@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-22 17:26+0800\n"
-"PO-Revision-Date: 2026-09-22 17:26+0800\n"
+"POT-Creation-Date: 2026-09-25 11:05+0800\n"
+"PO-Revision-Date: 2026-09-25 11:05+0800\n"
 
-"X-Source-Commit: 0cd019cb9d0d1433c07cab122a9faaa43a730bc9\n"
+"X-Source-Commit: db254f1a041581b7b951c43f4911bb6d5fdec8dc\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -152,8 +152,8 @@ msgstr "Developers can manually select the optimal partitioning configuration ba
 msgid "以GELU算子为例，通过调整切分参数，可以有效适配片上缓存容量限制，从而提升执行效率。"
 msgstr "Taking the GELU operator as an example, by adjusting the splitting parameters, it can effectively adapt to the on-chip cache capacity constraints, thereby improving execution efficiency."
 
-msgid "注：Atlas 800T/I A2产品的片上内存容量为192KB，因此在设计切分策略时需考虑该限制，确保每轮计算的数据量不超过片上内存容量。"
-msgstr "Note: The Atlas 800T/I A2 product has an on-chip memory capacity of 192KB. Therefore, this limitation must be considered when designing the partitioning strategy to ensure that the data volume for each computation round does not exceed the on-chip memory capacity."
+msgid "注：Atlas 800T A2训练服务器、Atlas 800I A2推理服务器的片上内存容量为192KB，因此在设计切分策略时需考虑该限制，确保每轮计算的数据量不超过片上内存容量。"
+msgstr "Note: The on-chip memory capacity of the Atlas 800T A2 training server and the Atlas 800I A2 inference server is 192 KB. Therefore, consider this limit when designing the tiling strategy. Ensure that the data size per calculation round does not exceed the on-chip memory capacity."
 
 msgid "GELU算子示例"
 msgstr "GELU operator example"
@@ -236,8 +236,8 @@ msgstr "multibuffer"
 msgid "开启流水并行数据搬运"
 msgstr "Enable pipeline parallel data transfer."
 
-msgid "默认true； true , false。 autotune中可配置"
-msgstr "Default is true; true, false. Configurable in autotune."
+msgid "默认true；true , false。autotune中可配置"
+msgstr "The default value is `true`. Valid values are `true` and `false`. You can configure it in `autotune`."
 
 msgid "unit_flag"
 msgstr "unit_flag"
@@ -245,17 +245,14 @@ msgstr "unit_flag"
 msgid "cube搬出的一个优化项"
 msgstr "An optimization item moved out of cube."
 
-msgid "默认None；true , false。  autotune中可配置"
-msgstr "Default None; true, false. Configurable in autotune."
+msgid "默认None；true , false。autotune中可配置"
+msgstr "The default value is None; valid values are true and false. It is configurable in autotune."
 
 msgid "limit_auto_multi_buffer_only_for_local_buffer"
 msgstr "limit_auto_multi_buffer_only_for_local_buffer"
 
 msgid "CV算子一个优化项，cube搬出的一个优化项"
 msgstr "One optimization item for the CV operator, and one optimization item for the cube output."
-
-msgid "默认None；true , false。 autotune中可配置"
-msgstr "Default is None; true, false. Configurable in autotune."
 
 msgid "limit_auto_multi_buffer_of_local_buffer"
 msgstr "limit_auto_multi_buffer_of_local_buffer"

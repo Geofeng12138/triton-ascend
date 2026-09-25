@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:21+0800\n"
-"PO-Revision-Date: 2026-09-14 19:21+0800\n"
+"POT-Creation-Date: 2026-09-25 11:05+0800\n"
+"PO-Revision-Date: 2026-09-25 11:05+0800\n"
 
-"X-Source-Commit: 88f5727c6db6805ec255824fe9120a6e48acaf53\n"
+"X-Source-Commit: 37180f5e586c755104a31576806dbae9ae4e5f38\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -77,8 +77,8 @@ msgstr "Data type optimization"
 msgid "一、数据类型优化核心原则"
 msgstr "1\\. Core Principles of Data Type Optimization"
 
-msgid "A2/A3 向量运算单元的部分运算操作不支持某些数据类型，这种场景下，对应的向量运算会退化为标量运算，影响性能。在确定不影响整体算子精度的情况下，建议使用支持的数据类型，提升性能。 主要涉及以下操作"
-msgstr "Some operations of the A2/A3 vector arithmetic unit do not support certain data types. In such cases, the corresponding vector operations degrade to scalar operations, impacting performance. When it is confirmed that the overall operator accuracy is not affected, it is recommended to use supported data types to improve performance. This mainly involves the following operations."
+msgid "Atlas A2系列产品、Atlas A3系列产品 向量运算单元的部分运算操作不支持某些数据类型，这种场景下，对应的向量运算会退化为标量运算，影响性能。在确定不影响整体算子精度的情况下，建议使用支持的数据类型，提升性能。 主要涉及以下操作"
+msgstr "For Atlas A2 series products and Atlas A3 series products, some operations of the vector operation unit do not support certain data types. In this scenario, the corresponding vector operations degrade to scalar operations, which affects performance. If you confirm that the overall operator accuracy is not affected, we recommend using supported data types to improve performance. This mainly involves the following operations:"
 
 msgid "**OP名称**"
 msgstr "**OP Name**"

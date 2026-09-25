@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-22 17:26+0800\n"
-"PO-Revision-Date: 2026-09-22 17:26+0800\n"
+"POT-Creation-Date: 2026-09-25 11:06+0800\n"
+"PO-Revision-Date: 2026-09-25 11:06+0800\n"
 
-"X-Source-Commit: 1ed1694edcc1d97b2a98538748d0476e7ce5ea71\n"
+"X-Source-Commit: 5aa172ee0592ab91a6c6c9fcda8c495e95740062\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -44,8 +44,8 @@ msgstr "**Hardware Requirements**"
 msgid "支持的操作系统：Linux（aarch64/x86_64）"
 msgstr "Supported operating systems: Linux (aarch64/x86_64)"
 
-msgid "支持的Ascend产品：Atlas A2/A3/950系列"
-msgstr "Supported Ascend products: Atlas A2/A3/950 series"
+msgid "支持的Ascend产品：Atlas A2系列产品、Atlas A3系列产品、Ascend 950PR&950DT系列产品"
+msgstr "Supported Ascend products: Atlas A2 series products, Atlas A3 series products, Ascend 950PR&950DT series products"
 
 msgid "最小硬件配置：单卡32GB内存（推荐）"
 msgstr "Minimum hardware configuration: single card with 32GB memory (recommended)"

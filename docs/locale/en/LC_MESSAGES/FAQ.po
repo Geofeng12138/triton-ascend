@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:03+0800\n"
-"PO-Revision-Date: 2026-09-14 19:03+0800\n"
+"POT-Creation-Date: 2026-09-25 11:03+0800\n"
+"PO-Revision-Date: 2026-09-25 11:03+0800\n"
 
-"X-Source-Commit: 4b195e937bd56732ec96505d8737a90278aca71f\n"
+"X-Source-Commit: 0a3cbff021cc992caca1eeaa87be4228d50513b8\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -122,8 +122,8 @@ msgstr "7\\. UB Overflow FAQ"
 msgid "**Q: 编译时报 \"UB Overflow\" 错误，如何解决？**"
 msgstr "**Q: Compilation reports \"UB Overflow\" error, how to resolve it?**"
 
-msgid "A: UB Overflow 是 Triton-Ascend 开发中常见的问题，请参考 [UB Overflow 问题排查指南](./debug_guide/ub_overflow.md) 排查问题。如果不知道如何减小tiling来减少UB占用，可以使用Autotune来自动选择最优配置，Autotune的使用请参考[Triton-Ascend autotune 使用指南](./autotune_guide.md)。 A5上可运行的算子迁移到A2/A3由于UB大小的差异可能导致UB Overflow，如果手动排查不出问题，也可采用Autotune自动选择最优配置。"
-msgstr "A: UB Overflow is a common issue in Triton-Ascend development. Please refer to the [UB Overflow Troubleshooting Guide](./debug_guide/ub_overflow.md) to diagnose the problem. If you are unsure how to reduce tiling to decrease UB usage, you can use Autotune to automatically select the optimal configuration. For guidance on using Autotune, please refer to the [Triton-Ascend Autotune Usage Guide](./autotune_guide.md). Operators that run on A5 may cause UB Overflow when migrated to A2/A3 due to differences in UB size. If manual troubleshooting fails to identify the issue, Autotune can also be used to automatically select the optimal configuration."
+msgid "A: UB Overflow 是 Triton-Ascend 开发中常见的问题，请参考 [UB Overflow 问题排查指南](./debug_guide/ub_overflow.md) 排查问题。如果不知道如何减小tiling来减少UB占用，可以使用Autotune来自动选择最优配置，Autotune的使用请参考[Triton-Ascend autotune 使用指南](./autotune_guide.md)。 Ascend 950PR&950DT系列产品上可运行的算子迁移到Atlas A2系列产品、Atlas A3系列产品由于UB大小的差异可能导致UB Overflow，如果手动排查不出问题，也可采用Autotune自动选择最优配置。"
+msgstr "A: UB Overflow is a common issue in Triton-Ascend development. To troubleshoot the issue, refer to the [UB Overflow Troubleshooting Guide](./debug_guide/ub_overflow.md). If you are unsure how to reduce tiling to decrease UB usage, you can use Autotune to automatically select the optimal configuration. For information about using Autotune, refer to the [Triton-Ascend autotune Usage Guide](./autotune_guide.md). Migrating operators from Ascend 950PR and 950DT series products to Atlas A2 or Atlas A3 series products may cause UB Overflow due to UB size differences. If you cannot resolve the issue through manual troubleshooting, you can also use Autotune to automatically select the optimal configuration."
 
 msgid "8. Triton 使用限制"
 msgstr "8\\. Triton Usage Limitations"
