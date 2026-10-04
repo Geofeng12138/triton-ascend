@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:10+0800\n"
-"PO-Revision-Date: 2026-09-14 19:10+0800\n"
+"POT-Creation-Date: 2026-10-04 11:55+0800\n"
+"PO-Revision-Date: 2026-10-04 11:55+0800\n"
 
-"X-Source-Commit: 5abc1dcf8c2cd7741ae44850b6747906d5dbbd75\n"
+"X-Source-Commit: f8d05b6dd9b3beb8a82af6ae8518fc44469fdcf6\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -22,8 +22,6 @@ msgstr ""
 
 msgid ""
 msgstr ""
-"<translated>\n"
-"</translated>\n"
 
 msgid "精度对比与误差分析"
 msgstr "Precision Comparison and Error Analysis"

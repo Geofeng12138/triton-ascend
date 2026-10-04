@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:10+0800\n"
-"PO-Revision-Date: 2026-09-14 19:10+0800\n"
+"POT-Creation-Date: 2026-10-04 11:55+0800\n"
+"PO-Revision-Date: 2026-10-04 11:55+0800\n"
 
-"X-Source-Commit: 8b6038a24d7b61cc38dfd2d5a4d8bbbd9ca7faed\n"
+"X-Source-Commit: 92c9ff3aa38049b5810ed196eeb1d93d741b772b\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -80,8 +80,8 @@ msgstr "The operator tuning tool msProf supports performance data collection and
 msgid "# Path to the source simulator\\n"
 msgstr "# Path to the source simulator"
 
-msgid "注：上述示例 `soc-version=Ascend910B3`"
-msgstr "Note: In the above example, `soc-version=Ascend910B3`"
+msgid "注：上述示例 `soc-version=Ascend910B3`。下面列表基于cann 9.2.0 版本整理输出。"
+msgstr "Note: The preceding example uses `soc-version=Ascend910B3`. The following list is compiled based on CANN 9.2.0."
 
 msgid "Ascend 910 系列"
 msgstr "Ascend 910 series"
@@ -92,6 +92,15 @@ msgstr "Ascend 310 / 310P series"
 msgid "Ascend 310B 系列"
 msgstr "Ascend 310B series"
 
+msgid "Ascend 610 系列"
+msgstr "Ascend 610 series"
+
+msgid "Ascend 920 系列"
+msgstr "Ascend 920 series"
+
+msgid "Ascend 950 系列"
+msgstr "Ascend 950 series"
+
 msgid "Ascend910A"
 msgstr "Ascend910A"
 
@@ -100,6 +109,15 @@ msgstr "Ascend310"
 
 msgid "Ascend310B1"
 msgstr "Ascend310B1"
+
+msgid "Ascend610"
+msgstr "Ascend610"
+
+msgid "Ascend920A"
+msgstr "Ascend920A"
+
+msgid "Ascend950PR_950x"
+msgstr "Ascend950PR_950x"
 
 msgid "Ascend910B"
 msgstr "Ascend910B"
@@ -110,6 +128,15 @@ msgstr "Ascend310P1"
 msgid "Ascend310B2"
 msgstr "Ascend310B2"
 
+msgid "Ascend610Lite"
+msgstr "Ascend610Lite"
+
+msgid "-"
+msgstr "-"
+
+msgid "Ascend950PR_950y"
+msgstr "Ascend950PR_950y"
+
 msgid "Ascend910B1"
 msgstr "Ascend910B1"
 
@@ -118,6 +145,9 @@ msgstr "Ascend310P2"
 
 msgid "Ascend310B3"
 msgstr "Ascend310B3"
+
+msgid "Ascend950PR_950z"
+msgstr "Ascend950PR_950z"
 
 msgid "Ascend910B2"
 msgstr "Ascend910B2"
@@ -128,14 +158,17 @@ msgstr "Ascend310P3"
 msgid "Ascend310B4"
 msgstr "Ascend310B4"
 
+msgid "Ascend950PR_9571"
+msgstr "Ascend950PR_9571"
+
 msgid "Ascend910B2C"
 msgstr "Ascend910B2C"
 
 msgid "Ascend310P4"
 msgstr "Ascend310P4"
 
-msgid "-"
-msgstr "-"
+msgid "Ascend950PR_9572"
+msgstr "Ascend950PR_9572"
 
 msgid "Ascend910B3"
 msgstr "Ascend910B3"
@@ -143,11 +176,119 @@ msgstr "Ascend910B3"
 msgid "Ascend310P5"
 msgstr "Ascend310P5"
 
+msgid "Ascend950PR_9573"
+msgstr "Ascend950PR_9573"
+
 msgid "Ascend910B4"
 msgstr "Ascend910B4"
 
 msgid "Ascend310P7"
 msgstr "Ascend310P7"
+
+msgid "Ascend950PR_9574"
+msgstr "Ascend950PR_9574"
+
+msgid "Ascend910PremiumA"
+msgstr "Ascend910PremiumA"
+
+msgid "Ascend950PR_9575"
+msgstr "Ascend950PR_9575"
+
+msgid "Ascend910ProA"
+msgstr "Ascend910ProA"
+
+msgid "Ascend950PR_9576"
+msgstr "Ascend950PR_9576"
+
+msgid "Ascend910ProB"
+msgstr "Ascend910ProB"
+
+msgid "Ascend950PR_9577"
+msgstr "Ascend950PR_9577"
+
+msgid "Ascend910_9362"
+msgstr "Ascend910_9362"
+
+msgid "Ascend950PR_9578"
+msgstr "Ascend950PR_9578"
+
+msgid "Ascend910_9372"
+msgstr "Ascend910_9372"
+
+msgid "Ascend950PR_957b"
+msgstr "Ascend950PR_957b"
+
+msgid "Ascend910_9381"
+msgstr "Ascend910_9381"
+
+msgid "Ascend950PR_957c"
+msgstr "Ascend950PR_957c"
+
+msgid "Ascend910_9382"
+msgstr "Ascend910_9382"
+
+msgid "Ascend950PR_957d"
+msgstr "Ascend950PR_957d"
+
+msgid "Ascend910_9391"
+msgstr "Ascend910_9391"
+
+msgid "Ascend950PR_9581"
+msgstr "Ascend950PR_9581"
+
+msgid "Ascend910_9392"
+msgstr "Ascend910_9392"
+
+msgid "Ascend950PR_9582"
+msgstr "Ascend950PR_9582"
+
+msgid "Ascend950PR_9583"
+msgstr "Ascend950PR_9583"
+
+msgid "Ascend950PR_9584"
+msgstr "Ascend950PR_9584"
+
+msgid "Ascend950PR_9585"
+msgstr "Ascend950PR_9585"
+
+msgid "Ascend950PR_9586"
+msgstr "Ascend950PR_9586"
+
+msgid "Ascend950PR_9587"
+msgstr "Ascend950PR_9587"
+
+msgid "Ascend950PR_9588"
+msgstr "Ascend950PR_9588"
+
+msgid "Ascend950PR_9589"
+msgstr "Ascend950PR_9589"
+
+msgid "Ascend950PR_958a"
+msgstr "Ascend950PR_958a"
+
+msgid "Ascend950PR_958b"
+msgstr "Ascend950PR_958b"
+
+msgid "Ascend950PR_9591"
+msgstr "Ascend950PR_9591"
+
+msgid "Ascend950PR_9592"
+msgstr "Ascend950PR_9592"
+
+msgid "Ascend950PR_9595"
+msgstr "Ascend950PR_9595"
+
+msgid "Ascend950PR_9596"
+msgstr "Ascend950PR_9596"
+
+msgid "Ascend950PR_9599"
+msgstr "Ascend950PR_9599"
+
+msgid "Ascend950PR_95A1"
+msgstr "Ascend950PR_95A1"
+
+msgid "Ascend950PR_95A2"
+msgstr "Ascend950PR_95A2"
 
 msgid "以下两个文件中保存了获取的性能数据："
 msgstr "The performance data obtained is saved in the following two files:"
