@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-22 17:26+0800\n"
-"PO-Revision-Date: 2026-09-22 17:26+0800\n"
+"POT-Creation-Date: 2026-10-07 11:56+0800\n"
+"PO-Revision-Date: 2026-10-07 11:56+0800\n"
 
-"X-Source-Commit: 2d4296e23b6b010a581bf2a7fcd5f563de2192a3\n"
+"X-Source-Commit: 360a0306e779bbfb85908eacbc6cf90e15b6bbd6\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -136,6 +136,9 @@ msgstr "Migration Example"
 
 msgid "示例 1：向量加法完整迁移"
 msgstr "Example 1: Complete Migration of Vector Addition"
+
+msgid "以下示例展示将向量加法算子从 CUDA 迁移到 NPU 后，通过对比 PyTorch 原生计算与 Triton kernel 结果进行正确性验证："
+msgstr "The following example demonstrates how to verify correctness after migrating the vector addition operator from CUDA to NPU by comparing the PyTorch native computation results with the Triton kernel results:"
 
 msgid "import torch\\n"
 msgstr "import torch"
