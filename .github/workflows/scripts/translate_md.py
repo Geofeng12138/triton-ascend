@@ -428,32 +428,41 @@ def parse_pot_file(filepath: Path) -> dict:
 
 
 def _extract_po_value(block: str, field: str) -> Optional[str]:
-    """Extract the value of a msgid/msgstr field from a PO block."""
-    pattern = re.compile(rf'{field}\s+"((?:[^"\\]|\\.)*)"', re.MULTILINE)
-    match = pattern.search(block)
-    if match:
-        raw = match.group(1)
-        return raw.replace('\\"', '"').replace('\\\\', '\\')
+    """Extract the value of a msgid/msgstr field from a PO block.
 
-    if f'{field} ""' in block:
-        lines = block.split('\n')
-        in_field = False
-        parts = []
-        for line in lines:
-            if line.startswith(f'{field} ""'):
+    Handles all three PO string formats:
+    - Single-line:        msgid "text"
+    - Multi-line empty:   msgid "" + continuation lines
+    - Multi-line content: msgid "first line\\n" + continuation lines
+      (Sphinx uses this format for code blocks / literal blocks)
+    """
+    lines = block.split('\n')
+    in_field = False
+    parts: List[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if not in_field:
+            m = re.match(rf'{field}\s+"((?:[^"\\]|\\.)*)"', stripped)
+            if m:
                 in_field = True
-                continue
-            if in_field:
-                m = re.match(r'\s*"((?:[^"\\]|\\.)*)"', line)
-                if m:
-                    parts.append(m.group(1).replace('\\"', '"').replace('\\\\', '\\'))
-                else:
-                    break
-        if parts:
-            return ''.join(parts)
-        return ""
-
-    return None
+                parts.append(m.group(1))
+            continue
+        if stripped.startswith('"'):
+            m = re.match(r'"((?:[^"\\]|\\.)*)"', stripped)
+            if m:
+                parts.append(m.group(1))
+            else:
+                break
+        else:
+            break
+    if not in_field:
+        return None
+    raw = ''.join(parts)
+    return re.sub(
+        r'\\(.)',
+        lambda m: {'n': '\n', 't': '\t', 'r': '\r', '\\': '\\', '"': '"'}.get(m.group(1), m.group(0)),
+        raw,
+    )
 
 
 def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: bool = True, source_commit: str = "",
@@ -510,16 +519,24 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
 
         if '\n' in msgid:
             lines.append('msgid ""')
-            for part in msgid.split('\n'):
-                lines.append(f'"{_escape_po(part)}\\n"')
+            parts = msgid.split('\n')
+            for i, part in enumerate(parts):
+                if i < len(parts) - 1:
+                    lines.append(f'"{_escape_po(part)}\\n"')
+                elif part:
+                    lines.append(f'"{_escape_po(part)}"')
         else:
             lines.append(f'msgid "{_escape_po(msgid)}"')
 
         msgstr = _escape_enumeration_prefix(msgstr)
         if '\n' in msgstr:
             lines.append('msgstr ""')
-            for part in msgstr.split('\n'):
-                lines.append(f'"{_escape_po(part)}\\n"')
+            parts = msgstr.split('\n')
+            for i, part in enumerate(parts):
+                if i < len(parts) - 1:
+                    lines.append(f'"{_escape_po(part)}\\n"')
+                elif part:
+                    lines.append(f'"{_escape_po(part)}"')
         else:
             lines.append(f'msgstr "{_escape_po(msgstr)}"')
 

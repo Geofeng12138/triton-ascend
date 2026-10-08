@@ -18,7 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 import os
+import re as _re
 import sys as _sys
+import difflib as _difflib
+import subprocess as _subprocess
 import importlib.util as _ilu
 
 project = 'Triton Ascend'
@@ -318,6 +321,83 @@ def _on_source_read(app, docname, source):
         print(f"Warning: could not read English community doc {en_path}: {e}")
 
 
+def _get_po_source_blob(po_path):
+    """Read the X-Source-Commit (source blob id) recorded in a .po file."""
+    try:
+        with open(po_path, encoding='utf-8') as f:
+            raw = f.read()
+    except OSError:
+        return None
+    m = _re.search(r'X-Source-Commit:\s*([0-9a-fA-F]{7,40})', raw)
+    return m.group(1) if m else None
+
+
+def _git_cat_file(blob_id, repo_path):
+    """Get file content from a git blob object id (works on shallow clones)."""
+    try:
+        result = _subprocess.run(
+            ['git', 'cat-file', 'blob', blob_id],
+            capture_output=True,
+            text=True,
+            cwd=repo_path,
+        )
+        if result.returncode == 0:
+            return result.stdout
+    except (OSError, _subprocess.CalledProcessError):
+        pass
+    return None
+
+
+def _build_fallback_source(old_source, new_source):
+    """Build fallback: keep only content present in both, using old version.
+
+    Diff opcodes:
+    - equal   (unchanged) -> use old (translated)
+    - replace (modified)  -> use old (translated, shows stale English)
+    - delete  (in old)    -> skip (deleted content removed from English)
+    - insert  (new)       -> skip (new content hidden until translated)
+    """
+    old_lines = old_source.splitlines(keepends=True)
+    new_lines = new_source.splitlines(keepends=True)
+    matcher = _difflib.SequenceMatcher(None, old_lines, new_lines, autojunk=False)
+    result = []
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        if tag in ('equal', 'replace'):
+            result.extend(old_lines[i1:i2])
+    return ''.join(result)
+
+
+def _on_source_read_fallback(app, docname, source):
+    """Translation fallback: if the source changed since the last translation,
+    show only the translated subset (old version) so the English site never
+    leaks untranslated Chinese during the translation PR window.
+
+    Skipped for:
+    - Chinese build (_is_zh)
+    - Community docs (handled by _on_source_read)
+    - No .po file (new document, no translation yet)
+    - No X-Source-Commit in .po (predates the field)
+    - Source unchanged (blob id matches, all translations exist)
+    - Blob not available (shallow clone without the object)
+    """
+    if _is_zh:
+        return
+    if docname in _COMMUNITY_ROOT_DOCS:
+        return
+    po_path = os.path.join(_REPO, 'docs', 'locale', 'en', 'LC_MESSAGES', docname + '.po')
+    if not os.path.exists(po_path):
+        return
+    blob_id = _get_po_source_blob(po_path)
+    if not blob_id:
+        return
+    old_source = _git_cat_file(blob_id, _REPO)
+    if old_source is None:
+        return
+    if source[0] == old_source:
+        return
+    source[0] = _build_fallback_source(old_source, source[0])
+
+
 def setup(app):
     """Chinese build setup."""
     from sphinx.highlighting import lexers
@@ -328,6 +408,7 @@ def setup(app):
     app.add_css_file('custom.css')
     if not _is_zh:
         app.connect('source-read', _on_source_read)
+        app.connect('source-read', _on_source_read_fallback)
     return {'version': '0.1', 'parallel_read_safe': True}
 
 
