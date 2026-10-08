@@ -54,19 +54,19 @@ def broadcast_kernel(
     output_ptr,
     BLOCK_SIZE: tl.constexpr
 ):
-    # Create a scalar (0-D tensor)
+    # 创建一个标量（0维张量）
     scalar = 5.0
 
-    # Create a vector (1-D tensor)
-    vector = tl.arange(0, BLOCK_SIZE) * 1.0  # Shape: (BLOCK_SIZE,)
+    # 创建一个向量（1维张量）
+    vector = tl.arange(0, BLOCK_SIZE) * 1.0  # 形状: (BLOCK_SIZE,)
 
-    # Use broadcast to expand the scalar to the same shape as the vector
+    # 使用 broadcast 将标量广播到与向量相同的形状
     # scalar: () -> (BLOCK_SIZE,)
     broadcasted_scalar = tl.broadcast(scalar, vector)
 
     result = vector + broadcasted_scalar
 
-    # Store the result
+    # 存储结果
     offsets = tl.arange(0, BLOCK_SIZE)
     tl.store(output_ptr + offsets, result)
 

@@ -66,17 +66,17 @@ import triton.language as tl
 
 @triton.jit
 def cast_example():
-    # Create a float32 tensor
+    # 创建float32张量
     x = tl.zeros([2, 3], dtype=tl.float32)
 
-    # Convert to int32
+    # 转换为int32
     y = tl.cast(x, tl.int32)
 
     return y
 
-## Invocation example
+## 调用示例
 result = cast_example()
-print(result.dtype)  # Output: int32
+print(result.dtype)  # 输出: int32
 ```
 
 **高级用法：**
@@ -84,16 +84,16 @@ print(result.dtype)  # Output: int32
 ```python
 @triton.jit
 def cast_advanced_example():
-    # Create a float32 tensor
+    # 创建float32张量
     x = tl.zeros([2, 3], dtype=tl.float32)
 
-    # Bit-level reinterpretation
+    # 位级别重解释
     y = x.cast(tl.int32, bitcast=True)
 
-    # Float downcast, round toward zero
+    # 浮点降精度，向零舍入
     z = x.cast(tl.float16, fp_downcast_rounding="rtz")
 
-    # float32 → int8, enable saturation mode (Ascend extension: values exceeding the int8 range are clamped to [-128, 127])
+    # float32 → int8，启用饱和模式（Ascend 扩展，超出 int8 范围的值会被截断到 [-128, 127]）
     w = x.cast(tl.int8, overflow_mode="saturate")
 
     return y, z, w
@@ -104,12 +104,12 @@ def cast_advanced_example():
 ```python
 @triton.jit
 def quantization_kernel(x_ptr, output_ptr, scale, zero_point, M, N, BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr):
-    # Load float32 data
+    # 加载float32数据
     x = tl.load(x_ptr + offsets, mask=mask)
 
-    # Quantization: convert to int8
+    # 量化：转换为int8
     x_quantized = tl.cast(x * scale + zero_point, tl.int8, overflow_mode="saturate")
 
-    # Store the quantized result
+    # 存储量化结果
     tl.store(output_ptr + offsets, x_quantized, mask=mask)
 ```

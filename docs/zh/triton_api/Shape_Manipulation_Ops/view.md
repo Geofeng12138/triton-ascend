@@ -60,18 +60,18 @@ import triton.language as tl
 
 @triton.jit
 def view_example(out_ptr):
-    # Create a 2x3x4 tensor
+    # 创建2x3x4的张量
     x = tl.zeros([2, 3, 4], dtype=tl.float32)
 
-    # Create a view, turning it into 6x4
+    # 创建视图，变成6x4
     y = tl.view(x, [6, 4])
 
-    # Write the result back to the external tensor
+    # 将结果写回外部张量
     offs = tl.arange(0, 6)[:, None] * 4 + tl.arange(0, 4)[None, :]
     tl.store(out_ptr + offs, y)
 
-## Invocation example
+## 调用示例
 out = torch.empty((6, 4), dtype=torch.float32, device="npu")
 view_example[(1,)](out)
-print(out.shape)  # Output: torch.Size([6, 4])
+print(out.shape)  # 输出: torch.Size([6, 4])
 ```

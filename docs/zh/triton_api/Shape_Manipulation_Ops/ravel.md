@@ -58,12 +58,12 @@ def flatten_kernel(x_ptr, output_ptr, M, N, BLOCK_SIZE: tl.constexpr):
     offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
     mask = offsets < M * N
 
-    # Load 2D data
+    # 加载2D数据
     x = tl.load(x_ptr + offsets, mask=mask)
 
-    # Flatten to one dimension
+    # 展平为一维
     x_flat = x.ravel()
 
-    # Store the flattened result
+    # 存储展平结果
     tl.store(output_ptr + offsets, x_flat, mask=mask)
 ```

@@ -56,31 +56,31 @@ def _attn_fwd(Q, K, V, M, Out, acc, scale,
               BLOCK_N: tl.constexpr,
               STAGE: tl.constexpr
               ):
-    # Calculate the total number of tasks, flattening the 3D task (Z,H,M) into a 1D total task count
+    # 计算任务总量,将三维任务(Z,H,M)展平为一维总任务数
     NUM_BLOCKS_M = N_CTX // BLOCK_M
     NUM_BLOCKS = NUM_BLOCKS_M * Z * H
 
-    # Each core selects the tasks it needs to process based on its own identifier
-    pid = tl.program_id(0)  # Unique ID of the current core
-    NUM_CORE = tl.num_programs(0)  # Get the fixed total number of launched cores
-    # Loop rule: range(pid, NUM_BLOCKS, NUM_CORE) implements "strided task assignment"
-    # - Start value pid: each core starts from its own ID to take tasks, avoiding task overlap
-    # - Stride NUM_CORE: strides by the total core count, ensuring tasks are evenly distributed to all cores
+    # 每个核根据自己标识选取要处理的任务
+    pid = tl.program_id(0)  # 当前核的唯一ID
+    NUM_CORE = tl.num_programs(0)  # 获取固定启动的总核数
+    # 循环规则：range(pid, NUM_BLOCKS, NUM_CORE) 实现"跨步分配任务"
+    # - 起始值pid：每个核从自己的ID开始取任务，避免任务重叠
+    # - 步长NUM_CORE：按总核数跨步，确保任务均匀分配到各个核
     for block_idx in range(pid, NUM_BLOCKS, NUM_CORE):
-        # Calculate the data offset for each task
-        # [Core: reconstruct the original multi-dimensional index from the 1D task index in reverse]
-        # block_idx is the flattened 1D task index, split back to the original dimensions via division/remainder
-        # 1. Split the Z+H merged axis & M tiling axis:
-        #   - Divide by NUM_BLOCKS_M: extract the index of the Z+H merged axis (task_hz_idx)
-        #   - Remainder of NUM_BLOCKS_M: extract the tiling index of the M dimension (task_m_idx)
+        # 计算每次任务的数据偏移
+        # 【核心：一维任务索引反向还原为原始多维索引】
+        # block_idx是展平后的一维任务索引，通过整除/取余拆分回原始维度
+        # 1.拆分Z+H合并轴 & M分块轴：
+        #   - 整除NUM_BLOCKS_M：提取Z+H合并轴的索引（task_hz_idx）
+        #   - 取余NUM_BLOCKS_M：提取M维度的分块索引（task_m_idx）
         task_hz_idx = block_idx // NUM_BLOCKS_M
         task_m_idx = block_idx % NUM_BLOCKS_M
-        # 2. Split the Z+H merged axis into the original Z axis and H axis:
-        #   - Divide by H: restore the Z axis index (off_z)
-        #   - Remainder of H: restore the H axis index (off_h)
+        # 2.拆分Z+H合并轴为原始Z轴和H轴：
+        #   - 整除H：还原Z轴索引（off_z）
+        #   - 取余H：还原H轴索引（off_h）
         off_z = task_hz_idx // H
         off_h = task_hz_idx % H
-        # 3. Calculate the data offset: locate the corresponding data start positions in the Q/K/V tensors based on the restored Z/H indices
+        # 3.计算数据偏移量：根据还原的Z/H索引，定位Q/K/V张量中对应的数据起始位置
         qvk_offset = off_z.to(tl.int64) * stride_qz + off_h.to(tl.int64) * stride_qh
 ```
 
@@ -97,18 +97,18 @@ import triton.language as tl
 def add_kernel(x_ptr,
                y_ptr,
                out_ptr,
-               n,  # Total number of elements.
-               BLOCK_SIZE: tl.constexpr,  # Number of elements per block.
+               n,  # 元素总数量。
+               BLOCK_SIZE: tl.constexpr,  # 分块元素数量。
                ):
     pid = tl.program_id(0)
     NUM_CORE = tl.num_programs(0)
     NUM_BLOCKS = tl.cdiv(n, BLOCK_SIZE)
     for block_idx in range(pid, NUM_BLOCKS, NUM_CORE):
         block_start = block_idx * BLOCK_SIZE
-        # Block size is BLOCK_SIZE
+        # 分块大小为 BLOCK_SIZE
         offsets = block_start + tl.arange(0, BLOCK_SIZE)
         mask = offsets < n
-        # Load x, y data to on-chip memory
+        # 加载 x,y 数据到片上内存
         x = tl.load(x_ptr + offsets, mask=mask)
         y = tl.load(y_ptr + offsets, mask=mask)
 
@@ -134,8 +134,8 @@ def add_kernel(x_ptr,
 
 ```python
 # conv_state = tensor([2048, 3], bfloat16)
-conv_state = tl.load(conv_state_ptr + conv_batch_offs * conv_batch_stride + doffs * 3 + tl.arange(0, 2048 * 3)) # Treat as a 1D tensor load; since numel is aligned, no auto-padding occurs.
-conv_state_T = conv_state.reshape(128, 16 * 3).transpose().reshape(16, 3 * 128).transpose().reshape(3 * 2048,) # Split off an aligned axis (16) from the long axis (2048) and lend it to the short axis (3), so both axes become aligned
+conv_state = tl.load(conv_state_ptr + conv_batch_offs * conv_batch_stride + doffs * 3 + tl.arange(0, 2048 * 3)) # 当成1D tensor load，此时由于numel对齐，不会自动补齐。
+conv_state_T = conv_state.reshape(128, 16 * 3).transpose().reshape(16, 3 * 128).transpose().reshape(3 * 2048,) # 长轴(2048)裂出一根对齐轴(16)借给短轴(3)，从而让两个轴都对齐
 ```
 
 ### 先将数据搬运到UB上，再从UB中select目标值
@@ -162,9 +162,9 @@ def pick_kernel(
     idx = tl.load(idx_ptr + rn * stride_idx)
     mask = idx < M
 
-    # Original approach
+    # 原先写法
     # val = tl.load(x_ptr + idx * stride_x, mask=mask)
-    # Revised approach
+    # 修改后写法
     rm = tl.arange(0, M)
     x_shared = tl.load(x_ptr + rm * stride_x)  # [M]
     val = tl.gather(x_shared, idx, 0)
@@ -215,12 +215,12 @@ AI Core进行计算的时候要先将数据搬运至片上内存，而片上内�
     pid = tl.program_id(axis=0)
 +   base_offset = pid * BLOCK_SIZE
 
-+   # Compute the total number of blocks to process
++   # 计算需要处理的块的总数
 +   num_sub_blocks = tl.cdiv(BLOCK_SIZE, BLOCK_SIZE_SUB)
 
-+   # Process each sub-block in a loop
++   # 针对每个子块进行循环处理
 +   for sub_block_idx in range(num_sub_blocks):
-+       # Compute the offset of the current sub-block
++       # 计算当前子块的偏移量
 +       sub_offset = base_offset + sub_block_idx * BLOCK_SIZE_SUB
 +       offsets = sub_offset + tl.arange(0, BLOCK_SIZE_SUB)
 -       offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
@@ -256,12 +256,12 @@ AI Core进行计算的时候要先将数据搬运至片上内存，而片上内�
     import triton.language as tl
 
     @triton.autotune(
-    configs=[ # List of parameter configurations to test; candidate values need to be powers of 2
+    configs=[ # 待测试的参数配置列表,参数候选值需要是2的幂次
             triton.Config({'BLOCK_SIZE': 128}),
             triton.Config({'BLOCK_SIZE': 256}),
             triton.Config({'BLOCK_SIZE': 512}),
         ],
-        key=['n_elements'], # Tuning dimension: the input dimension the parameter values depend on
+        key=['n_elements'], # 调优维度：参数取值依赖的输入维度
     )
     @triton.jit
     def add_kernel(x_ptr, y_ptr, output_ptr, n_elements, BLOCK_SIZE: tl.constexpr):
@@ -302,8 +302,8 @@ max_autotune 是专为 Ascend NPU 设计的扩展装饰器（位于 triton.backe
             triton.Config({'BLOCK_SIZE': 256}),
         ],
         key=['n_elements'],
-        kernel_type="vector",           # Kernel type, supports cube/mix/vector
-        enable_ubuf_saving=[True, False] # Optional; included by default
+        kernel_type="vector",           # 算子类型，支持 cube/mix/vector
+        enable_ubuf_saving=[True, False] # 可选，默认已包含
     )
     @triton.jit
     def add_kernel(x_ptr, y_ptr, output_ptr, n_elements, BLOCK_SIZE: tl.constexpr, **META):
@@ -631,11 +631,11 @@ def matmul_kernel(a_ptr, b_ptr, c_ptr, M, N, K,
                   stride_bk, stride_bn,
                   stride_cm, stride_cn,
                   BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr):
-    # 1. Task partitioning: compute the coordinates of the current Block on the M and N dimensions
+    # 1. 任务划分：计算当前 Block 在 M 和 N 维度上的坐标
     pid_m = tl.program_id(0)
     pid_n = tl.program_id(1)
 
-    # 2. Define Block Pointers to handle multi-dimensional strides
+    # 2. 定义块指针（Block Pointers），处理多维步长（Strides）
     offs_am = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
     offs_bn = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)
     offs_k = tl.arange(0, BLOCK_K)
@@ -643,7 +643,7 @@ def matmul_kernel(a_ptr, b_ptr, c_ptr, M, N, K,
     a_ptrs = a_ptr + offs_am[:, None] * stride_am + offs_k[None, :] * stride_ak
     b_ptrs = b_ptr + offs_k[:, None] * stride_bk + offs_bn[None, :] * stride_bn
 
-    # 3. Iterate over the K dimension in a loop to accumulate
+    # 3. 循环迭代 K 维度进行累加计算
     accumulator = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float16)
     for k in range(0, K, BLOCK_K):
         a = tl.load(a_ptrs, mask=(offs_am[:, None] < M) & (offs_k[None, :] < K))
@@ -679,15 +679,15 @@ grid = lambda meta: (triton.cdiv(M, meta['BLOCK_M']), triton.cdiv(N, meta['BLOCK
 ```python
 @triton.jit
 def batched_matmul_kernel(a_ptr, b_ptr, c_ptr, M, N, K, B, ...):
-    # Get the index of the current Batch
+    # 获取当前 Batch 的索引
     pid_b = tl.program_id(2)
 
-    # Compute the base address offset in global memory based on the Batch index
+    # 根据 Batch 索引计算全局内存的基地址偏移
     a_batch_ptr = a_ptr + pid_b * M * K
     b_batch_ptr = b_ptr + pid_b * K * N
     c_batch_ptr = c_ptr + pid_b * M * N
 
-    # The subsequent M, N, K dimension partitioning is exactly the same as 2D GEMM; only the base address pointers need to be replaced
+    # 后续 M、N、K 维度的切分与二维 GEMM 完全一致，只需替换基地址指针即可
     # ...
 ```
 

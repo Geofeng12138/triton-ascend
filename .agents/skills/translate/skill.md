@@ -290,7 +290,10 @@ applicable-scope:
 
 本技能由 `.github/workflows/scripts/translate_md.py` 中的翻译引擎消费：
 
+- 运行位置：由"文档所在仓"运行（triton-ascend 即 `triton-lang/triton-ascend`），通过仓库变量 `DOC_TRANSLATE_ENABLED=true` 启用；工具与翻译记忆（`docs/locale/en/LC_MESSAGES/**.po`）都存放在该仓
+- 交付方式：每次运行新建时间戳分支 `auto-pr/doc-translate-<时间戳>`（该提交是该仓 base 分支的子提交，分支树与该仓完全一致）。分支默认推送到本仓（同仓模式，用本仓 `GITHUB_TOKEN`，无需额外令牌）；若仓库变量 `DOC_TRANSLATE_BRANCH_REPO` 指向某个 fork，则分支推到该 fork（异仓模式，需要 `FORK_PUSH_TOKEN`），再由本仓 `GITHUB_TOKEN` 向本仓提 PR；PR 的 diff 只包含文档层（`docs/**`）
 - 中文源文档：`docs/zh/**`（Markdown，排除 python-api、triton_api、triton_api_extension、libdevice 目录）
+- 不翻译、英文站直接渲染官方英文源的文档：`community/CODE_OF_CONDUCT_zh.md`、`community/CONTRIBUTING_zh.md`、`community/GOVERNANCE_zh.md`、`community/SECURITYNOTE_zh.md`（英文源在仓库根）；`community/community_technical_meeting.md`、`community/roadmap_guide.md`（英文源在 `docs/en/community/`）；`community/CONTRIBUTOR.md`、`community/MAINTAINERS.md`（指向仓库根的软链）
 - 英文译文文件：`docs/locale/en/LC_MESSAGES/**`（.po 译文，镜像 `docs/zh/` 目录结构，由 Sphinx gettext 渲染英文页面）
 - 翻译记忆：`docs/locale/en/LC_MESSAGES/**`（.po 缓存，按 msgid/msgstr 存储）
 - 引擎：DeepSeek 聊天 API（`deepseek-chat`），温度 0.3

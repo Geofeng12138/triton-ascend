@@ -58,15 +58,15 @@ import triton.language as tl
 
 @triton.jit
 def trans_example():
-    # Create a 2x3x4 tensor
+    # 创建2x3x4的张量
     x = tl.zeros([2, 3, 4], dtype=tl.float32)
 
-    # Transpose the dimensions, turning it into 4x2x3
+    # 转置维度，变成4x2x3
     y = tl.trans(x, [2, 0, 1])
 
     return y
 
-## Invocation example
+## 调用示例
 result = trans_example()
-print(result.shape)  # Output: (4, 2, 3)
+print(result.shape)  # 输出: (4, 2, 3)
 ```

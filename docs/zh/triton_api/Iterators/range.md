@@ -46,17 +46,17 @@ import triton.language as tl
 
 @triton.jit
 def basic_examples():
-    # Single argument: 0 to 9
+    # 单参数：0到9
     for i in tl.range(10):
         # i = 0, 1, 2, ..., 9
         pass
 
-    # Two arguments: 2 to 9
+    # 双参数：2到9
     for i in tl.range(2, 10):
         # i = 2, 3, ..., 9
         pass
 
-    # Three arguments: 0 to 10, step 2
+    # 三参数：0到10，步长为2
     for i in tl.range(0, 10, 2):
         # i = 0, 2, 4, 6, 8
         pass
@@ -65,14 +65,14 @@ def basic_examples():
 ```python
 @triton.jit
 def advanced_examples():
-    # Use loop optimization parameters
+    # 使用循环优化参数
     for i in tl.range(0, 100, num_stages=3, loop_unroll_factor=4):
-        # Number of pipeline stages is 3, loop unroll factor is 4
+        # 流水线阶段数为3，循环展开因子为4
         pass
 
-    # Nested loop flattening
+    # 嵌套循环展平
     for i in tl.range(0, 10, flatten=True):
         for j in tl.range(0, 20, flatten=True):
-            # The two loops will be automatically flattened into a single loop
+            # 两个循环会被自动展平为单层循环
             pass
 ```

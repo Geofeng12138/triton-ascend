@@ -180,9 +180,9 @@ docker exec -u root -it triton-ascend_container /bin/bash
 运行tutorials中向量加法示例验证安装**Triton-Ascend**结果。向量加法示例：[01-vector-add.py](../../third_party/ascend/tutorials/01-vector-add.py)。
 
 ```bash
-# Set the CANN environment variables (using the root user's default installation path `/usr/local/Ascend` as an example)
+# 设置CANN环境变量（以root用户默认安装路径`/usr/local/Ascend`为例）
 source /usr/local/Ascend/ascend-toolkit/set_env.sh
-# Clone the triton-ascend source repository and examples (no need to clone again if you installed Triton-Ascend from source)
+# 拉取triton-ascend源码仓及用例（使用源码安装Triton-Ascend的无需重复拉取）
 git clone https://github.com/triton-lang/triton-ascend.git
 # 运行tutorials示例
 python3 ./triton-ascend/third_party/ascend/tutorials/01-vector-add.py

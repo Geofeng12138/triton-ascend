@@ -47,16 +47,28 @@ myst_fence_as_directive = ['mermaid']
 myst_enable_extensions = ['dollarmath']
 myst_dollar_math = True
 
-# Community documents whose English build renders the canonical English
-# documents from the repository root (not the machine-translated output).
-# Mapping: docname (relative to docs/zh/, without extension) -> repo-root file.
-# CODE_OF_CONDUCT_zh.md / CONTRIBUTING_zh.md / GOVERNANCE_zh.md /
-# SECURITYNOTE_zh.md are intentionally NOT translated by translate_md.py.
+# Mock imports for modules that aren't available in the build environment
+autodoc_mock_imports = [
+    'triton',
+    'triton_ascend',
+    'torch',
+    'buffer',
+]
+
+# Community documents whose English build renders the canonical English document
+# instead of the machine-translated output.
+# Mapping: docname (relative to docs/zh/, without extension) -> path relative to
+# the repository root. The first four entries live in the repository root, the
+# last two in the English docs tree.
+# All of them are intentionally NOT translated by translate_md.py
+# (see EXCLUDED_FILE_STEMS there).
 _COMMUNITY_ROOT_DOCS = {
     "community/CODE_OF_CONDUCT_zh": "CODE_OF_CONDUCT.md",
     "community/CONTRIBUTING_zh": "CONTRIBUTING.md",
     "community/GOVERNANCE_zh": "GOVERNANCE.md",
     "community/SECURITYNOTE_zh": "SECURITYNOTE.md",
+    "community/community_technical_meeting": "docs/en/community/community_technical_meeting.md",
+    "community/roadmap_guide": "docs/en/community/roadmap_guide.md",
 }
 
 _EN_REPLACEMENTS = {
@@ -197,21 +209,6 @@ if _force_mock:
 import triton
 import triton.language.extra as _tl_extra
 
-# Inject do_bench_npu from ascend backend into triton.testing for API docs
-_testing_npu_src = os.path.join(_REPO, "third_party", "ascend", "backend", "testing.py")
-if os.path.exists(_testing_npu_src):
-    _parse_src = _load_module(
-        "docs.zh.python-api._parse_source",
-        os.path.join(_HERE, "python-api", "_parse_source.py"),
-    )
-    _npu_testing_mod = _parse_src._create_source_module(
-        [_testing_npu_src],
-        "triton.backends.ascend.testing",
-        export_filter=["do_bench_npu"],
-    )
-    if hasattr(_npu_testing_mod, "do_bench_npu"):
-        triton.testing.do_bench_npu = _npu_testing_mod.do_bench_npu
-
 # Operator doc stubs — ``tensor`` operator syntax (``x / y``, ``x & y``,
 # ``x >= y``, ...) has no ``tl.``-prefixed functions; attach lightweight
 # stubs so autosummary can render them like add/sub/mul.
@@ -299,6 +296,28 @@ html_theme_options = {
 }
 
 
+def _on_source_read(app, docname, source):
+    """Replace community docs with their canonical English source (English build).
+
+    During the English build the community documents listed in
+    ``_COMMUNITY_ROOT_DOCS`` are excluded from gettext translation, so no .po
+    files exist for them. This hook reads the canonical English file (repository
+    root, or the English docs tree) and swaps it in before Sphinx parses the
+    source.
+    """
+    if _is_zh:
+        return
+    en_file = _COMMUNITY_ROOT_DOCS.get(docname)
+    if en_file is None:
+        return
+    en_path = os.path.join(_REPO, en_file)
+    try:
+        with open(en_path, encoding='utf-8') as f:
+            source[0] = f.read()
+    except OSError as e:
+        print(f"Warning: could not read English community doc {en_path}: {e}")
+
+
 def setup(app):
     """Chinese build setup."""
     from sphinx.highlighting import lexers
@@ -307,6 +326,8 @@ def setup(app):
     lexers['mlir'] = get_lexer_by_name('text')
     lexers['plaintext'] = get_lexer_by_name('text')
     app.add_css_file('custom.css')
+    if not _is_zh:
+        app.connect('source-read', _on_source_read)
     return {'version': '0.1', 'parallel_read_safe': True}
 
 

@@ -5,10 +5,10 @@
 简介：计算两个元素的与值。
 
 ```python
-# Via the operator
+# 通过操作符
 x & y
 
-# Or call the dunder method directly
+# 或直接调用 dunder 方法
 x.__and__(y)
 ```
 

@@ -60,13 +60,13 @@ import triton.language as tl
 
 @triton.jit
 def expand_dims_example(out_ptr):
-    # Create a 2x3 tensor
+    # 创建2x3的张量
     x = tl.zeros([2, 3], dtype=tl.float32)
 
-    # Insert a dimension at axis=1, turning it into 2x1x3
+    # 在axis=1位置插入维度，变成2x1x3
     y = tl.expand_dims(x, axis=1)
 
-    # Write the result back to the external tensor
+    # 将结果写回外部张量
     offs = (
         tl.arange(0, 2)[:, None, None] * 3
         + tl.arange(0, 1)[None, :, None] * 3
@@ -74,8 +74,8 @@ def expand_dims_example(out_ptr):
     )
     tl.store(out_ptr + offs, y)
 
-## Invocation example
+## 调用示例
 out = torch.empty((2, 1, 3), dtype=torch.float32, device="npu")
 expand_dims_example[(1,)](out)
-print(out.shape)  # Output: torch.Size([2, 1, 3])
+print(out.shape)  # 输出: torch.Size([2, 1, 3])
 ```

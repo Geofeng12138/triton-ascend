@@ -29,9 +29,11 @@ Path mapping (PO files mirror docs/zh/ directory structure):
     is IDENTICAL to the relative path under docs/zh/ (e.g. "debug_guide/index.md")
     except for the .md → .po extension change.
 
-This works with conf_en.py (srcdir=docs/zh/, locale_dirs=['../locale/']):
-Sphinx with language='en' reads locale/en/LC_MESSAGES/<relative-path>.po to
-translate docs/zh/<relative-path>.md into English HTML output.
+The English build is driven by docs/zh/conf.py (srcdir=docs/zh/,
+locale_dirs=['../locale/']); .github/workflows/scripts/readthedocs_checkout.sh
+selects it for READTHEDOCS_LANGUAGE=en. Sphinx with language='en' reads
+locale/en/LC_MESSAGES/<relative-path>.po to translate
+docs/zh/<relative-path>.md into English HTML output.
 
 Directory layout:
     docs/zh/                        Chinese source Markdown files (input)
@@ -51,11 +53,16 @@ Excluded files (not translated):
     community/CONTRIBUTING_zh.md
     community/GOVERNANCE_zh.md
     community/SECURITYNOTE_zh.md
+    community/community_technical_meeting.md
+    community/roadmap_guide.md
     community/CONTRIBUTOR.md
     community/MAINTAINERS.md
-    (The English site renders the canonical English docs from the
-    repository root (CODE_OF_CONDUCT.md, CONTRIBUTING.md, GOVERNANCE.md,
-    SECURITYNOTE.md,CONTRIBUTOR.md,MAINTAINERS.md) directly via a source-read hook in docs/zh/conf.py.)
+    (The English site renders the canonical English document directly via the
+    source-read hook in docs/zh/conf.py: the community pages take their English
+    source from the repository root (CODE_OF_CONDUCT.md, CONTRIBUTING.md,
+    GOVERNANCE.md, SECURITYNOTE.md, CONTRIBUTOR.md, MAINTAINERS.md) or from the
+    English docs tree (docs/en/community/community_technical_meeting.md,
+    docs/en/community/roadmap_guide.md).)
 
 Usage:
     # First-time: generate .pot files and translate ALL
@@ -109,8 +116,8 @@ _BEIJING_TZ = timezone(timedelta(hours=8))
 # any provider with an OpenAI-compatible endpoint can be plugged in by
 # overriding the base URL and model name. Both can be overridden via
 # LLM_API_BASE / LLM_MODEL / --api-base / --model.
-DEFAULT_API_BASE = "https://api.deepseek.com"
-DEFAULT_MODEL = "deepseek-chat"
+DEFAULT_API_BASE = "https://st8tp3ajl0df3n8b8l8qu.apigateway-cn-beijing.volceapi.com/v1"
+DEFAULT_MODEL = "glm-5.2"
 
 # ---------------------------------------------------------------------------
 # Exclusions
@@ -127,15 +134,16 @@ EXCLUDED_DIRS: List[str] = [
 
 # Individual source files (by stem, without extension) to exclude.
 # The stem is the filename WITHOUT extension, e.g. "CODE_OF_CONDUCT_zh".
-# These four community documents are NOT translated because the English
-# site renders the canonical English docs from the repository root
-# (CODE_OF_CONDUCT.md, CONTRIBUTING.md, GOVERNANCE.md, SECURITYNOTE.md)
-# directly (see the source-read hook in docs/zh/conf.py).
+# These community documents are NOT translated because the English site renders
+# their canonical English source directly (see the source-read hook in
+# docs/zh/conf.py): the .po catalogues of the community pages are not used.
 EXCLUDED_FILE_STEMS: List[str] = [
     "CODE_OF_CONDUCT_zh",
     "CONTRIBUTING_zh",
     "GOVERNANCE_zh",
     "SECURITYNOTE_zh",
+    "community_technical_meeting",
+    "roadmap_guide",
     "CONTRIBUTOR",
     "MAINTAINERS",
 ]
@@ -855,6 +863,22 @@ class PoTranslator:
                 }
                 kept += 1
             else:
+                # Skip API calls for entries that contain no Chinese characters
+                # (pure ASCII / pure numbers / English identifiers). These are
+                # typically table cell numbers, code identifiers, or already-
+                # English text extracted by sphinx-build. Passing them to the
+                # LLM wastes tokens and risks the model returning a meta
+                # response ("no Chinese text to translate") instead of the
+                # original string.
+                if not re.search(r'[\u4e00-\u9fff]', msgid):
+                    new_entries[msgid] = {
+                        "msgid": msgid,
+                        "msgstr": msgid,
+                        "translated": True,
+                    }
+                    content_changed = True
+                    kept += 1
+                    continue
                 new_entries[msgid] = {
                     "msgid": msgid,
                     "msgstr": "",
@@ -1199,8 +1223,8 @@ async def async_main():
     parser.add_argument("--output-json", default=os.getenv("OUTPUT_JSON", "/tmp/translation_results.json"))
     parser.add_argument(
         "--api-key",
-        default=os.getenv("TRANSLATION_ASCEND", os.getenv("LLM_API_KEY", os.getenv("DEEPSEEK_API_KEY", ""))),
-        help="LLM API key (env: TRANSLATION_ASCEND, fallback LLM_API_KEY / DEEPSEEK_API_KEY)",
+        default=os.getenv("TRANSLATION_ASCEND", os.getenv("LLM_API_KEY", "")),
+        help="LLM API key (env: TRANSLATION_ASCEND, fallback LLM_API_KEY)",
     )
     parser.add_argument(
         "--api-base",
@@ -1220,11 +1244,10 @@ async def async_main():
 
     output_json = args.output_json
 
-    api_key = (args.api_key or os.getenv("TRANSLATION_ASCEND") or os.getenv("LLM_API_KEY")
-               or os.getenv("DEEPSEEK_API_KEY"))
+    api_key = (args.api_key or os.getenv("TRANSLATION_ASCEND") or os.getenv("LLM_API_KEY"))
     if not api_key:
         print(
-            "Warning: no LLM API key set (TRANSLATION_ASCEND / LLM_API_KEY / DEEPSEEK_API_KEY). "
+            "Warning: no LLM API key set (TRANSLATION_ASCEND / LLM_API_KEY). "
             "Documents whose entries are fully cached will still be re-processed; entries that "
             "need a fresh translation will fail (fail-closed).", flush=True)
 
