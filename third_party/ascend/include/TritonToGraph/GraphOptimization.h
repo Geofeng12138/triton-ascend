@@ -43,7 +43,8 @@ enum class GraphOptimizationRuleId : GraphOptimizationRuleMask {
   LoadStoreTranspose = 1,
   TransposePointwiseReorder = 2,
   StoreCoalescing = 4,
-  // RowCoalescing is a pure-SIMT-only graph rule.  It is intentionally
+  // RowCoalescing includes a shared-rhs dot pattern and a pure-SIMT-only
+  // elementwise pattern. It is intentionally
   // scheduled once after the normal per-function phases because its launch
   // contract must not be suppressed by their rewrite budget.
   RowCoalescing = 8,
@@ -291,6 +292,9 @@ struct IndependentAxisTensorizeRuleOptions {
 struct PersistentTaskStripMiningRuleOptions {
   bool enabledForCompileMode = true;
 };
+struct StoreCoalescingRuleOptions {
+  bool enabledForCompileMode = true;
+};
 struct ResidentLoadForwardingRuleOptions {};
 struct IntermediatePrecisionBoundaryElisionRuleOptions {};
 struct StoreCoveragePlanningRuleOptions {};
@@ -313,6 +317,7 @@ struct GraphOptimizationOptions {
   std::string compileMode = "simd_simt_template";
   IndependentAxisTensorizeRuleOptions independentAxisTensorize;
   PersistentTaskStripMiningRuleOptions persistentTaskStripMining;
+  StoreCoalescingRuleOptions storeCoalescing;
   ResidentLoadForwardingRuleOptions residentLoadForwarding;
   IntermediatePrecisionBoundaryElisionRuleOptions
       intermediatePrecisionBoundaryElision;

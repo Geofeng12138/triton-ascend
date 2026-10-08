@@ -7,7 +7,7 @@
 
 计算内核:
 
-```Python
+```python
 def test_add(x0, x1):
     """
     Tests whether the vector addition implemented in Triton produces results consistent with PyTorch within the accuracy comparison.
@@ -33,14 +33,15 @@ def test_add(x0, x1):
     ):
         # Generate an index array [0, 1, 2, ..., XS-1]
         idx = tl.arange(0, XS)
-        # Load the value of x0 from in_ptr0 + idx
-        tmp0 = tl.load(in_ptr0 + idx)
-        # Load the value of x1 from in_ptr1 + idx
-        tmp1 = tl.load(in_ptr1 + idx)
-        # Perform addition
+        mask = idx < XS
+        # 从 in_ptr0 + idx 处加载 x0 的值
+        tmp0 = tl.load(in_ptr0 + idx, mask=mask)
+        # 从 in_ptr1 + idx 处加载 x1 的值
+        tmp1 = tl.load(in_ptr1 + idx, mask=mask)
+        # 执行加法
         tmp2 = tmp0 + tmp1
-        # Write the result to out_ptr0 + idx
-        tl.store(out_ptr0 + idx, tmp2)
+        # 将结果写入 out_ptr0 + idx
+        tl.store(out_ptr0 + idx, tmp2, mask=mask)
 
     # 3. Triton wrapper function: invokes the kernel and returns the result
     def triton_func(x0, x1):
@@ -65,7 +66,7 @@ def test_add(x0, x1):
 
 创建一个精度比对函数，适应每一种dtype，采用对应的精度比对方法。
 
-```Python
+```python
 
 def accuracy_comparison(y_cal, y_ref):
     """
@@ -80,26 +81,26 @@ def accuracy_comparison(y_cal, y_ref):
     assert y_cal.dtype == y_ref.dtype, f"dtype mismatch: {y_cal.dtype} vs {y_ref.dtype}"
     tensor_dtype = y_cal.dtype
 
-    # Move the tensors to the NPU (assuming the test is performed on the NPU)
+    # 将张量搬运到 NPU（假设测试在 NPU 上进行）
     y_cal = y_cal.npu()
     y_ref = y_ref.npu()
 
     # Choose different comparison methods based on the data type
     if tensor_dtype == torch.float16:
-        # float16 has lower precision, so a slightly larger tolerance is allowed
-        torch.testing.assert_close(y_ref, y_cal, rtol=1e-3, atol=1e-3, equal_nan=True)
+        # float16 精度较低，允许稍大误差
+        torch.testing.assert_close(y_cal, y_ref, rtol=1e-3, atol=1e-3, equal_nan=True)
     elif tensor_dtype == torch.bfloat16:
         # bfloat16 has even lower precision; it is recommended to convert to float32 before comparing
         torch.testing.assert_close(
-            y_ref.to(torch.float32),
             y_cal.to(torch.float32),
+            y_ref.to(torch.float32),
             rtol=1e-3,
             atol=1e-3,
             equal_nan=True
         )
     elif tensor_dtype == torch.float32:
-        # float32 has high precision, so stricter tolerances are used
-        torch.testing.assert_close(y_ref, y_cal, rtol=1e-4, atol=1e-4, equal_nan=True)
+        # float32 精度较高，使用更严格的容差
+        torch.testing.assert_close(y_cal, y_ref, rtol=1e-4, atol=1e-4, equal_nan=True)
     elif tensor_dtype in [torch.int64, torch.int32, torch.int16, torch.int8]:
         # Integer types must be exactly equal
         assert torch.equal(y_cal, y_ref), f"Integer tensors are not equal for dtype {tensor_dtype}"

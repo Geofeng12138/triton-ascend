@@ -12,7 +12,7 @@
 | **2. 编译流程概览** | 介绍 Triton-Ascend 端到端编译链的关键阶段，为后续调试提供上下文基础。 |
 | **3. 临时文件指引** | 详解编译过程中生成的中间文件（如 `.mlir`、`.ll`、`.o` 等）的存储位置与用途，便于人工检查。 |
 | **4. 解释器模式** | 介绍如何通过 `TRITON_INTERPRET=1` 在 CPU 上运行 kernel，作为 NPU 计算结果的精度基准。 |
-| **5. 调试方法** | 提供多种实用调试手段：<br>• 静态/运行时打印<br>• 编译错误调试方法<br> |
+| **5. 调试方法** | 提供多种实用调试手段：静态/运行时打印、编译错误调试方法。 |
 | **附录 A** | 常用环境变量速查表，提升调试效率。 |
 
 建议开发者结合具体问题，按需查阅对应章节，以高效定位并解决 Triton-Ascend 集成中的各类异常。
@@ -23,7 +23,7 @@
 
 | 问题类型 | 典型表现/描述 | 推荐的首要调试方法 |
 | :--- | :--- | :--- |
-| **精度问题** | NPU运行结果与标杆参考结果（如PyTorch或Triton CPU解释器）存在差异。 | 4. 解释器模式 <br> 5.1 打印调试方法 |
+| **精度问题** | NPU运行结果与标杆参考结果（如PyTorch或Triton CPU解释器）存在差异。 | 4. 解释器模式；5.1 打印调试方法 |
 | **编译错误 (MLIRCompilationError)** | 在编译转换阶段失败，通常在Python端抛出 `MLIRCompilationError`。 | 5.2 编译错误调试方法 |
 
 ## 2 Triton-Ascend 编译流程概览
@@ -198,7 +198,7 @@ TTIR 是 Triton 编译器前端生成的中间表示（Intermediate Representati
 
 TTIR 层面仍基于 Triton 原生抽象（如 `!tt.ptr<f32>`、`tt.load`/`tt.store` 等），尚未映射到底层硬件的具体内存模型或执行单元，是平台无关的高层次 IR。
 
-#### 3.4.1 TTAdapter IR（Target-Specific Adapter Representation）
+#### 3.4.2 TTAdapter IR（Target-Specific Adapter Representation）
 
 - TTAdapter IR 样例
 查看 kernel.ttadapter.mlir 如下：
@@ -497,13 +497,32 @@ python your_triton_script.py
 
 在启用 `TRITON_ENABLE_LLVM_DEBUG=1` 时，可通过 `TRITON_LLVM_DEBUG_ONLY` 环境变量指定仅输出特定模块的调试日志。以下是常用 `DEBUG_TYPE` 的简要解释：
 
-| 阶段名称 | 全称 | 作用 | 调试内容 | 适用场景 |
-| ---- | ---- | ---- | ---- | ---- |
-| `isel` | Instruction Selection | 将 LLVM IR 指令转换为目标架构的机器指令（MachineInstr） | 显示 IR → 机器指令的映射过程、模式匹配结果 | 怀疑指令选择错误（如生成了非法指令或低效指令序列） |
-| `regalloc` | Register Allocation | 为虚拟寄存器分配物理寄存器，并处理溢出（spilling） | 寄存器分配前后状态、冲突图、活跃区间分析 | 寄存器压力大、性能下降、或出现意外的内存访问 |
-| `spiller` | Spiller | 当寄存器不足时，将部分值“溢出”到栈内存 | 哪些虚拟寄存器被 spill、插入的 load/store 指令位置 | 性能因频繁访存下降，需优化寄存器使用 |
-| `peephole` | Peephole Optimizer | 在机器码层面进行局部优化（如常量折叠、冗余指令消除） | 优化前后的指令对比 | 生成代码存在明显冗余，但高层优化未覆盖 |
-| `asm-printer` | Assembly Printer | 将 MachineInstr 转换为最终汇编文本（如 PTX、AMDGCN、CCE） | 生成的汇编代码、符号引用、指令编码 | 汇编语法错误、标签不匹配、或需要查看最终输出 |
+```text
+## `isel`（Instruction Selection）
+- **作用**：将 LLVM IR 指令转换为目标架构的机器指令（MachineInstr）。
+- **调试内容**：显示 IR → 机器指令的映射过程、模式匹配结果。
+- **适用场景**：怀疑指令选择错误（如生成了非法指令或低效指令序列）。
+
+## `regalloc`（Register Allocation）
+- **作用**：为虚拟寄存器分配物理寄存器，并处理溢出（spilling）。
+- **调试内容**：寄存器分配前后状态、冲突图、活跃区间分析。
+- **适用场景**：寄存器压力大、性能下降、或出现意外的内存访问。
+
+## `spiller`（Spiller）
+- **作用**：当寄存器不足时，将部分值“溢出”到栈内存。
+- **调试内容**：哪些虚拟寄存器被 spill、插入的 load/store 指令位置。
+- **适用场景**：性能因频繁访存下降，需优化寄存器使用。
+
+## `peephole`（Peephole Optimizer）
+- **作用**：在机器码层面进行局部优化（如常量折叠、冗余指令消除）。
+- **调试内容**：优化前后的指令对比。
+- **适用场景**：生成代码存在明显冗余，但高层优化未覆盖。
+
+## `asm-printer`（Assembly Printer）
+- **作用**：将 MachineInstr 转换为最终汇编文本（如 PTX、AMDGCN、CCE）。
+- **调试内容**：生成的汇编代码、符号引用、指令编码。
+- **适用场景**：汇编语法错误、标签不匹配、或需要查看最终输出。
+```
 
 **启用方式**
 以指定仅输出`isel`为例

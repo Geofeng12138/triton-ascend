@@ -35,6 +35,24 @@ import pybind11
 
 _is_compile_on_910_95 = None
 
+
+def _multibuffer_mode_to_tuple(value):
+    """Freeze a mode dictionary, or restore its pairs from a JSON cache.
+
+    Sort keys for stable hashing regardless of dictionary insertion order.
+    NPU IR owns level names, count semantics and legacy-option handling.
+    """
+    if value is None:
+        return None
+    if isinstance(value, dict):
+        value = tuple(value.items())
+    if not isinstance(value, (list, tuple)) or any(not isinstance(pair, (list, tuple)) or len(pair) != 2
+                                                   or not isinstance(pair[0], str) or type(pair[1]) is not int
+                                                   for pair in value):
+        raise TypeError("multibuffer_mode must be a dict[str, int], cached (str, int) pairs, or None")
+    return tuple(sorted((level, count) for level, count in value))
+
+
 # Compatibility boundary for compile-option cleanup.  Public dictionaries
 # route renamed options and discard backend-managed options before community
 # JIT validates the remaining keys.
@@ -47,6 +65,7 @@ _DEPRECATED_NPU_OPTIONS = frozenset({
     "code_motion",
     "compile_on_910_95",
     "enable_auto_blockify",
+    "enable_bishengir_simt_optimization",
     "enable_buffer_insert_optimization",
     "enable_cce_vf_auto_sync",
     "enable_cce_vf_remove_membar",
@@ -56,8 +75,10 @@ _DEPRECATED_NPU_OPTIONS = frozenset({
     "enable_mask_fallback_conversion",
     "enable_nd2nz_on_vector",
     "enable_select_analysis",
+    "enable_simt_reorder_instruction",
     "enable_sync_block_lock",
     "enable_ub_refine_opt",
+    "enable_vf_fusion",
     "force_simt_only",
     "force_simt_template",
     "graph_optimize_emit_remarks",
@@ -135,8 +156,10 @@ _DEPRECATED_NPU_OPTION_DETAILS = {
     "enable_mask_fallback_conversion": "it is ignored; the backend fixes mask fallback conversion to False.",
     "enable_nd2nz_on_vector": "it is ignored; the backend fixes vector ND2NZ conversion to False.",
     "enable_select_analysis": "it is ignored; the backend fixes select analysis to True.",
+    "enable_simt_reorder_instruction": "it is ignored; instruction reordering is controlled by simt_optimization_mode.",
     "enable_sync_block_lock": "it is ignored; this option has no replacement because it had no effective consumer.",
     "enable_ub_refine_opt": "it is ignored; the backend keeps UB refine optimization disabled.",
+    "enable_vf_fusion": "it is ignored; this switch is no longer forwarded to the NPU compiler.",
     "graph_optimize_emit_remarks": "it is ignored; the backend fixes graph-optimization remarks to False.",
     "graph_optimize_max_rewrites_per_function":
     "it is ignored; the backend fixes the maximum rewrites per function to 64.",
@@ -277,7 +300,7 @@ def _warn_deprecated_ascend_env_vars() -> None:
 
 
 def is_compile_on_910_95(arch: str = None) -> bool:
-    """Return whether the compilation target belongs to the A5 generation."""
+    """Return whether the compilation target belongs to the Ascend 950 generation."""
     if arch is not None:
         return isinstance(arch, str) and arch.startswith(("Ascend910_95", "Ascend950"))
 
