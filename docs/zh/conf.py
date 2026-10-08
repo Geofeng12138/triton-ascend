@@ -35,7 +35,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.autosectionlabel',
-    'sphinx.ext.autosummary',
     'sphinx.ext.mathjax',
     'myst_parser',
     'sphinx_copybutton',
@@ -50,46 +49,18 @@ myst_fence_as_directive = ['mermaid']
 myst_enable_extensions = ['dollarmath']
 myst_dollar_math = True
 
-# Mock imports for modules that aren't available in the build environment
-autodoc_mock_imports = [
-    'triton',
-    'triton_ascend',
-    'torch',
-    'buffer',
-]
-
-# Community documents whose English build renders the canonical English document
-# instead of the machine-translated output.
-# Mapping: docname (relative to docs/zh/, without extension) -> path relative to
-# the repository root. The first four entries live in the repository root, the
-# last two in the English docs tree.
-# All of them are intentionally NOT translated by translate_md.py
-# (see EXCLUDED_FILE_STEMS there).
-_COMMUNITY_ROOT_DOCS = {
-    "community/CODE_OF_CONDUCT_zh": "CODE_OF_CONDUCT.md",
-    "community/CONTRIBUTING_zh": "CONTRIBUTING.md",
-    "community/GOVERNANCE_zh": "GOVERNANCE.md",
-    "community/SECURITYNOTE_zh": "SECURITYNOTE.md",
-    "community/community_technical_meeting": "docs/en/community/community_technical_meeting.md",
-    "community/roadmap_guide": "docs/en/community/roadmap_guide.md",
-}
-
-_EN_REPLACEMENTS = {
-    "python-api/triton.language.rst": "sources/python-api/triton.language", "python-api/triton.testing.rst":
-    "sources/python-api/triton.testing", "python-api/triton.rst": "sources/python-api/triton"
-}
+# Mock imports for modules that aren't available in the build environment.
+autodoc_mock_imports = ['triton']
 
 # Suppress duplicate autosectionlabel warnings caused by subdirectory
 # index.md headings sharing names with category headings in main index.md.
 suppress_warnings = ["autosectionlabel"]
 
-# -- MyST configuration -------------------------------------------------------
-# Enable dollar-math extension so that $$...$$ and $...$ syntax is parsed.
-myst_enable_extensions = ['dollarmath']
-myst_dollar_math = True
-
 autosummary_generate = True
 
+# ---------------------------------------------------------------------------
+# Build language detection
+# ---------------------------------------------------------------------------
 _readthedocs_lang = os.environ.get('READTHEDOCS_LANGUAGE')
 
 if _readthedocs_lang:
@@ -100,87 +71,46 @@ else:
 _is_zh = _build_lang in ('zh-cn', 'zh') or _build_lang.startswith('zh-')
 language = 'zh_CN' if _is_zh else 'en'
 
+# ---------------------------------------------------------------------------
+# Gettext / i18n
+# ---------------------------------------------------------------------------
 gettext_compact = False
 # Extract code blocks (literal blocks) as translatable units so that Chinese
 # comments inside code blocks are also translated (not skipped).
 gettext_additional_targets = ['literal-block', 'raw', 'image']
 if not _is_zh:
+    # English build: read gettext .po translations from locale/en/LC_MESSAGES/.
     locale_dirs = ['../locale/']
-    # English build uses gettext .po translations from locale/en/LC_MESSAGES/
-    autosummary_generate = True
-    # Enable mock stubs for triton C extensions during English build
-    _sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "python"))
 
-    def _load_module(module_name, file_path):
-        import importlib.util as _ilu
-        spec = _ilu.spec_from_file_location(module_name, file_path)
-        if spec is None or spec.loader is None:
-            raise ImportError(f"cannot load {module_name!r} from {file_path!r}")
-        module = _ilu.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        return module
-
-    _force_mock = (os.environ.get("TRITON_DOCS_FORCE_MOCK", "").lower() in ("1", "true", "yes")
-                   or os.environ.get("READTHEDOCS") == "True")
-    if not _force_mock:
-        try:
-            import triton  # noqa: F401,E402
-        except Exception as _exc:
-            print(f"import triton failed ({_exc!r}); building docs with mock stubs")
-            _force_mock = True
-
-    if _force_mock:
-        _mock_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_mock", "_triton_mock.py")
-        _load_module("docs.zh._mock._triton_mock", _mock_path).install()
-
-    import triton  # noqa: E402
-    import triton.language.extra as _tl_extra  # noqa: E402
-
-    _cann_lang_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "third_party", "ascend",
-                                   "language")
-    if _cann_lang_path not in _tl_extra.__path__:
-        _tl_extra.__path__.append(_cann_lang_path)
-
-    import sphinx.ext.autosummary  # noqa: E402
-    import sphinx.util.inspect  # noqa: E402
-
-    def _unwrap_jit(fn):
-
-        def wrapper(obj, **kwargs):
-            if isinstance(obj, triton.runtime.JITFunction):
-                obj = obj.fn
-            return fn(obj, **kwargs)
-
-        return wrapper
-
-    if hasattr(sphinx.ext.autosummary, "get_documenter"):
-        _orig_get_documenter = sphinx.ext.autosummary.get_documenter
-
-        def _get_documenter(app, obj, parent):
-            if isinstance(obj, triton.runtime.JITFunction):
-                obj = obj.fn
-            return _orig_get_documenter(app, obj, parent)
-
-        sphinx.ext.autosummary.get_documenter = _get_documenter
-
-    sphinx.util.inspect.unwrap_all = _unwrap_jit(sphinx.util.inspect.unwrap_all)
-    sphinx.util.inspect.signature = _unwrap_jit(sphinx.util.inspect.signature)
-    sphinx.util.inspect.object_description = _unwrap_jit(sphinx.util.inspect.object_description)
-
-    def _setup_en(app):
-        _load_module(
-            "docs.zh.python_api._inject_ascend_notes",
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "python-api", "_inject_ascend_notes.py"),
-        ).setup(app)
-
+# ---------------------------------------------------------------------------
+# Community documents whose English build renders the canonical English document
+# instead of the machine-translated output.
+# Mapping: docname (relative to docs/zh/, without extension) -> path relative to
+# the repository root. The first four entries live in the repository root, the
+# last two in the English docs tree.
+# All of them are intentionally NOT translated by translate_md.py
+# (see EXCLUDED_FILE_STEMS there).
+# ---------------------------------------------------------------------------
+_COMMUNITY_ROOT_DOCS = {
+    "community/CODE_OF_CONDUCT_zh": "CODE_OF_CONDUCT.md",
+    "community/CONTRIBUTING_zh": "CONTRIBUTING.md",
+    "community/GOVERNANCE_zh": "GOVERNANCE.md",
+    "community/SECURITYNOTE_zh": "SECURITYNOTE.md",
+    "community/community_technical_meeting": "docs/en/community/community_technical_meeting.md",
+    "community/roadmap_guide": "docs/en/community/roadmap_guide.md",
+}
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-# python-api RST files require triton import; mock it at build time.
-autodoc_mock_imports = ['triton']
-
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
 _HERE = os.path.dirname(__file__)
 _REPO = os.path.abspath(os.path.join(_HERE, "..", ".."))
+
+# ---------------------------------------------------------------------------
+# Shared helpers (used by both Chinese and English builds)
+# ---------------------------------------------------------------------------
 
 
 def _load_module(module_name, file_path):
@@ -193,6 +123,9 @@ def _load_module(module_name, file_path):
     return module
 
 
+# ---------------------------------------------------------------------------
+# Triton import + mock setup (shared by both builds)
+# ---------------------------------------------------------------------------
 _sys.path.insert(0, os.path.join(_REPO, "python"))
 _force_mock = (os.environ.get("TRITON_DOCS_FORCE_MOCK", "").lower() in ("1", "true", "yes")
                or os.environ.get("READTHEDOCS") == "True")
@@ -226,6 +159,9 @@ _cann_lang_path = os.path.join(_REPO, "third_party", "ascend", "language")
 if _cann_lang_path not in _tl_extra.__path__:
     _tl_extra.__path__.append(_cann_lang_path)
 
+# ---------------------------------------------------------------------------
+# Sphinx JIT-function patching (shared by both builds)
+# ---------------------------------------------------------------------------
 import sphinx.ext.autosummary
 import sphinx.util.inspect
 
@@ -264,6 +200,9 @@ sphinx.util.inspect.unwrap_all = _unwrap_jit(sphinx.util.inspect.unwrap_all)
 sphinx.util.inspect.signature = _unwrap_jit(sphinx.util.inspect.signature)
 sphinx.util.inspect.object_description = _unwrap_jit(sphinx.util.inspect.object_description)
 
+# ---------------------------------------------------------------------------
+# Sphinx config (templates, source suffix, HTML theme)
+# ---------------------------------------------------------------------------
 templates_path = ['_templates']
 
 source_suffix = {
@@ -297,6 +236,11 @@ html_theme_options = {
     # hidden separately via _static/custom.css (#pst-header).
     'navbar_persistent': [],
 }
+
+# ---------------------------------------------------------------------------
+# English-build source-read hooks (community doc replacement + translation
+# fallback)
+# ---------------------------------------------------------------------------
 
 
 def _on_source_read(app, docname, source):
@@ -398,8 +342,13 @@ def _on_source_read_fallback(app, docname, source):
     source[0] = _build_fallback_source(old_source, source[0])
 
 
+# ---------------------------------------------------------------------------
+# Sphinx setup
+# ---------------------------------------------------------------------------
+
+
 def setup(app):
-    """Chinese build setup."""
+    """Sphinx setup (runs for both Chinese and English builds)."""
     from sphinx.highlighting import lexers
     from pygments.lexers import get_lexer_by_name
 

@@ -10,7 +10,7 @@ version: 2.0.0
 last-updated: 2026-08-29
 applicable-scope:
   - docs/zh/** → docs/locale/en/LC_MESSAGES/** translation workflow
-  - .github/workflows/scripts/translate_md.py DeepSeek translation
+  - .github/workflows/scripts/translate_md.py LLM translation
   - Any Chinese → English content for the Triton-Ascend project
 ---
 
@@ -296,5 +296,5 @@ applicable-scope:
 - 不翻译、英文站直接渲染官方英文源的文档：`community/CODE_OF_CONDUCT_zh.md`、`community/CONTRIBUTING_zh.md`、`community/GOVERNANCE_zh.md`、`community/SECURITYNOTE_zh.md`（英文源在仓库根）；`community/community_technical_meeting.md`、`community/roadmap_guide.md`（英文源在 `docs/en/community/`）；`community/CONTRIBUTOR.md`、`community/MAINTAINERS.md`（指向仓库根的软链）
 - 英文译文文件：`docs/locale/en/LC_MESSAGES/**`（.po 译文，镜像 `docs/zh/` 目录结构，由 Sphinx gettext 渲染英文页面）
 - 翻译记忆：`docs/locale/en/LC_MESSAGES/**`（.po 缓存，按 msgid/msgstr 存储）
-- 引擎：DeepSeek 聊天 API（`deepseek-chat`），温度 0.3
+- 引擎：OpenAI 兼容聊天 API（默认 Volcengine `glm-5.2`），温度 0.3
 - 系统提示词包含本技能文档，翻译前强制读取其中的翻译标准（Google 开发者文档风格指南要点），每次翻译请求都会自动遵循这些规则。

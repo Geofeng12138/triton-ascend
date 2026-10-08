@@ -19,7 +19,7 @@
 Sphinx gettext translation workflow for Chinese docs.
 
 This script translates docs/zh/ Chinese documentation to English .po files
-using Sphinx gettext and the DeepSeek API.
+using Sphinx gettext and an OpenAI-compatible LLM API (default: Volcengine glm-5.2).
 
 Path mapping (PO files mirror docs/zh/ directory structure):
     docs/zh/debug_guide/index.md
@@ -505,7 +505,7 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
         lines.append(f'"X-Source-Commit: {source_commit}\\n"\n')
     if skill_version:
         lines.append(f'"X-Skill-Version: {skill_version}\\\\n"\n')
-    lines.append(f'"Last-Translator: Auto Translation (DeepSeek)\\n"\n'
+    lines.append(f'"Last-Translator: Auto Translation (glm-5.2)\\n"\n'
                  f'"Language-Team: English\\n"\n'
                  f'"Language: en\\n"\n'
                  f'"MIME-Version: 1.0\\n"\n'
@@ -581,7 +581,7 @@ def _escape_enumeration_prefix(s: str) -> str:
 def _restore_enumeration_prefix(msgid: str, msgstr: str) -> str:
     """Ensure the translated text keeps the 'N. ' enumeration prefix of its msgid.
 
-    The DeepSeek model sometimes drops the list-number prefix when translating
+    The LLM sometimes drops the list-number prefix when translating
     Chinese headings, e.g.
 
         msgid  "1. 安装与环境配置"
@@ -669,7 +669,7 @@ def _build_glossary_rules(skill_doc: str) -> List[tuple]:
 
     ``apply_glossary_rules()`` then deterministically enforces the
     authoritative spellings on every translated string, so the pipeline no
-    longer depends on the LLM choosing to follow the glossary (DeepSeek tends
+    longer depends on the LLM choosing to follow the glossary (the LLM tends
     to normalize "Ascend Platform" back to the natural "Ascend platform").
 
     Only the section-4 tables are scanned and only plain-English values are
@@ -862,7 +862,7 @@ class PoTranslator:
         for msgid, entry in pot_entries.items():
             existing = po_entries.get(msgid)
             if existing and existing.get("translated"):
-                # Self-heal: DeepSeek may have dropped the "N. " enumeration
+                # Self-heal: the LLM may have dropped the "N. " enumeration
                 # prefix from a Chinese list heading. Re-attach it here so the
                 # repaired translation is persisted (find_changed_pot_files
                 # detects such files and routes them through this function).
@@ -1157,7 +1157,7 @@ def find_changed_pot_files() -> list[Path]:
             if not existing or not existing.get("translated"):
                 changed.append(pot_file)
                 break
-            # Self-heal: DeepSeek sometimes drops the "N. " prefix when
+            # Self-heal: the LLM sometimes drops the "N. " prefix when
             # translating Chinese list headings. If the stored translation
             # lost the msgid's enumeration prefix, re-process this file so
             # _restore_enumeration_prefix can repair it without re-translating.
