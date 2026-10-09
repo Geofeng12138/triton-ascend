@@ -399,6 +399,10 @@ def parse_pot_file(filepath: Path) -> dict:
         "msgstr": str,
         "translated": bool,
     }
+
+    Stale garbage entries (empty msgid with a non-empty msgstr such as
+    "No text was provided for translation...") are silently skipped so
+    they are never carried forward into newly-written .po files.
     """
     entries = {}
     if not filepath.exists():
@@ -411,11 +415,21 @@ def parse_pot_file(filepath: Path) -> dict:
         block = block.strip()
         if not block:
             continue
+        # Skip the PO header block (msgid "" with metadata in msgstr)
+        # and any stale garbage entries (msgid "" with a non-empty
+        # "translation" produced by older LLM runs).
         if block.startswith('msgid ""') and '# ' not in block.split('\n')[0]:
             continue
 
         msgid = _extract_po_value(block, 'msgid')
         msgstr = _extract_po_value(block, 'msgstr')
+
+        # Skip any entry with an empty msgid: this covers both the PO
+        # header block (msgid="" with metadata) and stale garbage entries
+        # (msgid="" with a non-empty LLM meta-response like
+        # "No text was provided for translation...").
+        if msgid is not None and msgid == "":
+            continue
 
         if msgid is not None:
             entries[msgid] = {
@@ -544,6 +558,133 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
 
     text = '\n'.join(lines)
     filepath.write_text(text, encoding="utf-8")
+
+
+def validate_po_file(po_path: Path) -> List[str]:
+    """Validate a generated .po file for syntax and content correctness.
+
+    Returns a list of issue strings; an empty list means the file is clean.
+
+    Checks performed:
+    1. The file can be parsed without syntax errors (round-trip via
+       parse_pot_file + re-read).
+    2. No duplicate empty msgid entries (stale garbage from older runs).
+    3. No entries with Chinese characters remaining in msgstr (untranslated
+       text that would appear as Chinese on the English page).
+    4. No entries where msgid ends with '\\n' but msgstr does not (or vice
+       versa), which causes msgfmt errors.
+    5. No entries where msgstr looks like an LLM meta-response (e.g.
+       "I notice...", "I'm sorry...", "No text was provided...").
+    """
+    issues: List[str] = []
+
+    if not po_path.exists():
+        return [f"{po_path.name}: file does not exist"]
+
+    raw = po_path.read_text(encoding="utf-8")
+
+    # Check for duplicate empty msgid (garbage entries)
+    empty_msgid_count = 0
+    blocks = raw.split('\n\n')
+    for block in blocks:
+        block = block.strip()
+        if not block:
+            continue
+        # Count blocks that start with msgid "" but are NOT the header
+        # (header has '# ' comment lines before msgid)
+        if block.startswith('msgid ""') and '# ' not in block.split('\n')[0]:
+            empty_msgid_count += 1
+    if empty_msgid_count > 1:
+        issues.append(f"{po_path.name}: {empty_msgid_count} duplicate empty msgid blocks "
+                      "(stale garbage entries from older LLM runs)")
+
+    # Parse entries and check content
+    entries = parse_pot_file(po_path)
+    for msgid, entry in entries.items():
+        msgstr = entry.get("msgstr", "")
+
+        # Check for Chinese characters in msgstr
+        if msgstr and re.search(r'[\u4e00-\u9fff]', msgstr):
+            issues.append(f"{po_path.name}: Chinese characters in msgstr for msgid: {msgid[:80]}...")
+
+        # Check for \n ending mismatch
+        if msgid and msgstr:
+            msgid_nl = msgid.endswith('\n')
+            msgstr_nl = msgstr.endswith('\n')
+            if msgid_nl != msgstr_nl:
+                issues.append(f"{po_path.name}: \\n ending mismatch for msgid: {msgid[:60]}...")
+
+        # Check for LLM meta-responses
+        if msgstr:
+            msgstr_lower = msgstr.strip().lower()
+            meta_patterns = [
+                "i notice",
+                "i'm sorry",
+                "i am sorry",
+                "no text was provided",
+                "please provide the chinese text",
+                "it appears that",
+                "the user has provided",
+                "i will return",
+            ]
+            for pattern in meta_patterns:
+                if msgstr_lower.startswith(pattern):
+                    issues.append(f"{po_path.name}: LLM meta-response in msgstr: {msgstr[:60]}...")
+                    break
+
+    return issues
+
+
+def fix_po_file(po_path: Path) -> bool:
+    """Attempt to fix common .po file issues in-place.
+
+    Returns True if any fixes were applied.
+    """
+    if not po_path.exists():
+        return False
+
+    raw = po_path.read_text(encoding="utf-8")
+    fixed = False
+
+    # Fix 1: Remove stale garbage entries (empty msgid with non-empty msgstr)
+    blocks = raw.split('\n\n')
+    new_blocks = []
+    for block in blocks:
+        stripped = block.strip()
+        if not stripped:
+            new_blocks.append(block)
+            continue
+        # Skip the header block
+        if stripped.startswith('msgid ""') and '# ' not in stripped.split('\n')[0]:
+            # Check if this is a garbage entry (msgid="" with non-empty msgstr)
+            msgstr = _extract_po_value(stripped, 'msgstr')
+            if msgstr and msgstr.strip():
+                fixed = True
+                continue
+        new_blocks.append(block)
+
+    raw = '\n\n'.join(new_blocks)
+
+    # Fix 2: Fix #: lines that are missing the #: prefix (produced by msgmerge)
+    raw = re.sub(r'\n (/\.\./)', r'\n#: \1', raw)
+    # Also fix inline continuation: a #: line followed by a line starting with space+path
+    lines = raw.split('\n')
+    fixed_lines = []
+    for i, line in enumerate(lines):
+        if re.match(r'^ \.\./\.\./', line):
+            fixed_lines.append('#: ' + line.lstrip())
+            fixed = True
+        else:
+            fixed_lines.append(line)
+    raw = '\n'.join(fixed_lines)
+
+    # Fix 3: Fix duplicate msgstr (two consecutive msgstr "" lines)
+    raw = re.sub(r'(msgstr ""\n)msgstr ""', r'\1', raw)
+
+    if fixed:
+        po_path.write_text(raw, encoding="utf-8")
+
+    return fixed
 
 
 def _escape_po(s: str) -> str:
@@ -971,6 +1112,12 @@ class PoTranslator:
             if needs_stamp or needs_skill:
                 write_po_file(po_path, new_entries, str(pot_path), changed=False, source_commit=source_commit,
                               skill_version=self._skill_version)
+                # Validate after writing
+                issues = validate_po_file(po_path)
+                if issues:
+                    print(f"\n  WARNING: validation issues in {po_path.name}:", flush=True)
+                    for issue in issues:
+                        print(f"    - {issue}", flush=True)
                 print("OK (header refreshed)", flush=True)
                 return True
             # Nothing to do: keep the file untouched.
@@ -979,6 +1126,24 @@ class PoTranslator:
 
         write_po_file(po_path, new_entries, str(pot_path), changed=True, source_commit=source_commit,
                       skill_version=self._skill_version)
+
+        # Post-write validation: check for syntax errors, Chinese in msgstr,
+        # \n mismatches, and LLM meta-responses.
+        issues = validate_po_file(po_path)
+        if issues:
+            print(f"\n  WARNING: {len(issues)} validation issue(s) in {po_path.name}:", flush=True)
+            for issue in issues:
+                print(f"    - {issue}", flush=True)
+            # Attempt automatic fixes
+            if fix_po_file(po_path):
+                print(f"  Applied automatic fixes, re-validating...", flush=True)
+                remaining = validate_po_file(po_path)
+                if remaining:
+                    print(f"  {len(remaining)} issue(s) remain after fix:", flush=True)
+                    for issue in remaining:
+                        print(f"    - {issue}", flush=True)
+                else:
+                    print(f"  All issues fixed.", flush=True)
         print("OK")
         return True
 

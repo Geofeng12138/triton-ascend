@@ -343,6 +343,194 @@ def _on_source_read_fallback(app, docname, source):
 
 
 # ---------------------------------------------------------------------------
+# English-build: gettext-level fuzzy matching fallback
+# ---------------------------------------------------------------------------
+
+
+def _has_chinese(text):
+    """Return True if *text* contains any CJK Unified Ideograph characters."""
+    return bool(_re.search(r'[\u4e00-\u9fff]', text or ''))
+
+
+def _fuzzy_match_msgid(text, catalog, threshold=0.5):
+    """Find the best fuzzy match for *text* in *catalog* (a dict of
+    msgid -> msgstr).
+
+    Returns (msgid, msgstr, ratio) for the best match whose similarity ratio
+    is at least *threshold*, or (None, None, 0) if no match is good enough.
+
+    The threshold is lowered to 0.4 for short strings (<= 20 chars) because
+    difflib's ratio is more sensitive to small changes in short text.
+    """
+    if len(text) <= 20:
+        threshold = min(threshold, 0.4)
+    best_ratio = 0.0
+    best_msgid = None
+    best_msgstr = None
+    for msgid, msgstr in catalog.items():
+        if not msgstr:
+            continue
+        ratio = _difflib.SequenceMatcher(None, text, msgid, autojunk=False).ratio()
+        if ratio > best_ratio:
+            best_ratio = ratio
+            best_msgid = msgid
+            best_msgstr = msgstr
+    if best_ratio >= threshold:
+        return best_msgid, best_msgstr, best_ratio
+    return None, None, 0.0
+
+
+# Cache: {docname -> {msgid -> msgstr}} for the fuzzy-match catalog.
+_fuzzy_catalogs = {}
+
+
+def _parse_po_catalog(po_path):
+    """Parse a .po file and return a dict of msgid -> msgstr.
+
+    Only entries with a non-empty msgstr are included. The PO escape
+    sequences (\\n, \\", \\\\) are unescaped.
+    """
+    catalog = {}
+    if not os.path.exists(po_path):
+        return catalog
+    try:
+        with open(po_path, encoding='utf-8') as f:
+            raw = f.read()
+    except OSError:
+        return catalog
+
+    # Split into blocks separated by blank lines
+    blocks = raw.split('\n\n')
+    for block in blocks:
+        block = block.strip()
+        if not block:
+            continue
+
+        lines = block.split('\n')
+
+        # Extract msgid (handles single-line and multi-line formats)
+        msgid = _extract_po_field_from_lines(lines, 'msgid')
+        if not msgid:
+            continue
+
+        # Extract msgstr
+        msgstr = _extract_po_field_from_lines(lines, 'msgstr')
+        if not msgstr:
+            continue
+
+        # Unescape PO escape sequences
+        msgstr = msgstr.replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\')
+        catalog[msgid] = msgstr
+
+    return catalog
+
+
+def _extract_po_field_from_lines(lines, field):
+    """Extract the value of a PO field (msgid or msgstr) from a list of lines.
+
+    Handles:
+    - Single-line:  msgid "text"
+    - Multi-line:   msgid ""\n"first\\n"\n"second"
+    """
+    in_field = False
+    parts = []
+    for line in lines:
+        stripped = line.strip()
+        if not in_field:
+            m = _re.match(rf'{field}\s+"((?:[^"\\]|\\.)*)"', stripped)
+            if m:
+                in_field = True
+                parts.append(m.group(1))
+            continue
+        # In field: collect continuation lines starting with "
+        if stripped.startswith('"'):
+            m = _re.match(r'"((?:[^"\\]|\\.)*)"', stripped)
+            if m:
+                parts.append(m.group(1))
+            else:
+                break
+        else:
+            break
+    if not in_field:
+        return None
+    raw = ''.join(parts)
+    # Unescape PO escape sequences
+    return raw.replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\')
+
+
+def _get_fuzzy_catalog(app, docname):
+    """Load and cache the .po translation catalog for *docname*.
+
+    Returns a dict mapping msgid -> msgstr (only entries with a non-empty
+    msgstr).
+    """
+    if docname in _fuzzy_catalogs:
+        return _fuzzy_catalogs[docname]
+    po_path = os.path.join(_REPO, 'docs', 'locale', 'en', 'LC_MESSAGES', docname + '.po')
+    catalog = _parse_po_catalog(po_path)
+    _fuzzy_catalogs[docname] = catalog
+    return catalog
+
+
+def _on_doctree_resolved_fuzzy(app, doctree, docname):
+    """Post-Locale transform: fuzzy-match untranslated Chinese nodes.
+
+    After Sphinx's Locale transform runs (exact msgid matching), some nodes
+    may still contain Chinese text because their msgid changed in the source
+    document and no exact translation exists in the .po file.
+
+    This transform scans the doctree for nodes still containing Chinese text,
+    attempts a fuzzy match against the .po catalog, and either:
+    1. Replaces the text with the fuzzy-matched translation (similarity >= 0.5)
+    2. Hides the node entirely (no good fuzzy match found)
+
+    This ensures the English site never leaks untranslated Chinese content
+    during the gap between source changes and translation PR merge.
+
+    The three-tier strategy:
+    - Tier 1 (exact match): Sphinx's Locale transform (runs before this)
+    - Tier 2 (fuzzy match): this transform finds the closest msgid in the
+      .po catalog and uses its translation if similarity >= 0.5
+    - Tier 3 (hide): if no good fuzzy match, the content is hidden
+    """
+    if _is_zh:
+        return
+    if docname in _COMMUNITY_ROOT_DOCS:
+        return
+    catalog = _get_fuzzy_catalog(app, docname)
+    if not catalog:
+        return
+
+    from docutils import nodes
+
+    # Collect all text nodes that still contain Chinese
+    for node in list(doctree.findall(nodes.Text)):
+        parent = node.parent
+        if parent is None:
+            continue
+
+        text = str(node)
+        if not _has_chinese(text):
+            continue
+
+        # Try fuzzy match against catalog
+        _, matched_str, _ = _fuzzy_match_msgid(text, catalog)
+        if matched_str:
+            node.parent.replace(node, nodes.Text(matched_str))
+        else:
+            # No good match: hide the content
+            node.parent.replace(node, nodes.Text(''))
+
+    # Remove empty paragraphs/titles left after hiding content
+    for node in list(doctree.findall(nodes.paragraph)):
+        if not node.children or all(isinstance(c, nodes.Text) and str(c).strip() == '' for c in node.children):
+            node.parent.remove(node)
+    for node in list(doctree.findall(nodes.title)):
+        if not node.children or all(isinstance(c, nodes.Text) and str(c).strip() == '' for c in node.children):
+            node.parent.remove(node)
+
+
+# ---------------------------------------------------------------------------
 # Sphinx setup
 # ---------------------------------------------------------------------------
 
@@ -358,6 +546,7 @@ def setup(app):
     if not _is_zh:
         app.connect('source-read', _on_source_read)
         app.connect('source-read', _on_source_read_fallback)
+        app.connect('doctree-resolved', _on_doctree_resolved_fuzzy)
     return {'version': '0.1', 'parallel_read_safe': True}
 
 
