@@ -81,8 +81,8 @@ msgid ""
 "确定CANN、Python和TorchNPU软件版本并安装。如需具体安装步骤，请参考昇腾社区官网《[CANN快速安装](https://www.hiascend.com/cann/download)》完成驱动与固件安装。"
 msgstr ""
 "Determine the CANN, Python, and TorchNPU software versions to install. For "
-"specific installation steps, refer to \"[CANN Quick "
-"Installation](https://www.hiascend.com/cann/download)\" on the Ascend "
+"specific installation steps, refer to the [CANN Quick "
+"Installation](https://www.hiascend.com/cann/download) guide on the Ascend "
 "community website to complete driver and firmware installation."
 
 #: ../../zh/installation_guide.md:21

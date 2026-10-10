@@ -484,14 +484,11 @@ def _on_doctree_resolved_fuzzy(app, doctree, docname):
     1. Replaces the text with the fuzzy-matched translation (similarity >= 0.5)
     2. Hides the node entirely (no good fuzzy match found)
 
-    This ensures the English site never leaks untranslated Chinese content
-    during the gap between source changes and translation PR merge.
-
-    The three-tier strategy:
-    - Tier 1 (exact match): Sphinx's Locale transform (runs before this)
-    - Tier 2 (fuzzy match): this transform finds the closest msgid in the
-      .po catalog and uses its translation if similarity >= 0.5
-    - Tier 3 (hide): if no good fuzzy match, the content is hidden
+    Safety: only replaces Text nodes whose parent is a "simple" paragraph
+    (only Text children, no inline formatting like strong/em/link/code).
+    This prevents breaking markdown rendering when the translation text
+    contains ``**``, ``[]()``, or backtick markers that would be escaped
+    instead of parsed inside a Text node.
     """
     if _is_zh:
         return
@@ -503,6 +500,19 @@ def _on_doctree_resolved_fuzzy(app, doctree, docname):
 
     from docutils import nodes
 
+    # Inline node types that indicate the parent has formatted content.
+    # If a Text node has siblings of these types, we skip it to avoid
+    # breaking the inline formatting (e.g. **bold**, [link](url), `code`).
+    _INLINE_TYPES = (nodes.strong, nodes.emphasis, nodes.literal, nodes.image, nodes.footnote_reference,
+                     nodes.reference, nodes.substitution_reference, nodes.title_reference)
+
+    def _parent_has_inline(parent):
+        """Return True if *parent* has any inline formatting children."""
+        for child in parent.children:
+            if isinstance(child, _INLINE_TYPES):
+                return True
+        return False
+
     # Collect all text nodes that still contain Chinese
     for node in list(doctree.findall(nodes.Text)):
         parent = node.parent
@@ -513,10 +523,28 @@ def _on_doctree_resolved_fuzzy(app, doctree, docname):
         if not _has_chinese(text):
             continue
 
+        # Safety: skip Text nodes whose parent has inline formatting
+        # (strong, em, link, code, etc.). Replacing these with raw
+        # translation text would break the markdown rendering because
+        # ** and []() in a Text node are escaped, not parsed.
+        if _parent_has_inline(parent):
+            # For paragraphs with inline formatting, we can only hide
+            # the Chinese text (not replace with translation that may
+            # contain markdown markers).
+            node.parent.replace(node, nodes.Text(''))
+            continue
+
         # Try fuzzy match against catalog
         _, matched_str, _ = _fuzzy_match_msgid(text, catalog)
         if matched_str:
-            node.parent.replace(node, nodes.Text(matched_str))
+            # Only use the translation if it doesn't contain markdown
+            # markers that would need to be parsed (** ` [ etc.)
+            if not _re.search(r'[\*\[\]`]', matched_str):
+                node.parent.replace(node, nodes.Text(matched_str))
+            else:
+                # Translation contains markdown markers; hide instead
+                # of breaking the rendering
+                node.parent.replace(node, nodes.Text(''))
         else:
             # No good match: hide the content
             node.parent.replace(node, nodes.Text(''))
