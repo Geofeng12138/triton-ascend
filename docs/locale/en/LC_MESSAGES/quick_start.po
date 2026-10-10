@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Skill-Version: 2.0.0\\nLast-Translator: Auto Translation (DeepSeek)\n"
-"X-Source-Commit: e81d5b5cbb4ab48eaae4b50b2d626bb79352c7a6\n"
+"X-Source-Commit: 077163889f584e10b6ad182b22a09857abe0e211\n"
 
 #: ../../zh/quick_start.md:1
 msgid "快速入门"

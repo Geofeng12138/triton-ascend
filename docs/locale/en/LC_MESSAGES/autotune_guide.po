@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Skill-Version: 2.0.0\\nLast-Translator: Auto Translation (DeepSeek)\n"
-"X-Source-Commit: 4255d781109132d6bd2126b99deaebe34f73a601\n"
+"X-Source-Commit: 1fab4e186db5d3a66217b2365d39e45b85a5cb73\n"
 
 #: ../../zh/autotune_guide.md:1
 msgid "Triton-Ascend autotune 使用指南"

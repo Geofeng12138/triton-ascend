@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Skill-Version: 2.0.0\n"
-"X-Source-Commit: 3de88b311c9613ae6409b6a10933d7de55db1966\n"
+"X-Source-Commit: 68d7e2ae5a6b1badbc9a35c20353cf7d2d07da4b\n"
 
 #: ../../zh/installation_guide.md:1
 msgid "安装指南"

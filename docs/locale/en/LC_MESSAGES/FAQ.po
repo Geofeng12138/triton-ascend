@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Skill-Version: 2.0.0\\nLast-Translator: Auto Translation (DeepSeek)\n"
-"X-Source-Commit: 4b195e937bd56732ec96505d8737a90278aca71f\n"
+"X-Source-Commit: 63e66582aa1e2c5549aaf8a742ceccc5e9e6c031\n"
 
 #: ../../zh/FAQ.md:1
 msgid "Triton-Ascend FAQ"

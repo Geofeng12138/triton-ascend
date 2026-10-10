@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Skill-Version: 2.0.0\\nLast-Translator: Auto Translation (DeepSeek)\n"
-"X-Source-Commit: c9ca7104583ccf3f2163fe6fceb8f6d1574aea95\n"
+"X-Source-Commit: fb2088b645a2546e81e28661c34f3c54e060f907\n"
 
 #: ../../zh/environment_variable_and_compiler_options_reference.md:1
 msgid "环境变量与编译选项"

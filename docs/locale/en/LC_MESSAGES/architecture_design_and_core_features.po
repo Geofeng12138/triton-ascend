@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Skill-Version: 2.0.0\\nLast-Translator: Auto Translation (DeepSeek)\n"
-"X-Source-Commit: 8017ff577f1e0a9e8b169eb524957734636077c5\n"
+"X-Source-Commit: 1041b05d3eaa46c55bc81b2257cfdbd3d73c766b\n"
 
 #: ../../zh/architecture_design_and_core_features.md:1
 msgid "架构设计与核心特性"
