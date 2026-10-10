@@ -35,8 +35,8 @@ msgid "A: 可以直接使用pip 安装"
 msgstr "A: You can install it directly using pip."
 
 #: ../../zh/FAQ.md:9
-msgid "pip install triton-ascend\n"
-msgstr "pip install triton-ascend\n"
+msgid "pip install triton-ascend"
+msgstr "pip install triton-ascend"
 
 #: ../../zh/FAQ.md:13
 msgid "**Q: 社区 Triton 和 Triton-Ascend 能否同时存在？**"
@@ -76,11 +76,11 @@ msgstr ""
 msgid ""
 "pip uninstall triton\n"
 "pip uninstall triton-ascend\n"
-"pip install triton-ascend\n"
+"pip install triton-ascend"
 msgstr ""
 "pip uninstall triton\n"
 "pip uninstall triton-ascend\n"
-"pip install triton-ascend\n"
+"pip install triton-ascend"
 
 #: ../../zh/FAQ.md:29
 msgid "**Q: 能否在非 Ascend 硬件（如 CUDA AMD）上使用 Triton-Ascend？**"
@@ -264,7 +264,7 @@ msgid ""
 "    # store to ptr1\n"
 "\n"
 "in_out_tensor = torch.randn(shape)\n"
-"func[grid](in_out_tensor, in_out_tensor)\n"
+"func[grid](in_out_tensor, in_out_tensor)"
 msgstr ""
 "@triton.jit\n"
 "def func(ptr0, ptr1):\n"
@@ -274,7 +274,7 @@ msgstr ""
 "    # store to ptr1\n"
 "\n"
 "in_out_tensor = torch.randn(shape)\n"
-"func[grid](in_out_tensor, in_out_tensor)\n"
+"func[grid](in_out_tensor, in_out_tensor)"
 
 #: ../../zh/FAQ.md:97
 msgid ""

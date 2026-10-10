@@ -48,10 +48,10 @@ msgstr ""
 #: ../../zh/environment_variable_and_compiler_options_reference.md:11
 msgid ""
 "export TRITON_DEBUG=1\n"
-"python run_kernel.py\n"
+"python run_kernel.py"
 msgstr ""
 "export TRITON_DEBUG=1\n"
-"python run_kernel.py\n"
+"python run_kernel.py"
 
 #: ../../zh/environment_variable_and_compiler_options_reference.md:16
 msgid "环境变量参考表"
