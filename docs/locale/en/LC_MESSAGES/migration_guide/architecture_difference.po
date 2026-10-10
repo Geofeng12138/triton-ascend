@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-22 17:26+0800\n"
-"PO-Revision-Date: 2026-09-22 17:26+0800\n"
+"POT-Creation-Date: 2026-10-10 11:59+0800\n"
+"PO-Revision-Date: 2026-10-10 11:59+0800\n"
 
-"X-Source-Commit: 0cd019cb9d0d1433c07cab122a9faaa43a730bc9\n"
+"X-Source-Commit: e2e87c22fcd7fbd6223957d86406990d108dd563\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "昇腾与GPU的开发差异"
 msgstr "Development Differences Between Ascend and GPU"
+
+msgid "本⽂系统性梳理两⼤平台的核⼼架构、编程规则与优化⼿段差异，拆解昇腾NPU Triton专属开发特性与适配要点，帮助开发者快速建⽴昇腾NPU Triton开发思维，精准完成算⼦迁移、代码适配与性能调优⼯作，规避迁移常⻅问题。"
+msgstr "This article systematically reviews the differences in core architecture, programming rules, and optimization methods between the two platforms. It also breaks down the Ascend NPU Triton-specific development features and key adaptation points. This helps you quickly build an Ascend NPU Triton development mindset. You can then accurately complete operator migration, code adaptation, and performance tuning, and avoid common migration issues."
 
 msgid "多核任务并行策略"
 msgstr "Multi-core task parallelization strategy"
@@ -77,8 +80,8 @@ msgstr "The Ascend NPU has multiple compute cores. Reasonably allocating and ful
 msgid "triton_gelu[n, 1, 1](...)  # The first parameter indicates the number of cores to use; n means using n cores\\n"
 msgstr "triton_gelu[n, 1, 1](...)  # The first parameter indicates the number of cores to use; n means using n cores"
 
-msgid "通过对核数的调优，可实现对所有计算资源的充分调度和利用，从而最大化并行度与吞吐量。未启用 `auto-blockify`（见下节）时，发射 grid 的核数需小于等于 65,535。"
-msgstr "By tuning the number of cores, full scheduling and utilization of all computing resources can be achieved, thereby maximizing parallelism and throughput. When `auto-blockify` is not enabled (see the next section), the number of cores for launching the grid must be less than or equal to 65,535."
+msgid "通过对核数的调优，可实现对所有计算资源的充分调度和利用，从而最大化并行度与吞吐量。未启用 `auto-blockify`（见下节）时，启动grid的核数需小于等于 65,535。"
+msgstr "By tuning the number of cores, you can fully schedule and utilize all computing resources to maximize parallelism and throughput. If you do not enable `auto-blockify` (see the next section), the number of cores in the launched grid must be less than or equal to 65,535."
 
 msgid "auto-blockify：突破 65,535 逻辑块上限"
 msgstr "auto-blockify: Breaking through the 65,535 logical block limit"
@@ -152,8 +155,8 @@ msgstr "Developers can manually select the optimal partitioning configuration ba
 msgid "以GELU算子为例，通过调整切分参数，可以有效适配片上缓存容量限制，从而提升执行效率。"
 msgstr "Taking the GELU operator as an example, by adjusting the splitting parameters, it can effectively adapt to the on-chip cache capacity constraints, thereby improving execution efficiency."
 
-msgid "注：Atlas 800T/I A2产品的片上内存容量为192KB，因此在设计切分策略时需考虑该限制，确保每轮计算的数据量不超过片上内存容量。"
-msgstr "Note: The Atlas 800T/I A2 product has an on-chip memory capacity of 192KB. Therefore, this limitation must be considered when designing the partitioning strategy to ensure that the data volume for each computation round does not exceed the on-chip memory capacity."
+msgid "注：Atlas 800T A2训练服务器、Atlas 800I A2推理服务器的片上内存容量为192KB，因此在设计切分策略时需考虑该限制，确保每轮计算的数据量不超过片上内存容量。"
+msgstr "Note: The on-chip memory capacity of the Atlas 800T A2 training server and Atlas 800I A2 inference server is 192 KB. Therefore, consider this limit when designing a tiling strategy to ensure the data volume per computation round does not exceed the on-chip memory capacity."
 
 msgid "GELU算子示例"
 msgstr "GELU operator example"
@@ -236,8 +239,8 @@ msgstr "multibuffer"
 msgid "开启流水并行数据搬运"
 msgstr "Enable pipeline parallel data transfer."
 
-msgid "默认true； true , false。 autotune中可配置"
-msgstr "Default is true; true, false. Configurable in autotune."
+msgid "默认true；true , false。autotune中可配置"
+msgstr "The default value is true; valid values are true and false. You can configure this in autotune."
 
 msgid "unit_flag"
 msgstr "unit_flag"
@@ -245,17 +248,14 @@ msgstr "unit_flag"
 msgid "cube搬出的一个优化项"
 msgstr "An optimization item moved out of cube."
 
-msgid "默认None；true , false。  autotune中可配置"
-msgstr "Default None; true, false. Configurable in autotune."
+msgid "默认None；true , false。autotune中可配置"
+msgstr "Defaults to None; true, false. Configurable in autotune."
 
 msgid "limit_auto_multi_buffer_only_for_local_buffer"
 msgstr "limit_auto_multi_buffer_only_for_local_buffer"
 
 msgid "CV算子一个优化项，cube搬出的一个优化项"
 msgstr "One optimization item for the CV operator, and one optimization item for the cube output."
-
-msgid "默认None；true , false。 autotune中可配置"
-msgstr "Default is None; true, false. Configurable in autotune."
 
 msgid "limit_auto_multi_buffer_of_local_buffer"
 msgstr "limit_auto_multi_buffer_of_local_buffer"

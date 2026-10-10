@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
-"POT-Creation-Date: 2026-09-14 19:15+0800\n"
-"PO-Revision-Date: 2026-09-14 19:15+0800\n"
+"POT-Creation-Date: 2026-10-10 11:57+0800\n"
+"PO-Revision-Date: 2026-10-10 11:57+0800\n"
 
-"X-Source-Commit: c9ca7104583ccf3f2163fe6fceb8f6d1574aea95\n"
+"X-Source-Commit: 392484a837e43b5993240e32a13ffac623beaa0c\n"
 
 "X-Skill-Version: 2.0.0\\n"
 
@@ -455,8 +455,8 @@ msgstr "`vf_fusion_mode`"
 msgid "`None`（默认，遵循 BiShengIR 默认值 `\"max-parallel\"`）、`\"max-parallel\"`、`\"all-op\"`、`\"ub-aware-op\"`"
 msgstr "`None` (default, follows the BiShengIR default value `\"max-parallel\"`), `\"max-parallel\"`, `\"all-op\"`, `\"ub-aware-op\"`"
 
-msgid "选择 Ascend 950 BiShengIR 阶段的 VF fusion 策略。"
-msgstr "Select the VF fusion strategy for the Ascend 950 BiShengIR stage."
+msgid "选择 Ascend 950PR&950DT products BiShengIR 阶段的 VF fusion 策略。"
+msgstr "Specifies the VF fusion strategy in the BiShengIR stage for Ascend 950PR&950DT products."
 
 msgid "`enable_vf_fusion`"
 msgstr "`enable_vf_fusion`"
@@ -464,8 +464,8 @@ msgstr "`enable_vf_fusion`"
 msgid "`None`（默认，遵循 BiShengIR 默认值 `True`）、`True`、`False`"
 msgstr "`None` (default, follows the BiShengIR default value `True`), `True`, `False`"
 
-msgid "控制 Ascend 950 BiShengIR 阶段是否启用 VF fusion。该选项是 VF fusion 的总开关；`vf_fusion_mode` 仅用于选择融合策略。"
-msgstr "Controls whether VF fusion is enabled during the Ascend 950 BiShengIR stage. This option is the master switch for VF fusion; `vf_fusion_mode` is only used to select the fusion strategy."
+msgid "控制 Ascend 950PR&950DT products BiShengIR 阶段是否启用 VF fusion。该选项是 VF fusion 的总开关；`vf_fusion_mode` 仅用于选择融合策略。"
+msgstr "Controls whether to enable VF fusion in the BiShengIR stage for Ascend 950PR&950DT products. This option is the master switch for VF fusion; `vf_fusion_mode` is used only to select the fusion strategy."
 
 msgid "**HFusion**"
 msgstr "**HFusion**"
@@ -473,8 +473,8 @@ msgstr "**HFusion**"
 msgid "`hfusion_enable_multiple_consumer_fusion`"
 msgstr "`hfusion_enable_multiple_consumer_fusion`"
 
-msgid "控制 Ascend 950 BiShengIR 阶段的多 consumer 融合。"
-msgstr "Controls multi-consumer fusion in the Ascend 950 BiShengIR stage."
+msgid "控制 Ascend 950PR&950DT products BiShengIR 阶段的多 consumer 融合。"
+msgstr "Controls the multi-consumer fusion in the BiShengIR stage of Ascend 950PR&950DT products."
 
 msgid "**CV 融合/同步**"
 msgstr "**CV Fusion/Sync**"
@@ -587,8 +587,8 @@ msgstr "`compile_mode`"
 msgid "`\"simd_simt_template\"`（默认）、`\"simd\"`、`\"simt_only\"`"
 msgstr "`\"simd_simt_template\"` (default), `\"simd\"`, `\"simt_only\"`"
 
-msgid "控制 SIMD / SIMT 编译路径。`\"simd\"`：纯 SIMD；`\"simd_simt_template\"`：普通 SIMD pipeline，并在 Ascend 950 上启用 template-SIMT 子路径；`\"simt_only\"`：仅 Ascend 950 支持的纯 SIMT 路径（`ttir→npubin`）。"
-msgstr "Controls the SIMD / SIMT compilation path. `\"simd\"`: pure SIMD; `\"simd_simt_template\"`: standard SIMD pipeline, and enables the template-SIMT sub-path on Ascend 950; `\"simt_only\"`: pure SIMT path supported only on Ascend 950 (`ttir→npubin`)."
+msgid "控制 SIMD / SIMT 编译路径。`\"simd\"`：纯 SIMD；`\"simd_simt_template\"`：普通 SIMD pipeline，并在 Ascend 950PR&950DT products 上启用 template-SIMT 子路径；`\"simt_only\"`：仅 Ascend 950PR&950DT products 支持的纯 SIMT 路径（`ttir→npubin`）。"
+msgstr "Controls the SIMD/SIMT compilation path. `\"simd\"`: pure SIMD; `\"simd_simt_template\"`: standard SIMD pipeline, and enables the template-SIMT sub-path on Ascend 950PR&950DT products; `\"simt_only\"`: pure SIMT path supported only on Ascend 950PR&950DT products (`ttir→npubin`)."
 
 msgid "编译选项清理与兼容性"
 msgstr "Compilation Option Cleanup and Compatibility"
