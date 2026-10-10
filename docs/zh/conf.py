@@ -574,7 +574,12 @@ def setup(app):
     if not _is_zh:
         app.connect('source-read', _on_source_read)
         app.connect('source-read', _on_source_read_fallback)
-        app.connect('doctree-resolved', _on_doctree_resolved_fuzzy)
+        # NOTE: _on_doctree_resolved_fuzzy is disabled because it causes
+        # content to be hidden when .po files are not perfectly in sync
+        # with the source docs (e.g. during the translation PR window).
+        # The source-read fallback (_on_source_read_fallback) provides a
+        # safer mechanism that shows the last translated version instead.
+        # app.connect('doctree-resolved', _on_doctree_resolved_fuzzy)
     return {'version': '0.1', 'parallel_read_safe': True}
 
 
