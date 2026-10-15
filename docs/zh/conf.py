@@ -24,6 +24,8 @@ import difflib as _difflib
 import subprocess as _subprocess
 import importlib.util as _ilu
 
+from sphinx.transforms import SphinxTransform
+
 project = 'Triton Ascend'
 copyright = '2026, Huawei'
 author = 'Huawei'
@@ -75,8 +77,16 @@ language = 'zh_CN' if _is_zh else 'en'
 # Gettext / i18n
 # ---------------------------------------------------------------------------
 gettext_compact = False
-# Extract code blocks (literal blocks) as translatable units so that Chinese
-# comments inside code blocks are also translated (not skipped).
+# Extract code blocks (literal blocks), raw, and image nodes as translatable
+# units so that Chinese comments inside code blocks are also extracted into
+# .po files.
+#
+# During the English HTML build, Sphinx's Locale transform wraps code block
+# translations in RST '::' syntax, which the MyST parser (used for .md files)
+# does not understand, causing code blocks to be emptied. The custom
+# _on_doctree_resolved_codeblocks transform (registered in setup()) handles
+# code block translation after Locale runs, by reading the .po catalog
+# directly and replacing literal_block node content.
 gettext_additional_targets = ['literal-block', 'raw', 'image']
 if not _is_zh:
     # English build: read gettext .po translations from locale/en/LC_MESSAGES/.
@@ -100,7 +110,15 @@ _COMMUNITY_ROOT_DOCS = {
     "community/roadmap_guide": "docs/en/community/roadmap_guide.md",
 }
 
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+# Directories that contain Chinese API reference docs auto-generated from
+# Python source code. These are excluded from translation (see
+# EXCLUDED_DIRS in translate_md.py) and should not appear on the English
+# site because no English source docs exist for them. Exclude them from
+# the English build to prevent Chinese content from leaking through.
+if not _is_zh:
+    exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'triton_api', 'triton_api_extension', 'libdevice']
+else:
+    exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -342,6 +360,473 @@ def _on_source_read_fallback(app, docname, source):
     source[0] = _build_fallback_source(old_source, source[0])
 
 
+def _on_source_read_codeblocks(app, docname, source):
+    """Translate Chinese comments in code blocks at the source level.
+
+    Sphinx's Locale transform cannot translate literal_block nodes in
+    Markdown sources because it wraps the translation in RST '::' syntax,
+    which the MyST parser does not understand. This causes code blocks
+    with Chinese comments to be emptied.
+
+    This hook runs at the source-read stage, BEFORE Sphinx parses the
+    Markdown. It finds fenced code blocks (```lang ... ```) in the
+    Markdown source and replaces their content with the translated
+    version from the .po catalog, if available.
+
+    This is the most reliable approach because it operates on raw
+    Markdown text before any Sphinx/docutils node lifecycle issues.
+    """
+    if _is_zh:
+        return
+    if docname in _COMMUNITY_ROOT_DOCS:
+        return
+
+    catalog = _get_fuzzy_catalog(app, docname)
+    if not catalog:
+        return
+
+    text = source[0]
+    if not _has_chinese(text):
+        return
+
+    import re as _re_mod
+
+    def _replace_code_block_indented(match):
+        indent = match.group(1)
+        lang = match.group(2)
+        code = match.group(3)
+
+        # Only process if the code block contains Chinese
+        if not _has_chinese(code):
+            return match.group(0)
+
+        # The code block content may have additional indentation from the source
+        # Remove the common leading whitespace (matching the fence indentation)
+        lines = code.split('\n')
+        # The fence indentation + potential extra indentation
+        fence_indent_len = len(indent)
+        # Find minimum indentation of non-empty lines (including fence indent)
+        min_indent = float('inf')
+        for line in lines:
+            if line.strip():
+                # Count leading spaces
+                leading = len(line) - len(line.lstrip())
+                min_indent = min(min_indent, leading)
+
+        if min_indent == float('inf'):
+            stripped_code = code
+        elif min_indent > 0:
+            stripped_code = '\n'.join(line[min_indent:] if len(line) >= min_indent else line for line in lines)
+        else:
+            stripped_code = code
+
+        # Try exact match in .po catalog
+        translated = catalog.get(stripped_code, '')
+        if not translated:
+            translated = catalog.get(stripped_code.rstrip('\n'), '')
+        if not translated:
+            translated = catalog.get(stripped_code + '\n', '')
+
+        if translated and translated != stripped_code:
+            # Re-indent the translated code
+            if min_indent > 0 and min_indent != float('inf'):
+                trans_lines = translated.split('\n')
+                translated = '\n'.join((' ' * min_indent + line) if line.strip() else line for line in trans_lines)
+            return indent + '```' + lang + '\n' + translated + '\n```'
+        return match.group(0)
+
+    # Find and replace fenced code blocks by scanning line by line
+    # This avoids regex issues with nested fences
+    lines = text.split('\n')
+    new_lines = []
+    i = 0
+    replacements = 0
+    while i < len(lines):
+        line = lines[i]
+        # Check if this line is a fence opening: optional indent + ``` + optional lang
+        stripped = line.lstrip()
+        if stripped.startswith('```'):
+            indent = line[:len(line) - len(stripped)]
+            lang = stripped[3:].strip()  # Remove ``` and get language
+            # Collect code block content until closing fence
+            code_lines = []
+            i += 1
+            while i < len(lines):
+                code_line = lines[i]
+                if code_line.lstrip().startswith('```'):
+                    break
+                code_lines.append(code_line)
+                i += 1
+            code = '\n'.join(code_lines)
+
+            # Check if code block contains Chinese
+            if _has_chinese(code):
+                # Remove common leading whitespace to match .po msgid format
+                min_indent = float('inf')
+                for cl in code_lines:
+                    if cl.strip():
+                        cl_indent = len(cl) - len(cl.lstrip())
+                        min_indent = min(min_indent, cl_indent)
+
+                if min_indent == float('inf') or min_indent == 0:
+                    stripped_code = code
+                else:
+                    stripped_code = '\n'.join(cl[min_indent:] if len(cl) >= min_indent else cl for cl in code_lines)
+
+                # Try exact match in .po catalog
+                translated = catalog.get(stripped_code, '')
+                if not translated:
+                    translated = catalog.get(stripped_code.rstrip('\n'), '')
+                if not translated:
+                    translated = catalog.get(stripped_code + '\n', '')
+
+                if translated and translated != stripped_code:
+                    # Re-indent
+                    if min_indent > 0 and min_indent != float('inf'):
+                        trans_lines = translated.split('\n')
+                        translated = '\n'.join((' ' * min_indent + tl) if tl.strip() else tl for tl in trans_lines)
+                    new_lines.append(indent + '```' + lang)
+                    new_lines.append(translated)
+                    new_lines.append(indent + '```')
+                    replacements += 1
+                    i += 1  # Skip closing fence
+                    continue
+
+            # No translation found, keep original
+            new_lines.append(line)
+            new_lines.extend(code_lines)
+            if i < len(lines):
+                new_lines.append(lines[i])  # Closing fence
+        else:
+            new_lines.append(line)
+        i += 1
+
+    if replacements > 0:
+        print(f"DEBUG codeblocks: {docname} {replacements} replacements made")
+        source[0] = '\n'.join(new_lines)
+
+
+# ---------------------------------------------------------------------------
+# English-build: gettext-level fuzzy matching fallback
+# ---------------------------------------------------------------------------
+
+
+def _has_chinese(text):
+    """Return True if *text* contains any CJK Unified Ideograph characters."""
+    return bool(_re.search(r'[\u4e00-\u9fff]', text or ''))
+
+
+def _fuzzy_match_msgid(text, catalog, threshold=0.5):
+    """Find the best fuzzy match for *text* in *catalog* (a dict of
+    msgid -> msgstr).
+
+    Returns (msgid, msgstr, ratio) for the best match whose similarity ratio
+    is at least *threshold*, or (None, None, 0) if no match is good enough.
+
+    The threshold is lowered to 0.4 for short strings (<= 20 chars) because
+    difflib's ratio is more sensitive to small changes in short text.
+    """
+    if len(text) <= 20:
+        threshold = min(threshold, 0.4)
+    best_ratio = 0.0
+    best_msgid = None
+    best_msgstr = None
+    for msgid, msgstr in catalog.items():
+        if not msgstr:
+            continue
+        ratio = _difflib.SequenceMatcher(None, text, msgid, autojunk=False).ratio()
+        if ratio > best_ratio:
+            best_ratio = ratio
+            best_msgid = msgid
+            best_msgstr = msgstr
+    if best_ratio >= threshold:
+        return best_msgid, best_msgstr, best_ratio
+    return None, None, 0.0
+
+
+# Cache: {docname -> {msgid -> msgstr}} for the fuzzy-match catalog.
+_fuzzy_catalogs = {}
+
+# Cache: {(docname, node_line) -> rawsource} for code blocks before Locale transform
+# Uses node.line (source line number) as key instead of id(node) because
+# Locale transform may rebuild nodes, invalidating id(node) references.
+_codeblock_backups = {}
+
+
+def _on_doctree_read_backup(app, doctree):
+    """Backup code block rawsource before Locale transform runs.
+
+    Sphinx's Locale transform runs during doctree processing and may
+    empty code blocks (replacing content with '::'). This backup stores
+    the original rawsource so it can be restored later.
+
+    Uses node.line (source line number) as the backup key because Locale
+    transform may rebuild nodes, invalidating id(node) references.
+    """
+    if _is_zh:
+        return
+    from docutils import nodes
+    docname = app.env.current_document.docname if hasattr(app.env, 'current_document') else ''
+    for node in doctree.findall(nodes.literal_block):
+        rawsource = node.get('rawsource', '')
+        if rawsource and _has_chinese(rawsource):
+            node_line = node.line or 0
+            _codeblock_backups[(docname, node_line)] = rawsource
+
+
+def _parse_po_catalog(po_path):
+    """Parse a .po file and return a dict of msgid -> msgstr.
+
+    Only entries with a non-empty msgstr are included. The PO escape
+    sequences (\\n, \\", \\\\) are unescaped.
+    """
+    catalog = {}
+    if not os.path.exists(po_path):
+        return catalog
+    try:
+        with open(po_path, encoding='utf-8') as f:
+            raw = f.read()
+    except OSError:
+        return catalog
+
+    # Split into blocks separated by blank lines
+    blocks = raw.split('\n\n')
+    for block in blocks:
+        block = block.strip()
+        if not block:
+            continue
+
+        lines = block.split('\n')
+
+        # Extract msgid (handles single-line and multi-line formats)
+        msgid = _extract_po_field_from_lines(lines, 'msgid')
+        if not msgid:
+            continue
+
+        # Extract msgstr
+        msgstr = _extract_po_field_from_lines(lines, 'msgstr')
+        if not msgstr:
+            continue
+
+        # Unescape PO escape sequences
+        msgstr = msgstr.replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\')
+        catalog[msgid] = msgstr
+
+    return catalog
+
+
+def _extract_po_field_from_lines(lines, field):
+    """Extract the value of a PO field (msgid or msgstr) from a list of lines.
+
+    Handles:
+    - Single-line:  msgid "text"
+    - Multi-line:   msgid ""\n"first\\n"\n"second"
+    """
+    in_field = False
+    parts = []
+    for line in lines:
+        stripped = line.strip()
+        if not in_field:
+            m = _re.match(rf'{field}\s+"((?:[^"\\]|\\.)*)"', stripped)
+            if m:
+                in_field = True
+                parts.append(m.group(1))
+            continue
+        # In field: collect continuation lines starting with "
+        if stripped.startswith('"'):
+            m = _re.match(r'"((?:[^"\\]|\\.)*)"', stripped)
+            if m:
+                parts.append(m.group(1))
+            else:
+                break
+        else:
+            break
+    if not in_field:
+        return None
+    raw = ''.join(parts)
+    # Unescape PO escape sequences
+    return raw.replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\')
+
+
+def _get_fuzzy_catalog(app, docname):
+    """Load and cache the .po translation catalog for *docname*.
+
+    Returns a dict mapping msgid -> msgstr (only entries with a non-empty
+    msgstr).
+    """
+    if docname in _fuzzy_catalogs:
+        return _fuzzy_catalogs[docname]
+    po_path = os.path.join(_REPO, 'docs', 'locale', 'en', 'LC_MESSAGES', docname + '.po')
+    catalog = _parse_po_catalog(po_path)
+    _fuzzy_catalogs[docname] = catalog
+    return catalog
+
+
+def _translate_remaining_chinese(app, doctree, docname):
+    """Translate remaining Chinese Text nodes using the .po catalog.
+
+    Sphinx's Locale transform uses node.rawsource as the lookup key. However,
+    the MyST parser does not set rawsource for paragraphs and titles inside
+    list items, so those nodes cannot be translated by the Locale transform.
+
+    This function scans the doctree for Text nodes that still contain Chinese,
+    looks up the text in the .po catalog (exact match, plus variants with and
+    without leading list markers), and replaces the Text node content with the
+    translation.
+
+    Safety: only replaces Text nodes whose translation contains no markdown
+    markers (``**``, backtick, brackets). Content that cannot be translated
+    safely is left unchanged (rather than hidden).
+    """
+    if _is_zh:
+        return
+    if docname in _COMMUNITY_ROOT_DOCS:
+        return
+    catalog = _get_fuzzy_catalog(app, docname)
+    if not catalog:
+        return
+
+    from docutils import nodes
+
+    def _lookup(text):
+        """Look up *text* in the catalog with common variant forms."""
+        candidates = [text, text.strip(), text.rstrip('\n'), text.strip().rstrip('\n')]
+        stripped = text.lstrip()
+        if stripped and stripped[0] in '-*+':
+            candidates.append(stripped[1:].lstrip())
+        for cand in candidates:
+            if cand in catalog and catalog[cand]:
+                return catalog[cand]
+        return ''
+
+    replaced = 0
+    for node in list(doctree.findall(nodes.Text)):
+        text = str(node)
+        if not _has_chinese(text):
+            continue
+
+        translated = _lookup(text)
+        if not translated:
+            continue
+
+        # Only replace if the translation has no markdown markers that
+        # would be escaped inside a Text node.
+        if _re.search(r'[\*\[\]`]', translated):
+            continue
+
+        node.parent.replace(node, nodes.Text(translated))
+        replaced += 1
+
+
+def _on_doctree_resolved_fuzzy(app, doctree, docname):
+    """Event hook wrapper around _translate_remaining_chinese."""
+    _translate_remaining_chinese(app, doctree, docname)
+
+
+class _TranslateRemainingChinese(SphinxTransform):
+    """Translate remaining Chinese text nodes before the TOC is collected.
+
+    Sphinx's Locale transform (priority 20) fails to translate paragraphs and
+    titles whose ``rawsource`` is empty (a MyST parser quirk for content inside
+    list items). The TOC collector (priority 500) runs after Locale but before
+    the ``doctree-resolved`` event, so it would otherwise capture untranslated
+    titles. This transform runs at priority 100 — after Locale, before the TOC
+    collector — so both the document body and the TOC get the translated titles.
+    """
+
+    default_priority = 100
+
+    def apply(self, **kwargs):
+        _translate_remaining_chinese(self.app, self.document, self.env.docname)
+
+
+# ---------------------------------------------------------------------------
+# English-build: translate Chinese comments in code blocks
+# ---------------------------------------------------------------------------
+
+
+def _on_doctree_resolved_codeblocks(app, doctree, docname):
+    """Translate Chinese comments inside literal_block (code block) nodes.
+
+    Sphinx's Locale transform cannot translate literal_block nodes in
+    Markdown sources because it wraps the translation in RST ``::`` syntax,
+    which the MyST parser does not understand. To avoid code blocks being
+    emptied, ``literal-block`` is excluded from ``gettext_additional_targets``,
+    so Locale skips code blocks entirely.
+
+    This transform runs after Locale and manually translates code blocks
+    that still contain Chinese text, using the .po catalog for the current
+    document. The .po files are generated by ``translate_md.py`` which runs
+    ``sphinx-build -b gettext`` with ``literal-block`` enabled, so code block
+    entries exist in the .po catalog even though the English build does not
+    use ``literal-block`` in its own ``gettext_additional_targets``.
+
+    Fallback: if the .po catalog does not contain a matching entry (e.g.
+    during the translation PR window), the code block keeps its original
+    Chinese text. The ``_on_source_read_fallback`` hook provides a
+    source-level fallback that shows the last translated version instead.
+    """
+    if _is_zh:
+        return
+    if docname in _COMMUNITY_ROOT_DOCS:
+        return
+    catalog = _get_fuzzy_catalog(app, docname)
+    if not catalog:
+        return
+
+    from docutils import nodes
+
+    for node in list(doctree.findall(nodes.literal_block)):
+        rawsource = node.get('rawsource', '')
+        text = node.astext()
+
+        # If Locale emptied this code block (content is '::'), try to restore
+        # from the backup taken in _on_doctree_read_backup
+        if text.strip() == '::' or (not rawsource and not text.strip()):
+            node_line = node.line or 0
+            backup = _codeblock_backups.get((docname, node_line), '')
+            if backup:
+                rawsource = backup
+                text = backup
+
+        # Skip if neither rawsource nor text contains Chinese
+        if not _has_chinese(rawsource) and not _has_chinese(text):
+            continue
+
+        # Use rawsource as primary lookup key, fall back to text
+        lookup_key = rawsource if rawsource else text
+        if not lookup_key:
+            continue
+
+        # Exact match in .po catalog
+        msgstr = catalog.get(lookup_key, '')
+        if not msgstr:
+            # Try with trailing newline (po entries often keep it)
+            msgstr = catalog.get(lookup_key + '\n', '')
+        if not msgstr:
+            # Try without trailing newline
+            msgstr = catalog.get(lookup_key.rstrip('\n'), '')
+        if not msgstr:
+            # Try using text as lookup key
+            msgstr = catalog.get(text, '')
+            if not msgstr:
+                msgstr = catalog.get(text + '\n', '')
+            if not msgstr:
+                msgstr = catalog.get(text.rstrip('\n'), '')
+        if not msgstr:
+            continue
+
+        # Replace the code block content with the translated version
+        node.rawsource = msgstr
+        node.children = []
+        node += nodes.Text(msgstr)
+
+        # Replace the code block content with the translated version
+        node.rawsource = msgstr
+        node.children = []
+        node += nodes.Text(msgstr)
+
+
 # ---------------------------------------------------------------------------
 # Sphinx setup
 # ---------------------------------------------------------------------------
@@ -358,6 +843,9 @@ def setup(app):
     if not _is_zh:
         app.connect('source-read', _on_source_read)
         app.connect('source-read', _on_source_read_fallback)
+        app.connect('source-read', _on_source_read_codeblocks)
+        app.connect('doctree-resolved', _on_doctree_resolved_fuzzy)
+        app.add_transform(_TranslateRemainingChinese)
     return {'version': '0.1', 'parallel_read_safe': True}
 
 
