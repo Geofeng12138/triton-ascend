@@ -160,6 +160,8 @@ if _force_mock:
         os.path.join(_HERE, "_mock", "_triton_mock.py"),
     ).install()
 
+autodoc_mock_imports = []
+
 import triton
 import triton.language.extra as _tl_extra
 
