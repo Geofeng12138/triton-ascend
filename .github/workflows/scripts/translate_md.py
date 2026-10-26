@@ -1350,7 +1350,7 @@ def run_sphinx_gettext() -> bool:
     print(f"Running: sphinx-build -b gettext docs/zh {LOCALE_DIR}/", flush=True)
     result = subprocess.run(
         [
-            sys.executable, "-m", "sphinx", "-b", "gettext", "-q", "-D", "locale_dirs=['.']",
+            sys.executable, "-m", "sphinx", "-b", "gettext", "-q", "-D", "locale_dirs=['.']", "-D", "language=zh_CN",
             str(ZH_DIR),
             str(LOCALE_DIR)
         ],
