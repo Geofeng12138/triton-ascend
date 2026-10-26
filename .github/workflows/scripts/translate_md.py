@@ -557,7 +557,9 @@ def write_po_file(filepath: Path, entries: dict, source_pot: str = "", changed: 
         lines.append('')
 
     text = '\n'.join(lines)
-    filepath.write_text(text, encoding="utf-8")
+    if not text.endswith('\n'):
+        text += '\n'
+    filepath.write_text(text, encoding="utf-8", newline='\n')
 
 
 def validate_po_file(po_path: Path) -> List[str]:
