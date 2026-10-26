@@ -736,6 +736,18 @@ def _translate_remaining_chinese(app, doctree, docname):
         if not _has_chinese(text):
             continue
 
+        # Skip Text nodes inside literal_block (code block) nodes.
+        # Code blocks are handled by _on_source_read_codeblocks at the
+        # source level.  Emptying or mutating their Text nodes here would
+        # destroy code content.
+        ancestor = node.parent
+        while ancestor is not None:
+            if isinstance(ancestor, nodes.literal_block):
+                break
+            ancestor = getattr(ancestor, 'parent', None)
+        if ancestor is not None:
+            continue
+
         translated = _lookup(text)
 
         if not translated:
@@ -746,7 +758,17 @@ def _translate_remaining_chinese(app, doctree, docname):
                 node.parent.replace(node, nodes.Text(translated))
                 replaced += 1
             else:
-                node.parent.replace(node, nodes.Text(''))
+                # The fuzzy-matched translation contains inline Markdown
+                # markers (``**``, backticks, brackets) that cannot be
+                # placed in a plain Text node.  Strip them and apply the
+                # resulting plain text so the cell/paragraph is neither
+                # empty nor showing raw Markdown syntax.
+                plain = _re.sub(r'\*\*([^*]+)\*\*', r'\1', translated)
+                plain = _re.sub(r'`([^`]+)`', r'\1', plain)
+                plain = _re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', plain)
+                plain = _re.sub(r'[\*\[\]`]', '', plain)
+                node.parent.replace(node, nodes.Text(plain))
+                replaced += 1
         else:
             node.parent.replace(node, nodes.Text(''))
 
