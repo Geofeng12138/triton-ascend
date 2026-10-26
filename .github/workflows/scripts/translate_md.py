@@ -415,11 +415,6 @@ def parse_pot_file(filepath: Path) -> dict:
         block = block.strip()
         if not block:
             continue
-        # Skip the PO header block (msgid "" with metadata in msgstr)
-        # and any stale garbage entries (msgid "" with a non-empty
-        # "translation" produced by older LLM runs).
-        if block.startswith('msgid ""') and '# ' not in block.split('\n')[0]:
-            continue
 
         msgid = _extract_po_value(block, 'msgid')
         msgstr = _extract_po_value(block, 'msgstr')
@@ -428,6 +423,9 @@ def parse_pot_file(filepath: Path) -> dict:
         # header block (msgid="" with metadata) and stale garbage entries
         # (msgid="" with a non-empty LLM meta-response like
         # "No text was provided for translation...").
+        # Note: multi-line msgids (code blocks) also start with `msgid ""`
+        # in PO format, but their actual content is non-empty after parsing
+        # continuation lines, so they are NOT skipped here.
         if msgid is not None and msgid == "":
             continue
 
@@ -656,9 +654,12 @@ def fix_po_file(po_path: Path) -> bool:
         if not stripped:
             new_blocks.append(block)
             continue
-        # Skip the header block
-        if stripped.startswith('msgid ""') and '# ' not in stripped.split('\n')[0]:
-            # Check if this is a garbage entry (msgid="" with non-empty msgstr)
+        # Check if this is a garbage entry (actual empty msgid with non-empty msgstr).
+        # Multi-line msgids (code blocks) also start with `msgid ""` in PO format,
+        # but their actual content is non-empty after parsing continuation lines,
+        # so we must check the parsed msgid, not just the `msgid ""` prefix.
+        msgid = _extract_po_value(stripped, 'msgid')
+        if msgid is not None and msgid == "":
             msgstr = _extract_po_value(stripped, 'msgstr')
             if msgstr and msgstr.strip():
                 fixed = True
@@ -1356,7 +1357,6 @@ def run_sphinx_gettext() -> bool:
         ],
         capture_output=True,
         text=True,
-        env={**os.environ, "READTHEDOCS_LANGUAGE": "zh-CN"},
     )
     if result.returncode != 0:
         print(f"sphinx-build FAILED (exit {result.returncode})", flush=True)

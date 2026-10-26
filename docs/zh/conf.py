@@ -94,12 +94,20 @@ gettext_compact = False
 # _on_source_read_codeblocks, and raw HTML tables are translated by
 # _translate_raw_nodes (both registered in setup()).
 gettext_additional_targets = ['literal-block', 'raw', 'image']
+
+# Detect gettext builder via command-line arguments.  This is more reliable
+# than environment variables because ``sys.argv`` is always available,
+# regardless of whether READTHEDOCS_LANGUAGE is set (GitHub Actions does not
+# set it, Read the Docs does).
+_is_gettext_builder = 'gettext' in _sys.argv
+
 if not _is_zh:
-    # English HTML build: no gettext_additional_targets. Code blocks and raw
-    # HTML are handled by custom source-read hooks / transforms.
-    gettext_additional_targets = []
     # English build: read gettext .po translations from locale/en/LC_MESSAGES/.
     locale_dirs = ['../locale/']
+    if not _is_gettext_builder:
+        # English HTML build: disable gettext_additional_targets so Sphinx's
+        # Locale transform does not empty code blocks or strip raw HTML tables.
+        gettext_additional_targets = []
 
 # ---------------------------------------------------------------------------
 # Community documents whose English build renders the canonical English document
