@@ -40,7 +40,7 @@ applicable-scope:
 | 规范 | 要求 | 示例 |
 | ------ | ------ | ------ |
 | 主动语态优先 | 面向用户的资料以主动语态为主 | ❌ "Designed for..." → ✅ "This guide provides..." |
-| 操作类用祈使句 | 操作步骤省去 you，直接使用动词开头 | ❌ "You can enter the password" → ✅ "Enter the password" |
+| 操作类用祈使句 | 操作步骤省去you，直接使用动词开头 | ❌ "You can enter the password" → ✅ "Enter the password" |
 | 被动语态例外 | 动作执行者未知/无关、错误提示中避免责备用户时可用被动 | "The dialog box is displayed" |
 
 #### 时态规范
@@ -94,39 +94,44 @@ applicable-scope:
 - 词汇简缩（char、config）
 - 缩略词（can't、it's）
 
-#### 语法完整性检查（重要）
+#### 语法完整性检查（新增，重要）
 
 > ⚠️ 警告：中文省略主语常见，但英文必须有明确主语和动词！忽略此规则会导致严重语法错误！
 
-必须检查以下语法错误：
+**必须检查以下语法错误：**
 
-- **缺少主语**：中文省略主语常见，但英文必须有主语。检查每个句子是否包含明确的主语（you、the system、this guide 等）。
-- **缺少动词**：检查每个句子是否包含明确的动词。
-- **句子结构完整性**：使用 "For + 动名词" 结构引导长句；避免 "名词 + please refer to" 的错误结构。
+- **缺少主语**
+    - 中文省略主语常见，但英文必须有主语
+    - 检查方法：每个句子是否包含明确的主语（you、the system、this guide等）
+- **缺少动词**
+    - 检查方法：每个句子是否包含明确的动词
+- **句子结构完整性**
+    - 使用"For + 动名词"结构引导长句
+    - 避免"名词 + please refer to"的错误结构
 
-#### 句子结构重构规则
+#### 句子结构重构规则（新增）
 
 中文长句的英文处理策略：
 
-- **"请参考..." 句型**
-  - ❌ 错误：直接翻译为 "please refer to" 放在句尾
-  - ✓ 正确：使用 "For..." 引导或拆分为两个句子
+- **"请参考..."句型**
+    - ❌ 错误：直接翻译为"please refer to"放在句尾
+    - ✓ 正确：使用"For..."引导或拆分为两个句子
 
-   | 中文 | ❌ 错误 | ✓ 正确 |
-   |-----|--------|--------|
-   | XX操作请参考《指南》中的"准备软件包"章节 | "XX operations please refer to 'Prepare Software Package' chapter in Guide" | "For XX operations, refer to the 'Prepare Software Package' chapter in the Guide" |
+    | 中文 | ❌ 错误 | ✓ 正确 |
+    |-----|--------|--------|
+    | XX操作请参考《指南》中的"准备软件包"章节 | "XX operations please refer to 'Prepare Software Package' chapter in Guide" | "For XX operations, refer to the 'Prepare Software Package' chapter in the Guide" |
 
 - **条件句处理**
-  - ❌ 错误：省略主语，直接用 "If need..."
-  - ✓ 正确：完整主语 "If you need..."
+    - ❌ 错误：省略主语，直接用"If need..."
+    - ✓ 正确：完整主语"If you need..."
 
-   | 中文 | ❌ 错误 | ✓ 正确 |
-   |-----|--------|--------|
-   | 若仅编译算子，可以不安装 | "if only compiling operators, can not install" | "if you are only compiling operators, they do not need to be installed" |
+    | 中文 | ❌ 错误 | ✓ 正确 |
+    |-----|--------|--------|
+    | 若仅编译算子，可以不安装 | "if only compiling operators, can not install" | "if you are only compiling operators, they do not need to be installed" |
 
 - **并列句处理**
-  - 使用分号连接相关句子
-  - 或拆分为独立句子
+    - 使用分号连接相关句子
+    - 或拆分为独立句子
 
 #### 语态选择规则
 
@@ -137,49 +142,132 @@ applicable-scope:
 | 用户操作指引 | 祈使句（主动） | "Select a software installation method..." ✓ vs "Software installation method selection..." ❌ |
 | 功能描述 | 主动语态 | "WebIDE provides..." ✓ vs "WebIDE can provide..." ❌ |
 | 状态描述 | 可用被动 | "The necessary software packages are already installed" ✓ |
-| 条件说明 | 祈使句或 you 为主语 | "If you need to run samples..." ✓ vs "If need to run samples..." ❌ |
+| 条件说明 | 祈使句或you为主语 | "If you need to run samples..." ✓ vs "If need to run samples..." ❌ |
 
 **对比示例：**
 
 | 中文原文 | ❌ 错误翻译 | ✓ 正确翻译 | 分析 |
 | --------- | ----------- | ----------- | ------ |
 | WebIDE可提供... | "WebIDE can provide..." | "WebIDE provides..." | 主动语态更直接 |
-| 该平台为您提供... | "provides...for you" | "provides you with..." | "provide you with" 更地道 |
+| 该平台为您提供... | "provides...for you" | "provides you with..." | "provide you with"更地道 |
 
-#### 冠词使用规范
+#### 冠词使用规范（新增）
 
 必须检查冠词：
 
 - **单数可数名词前必须有冠词**
 
-   | 错误 | 正确 |
-   | ----- | ------ |
-   | "WebIDE development platform" | "the WebIDE development platform" |
-   | "Ascend environment" | "an Ascend environment" |
-   | "Docker engine" | "the Docker engine" |
+    | 错误 | 正确 |
+    | ----- | ------ |
+    | "WebIDE development platform" | "the WebIDE development platform" |
+    | "Ascend environment" | "an Ascend environment" |
+    | "Docker engine" | "the Docker engine" |
 
-- **特指名词前用 the**："the host machine"（特指宿主机）、"the root user"（特指 root 用户）、"the CANN software package"（特指某个包）
-- **泛指名词前用 a/an**："an Ascend environment"（泛指一个环境）、"a compilation environment"（泛指编译环境）
+- **特指名词前用the**："the host machine"（特指宿主机）、"the root user"（特指root用户）、"the CANN software package"（特指某个包）
+- **泛指名词前用a/an**："an Ascend environment"（泛指一个环境）、"a compilation environment"（泛指编译环境）
 
-#### 表格字段翻译标准
+#### 表格字段翻译标准（新增）
 
 **常用字段标准翻译：**
 
 | 中文 | ✓ 标准翻译 | 说明 |
 | ------ | ----------- | ------ |
-| 注意事项 | "Precautions" | 比 "Note" 更专业 |
+| 注意事项 | "Precautions" | 比"Note"更专业 |
 | 说明 | "Description" | 标准用法 |
 | 必选 | "Required" | 标准用法 |
 | 可选 | "Optional" | 标准用法 |
-| 建议 | "Recommended" | 比 "Suggestion" 更常见 |
+| 建议 | "Recommended" | 比"Suggestion"更常见 |
 
-**表格内容翻译要求：** 每个单元格必须是完整句子或短语，不可出现语法错误的片段。
+**表格内容翻译要求：**
+
+- 每个单元格必须是完整句子或短语
+- 不可出现语法错误的片段
 
 #### 连字符处理
 
-英文翻译中，将非断行连字符（U+2011）统一替换为 ASCII 连字符（U+002D，即普通减号 `-`）。
+英文翻译中，将非断行连字符（U+2011）统一替换为ASCII连字符（U+002D，即普通减号`-`）。
 
-## 3. 结构保持规范（.po 译文输出）
+## 3. 翻译质量检查清单（新增，必须执行）
+
+> **⚠️ 重要：翻译完成后必须执行以下检查，确保翻译质量！**
+
+**翻译完成后必须执行以下检查：**
+
+1. **语法完整性检查**
+    - 每个句子是否有明确主语（you、the system、this guide等）
+    - 每个句子是否有明确动词
+    - 条件句是否完整（If you...而非If need...）
+    - 并列句是否正确连接（使用分号或拆分为独立句子）
+    - "请参考"句型是否使用"For..."引导
+2. **词汇规范检查**
+    - 是否无违禁外来语（via, e.g., i.e., etc.）
+    - 是否无缩写（can't, it's）
+    - 是否无口语词汇（figure out）
+    - 是否无冗余表达（去掉多余的please）
+3. **语态检查**
+    - 操作指引是否使用祈使句（Select...而非You can select...）
+    - 功能描述是否使用主动语态（WebIDE provides...而非WebIDE can provide...）
+    - 避免过度被动语态
+    - 条件说明是否使用you为主语
+4. **冠词检查**
+    - 单数可数名词前是否有冠词（the/a/an）
+    - 特指名词前是否用the（the host machine、the root user）
+    - 泛指名词前是否用a/an（an Ascend environment）
+5. **术语一致性检查**
+    - 关键术语是否统一翻译（sample而非example）
+    - 是否使用标准术语表（见"术语一致性表"）
+    - 名词/动词形式是否正确（installation vs install）
+6. **句子结构检查**
+    - 长句是否合理拆分或使用"For..."引导
+    - 是否无"名词+please refer to"错误结构
+    - 是否无中文式句子结构（如"Host machine...operations please refer to..."）
+7. **表格检查**
+    - 表格字段是否使用标准翻译（Precautions而非Note）
+    - 每个单元格是否为完整句子或短语
+    - 是否无语法错误的片段
+8. **格式检查**
+    - Markdown格式是否正确
+    - 表格结构是否完整
+    - 链接是否有效
+    - 代码块格式是否正确
+9. **行数比对检查（翻译完成度校验）**
+    - 翻译完成后，比对中文原文与英文翻译的行数是否大体相等
+    - 若行数差异超过30%，说明英文存在漏翻译，需重新检查并补充缺失内容
+    - 代码块、空白行、仅含标记符号的行可不计入比对基数，重点关注实质性文本行
+
+    **检查方法：**
+
+    ```bash
+    # 统计中文原文行数
+    zh_lines=$(wc -l < zh_file.md)
+    # 统计英文翻译行数
+    en_lines=$(wc -l < en_file.md)
+    # 计算差异比例
+    diff_ratio=$(( (zh_lines - en_lines) * 100 / zh_lines ))
+    # 若差异超过30%，需要检查是否漏翻译
+    ```
+
+    **处理方式：**
+
+    - 英文行数明显少于中文：逐段对照检查，找出未翻译段落并补充
+    - 行数基本相等（±30%以内）：检查通过
+    - 对于表格密集型文档，英文因换行展开导致行数偏多属于正常现象
+
+**检查示例对比：**
+
+| 问题类型 | ❌ 错误示例 | ✓ 正确示例 | 检查项 |
+| --------- | ----------- | ----------- | ------ |
+| 缺少主语 | "can directly use..." | "you can directly use..." | 语法完整性-主语 |
+| 缺少动词 | "Software installation method selection..." | "Select a software installation method..." | 语法完整性-动词 |
+| 条件句不完整 | "If need to run samples..." | "If you need to run samples..." | 语法完整性-条件句 |
+| 句子结构混乱 | "Host machine...operations please refer to..." | "For downloading and installing..., refer to..." | 句子结构 |
+| 冗余表达 | "please refer to..." | "refer to..." | 词汇规范-冗余 |
+| 表格字段 | "Note" | "Precautions" | 表格检查 |
+| 缺少冠词 | "WebIDE development platform" | "the WebIDE development platform" | 冠词检查 |
+| 术语不一致 | "example" | "sample" | 术语一致性 |
+| 漏翻译 | 原文100行，翻译仅60行 | 逐段对照补充缺失章节 | 行数比对检查 |
+
+## 4. 结构保持规范（.po 译文输出）
 
 翻译后的内容会通过 Sphinx gettext 写入 `docs/locale/en/LC_MESSAGES/` 下的 `.po` 译文文件（镜像 `docs/zh/` 目录结构），再由 Read the Docs 渲染为英文页面，因此必须：
 
@@ -193,9 +281,9 @@ applicable-scope:
 8. 不要翻译源文本中已有的英文；如果中文源在括号中包含英文字词（如 `向量加法（Vector Addition）`），复用该规范英文形式。
 9. 如果某句话过于含糊无法忠实翻译，保留原中文，不要猜测。
 
-## 4. 术语表（自定义中文 → 英文）
+## 5. 术语表（自定义中文 → 英文）
 
-### 4.1 术语一致性表
+### 5.1 术语一致性表
 
 **必须保持一致的术语：**
 
@@ -215,20 +303,20 @@ applicable-scope:
 | 驱动 | driver | - |
 | 通信域 | communicator | - |
 
-### 4.2 产品名称对照表
+### 5.2 产品名称对照表
 
 | 中文名 | 英文名 |
 | --- | --- |
-| Ascend 950PR / Ascend 950DT | Ascend 950PR / Ascend 950DT |
-| Atlas A3 训练系列产品 / Atlas A3 推理系列产品 | Atlas A3 training products / Atlas A3 inference products |
-| Atlas A3 训练系列产品 | Atlas A3 training products |
-| Atlas A2 训练系列产品 / Atlas A2 推理系列产品 | Atlas A2 training products / Atlas A2 inference products |
-| Atlas A2 训练系列产品 | Atlas A2 training products |
-| Atlas 200I/500 A2 推理产品 | Atlas 200I/500 A2 inference products |
-| Atlas 训练系列产品 | Atlas training products |
-| Atlas 推理系列产品 | Atlas inference products |
+| Ascend 950PR&950DT系列产品 | Ascend 950PR&950DT products |
+| Atlas A3系列产品 | Atlas A3 products |
+| Atlas A3训练系列产品 | Atlas A3 training products |
+| Atlas A2系列产品 | Atlas A2 products |
+| Atlas A2训练系列产品 | Atlas A2 training products |
+| Atlas 200I/500 A2推理产品 | Atlas 200I/500 A2 inference products |
+| Atlas训练系列产品 | Atlas training products |
+| Atlas推理系列产品 | Atlas inference products |
 
-### 4.3 Triton-Ascend 特有术语
+### 5.3 Triton-Ascend 特有术语
 
 | 中文术语 | 标准英文翻译 | 备注 |
 | --------- | ------------ | ------ |
@@ -286,7 +374,7 @@ applicable-scope:
 | 复现文件 | reproducer file | - |
 | 反汇编 | disassembly | - |
 
-## 5. 参考：当前翻译流水线
+## 6. 参考：当前翻译流水线
 
 本技能由 `.github/workflows/scripts/translate_md.py` 中的翻译引擎消费：
 
@@ -299,7 +387,7 @@ applicable-scope:
 - 引擎：OpenAI 兼容聊天 API（默认 Volcengine `glm-5.2`），温度 0.3
 - 系统提示词包含本技能文档，翻译前强制读取其中的翻译标准（Google 开发者文档风格指南要点），每次翻译请求都会自动遵循这些规则。
 
-## 6. 翻译后验证
+## 7. 翻译后验证
 
 `translate_md.py` 在写入 `.po` 文件后自动执行以下验证：
 
@@ -311,7 +399,7 @@ applicable-scope:
 
 验证失败时，脚本会打印警告信息但不中断流程。如果自动修复后仍有问题，需要人工检查。
 
-## 7. 空档期行为说明
+## 8. 空档期行为说明
 
 中文文档更新后到翻译 PR 合入前的空档期，英文页面采用**三级回退策略**，确保不会出现中文内容：
 
@@ -345,7 +433,7 @@ applicable-scope:
 - 长文本（>20 字符）：阈值 0.5
 - 短文本（<=20 字符）：阈值 0.4（短文本的相似度对少量字符变化更敏感）
 
-## 8. codespell 白名单同步
+## 9. codespell 白名单同步
 
 当本技能文档或翻译流程引入新的专有名词（如 `Volcengine`）时，必须同步更新 `.github/docs-ci/codespell.whitelist.json`，否则文档门禁会因拼写检查失败而阻止 PR 合入。
 
