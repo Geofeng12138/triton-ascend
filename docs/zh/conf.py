@@ -263,6 +263,17 @@ html_theme_options = {
 # ---------------------------------------------------------------------------
 
 
+def _is_gettext_build(app):
+    """Return True if this is a gettext extraction build.
+
+    During gettext builds, the source and doctree must remain unmodified so
+    that msgids are extracted from the original Chinese source. All
+    English-build translation hooks must be skipped.
+    """
+    builder = getattr(app, 'builder', None)
+    return builder is not None and builder.name == 'gettext'
+
+
 def _on_source_read(app, docname, source):
     """Replace community docs with their canonical English source (English build).
 
@@ -273,6 +284,8 @@ def _on_source_read(app, docname, source):
     source.
     """
     if _is_zh:
+        return
+    if _is_gettext_build(app):
         return
     en_file = _COMMUNITY_ROOT_DOCS.get(docname)
     if en_file is None:
@@ -337,8 +350,11 @@ def _on_source_read_fallback(app, docname, source):
     - No X-Source-Commit in .po (predates the field)
     - Source unchanged (blob id matches, all translations exist)
     - Blob not available (shallow clone without the object)
+    - Gettext build (msgid extraction must use the current source verbatim)
     """
     if _is_zh:
+        return
+    if _is_gettext_build(app):
         return
     if docname in _COMMUNITY_ROOT_DOCS:
         return
@@ -378,6 +394,8 @@ def _on_source_read_codeblocks(app, docname, source):
     Markdown text before any Sphinx/docutils node lifecycle issues.
     """
     if _is_zh:
+        return
+    if _is_gettext_build(app):
         return
     if docname in _COMMUNITY_ROOT_DOCS:
         return
@@ -689,6 +707,8 @@ def _translate_remaining_chinese(app, doctree, docname):
     """
     if _is_zh:
         return
+    if _is_gettext_build(app):
+        return
     if docname in _COMMUNITY_ROOT_DOCS:
         return
     catalog = _get_fuzzy_catalog(app, docname)
@@ -725,6 +745,8 @@ def _translate_remaining_chinese(app, doctree, docname):
             if not _re.search(r'[\*\[\]`]', translated):
                 node.parent.replace(node, nodes.Text(translated))
                 replaced += 1
+            else:
+                node.parent.replace(node, nodes.Text(''))
         else:
             node.parent.replace(node, nodes.Text(''))
 
