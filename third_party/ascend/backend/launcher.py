@@ -31,6 +31,7 @@ import sysconfig
 import tempfile
 from types import MappingProxyType
 
+from triton import knobs
 from triton.runtime.cache import get_cache_manager, get_dump_manager
 from . import utils
 from .program_grid import (ProgramGridContractError, get_persistent_transform, normalize_program_grid_transforms)
@@ -40,7 +41,7 @@ _LAUNCHER_CFLAGS = ("-O2", )
 
 # Keep these values in sync with launcher_abi.h. These are data tags, not C++
 # spellings: a signature is decoded once when a native plan is constructed.
-CONSTEXPR, POINTER, I8, I16, I32, I64, U8, U16, U32, U64, F32, F64 = range(12)
+CONSTEXPR, POINTER, I8, I16, I32, I64, U8, U16, U32, U64, F32, F64, F16, BF16 = range(14)
 FFTS, PURE_SIMT, TASKQUEUE, AUTO_MAP, GRID_WARNING, COALESCE_CEIL, DYNAMIC_SHARED, DEVICE_PRINT, IAT, PTSM, DOT_ROW = (
     1 << i for i in range(11))
 
@@ -56,8 +57,8 @@ _KINDS = {
     "u16": U16,
     "u32": U32,
     "u64": U64,
-    "fp16": F32,
-    "bf16": F32,
+    "fp16": F16,
+    "bf16": BF16,
     "fp32": F32,
     "f32": F32,
     "fp64": F64,
@@ -78,11 +79,9 @@ def ty_to_cpp(ty):
         U64: "uint64_t",
         F32: "float",
         F64: "double",
+        F16: "float",
+        BF16: "float",
     }[_KINDS[ty]]
-
-
-def _enabled(name, default=False):
-    return os.getenv(name, str(default)).lower() in ("true", "1")
 
 
 @dataclass(frozen=True)
@@ -171,15 +170,15 @@ def make_launch_spec(metadata, npu_utils):
         flags |= FFTS
     if metadata.is_pure_simt:
         flags |= PURE_SIMT
-    if _enabled("TRITON_ENABLE_TASKQUEUE", True):
+    if knobs.ascend.enable_taskqueue:
         flags |= TASKQUEUE
     # The compiler owns AutoBlockify policy, including pure-SIMT exceptions
     # and compatibility with RowCoalescing/IAT. Do not recompute it at launch.
     if metadata.auto_blockify_enabled:
         flags |= AUTO_MAP
-    if _enabled("TRITON_GRID_WARN_PRINT"):
+    if knobs.ascend.grid_warn_print:
         flags |= GRID_WARNING
-    if _enabled("TRITON_DEVICE_PRINT"):
+    if knobs.ascend.device_print:
         flags |= DEVICE_PRINT
     enable_simt = "simt" in metadata.parallel_mode or metadata.is_pure_simt
     if metadata.compile_on_910_95 and enable_simt:
@@ -346,7 +345,7 @@ def _load_runtime(path):
 
 def get_runtime(npu_utils_path, debug=False):
     print_identity = None
-    if _enabled("TRITON_DEVICE_PRINT"):
+    if knobs.ascend.device_print:
         # CANN/loaded framework replacement requires a new process. Track the
         # compiler selection and version-file identity for derived print code.
         bisheng = utils._get_bisheng_path()
