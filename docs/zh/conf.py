@@ -78,19 +78,36 @@ language = 'zh_CN' if _is_zh else 'en'
 # ---------------------------------------------------------------------------
 gettext_compact = False
 # Extract code blocks (literal blocks), raw, and image nodes as translatable
-# units so that Chinese comments inside code blocks are also extracted into
-# .po files.
+# units so that Chinese comments inside code blocks and HTML tables are also
+# extracted into .po files.
 #
-# During the English HTML build, Sphinx's Locale transform wraps code block
-# translations in RST '::' syntax, which the MyST parser (used for .md files)
-# does not understand, causing code blocks to be emptied. The custom
-# _on_doctree_resolved_codeblocks transform (registered in setup()) handles
-# code block translation after Locale runs, by reading the .po catalog
-# directly and replacing literal_block node content.
+# This is the full set used by the gettext BUILDER (sphinx-build -b gettext)
+# to produce .pot templates. The English HTML build overrides it below with an
+# empty list because Sphinx's Locale transform mishandles literal-block and
+# raw nodes in Markdown sources:
+#   - literal-block: translations are wrapped in RST '::' syntax that MyST
+#     cannot parse, emptying code blocks.
+#   - raw: when the .po catalog lacks a translation for a raw node (e.g. an
+#     HTML <table>), the Locale transform strips the node entirely, making
+#     the table disappear.
+# Instead, code blocks are translated at the source level by
+# _on_source_read_codeblocks, and raw HTML tables are translated by
+# _translate_raw_nodes (both registered in setup()).
 gettext_additional_targets = ['literal-block', 'raw', 'image']
+
+# Detect gettext builder via command-line arguments.  This is more reliable
+# than environment variables because ``sys.argv`` is always available,
+# regardless of whether READTHEDOCS_LANGUAGE is set (GitHub Actions does not
+# set it, Read the Docs does).
+_is_gettext_builder = 'gettext' in _sys.argv
+
 if not _is_zh:
     # English build: read gettext .po translations from locale/en/LC_MESSAGES/.
     locale_dirs = ['../locale/']
+    if not _is_gettext_builder:
+        # English HTML build: disable gettext_additional_targets so Sphinx's
+        # Locale transform does not empty code blocks or strip raw HTML tables.
+        gettext_additional_targets = []
 
 # ---------------------------------------------------------------------------
 # Community documents whose English build renders the canonical English document
@@ -263,6 +280,17 @@ html_theme_options = {
 # ---------------------------------------------------------------------------
 
 
+def _is_gettext_build(app):
+    """Return True if this is a gettext extraction build.
+
+    During gettext builds, the source and doctree must remain unmodified so
+    that msgids are extracted from the original Chinese source. All
+    English-build translation hooks must be skipped.
+    """
+    builder = getattr(app, 'builder', None)
+    return builder is not None and builder.name == 'gettext'
+
+
 def _on_source_read(app, docname, source):
     """Replace community docs with their canonical English source (English build).
 
@@ -273,6 +301,8 @@ def _on_source_read(app, docname, source):
     source.
     """
     if _is_zh:
+        return
+    if _is_gettext_build(app):
         return
     en_file = _COMMUNITY_ROOT_DOCS.get(docname)
     if en_file is None:
@@ -337,8 +367,11 @@ def _on_source_read_fallback(app, docname, source):
     - No X-Source-Commit in .po (predates the field)
     - Source unchanged (blob id matches, all translations exist)
     - Blob not available (shallow clone without the object)
+    - Gettext build (msgid extraction must use the current source verbatim)
     """
     if _is_zh:
+        return
+    if _is_gettext_build(app):
         return
     if docname in _COMMUNITY_ROOT_DOCS:
         return
@@ -376,10 +409,47 @@ def _on_source_read_codeblocks(app, docname, source):
 
     This is the most reliable approach because it operates on raw
     Markdown text before any Sphinx/docutils node lifecycle issues.
+
+    For gettext extraction builds, this hook converts mermaid code blocks
+    (which sphinxcontrib.mermaid does not expose as translatable units)
+    into regular code blocks so that their Chinese content is extracted
+    into .pot templates.
     """
     if _is_zh:
         return
     if docname in _COMMUNITY_ROOT_DOCS:
+        return
+
+    if _is_gettext_build(app):
+        # For gettext builds, convert ```mermaid blocks to ```python so
+        # Sphinx extracts them as literal_block nodes.  The mermaid
+        # directive (myst_fence_as_directive) normally swallows mermaid
+        # fences, preventing gettext extraction.  Using 'python' as a
+        # stand-in language ensures extraction while keeping the content
+        # intact for the English HTML build's _on_source_read_codeblocks
+        # to find and translate.
+        text = source[0]
+        lines = text.split('\n')
+        new_lines = []
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            stripped = line.lstrip()
+            if stripped.startswith('```') and stripped[3:].strip().lower() == 'mermaid':
+                indent = line[:len(line) - len(stripped)]
+                new_lines.append(indent + '```python')
+                i += 1
+                while i < len(lines):
+                    if lines[i].lstrip().startswith('```'):
+                        new_lines.append(lines[i])
+                        i += 1
+                        break
+                    new_lines.append(lines[i])
+                    i += 1
+            else:
+                new_lines.append(line)
+                i += 1
+        source[0] = '\n'.join(new_lines)
         return
 
     catalog = _get_fuzzy_catalog(app, docname)
@@ -689,6 +759,8 @@ def _translate_remaining_chinese(app, doctree, docname):
     """
     if _is_zh:
         return
+    if _is_gettext_build(app):
+        return
     if docname in _COMMUNITY_ROOT_DOCS:
         return
     catalog = _get_fuzzy_catalog(app, docname)
@@ -716,6 +788,18 @@ def _translate_remaining_chinese(app, doctree, docname):
         if not _has_chinese(text):
             continue
 
+        # Skip Text nodes inside literal_block (code block) nodes.
+        # Code blocks are handled by _on_source_read_codeblocks at the
+        # source level.  Emptying or mutating their Text nodes here would
+        # destroy code content.
+        ancestor = node.parent
+        while ancestor is not None:
+            if isinstance(ancestor, nodes.literal_block):
+                break
+            ancestor = getattr(ancestor, 'parent', None)
+        if ancestor is not None:
+            continue
+
         translated = _lookup(text)
 
         if not translated:
@@ -725,13 +809,103 @@ def _translate_remaining_chinese(app, doctree, docname):
             if not _re.search(r'[\*\[\]`]', translated):
                 node.parent.replace(node, nodes.Text(translated))
                 replaced += 1
+            else:
+                # The fuzzy-matched translation contains inline Markdown
+                # markers (``**``, backticks, brackets) that cannot be
+                # placed in a plain Text node.  Strip them and apply the
+                # resulting plain text so the cell/paragraph is neither
+                # empty nor showing raw Markdown syntax.
+                plain = _re.sub(r'\*\*([^*]+)\*\*', r'\1', translated)
+                plain = _re.sub(r'`([^`]+)`', r'\1', plain)
+                plain = _re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', plain)
+                plain = _re.sub(r'[\*\[\]`]', '', plain)
+                node.parent.replace(node, nodes.Text(plain))
+                replaced += 1
         else:
             node.parent.replace(node, nodes.Text(''))
 
 
+def _translate_raw_nodes(app, doctree, docname):
+    """Translate Chinese text inside raw HTML nodes (e.g. <table> blocks).
+
+    MyST parser renders raw HTML in Markdown as ``raw`` nodes.  When
+    ``gettext_additional_targets`` excludes ``raw`` (as in the English HTML
+    build), Sphinx's Locale transform skips them entirely, so any Chinese
+    text inside the HTML passes through untranslated.
+
+    This function scans ``raw`` nodes for Chinese characters, looks up the
+    entire raw content in the .po catalog (exact or fuzzy), and replaces
+    the node content with the translation.  If no translation is found,
+    individual Chinese text fragments inside HTML tags are replaced with
+    their catalog match or hidden.
+    """
+    if _is_zh:
+        return
+    if _is_gettext_build(app):
+        return
+    if docname in _COMMUNITY_ROOT_DOCS:
+        return
+    catalog = _get_fuzzy_catalog(app, docname)
+    if not catalog:
+        return
+
+    from docutils import nodes
+
+    for node in list(doctree.findall(nodes.raw)):
+        rawsource = node.get('rawsource', '') or node.astext()
+        if not _has_chinese(rawsource):
+            continue
+
+        # Try exact match of the entire raw block in the .po catalog
+        msgstr = catalog.get(rawsource, '')
+        if not msgstr:
+            msgstr = catalog.get(rawsource.rstrip('\n'), '')
+        if not msgstr:
+            msgstr = catalog.get(rawsource + '\n', '')
+
+        if msgstr and msgstr != rawsource:
+            node['rawsource'] = msgstr
+            node.children = []
+            node += nodes.Text(msgstr)
+            continue
+
+        # No exact match: try fuzzy match of the entire raw block
+        _, fuzzy_str, ratio = _fuzzy_match_msgid(rawsource, catalog)
+        if fuzzy_str and ratio >= 0.6:
+            node['rawsource'] = fuzzy_str
+            node.children = []
+            node += nodes.Text(fuzzy_str)
+            continue
+
+        # Last resort: replace individual Chinese text fragments inside HTML
+        # tags.  Match <tag>Chinese text</tag> patterns and look up the inner
+        # text in the catalog.
+        def _replace_html_chinese(m):
+            inner = m.group(1)
+            if not _has_chinese(inner):
+                return m.group(0)
+            # Try exact match
+            for cand in [inner, inner.strip()]:
+                if cand in catalog and catalog[cand]:
+                    return m.group(0).replace(inner, catalog[cand])
+            # Try fuzzy match
+            _, fz, r = _fuzzy_match_msgid(inner, catalog)
+            if fz and r >= 0.5:
+                return m.group(0).replace(inner, fz)
+            # Hide: replace Chinese text with empty string
+            return m.group(0).replace(inner, '')
+
+        translated = _re.sub(r'>([^<]*[\u4e00-\u9fff][^<]*)<', _replace_html_chinese, rawsource)
+        if translated != rawsource:
+            node['rawsource'] = translated
+            node.children = []
+            node += nodes.Text(translated)
+
+
 def _on_doctree_resolved_fuzzy(app, doctree, docname):
-    """Event hook wrapper around _translate_remaining_chinese."""
+    """Event hook wrapper around _translate_remaining_chinese and _translate_raw_nodes."""
     _translate_remaining_chinese(app, doctree, docname)
+    _translate_raw_nodes(app, doctree, docname)
 
 
 class _TranslateRemainingChinese(SphinxTransform):
@@ -864,6 +1038,12 @@ def setup(app):
     lexers['mlir'] = get_lexer_by_name('text')
     lexers['plaintext'] = get_lexer_by_name('text')
     app.add_css_file('custom.css')
+
+    _load_module(
+        "docs.zh.python-api._inject_ascend_notes",
+        os.path.join(_HERE, "python-api", "_inject_ascend_notes.py"),
+    ).setup(app)
+
     if not _is_zh:
         app.connect('source-read', _on_source_read_strip_bom)
         app.connect('source-read', _on_source_read)
