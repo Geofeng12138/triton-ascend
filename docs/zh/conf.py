@@ -409,12 +409,47 @@ def _on_source_read_codeblocks(app, docname, source):
 
     This is the most reliable approach because it operates on raw
     Markdown text before any Sphinx/docutils node lifecycle issues.
+
+    For gettext extraction builds, this hook converts mermaid code blocks
+    (which sphinxcontrib.mermaid does not expose as translatable units)
+    into regular code blocks so that their Chinese content is extracted
+    into .pot templates.
     """
     if _is_zh:
         return
-    if _is_gettext_build(app):
-        return
     if docname in _COMMUNITY_ROOT_DOCS:
+        return
+
+    if _is_gettext_build(app):
+        # For gettext builds, convert ```mermaid blocks to ```python so
+        # Sphinx extracts them as literal_block nodes.  The mermaid
+        # directive (myst_fence_as_directive) normally swallows mermaid
+        # fences, preventing gettext extraction.  Using 'python' as a
+        # stand-in language ensures extraction while keeping the content
+        # intact for the English HTML build's _on_source_read_codeblocks
+        # to find and translate.
+        text = source[0]
+        lines = text.split('\n')
+        new_lines = []
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            stripped = line.lstrip()
+            if stripped.startswith('```') and stripped[3:].strip().lower() == 'mermaid':
+                indent = line[:len(line) - len(stripped)]
+                new_lines.append(indent + '```python')
+                i += 1
+                while i < len(lines):
+                    if lines[i].lstrip().startswith('```'):
+                        new_lines.append(lines[i])
+                        i += 1
+                        break
+                    new_lines.append(lines[i])
+                    i += 1
+            else:
+                new_lines.append(line)
+                i += 1
+        source[0] = '\n'.join(new_lines)
         return
 
     catalog = _get_fuzzy_catalog(app, docname)
