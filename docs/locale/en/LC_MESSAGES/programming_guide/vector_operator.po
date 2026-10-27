@@ -1,12 +1,5 @@
-# English translations for triton-ascend docs.
-# Copyright (c) 2025 Huawei Technologies Co., Ltd.
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: triton-ascend-docs\n"
-
-"POT-Creation-Date: 2026-10-26 18:37+0800\n"
-"PO-Revision-Date: 2026-10-26 18:37+0800\n"
+"POT-Creation-Date: 2026-10-27 00:17+0800\n"
+"PO-Revision-Date: 2026-10-27 00:17+0800\n"
 
 "X-Source-Commit: 92045059b7178ee6ee9009bd8cbe86a839416267\n"
 
@@ -24,49 +17,76 @@ msgid "Vector算子开发"
 msgstr "Vector Operator Development"
 
 msgid "Vector算子主要由Vector Core执行，典型形态包括逐元素计算、行级归约、类型转换、Gather/Scatter、Mask更新以及不含 `tl.dot` 的小型融合算子。开发重点不是把grid切得越细越好，而是在固定物理Vector Core数量的前提下，让每个program在核内循环处理多个tile。"
-msgstr "Vector operators are mainly executed by the Vector Core. Typical forms include element-wise computation, row-level reduction, type conversion, Gather/Scatter, Mask update, and small fused operators that do not contain `tl.dot`. The development focus is not to split the grid as finely as possible, but rather, given a fixed number of physical Vector Cores, to have each program process multiple tiles in a loop within the core."
+msgstr "The Vector Core mainly executes Vector operators. Typical forms include element-wise computation, row-level reduction, type conversion, Gather/Scatter, Mask updates, and small fusion operators that do not contain `tl.dot`. The development focus is not to split the grid as finely as possible. Instead, with a fixed number of physical Vector Cores, each program processes multiple tiles in a loop within the core."
 
 msgid "Vector简单算子开发"
 msgstr "Simple Vector Operator Development"
 
 msgid "简单Vector算子可以从本仓的 [向量相加样例](../examples/01_vector_add_example.md) 或 [`third_party/ascend/tutorials/01-vector-add.py`](https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/01-vector-add.py) 入手。该类算子的基本步骤如下："
-msgstr "For simple Vector operators, start with the [vector addition sample](../examples/01_vector_add_example.md) or [`third_party/ascend/tutorials/01-vector-add.py`](https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/01-vector-add.py) in this repository. The basic steps for this type of operator are as follows:"
+msgstr "For simple vector operators, start with the [vector addition sample](../examples/01_vector_add_example.md) or [`third_party/ascend/tutorials/01-vector-add.py`](https://github.com/triton-lang/triton-ascend/blob/main/third_party/ascend/tutorials/01-vector-add.py) in this repository. The basic steps for this type of operator are as follows:"
 
 msgid "用 `tl.arange` 构造当前tile的连续偏移。"
-msgstr "Use `tl.arange` to construct the contiguous offsets of the current tile."
+msgstr "Use `tl.arange` to construct the contiguous offsets for the current tile."
 
 msgid "用 `mask` 保护尾块，避免越界load/store。"
-msgstr "Use `mask` to protect the tail block to avoid out-of-bounds load/store."
+msgstr "Use `mask` to protect the tail block and avoid out-of-bounds load/store."
 
 msgid "完成逐元素计算后写回结果。"
-msgstr "After completing the element-wise computation, write back the result."
+msgstr "Write back the result after completing the element-wise computation."
 
 msgid "当grid数远大于物理核数时，将grid固定为 `num_vectorcore`，在kernel内用 `range(pid, num_blocks, num_core)` 分批处理。"
-msgstr "When the number of grids is much larger than the number of physical cores, fix the grid to `num_vectorcore`, and use `range(pid, num_blocks, num_core)` within the kernel to process in batches."
+msgstr "When the number of grids is much larger than the number of physical cores, set the grid to `num_vectorcore`. Use `range(pid, num_blocks, num_core)` to process data in batches within the kernel."
 
 msgid "基础kernel结构如下："
 msgstr "The basic kernel structure is as follows:"
 
+msgid ""
+"@triton.jit\n"
+"def add_kernel(x_ptr, y_ptr, out_ptr, n_elements, BLOCK_SIZE: tl.constexpr):\n"
+"    pid = tl.program_id(0)\n"
+"    num_core = tl.num_programs(0)\n"
+"    num_blocks = tl.cdiv(n_elements, BLOCK_SIZE)\n"
+"\n"
+"    for block_idx in range(pid, num_blocks, num_core):\n"
+"        offsets = block_idx * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)\n"
+"        mask = offsets < n_elements\n"
+"        x = tl.load(x_ptr + offsets, mask=mask)\n"
+"        y = tl.load(y_ptr + offsets, mask=mask)\n"
+"        tl.store(out_ptr + offsets, x + y, mask=mask)\n"
+msgstr ""
+"@triton.jit\n"
+"def add_kernel(x_ptr, y_ptr, out_ptr, n_elements, BLOCK_SIZE: tl.constexpr):\n"
+"    pid = tl.program_id(0)\n"
+"    num_core = tl.num_programs(0)\n"
+"    num_blocks = tl.cdiv(n_elements, BLOCK_SIZE)\n"
+"\n"
+"    for block_idx in range(pid, num_blocks, num_core):\n"
+"        offsets = block_idx * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)\n"
+"        mask = offsets < n_elements\n"
+"        x = tl.load(x_ptr + offsets, mask=mask)\n"
+"        y = tl.load(y_ptr + offsets, mask=mask)\n"
+"        tl.store(out_ptr + offsets, x + y, mask=mask)\n"
+
 msgid "开发时优先检查三类问题："
-msgstr "When developing, prioritize checking three types of issues:"
+msgstr "During development, prioritize checking three types of issues:"
 
 msgid "**数据类型**：Ascend Vector单元对不同整数类型的支持和性能不同。对于不影响精度的索引、长度、偏移类数据，优先使用 `int32`，可参考 [`001-vector_add.zh.md`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/basic/001-vector_add.zh.md) 和 [`002-vector_cmp.zh.md`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/basic/002-vector_cmp.zh.md)。"
-msgstr "**Data types**: The Ascend Vector unit provides different support and performance for different integer types. For index, length, and offset data that does not affect precision, prefer `int32`. Refer to [`001-vector_add.zh.md`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/basic/001-vector_add.zh.md) and [`002-vector_cmp.zh.md`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/basic/002-vector_cmp.zh.md)."
+msgstr "**Data type**: The Ascend Vector unit provides different levels of support and performance for different integer types. For index, length, and offset data that does not affect precision, prefer using `int32`. For more information, refer to [`001-vector_add.zh.md`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/basic/001-vector_add.zh.md) and [`002-vector_cmp.zh.md`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/basic/002-vector_cmp.zh.md)."
 
 msgid "**BLOCK_SIZE**：BLOCK_SIZE需要在UB容量内尽量大。若出现UB overflow，先降低单次处理元素数，再考虑拆分子块。"
-msgstr "**BLOCK_SIZE**: BLOCK_SIZE needs to be as large as possible within the UB capacity. If a UB overflow occurs, first reduce the number of elements processed at a time, and then consider splitting the sub-blocks."
+msgstr "**BLOCK_SIZE**: BLOCK_SIZE should be as large as possible within the UB capacity. If a UB overflow occurs, first reduce the number of elements processed at a time, and then consider splitting into sub-blocks."
 
 msgid "**分核数**：NPU物理Vector Core数量通常为几十个。小tile大grid的GPU写法迁移到NPU时，容易因多轮下发带来明显开销。"
-msgstr "**Number of cores**: An NPU typically has tens of physical Vector Cores. When you migrate the small-tile, large-grid GPU programming pattern to an NPU, multiple rounds of dispatch can easily introduce significant overhead."
+msgstr "**Number of cores**: An NPU typically has dozens of physical Vector Cores. When you migrate GPU-style code with small tiles and large grids to the NPU, multiple dispatch rounds can easily cause significant overhead."
 
 msgid "Vector复杂算子开发"
-msgstr "Vector Complex Operator Development"
+msgstr "Complex Vector Operator Development"
 
 msgid "复杂Vector算子通常不是单个逐元素表达式，而是带有离散访存、批量重排、多个输出或长hidden size的组合逻辑。可参考 [Ascend/triton-ascend-ops](https://github.com/Ascend/triton-ascend-ops) 中的以下案例："
-msgstr "Complex Vector operators are typically not single element-wise expressions, but rather composite logic involving discrete memory access, batch rearrangement, multiple outputs, or long hidden sizes. Refer to the following samples in [Ascend/triton-ascend-ops](https://github.com/Ascend/triton-ascend-ops):"
+msgstr "Complex Vector operators are typically not single element-wise expressions, but rather combined logic involving discrete memory access, batch reshuffling, multiple outputs, or long hidden sizes. Refer to the following examples in [Ascend/triton-ascend-ops](https://github.com/Ascend/triton-ascend-ops):"
 
 msgid "[`tutorial/best_practice/004-gather_scatter.py`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/best_practice/004-gather_scatter.py)：Megablocks gather/scatter/scatter_wgrad的Ascend亲和实现。"
-msgstr "[`tutorial/best_practice/004-gather_scatter.py`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/best_practice/004-gather_scatter.py): Ascend-optimized implementation of Megablocks gather/scatter/scatter_wgrad."
+msgstr "[`tutorial/best_practice/004-gather_scatter.py`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/best_practice/004-gather_scatter.py): The Ascend-compatible implementation of Megablocks gather/scatter/scatter_wgrad."
 
 msgid "[`tutorial/best_practice/005-binned_gather_scatter.py`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/best_practice/005-binned_gather_scatter.py)：按expert/bin分组后的gather/scatter。"
 msgstr "[`tutorial/best_practice/005-binned_gather_scatter.py`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/best_practice/005-binned_gather_scatter.py): gather/scatter after grouping by expert/bin."
@@ -75,37 +95,64 @@ msgid "[`tutorial/best_practice/006-padded_gather_scatter.py`](https://github.co
 msgstr "[`tutorial/best_practice/006-padded_gather_scatter.py`](https://github.com/Ascend/triton-ascend-ops/blob/main/tutorial/best_practice/006-padded_gather_scatter.py): MoE gather/scatter with padding."
 
 msgid "这类算子的组织方式通常是："
-msgstr "These operators are typically organized as follows:"
+msgstr "This type of operator is typically organized as follows:"
 
 msgid "**按物理核切分外层任务**：用 `num_vectorcore` 作为grid，每个program负责一段indices或token。"
 msgstr "**Split outer tasks by physical core**: Use `num_vectorcore` as the grid, and each program handles a segment of indices or tokens."
 
 msgid "**按UB容量切分hidden维**：对 `NUM_COLUMNS` 使用 `BLOCK_X` 分块，并预留double buffer、索引和临时张量的空间。"
-msgstr "**Tile the hidden dimension based on UB capacity**: Tile `NUM_COLUMNS` using `BLOCK_X`, and reserve space for the double buffer, indices, and temporary tensors."
+msgstr "**Split the hidden dimension by UB capacity**: Tile `NUM_COLUMNS` using `BLOCK_X`, and reserve space for the double buffer, indices, and temporary tensors."
 
 msgid "**用 `SUB_BLOCK_SIZE` 合并小粒度离散任务**：一次加载一组indices，在UB中组织成连续临时块，减少GM标量访存和多次store。"
-msgstr "**Merging small-granularity discrete tasks using `SUB_BLOCK_SIZE`**: Load a set of indices at a time and organize them into contiguous temporary blocks in UB, reducing GM scalar memory access and multiple stores."
+msgstr "**Merging fine-grained discrete tasks using `SUB_BLOCK_SIZE`**: Load a group of indices at a time, organize them into contiguous temporary blocks in UB, and reduce GM scalar memory access and multiple stores."
 
 msgid "**用扩展语义管理UB内局部数据**：先通过 `import triton.language.extra.cann.extension as extension` 引入扩展模块，再使用 `extension.insert_slice` 合并多行数据，使用 `extension.extract_slice` 取出子块后再分散写回。"
-msgstr "**Managing local data in UB using extension semantics**: First, import the extension module using `import triton.language.extra.cann.extension as extension`. Then, use `extension.insert_slice` to merge multiple rows of data, and use `extension.extract_slice` to extract a sub-block and scatter it back."
+msgstr "**Managing local data in the UB using extension semantics**: First, import the extension module using `import triton.language.extra.cann.extension as extension`. Then, use `extension.insert_slice` to merge multiple rows of data, and use `extension.extract_slice` to extract a sub-block and write it back to scattered locations."
 
 msgid "**为尾块保留统一mask**：复杂gather/scatter中同时存在index mask、column mask和expert/bin边界，建议分别命名并只在load/store处组合。"
-msgstr "**Retain a unified mask for the tail block**: In complex gather/scatter operations, index masks, column masks, and expert/bin boundaries coexist. Name them separately and combine them only at the load/store point."
+msgstr "**Retain a unified mask for tail blocks**: In complex gather/scatter operations where index masks, column masks, and expert/bin boundaries coexist, name them separately and combine them only at load/store points."
 
 msgid "典型的UB预算思路如下："
-msgstr "The typical UB budgeting approach is as follows:"
+msgstr "The typical approach to UB budgeting is as follows:"
+
+msgid ""
+"# 获取NPU硬件属性，详见“通用多核任务并行”一节\n"
+"import torch_npu\n"
+"import triton.runtime.driver as driver\n"
+"device = torch_npu.npu.current_device()\n"
+"properties = driver.active.utils.get_device_properties(device)\n"
+"num_core = properties[\"num_vectorcore\"]\n"
+"\n"
+"block_size = triton.cdiv(indices_length, num_core)\n"
+"align_elems = 16\n"
+"block_x = triton.cdiv(min(num_columns, max_block_x), align_elems) * align_elems\n"
+"sub_block_size = max((ub_budget - block_x * element_bytes) //\n"
+"                     (block_x * element_bytes + index_bytes), 1)\n"
+msgstr ""
+"# Get NPU hardware properties. For details, see the \"General Multi-Core Task Parallelism\" section\n"
+"import torch_npu\n"
+"import triton.runtime.driver as driver\n"
+"device = torch_npu.npu.current_device()\n"
+"properties = driver.active.utils.get_device_properties(device)\n"
+"num_core = properties[\"num_vectorcore\"]\n"
+"\n"
+"block_size = triton.cdiv(indices_length, num_core)\n"
+"align_elems = 16\n"
+"block_x = triton.cdiv(min(num_columns, max_block_x), align_elems) * align_elems\n"
+"sub_block_size = max((ub_budget - block_x * element_bytes) //\n"
+"                     (block_x * element_bytes + index_bytes), 1)\n"
 
 msgid "当复杂Vector算子性能不达预期时，优先从以下方向排查："
-msgstr "When the performance of complex Vector operators does not meet expectations, troubleshoot from the following directions first:"
+msgstr "When the performance of complex Vector operators does not meet expectations, prioritize troubleshooting from the following directions:"
 
 msgid "grid是否远大于物理Vector Core数，导致多轮下发。"
-msgstr "Whether the grid is much larger than the number of physical Vector Cores, resulting in multiple rounds of dispatch."
+msgstr "Whether the grid is significantly larger than the number of physical Vector Cores, causing multiple dispatch rounds."
 
 msgid "离散访存是否可转化为“批量搬入UB后在UB内选择”。"
-msgstr "Whether scattered memory access can be converted to \"batch moving data into UB and then selecting within UB\"."
+msgstr "Whether scattered memory access can be converted to \"batch loading into the UB and then selecting within the UB\"."
 
 msgid "尾轴（最后一个维度）是否满足32B对齐；不满足时是否可用转置或借轴转置规避自动padding。"
-msgstr "Whether the tail axis (the last dimension) meets 32B alignment; if not, whether you can use transpose or borrowed-axis transpose to avoid automatic padding."
+msgstr "Check whether the tail axis (last dimension) is 32B-aligned; if not, check whether transpose or borrowed-axis transpose can avoid automatic padding."
 
 msgid "`BLOCK_X` 和 `SUB_BLOCK_SIZE` 是否造成UB overflow或过小的搬运粒度。"
-msgstr "Check whether `BLOCK_X` and `SUB_BLOCK_SIZE` cause a UB overflow or a data movement granularity that is too small."
+msgstr "Whether `BLOCK_X` and `SUB_BLOCK_SIZE` cause a UB overflow or an overly small data movement granularity."

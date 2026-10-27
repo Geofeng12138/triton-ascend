@@ -5,6 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: triton-ascend-docs\n"
 
+"POT-Creation-Date: 2026-10-26 23:41+0800\n"
+"PO-Revision-Date: 2026-10-26 23:41+0800\n"
+
 "X-Source-Commit: 6d7ed3d44e0c51f8ccb19119496ceec061d709ef\n"
 
 "X-Skill-Version: 2.0.0\\n"
@@ -27,7 +30,7 @@ msgid "安装指南"
 msgstr "Installation Guide"
 
 msgid "从这里开始"
-msgstr "Getting Started"
+msgstr "Start here"
 
 msgid "Vector算子开发"
 msgstr "Vector Operator Development"
@@ -42,7 +45,7 @@ msgid "Triton-Ascend autotune"
 msgstr "Triton-Ascend autotune"
 
 msgid "典型算子样例"
-msgstr "Typical Operator Samples"
+msgstr "Typical operator samples"
 
 msgid "教程与样例"
 msgstr "Tutorials and Samples"
@@ -57,7 +60,7 @@ msgid "Triton-Ascend算子调试与调优"
 msgstr "Triton-Ascend Operator Debugging and Tuning"
 
 msgid "环境变量与编译选项"
-msgstr "Environment Variables and Compiler Options"
+msgstr "Environment Variables and Compilation Options"
 
 msgid "开发指南"
 msgstr "Development Guide"
@@ -93,7 +96,7 @@ msgid "Triton-Ascend FAQ"
 msgstr "Triton-Ascend FAQ"
 
 msgid "常见问题"
-msgstr "FAQ"
+msgstr "Frequently Asked Questions"
 
 msgid "贡献指南"
 msgstr "Contribution Guide"
@@ -102,7 +105,7 @@ msgid "贡献者公约"
 msgstr "Contributor Covenant"
 
 msgid "治理机制"
-msgstr "Governance"
+msgstr "Governance mechanism"
 
 msgid "技术例会"
 msgstr "Technical Meeting"
@@ -146,4 +149,4 @@ msgstr ""
 "</p>"
 
 msgid "**Triton-Ascend** 是适配华为Ascend处理器的Triton优化版本，主要用于提供高效的核函数自动调优、算子编译及部署能力，支持Ascend Atlas A2/A3/950系列产品，兼容Triton核心语法的同时，针对昇腾NPU特性进行了深度优化，包括自动解析核函数参数、优化内存访问逻辑、完善安全部署机制等。"
-msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors. It provides efficient kernel autotuning, operator compilation, and deployment capabilities. It supports Ascend Atlas A2/A3/950 series products. While remaining compatible with core Triton syntax, it is deeply optimized for Ascend NPU features, including automatically parsing kernel parameters, optimizing memory access logic, and improving secure deployment mechanisms."
+msgstr "**Triton-Ascend** is an optimized version of Triton adapted for Huawei Ascend processors. It provides efficient kernel autotuning, operator compilation, and deployment capabilities. It supports Ascend Atlas A2/A3/950 products. While remaining compatible with the core Triton syntax, it is deeply optimized for Ascend NPU features. These optimizations include automatically parsing kernel parameters, optimizing memory access logic, and improving secure deployment mechanisms."
