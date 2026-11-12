@@ -446,7 +446,8 @@ def ttir_to_linalg(mod, metadata, opt, *, named_ops=True):
         # MergeConcatLoadBuffer is A5-only; A6 must not be enabled by its register-based flag.
         if _is_a5_target_arch(getattr(metadata.get("target"), "arch", None)):
             ascend.passes.ttir.add_merge_concat_load_buffer(pm)
-        if metadata["enable_dynamic_cv_pipeline"]:
+        target_arch = metadata.get("target_arch", metadata.get("arch", ""))
+        if metadata["enable_dynamic_cv_pipeline"] and _is_a5_target_arch(target_arch):
             metadata["set_workspace_multibuffer"] = 0
             metadata["enable_mixed_cv"] = True
             metadata["disable_auto_inject_block_sync"] = True
@@ -459,7 +460,12 @@ def ttir_to_linalg(mod, metadata, opt, *, named_ops=True):
             ascend.passes.ttir.add_dynamic_cv_pipeline(pm, compile_on_910_95)
 
         if AscendBackend.instrumentation:
-            AscendBackend.instrumentation.patch("ttir_to_linalg", pm, mod.context)
+            if _is_a5_target_arch(getattr(metadata.get("target"), "arch", None)):
+                # NPU-IR emits A5 DFX regions; MSPTI collects them at runtime.
+                metadata["proton_collection"] = "mspti"
+                metadata["profile_scratch_size"] = 0
+            else:
+                AscendBackend.instrumentation.patch("ttir_to_linalg", pm, mod.context)
 
         if _enable_msdebug():
             ascend.passes.ttir.add_normalize_debug_line_locations(pm)
@@ -756,6 +762,10 @@ def linalg_to_bin_enable_npu_compile_910_95(linalg: str, metadata, opt):
         bin_path = os.path.join(tmpdir, bin_file_with_ext)
         callback_path = os.path.join(tmpdir, "libkernel.so")
         _compile_option_list = get_common_bishengir_compile_options(metadata)
+        proton_metadata_path = None
+        if metadata.get("proton_collection") == "mspti":
+            proton_metadata_path = Path(tmpdir) / "proton_metadata.json"
+            _compile_option_list.append(f"--proton-metadata-output={proton_metadata_path}")
 
         multibuffer_mode = metadata.get("multibuffer_mode")
         if multibuffer_mode is not None:
@@ -868,7 +878,9 @@ def linalg_to_bin_enable_npu_compile_910_95(linalg: str, metadata, opt):
                 [f"--enable-mixed-cv={enable_mixed_cv}"]
 
         enable_dynamic_cv_pipeline = metadata["enable_dynamic_cv_pipeline"]
-        if enable_dynamic_cv_pipeline == True and not metadata.get("disable_vf_operand_substitution", False):
+        if (enable_dynamic_cv_pipeline == True
+                and _is_a5_target_arch(metadata.get("target_arch", metadata.get("arch", "")))
+                and not metadata.get("disable_vf_operand_substitution", False)):
             _compile_option_list += [f"--enable-vf-operand-substitution=True"]
 
         enable_flatten = metadata["enable_flatten"]
@@ -956,6 +968,9 @@ def linalg_to_bin_enable_npu_compile_910_95(linalg: str, metadata, opt):
 
         if opt.debug:
             _save_npuir_debug_output(ret.stdout, ret.stderr, tmpdir, metadata["hash"])
+
+        if proton_metadata_path is not None:
+            metadata["proton_metadata"] = json.loads(proton_metadata_path.read_text(encoding="utf-8"))
 
         stdout_str = ret.stdout.decode('utf-8') if ret.stdout else ''
         match = re.search(r'UB\s+size\s*=\s*(\d+)\s*bits', stdout_str)
@@ -1663,9 +1678,11 @@ class AscendBackend(BaseBackend):
             # Frontend identity comes from the source.
             # A launch keyword alone cannot select TLA.
             object.__setattr__(options, "enable_tla_mode", frontend_kind == "tla")
-            # Lazy init enable_dynamic_cv_pipeline if not provided.
-            # compile_on_910_95 is already resolved from the requested target.
-            if options.enable_dynamic_cv_pipeline is None:
+            # DynamicCV is A5-only. A6 remains register-based but must not
+            # enter the DynamicCV lowering or pass its compiler flags.
+            if not _is_a5_target_arch(self.target.arch):
+                object.__setattr__(options, "enable_dynamic_cv_pipeline", False)
+            elif options.enable_dynamic_cv_pipeline is None:
                 object.__setattr__(options, "enable_dynamic_cv_pipeline", options.compile_on_910_95)
             if not internal_options:
                 _normalize_bishengir_simt_optimization_for_context(options, normalized_opts)

@@ -25,6 +25,7 @@ from the TLA repo's SIMD VF additions.  It does **not** reuse the existing
 ``al``/``bl`` general interfaces (different programming paradigm).
 
 Exports: ``alloc_buffer``/``alloc`` (on-chip buffer + versions),
+``fill`` (scalar fill of a contiguous UB buffer),
 ``copy`` (GM<->buffer), ``view`` (GM view), ``scope`` (core-mode scopes:
 ``tla.scope.simd()`` / ``tla.scope.cube()``),
 ``simd`` (vector-register ops), ``where`` (eager scalar/SIMD select),
@@ -69,6 +70,7 @@ from triton.language.core import (
 from .core import AddressSpace, buffer, buffer_type, vector, vector_type
 from .scope import scope
 from .alloc import alloc_buffer, alloc
+from .fill import fill
 from .copy import copy
 from .dma import (
     PadMode,
@@ -108,7 +110,7 @@ from .dma import (
 )
 
 from .view import view, subview, reshape
-from .scalar import select, maximum, minimum, cast, max_value, cdiv, infinity, clamp
+from .scalar import select, abs, maximum, minimum, cast, max_value, cdiv, infinity, clamp
 from .aux_ops import annotate_buffer_versions, assume
 
 from . import math
@@ -198,6 +200,7 @@ __all__ = [
     # buffer alloc / copy / view
     "alloc_buffer",
     "alloc",
+    "fill",
     "copy",
     "view",
     "subview",
@@ -205,6 +208,7 @@ __all__ = [
 
     # scalar expressions
     "select",
+    "abs",
     "maximum",
     "minimum",
     "cast",
